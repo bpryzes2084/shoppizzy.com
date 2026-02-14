@@ -1,11 +1,488 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Shoppizzy</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoppizzy - Fair Marketplace for Sellers</title>
+  <meta name="description" content="Keep 90% of every sale. No hidden fees, no algorithm games. A marketplace built for sellers who deserve better.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body { 
+      font-family: 'Inter', system-ui, sans-serif; 
+      background: #f9fafb; 
+      color: #111827; 
+      line-height: 1.6;
+    }
+    
+    .container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 0 20px; 
+    }
+    
+    /* Header */
+    header { 
+      background: #fff; 
+      border-bottom: 1px solid #e5e7eb; 
+      padding: 20px 0; 
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .header-content { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .logo { 
+      font-size: 24px; 
+      font-weight: 800; 
+      color: #2563eb; 
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+    }
+    
+    nav { 
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    nav a { 
+      text-decoration: none; 
+      color: #6b7280; 
+      font-weight: 600; 
+      transition: color 0.2s;
+    }
+    
+    nav a:hover { color: #2563eb; }
+    
+    .btn-primary {
+      padding: 10px 20px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    
+    .btn-primary:hover { background: #1d4ed8; }
+    
+    /* Hero Section */
+    .hero { 
+      text-align: center; 
+      padding: 80px 20px 60px; 
+      background: linear-gradient(180deg, #fff 0%, #f9fafb 100%);
+    }
+    
+    .hero h1 { 
+      font-size: 56px; 
+      font-weight: 800; 
+      margin-bottom: 20px; 
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p { 
+      font-size: 20px; 
+      color: #6b7280; 
+      max-width: 700px; 
+      margin: 0 auto 40px; 
+    }
+    
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .cta { 
+      display: inline-block; 
+      padding: 16px 32px; 
+      background: #2563eb; 
+      color: #fff; 
+      text-decoration: none; 
+      border-radius: 8px; 
+      font-weight: 700; 
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    
+    .cta:hover { 
+      background: #1d4ed8; 
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    }
+    
+    .cta-secondary {
+      background: #fff;
+      color: #2563eb;
+      border: 2px solid #2563eb;
+    }
+    
+    .cta-secondary:hover {
+      background: #eff6ff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    }
+    
+    /* Features */
+    .features-section {
+      padding: 80px 0;
+      background: #fff;
+    }
+    
+    .section-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      color: #6b7280;
+      font-size: 18px;
+      margin-bottom: 48px;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+    }
+    
+    .feature {
+      text-align: center;
+      padding: 32px;
+      background: #f9fafb;
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+    
+    .feature:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    
+    .feature-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    
+    .feature h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    
+    .feature p {
+      color: #6b7280;
+      line-height: 1.7;
+    }
+    
+    /* Comparison Table */
+    .comparison-section {
+      padding: 80px 0;
+      background: #f9fafb;
+    }
+    
+    .comparison-table {
+      max-width: 900px;
+      margin: 40px auto 0;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+      padding: 20px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .comparison-table th {
+      background: #f9fafb;
+      font-weight: 700;
+      color: #111827;
+    }
+    
+    .comparison-table td:first-child {
+      font-weight: 600;
+      color: #374151;
+    }
+    
+    .comparison-table .highlight {
+      color: #2563eb;
+      font-weight: 700;
+    }
+    
+    .comparison-table .bad {
+      color: #ef4444;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      color: #fff;
+    }
+    
+    .cta-section h2 {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    
+    .cta-section p {
+      font-size: 20px;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+    
+    .cta-section .cta {
+      background: #fff;
+      color: #2563eb;
+    }
+    
+    .cta-section .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    
+    /* Footer */
+    footer {
+      background: #111827;
+      color: #9ca3af;
+      padding: 40px 0;
+      text-align: center;
+    }
+    
+    footer a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+      .hero p { font-size: 18px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .cta-section h2 { font-size: 32px; }
+      .comparison-table { overflow-x: auto; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Shoppizzy is live ✅</h1>
+  <!-- Header -->
+  <header>
+    <div class="container header-content">
+      <a href="/" class="logo">
+        <span class="logo-icon">S</span>
+        <span>Shoppizzy</span>
+      </a>
+      <nav>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="/sell.html" class="btn-primary">Start Selling</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Fair marketplace for sellers</h1>
+      <p>Keep 90% of every sale. No hidden fees, no algorithm games, no exploitation. Built by people who understand what sellers actually need.</p>
+      <div class="hero-cta">
+        <a href="/sell.html" class="cta">Start Selling Today</a>
+        <a href="#how-it-works" class="cta cta-secondary">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <h2 class="section-title">Why Sellers Choose Shoppizzy</h2>
+      <p class="section-subtitle">Everything you need, none of the exploitation</p>
+      
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">💰</div>
+          <h3>10% Total Fee</h3>
+          <p>We absorb payment processing costs. You keep 90% of every sale, period. No hidden fees, no surprise deductions.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">🚀</div>
+          <h3>Start Immediately</h3>
+          <p>Auto-approved for 90 days. Register your shop, list products, and start selling within minutes. No waiting.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">💳</div>
+          <h3>Direct PayPal Payments</h3>
+          <p>Buyers pay you directly through PayPal. Our 10% platform fee is automatically deducted. Simple and transparent.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">🛡️</div>
+          <h3>Quality Control</h3>
+          <p>Every product reviewed before going live. Keeps the marketplace trustworthy for both sellers and buyers.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">📊</div>
+          <h3>Clean Dashboard</h3>
+          <p>Manage products, track orders, and monitor sales. Simple interface without unnecessary complexity.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">🤝</div>
+          <h3>Built Different</h3>
+          <p>Created by the team behind TravylWay, which challenged rideshare exploitation with 75% driver payouts. Now bringing fairness to e-commerce.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section class="comparison-section" id="pricing">
+    <div class="container">
+      <h2 class="section-title">See the Difference</h2>
+      <p class="section-subtitle">Compare what you actually keep after all fees</p>
+      
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Platform Fee</th>
+              <th>Processing Fee</th>
+              <th>You Keep (on $100 sale)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Shoppizzy</td>
+              <td class="highlight">10% (we pay processing)</td>
+              <td class="highlight">$0 (absorbed)</td>
+              <td class="highlight">~$87-90</td>
+            </tr>
+            <tr>
+              <td>Etsy</td>
+              <td class="bad">6.5% + $0.20</td>
+              <td class="bad">3% + $0.25</td>
+              <td class="bad">~$87</td>
+            </tr>
+            <tr>
+              <td>Amazon</td>
+              <td class="bad">15-45%</td>
+              <td class="bad">Varies</td>
+              <td class="bad">~$55-85</td>
+            </tr>
+            <tr>
+              <td>eBay</td>
+              <td class="bad">12.9%</td>
+              <td class="bad">2.9% + $0.30</td>
+              <td class="bad">~$84</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="features-section" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Get started in 3 simple steps</p>
+      
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">1️⃣</div>
+          <h3>Create Your Shop</h3>
+          <p>Register with your email and PayPal account. You're instantly approved for 90 days. No waiting, no application review.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">2️⃣</div>
+          <h3>List Your Products</h3>
+          <p>Add products with photos, descriptions, and prices. We review each listing to ensure quality. Once approved, you're live.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">3️⃣</div>
+          <h3>Get Paid Directly</h3>
+          <p>When buyers purchase, they pay your PayPal directly. We automatically deduct our 10% fee. You keep 90%. That's it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to keep what you earn?</h2>
+      <p>Join sellers who are done with exploitative platform fees</p>
+      <a href="/sell.html" class="cta">Start Selling on Shoppizzy</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Shoppizzy. Built for sellers who deserve better.</p>
+      <p style="margin-top: 12px;">
+        <a href="/terms.html">Terms</a> · 
+        <a href="/privacy.html">Privacy</a> · 
+        <a href="/contact.html">Contact</a>
+      </p>
+      <p style="margin-top: 16px; font-size: 14px; opacity: 0.7;">
+        From the team that built <a href="https://travylway.com" style="color: #60a5fa;">TravylWay</a> - challenging platform exploitation, one marketplace at a time.
+      </p>
+    </div>
+  </footer>
 </body>
 </html>
