@@ -1,235 +1,64 @@
-<!-- =========================
-File: marketplace.html
-========================= -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shoppizzy Marketplace - Browse Listings</title>
-  <meta name="description" content="Browse categories, discover listings, and shop verified sellers on Shoppizzy." />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', system-ui, sans-serif; background: #f9fafb; color: #111827; line-height: 1.6; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+<section id="listings">
+  <div class="grid">
 
-    header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .logo { font-size: 24px; font-weight: 800; color: #2563eb; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #2563eb, #0ea5e9); border-radius: 8px; display: grid; place-items: center; color: #fff; font-weight: 800; }
-    nav { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
-    nav a { text-decoration: none; color: #6b7280; font-weight: 700; transition: color 0.2s; }
-    nav a:hover { color: #2563eb; }
-    .btn-primary { padding: 10px 16px; background: #2563eb; color: #fff; border-radius: 10px; font-weight: 800; text-decoration: none; transition: background 0.2s; }
-    .btn-primary:hover { background: #1d4ed8; }
-
-    .hero { padding: 40px 0 10px; }
-    .hero h1 { font-size: 40px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 8px; }
-    .hero p { color: #6b7280; font-weight: 600; }
-
-    .notice {
-      margin: 18px 0 26px;
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 14px 16px;
-      color: #374151;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-    }
-    .notice strong { color: #111827; }
-
-    .searchbar {
-      display: flex;
-      gap: 10px;
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-      margin: 18px 0 14px;
-    }
-    .searchbar input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 16px;
-      padding: 10px 12px;
-      color: #111827;
-    }
-    .searchbar button {
-      border: none;
-      background: #2563eb;
-      color: #fff;
-      font-weight: 900;
-      padding: 12px 16px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-      white-space: nowrap;
-    }
-    .searchbar button:hover {
-      background: #1d4ed8;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(37,99,235,0.24);
-    }
-
-    .chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 22px; }
-    .chip { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; padding: 8px 12px; border-radius: 999px; font-weight: 900; font-size: 13px; text-decoration: none; }
-
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-bottom: 60px; }
-    .listing {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .listing:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.10); }
-    .thumb { height: 150px; background: linear-gradient(135deg, #2563eb, #0ea5e9); opacity: 0.14; }
-    .body { padding: 16px; }
-    .title { font-weight: 900; margin-bottom: 6px; }
-    .meta { display: flex; justify-content: space-between; align-items: center; color: #6b7280; font-weight: 800; font-size: 13px; }
-    .price { color: #111827; font-weight: 900; }
-
-    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
-    .btn { display: inline-block; padding: 12px 16px; border-radius: 10px; font-weight: 900; text-decoration: none; transition: all 0.2s; }
-    .btn-fill { background: #2563eb; color: #fff; }
-    .btn-fill:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,99,235,0.20); }
-    .btn-ghost { background: #fff; color: #2563eb; border: 1px solid #2563eb; }
-    .btn-ghost:hover { background: #eff6ff; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,99,235,0.14); }
-
-    footer { background: #111827; color: #9ca3af; padding: 30px 0; text-align: center; }
-    footer a { color: #60a5fa; text-decoration: none; font-weight: 800; }
-    footer a:hover { text-decoration: underline; }
-
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 30px; }
-      .searchbar { flex-direction: column; }
-      .searchbar button { width: 100%; }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="container header-content">
-      <a href="/" class="logo">
-        <span class="logo-icon">S</span>
-        <span>Shoppizzy</span>
-      </a>
-      <nav>
-        <a href="/marketplace.html">Shop</a>
-        <a href="/buy.html">Buyer Register</a>
-        <a href="/sell.html">Seller Register</a>
-        <a href="/login.html">Sign In</a>
-        <a href="/sell.html" class="btn-primary">Start Selling</a>
-      </nav>
+    <div class="listing">
+      <div class="thumb"></div>
+      <div class="body">
+        <div class="title">Sample Listing: Premium Item</div>
+        <div class="meta">
+          <span>Verified seller</span>
+          <span class="price">$24.99</span>
+        </div>
+      </div>
     </div>
-  </header>
 
-  <main class="container">
-    <section class="hero">
-      <h1>Marketplace (Preview)</h1>
-      <p>Browse categories and listings. This is a lightweight placeholder so buyers don’t hit a dead end.</p>
-
-      <div class="notice">
-        <div>⚡</div>
-        <div>
-          <strong>Heads up:</strong> Checkout + live listings are being rolled out. For now, you can browse and create a buyer account.
+    <div class="listing">
+      <div class="thumb"></div>
+      <div class="body">
+        <div class="title">Sample Listing: Handmade</div>
+        <div class="meta">
+          <span>Ships fast</span>
+          <span class="price">$39.00</span>
         </div>
       </div>
-
-      <div class="searchbar" role="search">
-        <input type="text" placeholder="Search products, shops, categories… (preview)" aria-label="Search marketplace" />
-        <button type="button" onclick="alert('Search is a preview right now. Coming soon.');">Search</button>
-      </div>
-
-      <div class="chips" aria-label="Popular categories">
-        <a class="chip" href="#listings">Home & Kitchen</a>
-        <a class="chip" href="#listings">Apparel</a>
-        <a class="chip" href="#listings">Beauty</a>
-        <a class="chip" href="#listings">Electronics</a>
-        <a class="chip" href="#listings">Handmade</a>
-        <a class="chip" href="#listings">Digital</a>
-      </div>
-
-      <div class="actions">
-        <a class="btn btn-fill" href="/buy.html">Create Buyer Account</a>
-        <a class="btn btn-ghost" href="/sell.html">Open a Shop</a>
-      </div>
-    </section>
-
-    <section id="listings">
-      <div class="grid">
-        <div class="listing">
-          <div class="thumb"></div>
-          <div class="body">
-            <div class="title">Sample Listing: Premium Item</div>
-            <div class="meta">
-              <span>Verified seller</span>
-              <span class="price">$24.99</span>
-            </div>
-          </div>
-        </div>
-        <div class="listing">
-          <div class="thumb"></div>
-          <div class="body">
-            <div class="title">Sample Listing: Handmade</div>
-            <div class="meta">
-              <span>Ships fast</span>
-              <span class="price">$39.00</span>
-            </div>
-          </div>
-        </div>
-        <div class="listing">
-          <div class="thumb"></div>
-          <div class="body">
-            <div class="title">Sample Listing: Digital Download</div>
-            <div class="meta">
-              <span>Instant delivery</span>
-              <span class="price">$9.99</span>
-            </div>
-          </div>
-        </div>
-        <div class="listing">
-          <div class="thumb"></div>
-          <div class="body">
-            <div class="title">Sample Listing: Bundle Deal</div>
-            <div class="meta">
-              <span>Top rated</span>
-              <span class="price">$58.00</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-<div class="listing">
-  <div class="thumb"></div>
-  <div class="listing-body">
-    <div class="listing-title">Sellapalooza2084 — Demo Product</div>
-    <div class="listing-meta">
-      <span>Official Shoppizzy Store</span>
-      <span class="price">$19.99</span>
     </div>
-    <div style="margin-top:12px;">
-      <a class="cta" href="/shops/sellapalooza2084.html">View Shop</a>
+
+    <div class="listing">
+      <div class="thumb"></div>
+      <div class="body">
+        <div class="title">Sample Listing: Digital Download</div>
+        <div class="meta">
+          <span>Instant delivery</span>
+          <span class="price">$9.99</span>
+        </div>
+      </div>
     </div>
+
+    <div class="listing">
+      <div class="thumb"></div>
+      <div class="body">
+        <div class="title">Sample Listing: Bundle Deal</div>
+        <div class="meta">
+          <span>Top rated</span>
+          <span class="price">$58.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- YOUR STORE (new card) -->
+    <div class="listing">
+      <div class="thumb"></div>
+      <div class="body">
+        <div class="title">Sellapalooza2084 — Demo Product</div>
+        <div class="meta">
+          <span>Official Shoppizzy Store</span>
+          <span class="price">$19.99</span>
+        </div>
+        <div style="margin-top:12px;">
+          <a class="btn btn-fill" href="/shops/sellapalooza2084.html">View Shop</a>
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2026 Shoppizzy. Built for sellers and buyers.</p>
-      <p style="margin-top: 10px;">
-        <a href="/">Home</a> · <a href="/buy.html">Buyer Register</a> · <a href="/sell.html">Seller Register</a> · <a href="/login.html">Sign In</a>
-      </p>
-    </div>
-  </footer>
-</body>
-</html>
-
+</section>
