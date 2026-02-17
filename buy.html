@@ -1,1 +1,175 @@
+<!-- =========================
+File: buy.html
+========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shoppizzy - Buyer Registration</title>
+  <meta name="description" content="Create a buyer account on Shoppizzy to save favorites, track orders, and shop verified listings." />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #f9fafb; color: #111827; line-height: 1.6; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .logo { font-size: 24px; font-weight: 800; color: #2563eb; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #2563eb, #0ea5e9); border-radius: 8px; display: grid; place-items: center; color: #fff; font-weight: 800; }
+    nav { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+    nav a { text-decoration: none; color: #6b7280; font-weight: 800; transition: color 0.2s; }
+    nav a:hover { color: #2563eb; }
+    .btn-primary { padding: 10px 16px; background: #2563eb; color: #fff; border-radius: 10px; font-weight: 900; text-decoration: none; transition: background 0.2s; }
+    .btn-primary:hover { background: #1d4ed8; }
+
+    main { padding: 46px 0 70px; }
+    .grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 26px; align-items: start; }
+
+    .title { font-size: 40px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .subtitle { color: #6b7280; font-weight: 600; margin-bottom: 18px; }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+
+    .notice {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .form { margin-top: 10px; display: grid; gap: 12px; }
+    label { font-weight: 900; font-size: 13px; color: #374151; }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      outline: none;
+      font-size: 15px;
+      background: #f9fafb;
+    }
+    input:focus { border-color: #93c5fd; box-shadow: 0 0 0 4px rgba(147,197,253,0.35); background: #fff; }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 900;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    .btn-fill { background: #2563eb; color: #fff; }
+    .btn-fill:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,99,235,0.20); }
+
+    .fineprint { color: #6b7280; font-weight: 600; font-size: 13px; margin-top: 10px; }
+    .fineprint a { color: #2563eb; text-decoration: none; font-weight: 900; }
+    .fineprint a:hover { text-decoration: underline; }
+
+    .side h3 { font-size: 18px; font-weight: 900; margin-bottom: 10px; }
+    .bullets { display: grid; gap: 10px; color: #374151; font-weight: 700; }
+    .pill { display: inline-flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 14px; background: #f9fafb; border: 1px solid #e5e7eb; }
+
+    footer { background: #111827; color: #9ca3af; padding: 30px 0; text-align: center; }
+    footer a { color: #60a5fa; text-decoration: none; font-weight: 900; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .title { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <a href="/" class="logo">
+        <span class="logo-icon">S</span>
+        <span>Shoppizzy</span>
+      </a>
+      <nav>
+        <a href="/marketplace.html">Shop</a>
+        <a href="/buy.html">Buyer Register</a>
+        <a href="/sell.html">Seller Register</a>
+        <a href="/login.html">Sign In</a>
+        <a href="/sell.html" class="btn-primary">Start Selling</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section>
+        <h1 class="title">Create a Buyer Account</h1>
+        <p class="subtitle">Save favorites, track orders, and shop verified listings. Lightweight placeholder now—full buyer dashboard coming soon.</p>
+
+        <div class="card">
+          <div class="notice">Preview mode: this form is a placeholder (no live submission yet).</div>
+
+          <form class="form" onsubmit="event.preventDefault(); alert('Buyer registration is a placeholder right now. Coming soon.');">
+            <div>
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required />
+            </div>
+
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@email.com" required />
+            </div>
+
+            <div>
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" placeholder="Create a password" required />
+            </div>
+
+            <button class="btn btn-fill" type="submit">Create Buyer Account</button>
+
+            <p class="fineprint">
+              Already have an account? <a href="/login.html">Sign in</a>.
+              By continuing, you agree to our <a href="/terms.html">Terms</a> and <a href="/privacy.html">Privacy</a>.
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <aside class="side">
+        <div class="card">
+          <h3>Why buyers use Shoppizzy</h3>
+          <div class="bullets">
+            <div class="pill">🛍️ Shop verified listings</div>
+            <div class="pill">💳 Clear payments (PayPal)</div>
+            <div class="pill">🔎 Simple search & categories</div>
+            <div class="pill">📦 Order tracking (soon)</div>
+          </div>
+          <div style="margin-top: 14px;">
+            <a class="btn btn-fill" href="/marketplace.html">Browse the Marketplace</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Shoppizzy. Built for sellers and buyers.</p>
+      <p style="margin-top: 10px;">
+        <a href="/">Home</a> · <a href="/marketplace.html">Shop</a> · <a href="/login.html">Sign In</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
 
