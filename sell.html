@@ -1,1 +1,658 @@
- 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoppizzy - Start Selling</title>
+  <meta name="description" content="Register as a seller on Shoppizzy. Keep 90% of every sale.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #f9fafb; color: #111827; line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .logo { font-size: 24px; font-weight: 800; color: #2563eb; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #2563eb, #0ea5e9); border-radius: 8px; display: grid; place-items: center; color: #fff; font-weight: 800; }
+    nav { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+    nav a { text-decoration: none; color: #6b7280; font-weight: 600; transition: color 0.2s; }
+    nav a:hover { color: #2563eb; }
+
+    /* Page Layout */
+    .page-wrapper { min-height: calc(100vh - 80px); display: flex; align-items: flex-start; justify-content: center; padding: 40px 20px; }
+    
+    /* Auth Forms */
+    .auth-container { width: 100%; max-width: 500px; }
+    .auth-card { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 40px; }
+    .auth-card h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; color: #111827; }
+    .auth-card .subtitle { color: #6b7280; margin-bottom: 32px; font-size: 16px; }
+    .tab-buttons { display: flex; gap: 0; margin-bottom: 32px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+    .tab-btn { flex: 1; padding: 12px; background: #fff; border: none; font-weight: 600; font-size: 15px; cursor: pointer; color: #6b7280; transition: all 0.2s; }
+    .tab-btn.active { background: #2563eb; color: #fff; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #374151; font-size: 14px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 15px; font-family: inherit; transition: border 0.2s; background: #fff; color: #111827; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .form-group textarea { height: 100px; resize: vertical; }
+    .form-group .hint { font-size: 13px; color: #9ca3af; margin-top: 6px; }
+    .btn { width: 100%; padding: 14px; background: #2563eb; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn:disabled { background: #93c5fd; cursor: not-allowed; transform: none; }
+    .btn-secondary { background: #f3f4f6; color: #374151; }
+    .btn-secondary:hover { background: #e5e7eb; }
+    .alert { padding: 14px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; font-weight: 600; }
+    .alert-error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+    .alert-success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+    .divider { text-align: center; color: #9ca3af; margin: 20px 0; font-size: 14px; }
+
+    /* Dashboard */
+    .dashboard { width: 100%; max-width: 1000px; }
+    .dashboard-header { background: linear-gradient(135deg, #2563eb, #0ea5e9); color: #fff; border-radius: 16px; padding: 32px; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .dashboard-header h2 { font-size: 28px; font-weight: 800; }
+    .dashboard-header p { opacity: 0.9; margin-top: 4px; }
+    .btn-logout { padding: 10px 20px; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4); border-radius: 8px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: 14px; transition: all 0.2s; }
+    .btn-logout:hover { background: rgba(255,255,255,0.3); }
+    .dashboard-tabs { display: flex; gap: 0; margin-bottom: 32px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; background: #fff; }
+    .dashboard-tab { flex: 1; padding: 14px; background: #fff; border: none; font-weight: 600; font-size: 15px; cursor: pointer; color: #6b7280; transition: all 0.2s; font-family: inherit; }
+    .dashboard-tab.active { background: #2563eb; color: #fff; }
+    .dashboard-panel { display: none; }
+    .dashboard-panel.active { display: block; }
+
+    /* Product Form */
+    .panel-card { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 40px; }
+    .panel-card h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .panel-card .subtitle { color: #6b7280; margin-bottom: 32px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    /* Products Grid */
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .product-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow: hidden; }
+    .product-card-img { width: 100%; height: 200px; object-fit: cover; background: #f3f4f6; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 48px; }
+    .product-card-body { padding: 20px; }
+    .product-card-body h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .product-card-body .price { font-size: 20px; font-weight: 800; color: #2563eb; margin-bottom: 8px; }
+    .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+    .status-pending { background: #fef3c7; color: #d97706; }
+    .status-active { background: #d1fae5; color: #059669; }
+    .status-rejected { background: #fee2e2; color: #dc2626; }
+    .empty-state { text-align: center; padding: 60px 20px; color: #9ca3af; }
+    .empty-state .icon { font-size: 64px; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 20px; font-weight: 700; color: #374151; margin-bottom: 8px; }
+
+    /* Image Upload */
+    .image-upload-area { border: 2px dashed #e5e7eb; border-radius: 8px; padding: 32px; text-align: center; cursor: pointer; transition: all 0.2s; }
+    .image-upload-area:hover { border-color: #2563eb; background: #eff6ff; }
+    .image-upload-area .upload-icon { font-size: 48px; margin-bottom: 12px; }
+    .image-upload-area p { color: #6b7280; font-size: 14px; }
+    .image-previews { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    .image-preview { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; border: 2px solid #e5e7eb; }
+
+    /* Stats Bar */
+    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
+    .stat-card .stat-value { font-size: 32px; font-weight: 800; color: #2563eb; }
+    .stat-card .stat-label { font-size: 13px; color: #6b7280; font-weight: 600; margin-top: 4px; }
+
+    /* Footer */
+    footer { background: #111827; color: #9ca3af; padding: 32px 0; text-align: center; margin-top: 60px; }
+    footer a { color: #2563eb; text-decoration: none; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .auth-card { padding: 24px; }
+      .panel-card { padding: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .dashboard-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <a href="/" class="logo">
+        <span class="logo-icon">S</span>
+        <span>Shoppizzy</span>
+      </a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="#features">Features</a>
+        <a href="https://t.me/shoppizzymarketplace" target="_blank">Sellers Community</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+
+    <!-- AUTH SECTION (shown when not logged in) -->
+    <div class="auth-container" id="authSection">
+      <div class="auth-card">
+        <h2>Seller Portal</h2>
+        <p class="subtitle">Keep 90% of every sale. Start selling in minutes.</p>
+
+        <div class="tab-buttons">
+          <button class="tab-btn active" onclick="showTab('register')">Register</button>
+          <button class="tab-btn" onclick="showTab('login')">Login</button>
+        </div>
+
+        <!-- Alert -->
+        <div id="authAlert" class="alert" style="display:none;"></div>
+
+        <!-- Register Form -->
+        <div id="registerForm">
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="regEmail" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>PayPal Email *</label>
+            <input type="email" id="regPaypal" placeholder="paypal@email.com">
+            <div class="hint">This is where you'll receive payments (can be same as above)</div>
+          </div>
+          <div class="form-group">
+            <label>Shop Name *</label>
+            <input type="text" id="regShopName" placeholder="My Awesome Shop">
+          </div>
+          <div class="form-group">
+            <label>Shop Description</label>
+            <textarea id="regShopDesc" placeholder="Tell buyers what you sell..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Ship From ZIP Code *</label>
+            <input type="text" id="regZip" placeholder="80019" maxlength="5">
+            <div class="hint">Your location for shipping rate calculations</div>
+          </div>
+          <div class="form-group">
+            <label>Password *</label>
+            <input type="password" id="regPassword" placeholder="Choose a secure password">
+          </div>
+          <button class="btn" onclick="registerSeller()">Create Seller Account</button>
+          <div class="divider">Already have an account? <a href="#" onclick="showTab('login')" style="color:#2563eb;">Login here</a></div>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" style="display:none;">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="loginEmail" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="Your password">
+          </div>
+          <button class="btn" onclick="loginSeller()">Login to Dashboard</button>
+          <div class="divider">New seller? <a href="#" onclick="showTab('register')" style="color:#2563eb;">Register here</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD SECTION (shown when logged in) -->
+    <div class="dashboard" id="dashboardSection" style="display:none;">
+      
+      <div class="dashboard-header">
+        <div>
+          <h2 id="dashShopName">My Shop</h2>
+          <p id="dashEmail">seller@email.com</p>
+        </div>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-label">Total Products</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statActive">0</div>
+          <div class="stat-label">Active Listings</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statPending">0</div>
+          <div class="stat-label">Pending Review</div>
+        </div>
+      </div>
+
+      <!-- Dashboard Tabs -->
+      <div class="dashboard-tabs">
+        <button class="dashboard-tab active" onclick="showDashTab('list')">📦 List New Product</button>
+        <button class="dashboard-tab" onclick="showDashTab('products')">🛍️ My Products</button>
+        <button class="dashboard-tab" onclick="showDashTab('account')">👤 My Account</button>
+      </div>
+
+      <!-- List Product Panel -->
+      <div class="dashboard-panel active" id="panel-list">
+        <div class="panel-card">
+          <h3>List a New Product</h3>
+          <p class="subtitle">All products are reviewed before going live. Usually within 24 hours.</p>
+
+          <div id="productAlert" class="alert" style="display:none;"></div>
+
+          <div class="form-group">
+            <label>Product Title *</label>
+            <input type="text" id="prodTitle" placeholder="e.g. Handmade Leather Wallet - Brown">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Price ($) *</label>
+              <input type="number" id="prodPrice" placeholder="29.99" min="0.01" step="0.01">
+            </div>
+            <div class="form-group">
+              <label>Category *</label>
+              <select id="prodCategory">
+                <option value="">Select category...</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing & Fashion</option>
+                <option value="home-garden">Home & Garden</option>
+                <option value="health-beauty">Health & Beauty</option>
+                <option value="books-media">Books & Media</option>
+                <option value="handmade">Handmade & Crafts</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Description *</label>
+            <textarea id="prodDesc" placeholder="Describe your product in detail. Include materials, dimensions, condition, etc." style="height:140px;"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Product Weight (grams)</label>
+            <input type="number" id="prodWeight" placeholder="227" min="1">
+            <div class="hint">Used to calculate shipping rates. Leave blank to auto-detect from title (e.g. "16oz candle")</div>
+          </div>
+
+          <div class="form-group">
+            <label>Product Images</label>
+            <div class="image-upload-area" onclick="document.getElementById('imageInput').click()">
+              <div class="upload-icon">📸</div>
+              <p><strong>Click to upload images</strong></p>
+              <p>PNG, JPG up to 5MB each. Up to 5 images.</p>
+            </div>
+            <input type="file" id="imageInput" accept="image/*" multiple style="display:none;" onchange="previewImages(this)">
+            <div class="image-previews" id="imagePreviews"></div>
+            <div class="hint" id="imageHint" style="margin-top:8px;">Images will be uploaded when you submit the product.</div>
+          </div>
+
+          <button class="btn" onclick="submitProduct()">Submit Product for Review</button>
+        </div>
+      </div>
+
+      <!-- My Products Panel -->
+      <div class="dashboard-panel" id="panel-products">
+        <div id="productsLoading" style="text-align:center; padding:40px; color:#6b7280;">
+          Loading your products...
+        </div>
+        <div class="products-grid" id="productsGrid" style="display:none;"></div>
+        <div id="productsEmpty" class="empty-state" style="display:none;">
+          <div class="icon">📦</div>
+          <h3>No products yet</h3>
+          <p>List your first product to get started!</p>
+        </div>
+      </div>
+
+      <!-- Account Panel -->
+      <div class="dashboard-panel" id="panel-account">
+        <div class="panel-card">
+          <h3>My Account</h3>
+          <p class="subtitle">Your seller account details</p>
+          <div class="form-group">
+            <label>Shop Name</label>
+            <input type="text" id="accShopName" disabled style="background:#f9fafb;">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="text" id="accEmail" disabled style="background:#f9fafb;">
+          </div>
+          <div class="form-group">
+            <label>Account Status</label>
+            <input type="text" id="accStatus" disabled style="background:#f9fafb;">
+          </div>
+          <div style="margin-top:24px; padding:20px; background:#eff6ff; border-radius:8px;">
+            <p style="font-weight:700; color:#2563eb; margin-bottom:8px;">💬 Need Help?</p>
+            <p style="color:#374151; font-size:14px;">Join our Sellers Community on Telegram for support and tips from other sellers.</p>
+            <a href="https://t.me/shoppizzymarketplace" target="_blank" style="display:inline-block; margin-top:12px; padding:10px 20px; background:#2563eb; color:#fff; border-radius:8px; font-weight:700; text-decoration:none; font-size:14px;">Join Community →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Shoppizzy. Built for sellers who deserve better.</p>
+      <p style="margin-top:12px;">
+        <a href="/terms.html">Terms</a> · 
+        <a href="/privacy.html">Privacy</a> · 
+        <a href="/contact.html">Contact</a> ·
+        <a href="https://t.me/shoppizzymarketplace" target="_blank">Sellers Community</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const API = '';  // Same origin - worker handles API
+    let sellerToken = localStorage.getItem('shoppizzy_token');
+    let sellerData = JSON.parse(localStorage.getItem('shoppizzy_seller') || 'null');
+    let selectedImages = [];
+
+    // On page load - check if already logged in
+    window.addEventListener('load', () => {
+      if (sellerToken && sellerData) {
+        showDashboard();
+        loadMyProducts();
+      }
+    });
+
+    // Tab switching (register/login)
+    function showTab(tab) {
+      document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+      document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', (i === 0 && tab === 'register') || (i === 1 && tab === 'login'));
+      });
+      hideAlert('authAlert');
+    }
+
+    // Dashboard tab switching
+    function showDashTab(tab) {
+      document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(`panel-${tab}`).classList.add('active');
+      event.target.classList.add('active');
+
+      if (tab === 'products') loadMyProducts();
+    }
+
+    // Show alert
+    function showAlert(id, message, type = 'error') {
+      const el = document.getElementById(id);
+      el.className = `alert alert-${type}`;
+      el.textContent = message;
+      el.style.display = 'block';
+    }
+
+    function hideAlert(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    // Show dashboard
+    function showDashboard() {
+      document.getElementById('authSection').style.display = 'none';
+      document.getElementById('dashboardSection').style.display = 'block';
+      document.getElementById('dashShopName').textContent = sellerData?.shop_name || 'My Shop';
+      document.getElementById('dashEmail').textContent = sellerData?.email || '';
+      document.getElementById('accShopName').value = sellerData?.shop_name || '';
+      document.getElementById('accEmail').value = sellerData?.email || '';
+      document.getElementById('accStatus').value = sellerData?.status === 'active' ? '✅ Active (90-day approval)' : sellerData?.status || '';
+    }
+
+    // Register seller
+    async function registerSeller() {
+      const email = document.getElementById('regEmail').value.trim();
+      const paypal_email = document.getElementById('regPaypal').value.trim();
+      const shop_name = document.getElementById('regShopName').value.trim();
+      const shop_description = document.getElementById('regShopDesc').value.trim();
+      const ship_from_zip = document.getElementById('regZip').value.trim();
+      const password = document.getElementById('regPassword').value;
+
+      if (!email || !paypal_email || !shop_name || !password || !ship_from_zip) {
+        showAlert('authAlert', 'Please fill in all required fields.');
+        return;
+      }
+
+      if (!/^\d{5}$/.test(ship_from_zip)) {
+        showAlert('authAlert', 'ZIP code must be 5 digits.');
+        return;
+      }
+
+      const btn = event.target;
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+      hideAlert('authAlert');
+
+      try {
+        const res = await fetch(`${API}/api/sellers/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, paypal_email, shop_name, shop_description, ship_from_zip, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          showAlert('authAlert', '🎉 Account created! Please login to continue.', 'success');
+          showTab('login');
+          document.getElementById('loginEmail').value = email;
+        } else {
+          showAlert('authAlert', data.error || 'Registration failed. Please try again.');
+        }
+      } catch (err) {
+        showAlert('authAlert', 'Connection error. Please try again.');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Create Seller Account';
+    }
+
+    // Login seller
+    async function loginSeller() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      if (!email || !password) {
+        showAlert('authAlert', 'Please enter your email and password.');
+        return;
+      }
+
+      const btn = event.target;
+      btn.disabled = true;
+      btn.textContent = 'Logging in...';
+      hideAlert('authAlert');
+
+      try {
+        const res = await fetch(`${API}/api/sellers/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          sellerToken = data.token;
+          sellerData = data.seller;
+          localStorage.setItem('shoppizzy_token', sellerToken);
+          localStorage.setItem('shoppizzy_seller', JSON.stringify(sellerData));
+          showDashboard();
+          loadMyProducts();
+        } else if (data.needs_review) {
+          showAlert('authAlert', 'Your account is pending review. Please contact support.');
+        } else {
+          showAlert('authAlert', data.error || 'Login failed. Please check your credentials.');
+        }
+      } catch (err) {
+        showAlert('authAlert', 'Connection error. Please try again.');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Login to Dashboard';
+    }
+
+    // Logout
+    function logout() {
+      localStorage.removeItem('shoppizzy_token');
+      localStorage.removeItem('shoppizzy_seller');
+      sellerToken = null;
+      sellerData = null;
+      document.getElementById('authSection').style.display = 'flex';
+      document.getElementById('dashboardSection').style.display = 'none';
+    }
+
+    // Preview images
+    function previewImages(input) {
+      const files = Array.from(input.files).slice(0, 5);
+      selectedImages = files;
+      const container = document.getElementById('imagePreviews');
+      container.innerHTML = '';
+      
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'image-preview';
+          container.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById('imageHint').textContent = `${files.length} image(s) selected`;
+    }
+
+    // Submit product
+    async function submitProduct() {
+      const title = document.getElementById('prodTitle').value.trim();
+      const price = document.getElementById('prodPrice').value;
+      const category = document.getElementById('prodCategory').value;
+      const description = document.getElementById('prodDesc').value.trim();
+      const weight_grams = document.getElementById('prodWeight').value;
+
+      if (!title || !price || !category || !description) {
+        showAlert('productAlert', 'Please fill in all required fields.');
+        return;
+      }
+
+      const btn = event.target;
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+      hideAlert('productAlert');
+
+      try {
+        // Upload images first if any
+        let image_urls = [];
+        if (selectedImages.length > 0) {
+          btn.textContent = 'Uploading images...';
+          for (const file of selectedImages) {
+            const formData = new FormData();
+            formData.append('file', file);
+            try {
+              const uploadRes = await fetch(`${API}/api/upload`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${sellerToken}` },
+                body: formData
+              });
+              if (uploadRes.ok) {
+                const uploadData = await uploadRes.json();
+                if (uploadData.url) image_urls.push(uploadData.url);
+              }
+            } catch (e) {
+              console.log('Image upload failed:', e);
+            }
+          }
+        }
+
+        btn.textContent = 'Submitting product...';
+
+        const res = await fetch(`${API}/api/products/create`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sellerToken}`
+          },
+          body: JSON.stringify({
+            title,
+            price: parseFloat(price),
+            category,
+            description,
+            image_urls,
+            weight_grams: weight_grams ? parseInt(weight_grams) : null
+          })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          showAlert('productAlert', '✅ Product submitted for review! We\'ll review it within 24 hours.', 'success');
+          // Clear form
+          document.getElementById('prodTitle').value = '';
+          document.getElementById('prodPrice').value = '';
+          document.getElementById('prodCategory').value = '';
+          document.getElementById('prodDesc').value = '';
+          document.getElementById('prodWeight').value = '';
+          document.getElementById('imagePreviews').innerHTML = '';
+          document.getElementById('imageHint').textContent = 'Images will be uploaded when you submit the product.';
+          selectedImages = [];
+          loadMyProducts();
+        } else {
+          showAlert('productAlert', data.error || 'Failed to submit product. Please try again.');
+        }
+      } catch (err) {
+        showAlert('productAlert', 'Connection error. Please try again.');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Submit Product for Review';
+    }
+
+    // Load seller's products
+    async function loadMyProducts() {
+      if (!sellerData) return;
+
+      document.getElementById('productsLoading').style.display = 'block';
+      document.getElementById('productsGrid').style.display = 'none';
+      document.getElementById('productsEmpty').style.display = 'none';
+
+      try {
+        const res = await fetch(`${API}/api/seller/${sellerData.id}`, {
+          headers: { 'Authorization': `Bearer ${sellerToken}` }
+        });
+
+        const data = await res.json();
+        const products = data.products || [];
+
+        // Update stats
+        document.getElementById('statTotal').textContent = products.length;
+        document.getElementById('statActive').textContent = products.filter(p => p.status === 'active').length;
+        document.getElementById('statPending').textContent = products.filter(p => p.status === 'pending').length;
+
+        document.getElementById('productsLoading').style.display = 'none';
+
+        if (products.length === 0) {
+          document.getElementById('productsEmpty').style.display = 'block';
+          return;
+        }
+
+        const grid = document.getElementById('productsGrid');
+        grid.innerHTML = products.map(p => {
+          const images = JSON.parse(p.image_urls || '[]');
+          const imgHtml = images.length > 0
+            ? `<img src="${images[0]}" alt="${p.title}" style="width:100%;height:200px;object-fit:cover;">`
+            : `<div class="product-card-img">📦</div>`;
+
+          return `
+            <div class="product-card">
+              ${imgHtml}
+              <div class="product-card-body">
+                <h4>${p.title}</h4>
+                <div class="price">$${parseFloat(p.price).toFixed(2)}</div>
+                <span class="status-badge status-${p.status}">${p.status}</span>
+                ${p.rejection_reason ? `<p style="color:#dc2626;font-size:13px;margin-top:8px;">Rejected: ${p.rejection_reason}</p>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        grid.style.display = 'grid';
+
+      } catch (err) {
+        document.getElementById('productsLoading').textContent = 'Error loading products.';
+      }
+    }
+  </script>
+</body>
+</html>
