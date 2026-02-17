@@ -10,6 +10,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', system-ui, sans-serif; background: #f9fafb; color: #111827; line-height: 1.6; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
     header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .logo { font-size: 24px; font-weight: 800; color: #2563eb; text-decoration: none; display: flex; align-items: center; gap: 8px; }
@@ -19,23 +20,32 @@
     nav a:hover { color: #2563eb; }
     .btn-primary { padding: 10px 20px; background: #2563eb; color: #fff; border-radius: 8px; font-weight: 700; text-decoration: none; transition: background 0.2s; }
     .btn-primary:hover { background: #1d4ed8; }
+
     .hero { text-align: center; padding: 80px 20px 60px; background: linear-gradient(180deg, #fff 0%, #f9fafb 100%); }
     .hero h1 { font-size: 56px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.02em; background: linear-gradient(135deg, #2563eb, #0ea5e9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero p { font-size: 20px; color: #6b7280; max-width: 700px; margin: 0 auto 40px; }
+    .hero p { font-size: 20px; color: #6b7280; max-width: 700px; margin: 0 auto 24px; }
+
+    /* NEW: quick trust line under hero copy */
+    .hero-trust { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin: 0 auto 40px; color: #6b7280; font-weight: 600; font-size: 14px; }
+    .pill { background: #fff; border: 1px solid #e5e7eb; padding: 10px 14px; border-radius: 999px; }
+
     .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
     .cta { display: inline-block; padding: 16px 32px; background: #2563eb; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 16px; transition: all 0.2s; }
     .cta:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37,99,235,0.4); }
     .cta-secondary { background: #fff; color: #2563eb; border: 2px solid #2563eb; }
     .cta-secondary:hover { background: #eff6ff; box-shadow: 0 4px 12px rgba(37,99,235,0.2); }
+
     .features-section { padding: 80px 0; background: #fff; }
     .section-title { font-size: 32px; font-weight: 800; margin-bottom: 16px; text-align: center; }
     .section-subtitle { text-align: center; color: #6b7280; font-size: 18px; margin-bottom: 48px; }
+
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 40px; }
     .feature { text-align: center; padding: 32px; background: #f9fafb; border-radius: 12px; transition: all 0.2s; }
     .feature:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
     .feature-icon { font-size: 48px; margin-bottom: 16px; }
     .feature h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
     .feature p { color: #6b7280; line-height: 1.7; }
+
     .comparison-section { padding: 80px 0; background: #f9fafb; }
     .comparison-table { max-width: 900px; margin: 40px auto 0; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
     .comparison-table table { width: 100%; border-collapse: collapse; }
@@ -44,20 +54,109 @@
     .comparison-table td:first-child { font-weight: 600; color: #374151; }
     .highlight { color: #2563eb; font-weight: 700; }
     .bad { color: #ef4444; }
+
     .community-section { padding: 80px 0; background: #fff; text-align: center; }
     .community-card { max-width: 600px; margin: 40px auto 0; background: linear-gradient(135deg, #2563eb, #0ea5e9); border-radius: 16px; padding: 48px 40px; color: #fff; }
     .community-card h3 { font-size: 28px; font-weight: 800; margin-bottom: 16px; }
     .community-card p { font-size: 18px; opacity: 0.9; margin-bottom: 32px; }
     .btn-community { display: inline-block; padding: 14px 36px; background: #fff; color: #2563eb; border-radius: 8px; font-weight: 700; font-size: 16px; text-decoration: none; transition: all 0.2s; }
     .btn-community:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
     .cta-section { padding: 80px 20px; text-align: center; background: linear-gradient(135deg, #2563eb, #0ea5e9); color: #fff; }
     .cta-section h2 { font-size: 42px; font-weight: 800; margin-bottom: 16px; }
     .cta-section p { font-size: 20px; margin-bottom: 32px; opacity: 0.9; }
     .cta-section .cta { background: #fff; color: #2563eb; }
     .cta-section .cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
     footer { background: #111827; color: #9ca3af; padding: 40px 0; text-align: center; }
     footer a { color: #2563eb; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
+
+    /* NEW: Marketplace-style blocks */
+    .market-block { padding: 80px 0; background: #fff; }
+    .split-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px; margin-top: 24px; }
+    .card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .card h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+    .card p { color: #6b7280; margin-bottom: 16px; }
+    .card-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-ghost {
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid #2563eb;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 800;
+      background: #fff;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-ghost:hover { background: #eff6ff; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,99,235,0.18); }
+
+    .searchbar {
+      display: flex;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 10px;
+      max-width: 760px;
+      margin: 24px auto 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .searchbar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      padding: 10px 12px;
+      color: #111827;
+    }
+    .searchbar button {
+      border: none;
+      background: #2563eb;
+      color: #fff;
+      font-weight: 800;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .searchbar button:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37,99,235,0.24);
+    }
+
+    .chips { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+    .chip { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; padding: 8px 12px; border-radius: 999px; font-weight: 800; font-size: 13px; text-decoration: none; }
+
+    .listing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 28px; }
+    .listing {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .listing:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.10); }
+    .thumb {
+      height: 150px;
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      opacity: 0.15;
+    }
+    .listing-body { padding: 16px; }
+    .listing-title { font-weight: 900; margin-bottom: 6px; }
+    .listing-meta { display: flex; justify-content: space-between; align-items: center; color: #6b7280; font-weight: 700; font-size: 13px; }
+    .price { color: #111827; font-weight: 900; }
+
     @media (max-width: 768px) {
       .hero h1 { font-size: 36px; }
       .hero p { font-size: 18px; }
@@ -65,6 +164,9 @@
       .cta-section h2 { font-size: 32px; }
       .comparison-table { overflow-x: auto; }
       .community-card { padding: 32px 24px; }
+      .split-grid { grid-template-columns: 1fr; }
+      .searchbar { flex-direction: column; }
+      .searchbar button { width: 100%; }
     }
   </style>
 </head>
@@ -75,11 +177,15 @@
         <span class="logo-icon">S</span>
         <span>Shoppizzy</span>
       </a>
+
+      <!-- UPDATED NAV: adds buyer flow + login (keeps your links) -->
       <nav>
+        <a href="/marketplace.html">Shop</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
         <a href="https://t.me/shoppizzymarketplace" target="_blank">Sellers Community</a>
+        <a href="/login.html">Sign In</a>
         <a href="/sell.html" class="btn-primary">Start Selling</a>
       </nav>
     </div>
@@ -89,13 +195,122 @@
     <div class="container">
       <h1>Fair marketplace for sellers</h1>
       <p>Keep 90% of every sale. No hidden fees, no algorithm games, no exploitation. Built by people who understand what sellers actually need.</p>
+
+      <!-- NEW: marketplace trust pills -->
+      <div class="hero-trust">
+        <span class="pill">Buyer + Seller accounts</span>
+        <span class="pill">Direct PayPal payments</span>
+        <span class="pill">Listings reviewed for quality</span>
+        <span class="pill">Transparent fees</span>
+      </div>
+
+      <!-- UPDATED HERO CTA: sell + shop -->
       <div class="hero-cta">
         <a href="/sell.html" class="cta">Start Selling Today</a>
-        <a href="#how-it-works" class="cta cta-secondary">Learn More</a>
+        <a href="/marketplace.html" class="cta cta-secondary">Shop the Marketplace</a>
       </div>
     </div>
   </section>
 
+  <!-- NEW: Buyer/Seller registration gateway (marketplace vibe) -->
+  <section class="market-block">
+    <div class="container">
+      <h2 class="section-title">Choose your path</h2>
+      <p class="section-subtitle">Buyers shop. Sellers earn. Shoppizzy runs clean in the middle.</p>
+
+      <div class="split-grid">
+        <div class="card">
+          <h3>🛒 I’m a Buyer</h3>
+          <p>Create an account to save favorites, track orders, and shop verified listings from real sellers.</p>
+          <div class="card-actions">
+            <a class="cta" href="/buy.html">Create Buyer Account</a>
+            <a class="btn-ghost" href="/marketplace.html">Browse Listings</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🏪 I’m a Seller</h3>
+          <p>Keep 90% of every sale. List products fast, get paid directly, and build your shop without platform games.</p>
+          <div class="card-actions">
+            <a class="cta" href="/sell.html">Create Seller Account</a>
+            <a class="btn-ghost" href="#features">See Seller Features</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW: Marketplace preview (search + categories + sample cards) -->
+  <section class="comparison-section">
+    <div class="container">
+      <h2 class="section-title">Marketplace preview</h2>
+      <p class="section-subtitle">Search, browse categories, and shop verified listings.</p>
+
+      <div class="searchbar" role="search">
+        <input type="text" placeholder="Search products, shops, categories… (preview)" aria-label="Search marketplace">
+        <button type="button" onclick="window.location.href='/marketplace.html'">Search</button>
+      </div>
+
+      <div class="chips" aria-label="Popular categories">
+        <a class="chip" href="/marketplace.html">Home & Kitchen</a>
+        <a class="chip" href="/marketplace.html">Apparel</a>
+        <a class="chip" href="/marketplace.html">Beauty</a>
+        <a class="chip" href="/marketplace.html">Electronics</a>
+        <a class="chip" href="/marketplace.html">Handmade</a>
+        <a class="chip" href="/marketplace.html">Digital</a>
+      </div>
+
+      <div class="listing-grid">
+        <div class="listing">
+          <div class="thumb"></div>
+          <div class="listing-body">
+            <div class="listing-title">Sample Listing: Premium Item</div>
+            <div class="listing-meta">
+              <span>Verified seller</span>
+              <span class="price">$24.99</span>
+            </div>
+          </div>
+        </div>
+        <div class="listing">
+          <div class="thumb"></div>
+          <div class="listing-body">
+            <div class="listing-title">Sample Listing: Handmade</div>
+            <div class="listing-meta">
+              <span>Ships fast</span>
+              <span class="price">$39.00</span>
+            </div>
+          </div>
+        </div>
+        <div class="listing">
+          <div class="thumb"></div>
+          <div class="listing-body">
+            <div class="listing-title">Sample Listing: Digital Download</div>
+            <div class="listing-meta">
+              <span>Instant delivery</span>
+              <span class="price">$9.99</span>
+            </div>
+          </div>
+        </div>
+        <div class="listing">
+          <div class="thumb"></div>
+          <div class="listing-body">
+            <div class="listing-title">Sample Listing: Bundle Deal</div>
+            <div class="listing-meta">
+              <span>Top rated</span>
+              <span class="price">$58.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top: 28px;">
+        <a class="cta" href="/marketplace.html">Browse the Marketplace</a>
+        <a class="cta cta-secondary" href="/buy.html">Create Buyer Account</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUR ORIGINAL SECTIONS BELOW: kept intact -->
   <section class="features-section" id="features">
     <div class="container">
       <h2 class="section-title">Why Sellers Choose Shoppizzy</h2>
@@ -231,6 +446,10 @@
         <a href="/terms.html">Terms</a> · 
         <a href="/privacy.html">Privacy</a> · 
         <a href="/contact.html">Contact</a> ·
+        <a href="/marketplace.html">Shop</a> ·
+        <a href="/buy.html">Buyer Register</a> ·
+        <a href="/sell.html">Seller Register</a> ·
+        <a href="/login.html">Sign In</a> ·
         <a href="https://t.me/shoppizzymarketplace" target="_blank">Sellers Community</a>
       </p>
       <p style="margin-top: 16px; font-size: 14px; opacity: 0.7;">
