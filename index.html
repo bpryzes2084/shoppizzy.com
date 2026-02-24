@@ -128,11 +128,12 @@
     }
     .hero h1 {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-size: clamp(1rem, 3.5vw, 2rem);
       font-weight: 800;
       color: var(--white);
       margin-bottom: 12px;
       position: relative;
+      white-space: nowrap;
     }
     .hero h1 span { color: var(--gold); }
     .hero p {
@@ -480,9 +481,12 @@
       <span class="logo-anchor">⚓</span>
       <span class="logo-name">Shoppiz<span>zy</span></span>
     </a>
-    <div class="header-search">
-      <input type="text" id="search-input" placeholder="Search products..." autocomplete="off">
-      <button class="search-btn" onclick="doSearch()">Search</button>
+    <div style="flex:1;max-width:560px;">
+      <div class="header-search">
+        <input type="text" id="search-input" placeholder="Search products..." autocomplete="off">
+        <button class="search-btn" onclick="doSearch()">Search</button>
+      </div>
+      <div style="text-align:center;font-size:0.7rem;color:rgba(255,255,255,0.45);margin-top:4px;">Tip: Specific searches return better results — try "men's running shoes" instead of "shoes"</div>
     </div>
   </div>
 </header>
@@ -490,14 +494,18 @@
 <!-- HERO -->
 <div id="hero-section">
   <div class="hero">
-    <h1>Shop Without <span>The Clutter</span></h1>
-    <p>Clean, simple access to hundreds of thousands of products from the world's best merchants.</p>
+    <h1>Hundreds of thousands of products. <span>Zero clutter.</span></h1>
+    <p style="color:rgba(255,255,255,0.45);font-size:0.75rem;margin-top:8px;">Tip: Specific searches return better results — try "men's running shoes" instead of "shoes"</p>
   </div>
 
   <!-- CATEGORIES -->
   <div class="categories-section">
     <div class="section-title">Browse by Category</div>
     <div class="category-grid">
+      <div class="category-card" onclick="searchCategory('Accessories')">
+        <div class="cat-icon">👜</div>
+        <div class="cat-name">Accessories</div>
+      </div>
       <div class="category-card" onclick="searchCategory('Appliances')">
         <div class="cat-icon">🏠</div>
         <div class="cat-name">Appliances</div>
@@ -505,6 +513,10 @@
       <div class="category-card" onclick="searchCategory('Automotive')">
         <div class="cat-icon">🚗</div>
         <div class="cat-name">Automotive</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Baby')">
+        <div class="cat-icon">🍼</div>
+        <div class="cat-name">Baby</div>
       </div>
       <div class="category-card" onclick="searchCategory('Beauty')">
         <div class="cat-icon">💄</div>
@@ -522,6 +534,10 @@
         <div class="cat-icon">💻</div>
         <div class="cat-name">Computers</div>
       </div>
+      <div class="category-card" onclick="searchCategory('DVDs')">
+        <div class="cat-icon">💿</div>
+        <div class="cat-name">DVDs</div>
+      </div>
       <div class="category-card" onclick="searchCategory('Electronics')">
         <div class="cat-icon">📱</div>
         <div class="cat-name">Electronics</div>
@@ -533,10 +549,6 @@
       <div class="category-card" onclick="searchCategory('Footwear')">
         <div class="cat-icon">👟</div>
         <div class="cat-name">Footwear</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('DVDs')">
-        <div class="cat-icon">💿</div>
-        <div class="cat-name">DVDs</div>
       </div>
       <div class="category-card" onclick="searchCategory('Games')">
         <div class="cat-icon">🎮</div>
@@ -550,9 +562,29 @@
         <div class="cat-icon">🛒</div>
         <div class="cat-name">Grocery</div>
       </div>
+      <div class="category-card" onclick="searchCategory('Health Beauty')">
+        <div class="cat-icon">🩺</div>
+        <div class="cat-name">Health & Beauty</div>
+      </div>
       <div class="category-card" onclick="searchCategory('Home Garden')">
         <div class="cat-icon">🌿</div>
         <div class="cat-name">Home & Garden</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Household')">
+        <div class="cat-icon">🏡</div>
+        <div class="cat-name">Household</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Jewelry')">
+        <div class="cat-icon">💍</div>
+        <div class="cat-name">Jewelry</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Luggage')">
+        <div class="cat-icon">🧳</div>
+        <div class="cat-name">Luggage</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Pet Care')">
+        <div class="cat-icon">🐾</div>
+        <div class="cat-name">Pet Care</div>
       </div>
       <div class="category-card" onclick="searchCategory('Sporting Goods')">
         <div class="cat-icon">🏋️</div>
@@ -566,11 +598,6 @@
         <div class="cat-icon">🧸</div>
         <div class="cat-name">Toys</div>
       </div>
-      <div class="category-card" onclick="searchCategory('Luggage')">
-        <div class="cat-icon">🧳</div>
-        <div class="cat-name">Luggage</div>
-      </div>
-
     </div>
   </div>
 </div>
