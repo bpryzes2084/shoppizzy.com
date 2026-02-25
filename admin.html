@@ -3,78 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shoppizzy Admin</title>
+  <title>Shoppizzy Admin - Product Management</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', system-ui, sans-serif; background: #f9fafb; color: #111827; line-height: 1.6; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+    
+    /* Header */
     header { background: #111827; padding: 20px 0; }
     .header-content { display: flex; justify-content: space-between; align-items: center; }
     .logo { font-size: 20px; font-weight: 800; color: #fff; text-decoration: none; }
-    .admin-badge { background: #dc2626; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    .admin-badge { background: #dc2626; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-left: 12px; }
+    .logout-btn { padding: 8px 16px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: 14px; }
+
+    /* Login */
     .login-wrapper { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
     .login-card { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 40px; width: 100%; max-width: 400px; }
     .login-card h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
     .login-card p { color: #6b7280; margin-bottom: 32px; }
     .form-group { margin-bottom: 20px; }
     .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
-    .form-group input { width: 100%; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 15px; font-family: inherit; }
-    .form-group input:focus { outline: none; border-color: #2563eb; }
+    .form-group input, .form-group select { width: 100%; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 15px; font-family: inherit; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #2563eb; }
     .btn { width: 100%; padding: 14px; background: #2563eb; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; }
     .btn:hover { background: #1d4ed8; }
+    .btn-secondary { background: #10b981; }
+    .btn-secondary:hover { background: #059669; }
+    .btn-danger { background: #ef4444; }
+    .btn-danger:hover { background: #dc2626; }
     .alert { padding: 14px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; font-weight: 600; }
     .alert-error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+    .alert-success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+
+    /* Dashboard */
     .dashboard { padding: 40px 0; }
-    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .stat-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
-    .stat-card .stat-value { font-size: 32px; font-weight: 800; color: #2563eb; }
-    .stat-card .stat-label { font-size: 13px; color: #6b7280; font-weight: 600; margin-top: 4px; }
-    .tabs { display: flex; margin-bottom: 32px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; background: #fff; }
+    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .stat-card .stat-value { font-size: 36px; font-weight: 800; color: #2563eb; }
+    .stat-card .stat-label { font-size: 13px; color: #6b7280; font-weight: 600; margin-top: 8px; }
+    
+    /* Tabs */
+    .tabs { display: flex; gap: 0; margin-bottom: 32px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; background: #fff; }
     .tab { flex: 1; padding: 14px; background: #fff; border: none; font-weight: 600; font-size: 15px; cursor: pointer; color: #6b7280; transition: all 0.2s; font-family: inherit; }
     .tab.active { background: #2563eb; color: #fff; }
     .panel { display: none; }
     .panel.active { display: block; }
-    .product-list { display: flex; flex-direction: column; gap: 16px; }
-    .product-item { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 24px; display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
-    .product-item img { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
-    .product-item .no-img { width: 100px; height: 100px; background: #f3f4f6; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
-    .product-info { flex: 1; min-width: 200px; }
-    .product-info h4 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .product-info p { color: #6b7280; font-size: 14px; margin-bottom: 4px; }
-    .product-info .price { font-size: 20px; font-weight: 800; color: #2563eb; margin: 8px 0; }
-    .product-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-approve { padding: 10px 20px; background: #16a34a; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 14px; }
-    .btn-approve:hover { background: #15803d; }
-    .btn-reject { padding: 10px 20px; background: #dc2626; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 14px; }
-    .btn-reject:hover { background: #b91c1c; }
-    .seller-list { display: flex; flex-direction: column; gap: 16px; }
-    .seller-item { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .seller-info h4 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-    .seller-info p { color: #6b7280; font-size: 14px; }
-    .seller-actions { display: flex; gap: 12px; }
-    .btn-suspend { padding: 10px 20px; background: #f97316; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 14px; }
-    .empty-state { text-align: center; padding: 60px 20px; color: #9ca3af; background: #fff; border-radius: 12px; }
-    .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
-    .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
-    .modal.active { display: flex; }
-    .modal-card { background: #fff; border-radius: 16px; padding: 32px; width: 100%; max-width: 400px; margin: 20px; }
-    .modal-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
-    .modal-card textarea { width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-family: inherit; font-size: 14px; height: 100px; resize: vertical; margin-bottom: 16px; }
-    .modal-buttons { display: flex; gap: 12px; }
-    .btn-cancel { flex: 1; padding: 12px; background: #f3f4f6; color: #374151; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; }
-    .btn-confirm-reject { flex: 1; padding: 12px; background: #dc2626; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; }
-    .logout-btn { padding: 8px 16px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: 14px; }
+
+    /* Import Panel */
+    .import-section { background: #fff; border-radius: 12px; padding: 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 24px; }
+    .import-section h3 { font-size: 20px; font-weight: 800; margin-bottom: 20px; }
+    .import-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .import-card { border: 2px solid #e5e7eb; border-radius: 12px; padding: 24px; transition: all 0.2s; }
+    .import-card:hover { border-color: #2563eb; }
+    .import-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+    .import-card p { color: #6b7280; font-size: 14px; margin-bottom: 20px; }
+    
+    /* Products Table */
+    .products-table { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .table-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid #e5e7eb; }
+    .table-header h3 { font-size: 18px; font-weight: 700; }
+    .search-box { padding: 8px 16px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; width: 300px; }
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: #f9fafb; }
+    th { padding: 12px 24px; text-align: left; font-weight: 600; font-size: 13px; color: #6b7280; text-transform: uppercase; }
+    td { padding: 16px 24px; border-bottom: 1px solid #e5e7eb; }
+    .product-title { font-weight: 600; color: #111827; max-width: 300px; }
+    .product-image { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    .badge-direct { background: #eff6ff; color: #2563eb; }
+    .badge-affiliate { background: #fef3c7; color: #d97706; }
+    .badge-active { background: #d1fae5; color: #059669; }
+    .btn-small { padding: 6px 12px; font-size: 13px; border-radius: 6px; font-weight: 600; cursor: pointer; border: none; }
+    .btn-remove { background: #fee2e2; color: #dc2626; }
+    .btn-remove:hover { background: #fecaca; }
+
+    .loading { text-align: center; padding: 40px; color: #6b7280; }
+    .empty-state { text-align: center; padding: 60px 20px; color: #9ca3af; }
   </style>
 </head>
 <body>
   <header>
     <div class="container header-content">
-      <a href="/" class="logo">🛍️ Shoppizzy Admin</a>
-      <div style="display:flex;gap:12px;align-items:center;">
+      <div>
+        <a href="/" class="logo">🛍️ Shoppizzy Admin</a>
         <span class="admin-badge">ADMIN</span>
-        <button class="logout-btn" onclick="adminLogout()" id="logoutBtn" style="display:none;">Logout</button>
       </div>
+      <button class="logout-btn" onclick="adminLogout()" id="logoutBtn" style="display:none;">Logout</button>
     </div>
   </header>
 
@@ -94,44 +109,184 @@
 
   <!-- Dashboard -->
   <div class="dashboard container" id="adminDashboard" style="display:none;">
+    
+    <!-- Stats -->
     <div class="stats-bar">
-      <div class="stat-card"><div class="stat-value" id="statPending">0</div><div class="stat-label">Pending Products</div></div>
-      <div class="stat-card"><div class="stat-value" id="statSellers">0</div><div class="stat-label">Total Sellers</div></div>
-      <div class="stat-card"><div class="stat-value" id="statApproved">0</div><div class="stat-label">Active Sellers</div></div>
-    </div>
-    <div class="tabs">
-      <button class="tab active" onclick="showTab('pending', event)">📋 Pending Products</button>
-      <button class="tab" onclick="showTab('sellers', event)">👥 All Sellers</button>
-    </div>
-    <!-- Pending Products -->
-    <div class="panel active" id="panel-pending">
-      <div id="pendingLoading" style="text-align:center;padding:40px;color:#6b7280;">Loading...</div>
-      <div class="product-list" id="pendingList" style="display:none;"></div>
-      <div id="pendingEmpty" class="empty-state" style="display:none;"><div class="icon">✅</div><p>No products pending review!</p></div>
-    </div>
-    <!-- Sellers -->
-    <div class="panel" id="panel-sellers">
-      <div id="sellersLoading" style="text-align:center;padding:40px;color:#6b7280;">Loading...</div>
-      <div class="seller-list" id="sellersList" style="display:none;"></div>
-      <div id="sellersEmpty" class="empty-state" style="display:none;"><div class="icon">👥</div><p>No sellers yet!</p></div>
-    </div>
-  </div>
-
-  <!-- Reject Modal -->
-  <div class="modal" id="rejectModal">
-    <div class="modal-card">
-      <h3>Reject Product</h3>
-      <textarea id="rejectReason" placeholder="Reason for rejection (shown to seller)..."></textarea>
-      <div class="modal-buttons">
-        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-        <button class="btn-confirm-reject" onclick="confirmReject()">Reject Product</button>
+      <div class="stat-card">
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-label">Total Products</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statActive">0</div>
+        <div class="stat-label">Active Products</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statCategories">0</div>
+        <div class="stat-label">Categories</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statClicks">0</div>
+        <div class="stat-label">Total Clicks</div>
       </div>
     </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('import', event)">📥 Import Products</button>
+      <button class="tab" onclick="showTab('products', event)">📦 Manage Products</button>
+      <button class="tab" onclick="showTab('analytics', event)">📊 Analytics</button>
+    </div>
+
+    <!-- Import Panel -->
+    <div class="panel active" id="panel-import">
+      <div class="import-section">
+        <h3>Import Products from Affiliate Networks</h3>
+        <div id="importAlert" class="alert" style="display:none;"></div>
+        
+        <div class="import-grid">
+          <!-- Rakuten -->
+          <div class="import-card">
+            <h4>🛒 Rakuten Network</h4>
+            <p>Import products from Rakuten's 150,000+ merchants</p>
+            
+            <div class="form-group">
+              <label>Category (Optional)</label>
+              <select id="rakutenCategory">
+                <option value="">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing & Fashion</option>
+                <option value="home-garden">Home & Garden</option>
+                <option value="health-beauty">Health & Beauty</option>
+                <option value="books-media">Books & Media</option>
+                <option value="handmade">Handmade & Crafts</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Quantity</label>
+              <select id="rakutenQuantity">
+                <option value="100">100 products</option>
+                <option value="500">500 products</option>
+                <option value="1000">1,000 products</option>
+                <option value="5000">5,000 products</option>
+              </select>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="importRakuten()">Import from Rakuten</button>
+          </div>
+
+          <!-- Commission Junction -->
+          <div class="import-card">
+            <h4>💼 Commission Junction</h4>
+            <p>Import products from CJ's 3,000+ advertisers</p>
+            
+            <div class="form-group">
+              <label>Category (Optional)</label>
+              <select id="cjCategory">
+                <option value="">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing & Fashion</option>
+                <option value="home-garden">Home & Garden</option>
+                <option value="health-beauty">Health & Beauty</option>
+                <option value="books-media">Books & Media</option>
+                <option value="handmade">Handmade & Crafts</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Quantity</label>
+              <select id="cjQuantity">
+                <option value="100">100 products</option>
+                <option value="500">500 products</option>
+                <option value="1000">1,000 products</option>
+                <option value="5000">5,000 products</option>
+              </select>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="importCJ()">Import from CJ</button>
+          </div>
+
+          <!-- Square Sync -->
+          <div class="import-card">
+            <h4>💳 Your Square Products</h4>
+            <p>Sync your direct sale products from Square inventory</p>
+            <p style="margin-top:12px;font-size:13px;color:#2563eb;">30+ products ready to sync</p>
+            <button class="btn" onclick="syncSquare()" style="margin-top:20px;">Sync Square Inventory</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Panel -->
+    <div class="panel" id="panel-products">
+      <div class="products-table">
+        <div class="table-header">
+          <h3>All Products</h3>
+          <input type="text" class="search-box" id="productSearch" placeholder="Search products..." onkeyup="searchProducts()">
+        </div>
+        
+        <div id="productsLoading" class="loading">Loading products...</div>
+        
+        <div id="productsTable" style="display:none;">
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productsBody"></tbody>
+          </table>
+        </div>
+        
+        <div id="productsEmpty" class="empty-state" style="display:none;">
+          <p>No products yet. Import products to get started!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Panel -->
+    <div class="panel" id="panel-analytics">
+      <div class="import-section">
+        <h3>Analytics Dashboard</h3>
+        <p style="color:#6b7280;margin-bottom:24px;">Track product performance and revenue</p>
+        
+        <div class="stats-bar">
+          <div class="stat-card">
+            <div class="stat-value">$0</div>
+            <div class="stat-label">Estimated Revenue (30 days)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Product Clicks (30 days)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0%</div>
+            <div class="stat-label">Click-Through Rate</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Top Category</div>
+          </div>
+        </div>
+        
+        <p style="text-align:center;color:#9ca3af;padding:40px;">Analytics coming soon...</p>
+      </div>
+    </div>
+
   </div>
 
   <script>
+    const API = '';
     let adminSecret = '';
-    let rejectProductId = '';
+    let allProducts = [];
 
     function adminLogin() {
       const secret = document.getElementById('adminSecret').value.trim();
@@ -144,8 +299,7 @@
       document.getElementById('loginWrapper').style.display = 'none';
       document.getElementById('adminDashboard').style.display = 'block';
       document.getElementById('logoutBtn').style.display = 'block';
-      loadPendingProducts();
-      loadSellers();
+      loadDashboard();
     }
 
     function adminLogout() {
@@ -161,173 +315,210 @@
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.getElementById('panel-' + tab).classList.add('active');
       if (e && e.target) e.target.classList.add('active');
-      if (tab === 'sellers') loadSellers();
+      if (tab === 'products') loadProducts();
     }
 
-    async function loadPendingProducts() {
+    async function loadDashboard() {
       try {
-        const res = await fetch('/api/admin/pending-products', {
-          headers: { 'Authorization': 'Bearer ' + adminSecret }
+        const res = await fetch('/api/admin/stats', {
+          headers: { 'Authorization': `Bearer ${adminSecret}` }
         });
-        const data = await res.json();
         if (!res.ok) { adminLogout(); return; }
-
-        const products = data.products || [];
-        document.getElementById('statPending').textContent = products.length;
-        document.getElementById('pendingLoading').style.display = 'none';
-
-        if (products.length === 0) {
-          document.getElementById('pendingEmpty').style.display = 'block';
-          return;
-        }
-
-        const list = document.getElementById('pendingList');
-        list.innerHTML = products.map(p => {
-          const images = JSON.parse(p.image_urls || '[]');
-          const imgHtml = images.length > 0
-            ? '<img src="' + images[0] + '" alt="' + p.title + '">'
-            : '<div class="no-img">📦</div>';
-          return '<div class="product-item" id="product-' + p.id + '">' +
-            imgHtml +
-            '<div class="product-info">' +
-              '<h4>' + p.title + '</h4>' +
-              '<div class="price">$' + parseFloat(p.price).toFixed(2) + '</div>' +
-              '<p>🏪 ' + p.shop_name + ' (' + p.seller_email + ')</p>' +
-              '<p>📦 ' + p.category + ' · ⚖️ ' + (p.weight_grams || 227) + 'g</p>' +
-              '<p style="margin-top:8px;color:#374151;">' + p.description.substring(0, 150) + (p.description.length > 150 ? '...' : '') + '</p>' +
-            '</div>' +
-            '<div class="product-actions">' +
-              '<button class="btn-approve" onclick="approveProduct(\'' + p.id + '\')">✅ Approve</button>' +
-              '<button class="btn-reject" onclick="openRejectModal(\'' + p.id + '\')">❌ Reject</button>' +
-            '</div>' +
-          '</div>';
-        }).join('');
-        list.style.display = 'flex';
+        const data = await res.json();
+        
+        document.getElementById('statTotal').textContent = data.total || 0;
+        document.getElementById('statActive').textContent = data.active || 0;
+        document.getElementById('statCategories').textContent = data.categories || 0;
+        document.getElementById('statClicks').textContent = data.clicks || 0;
       } catch (err) {
-        document.getElementById('pendingLoading').textContent = 'Error loading products.';
+        console.error('Error loading stats:', err);
       }
     }
 
-    async function loadSellers() {
-      document.getElementById('sellersLoading').style.display = 'block';
-      document.getElementById('sellersList').style.display = 'none';
-      document.getElementById('sellersEmpty').style.display = 'none';
+    async function importRakuten() {
+      const category = document.getElementById('rakutenCategory').value;
+      const quantity = document.getElementById('rakutenQuantity').value;
+      const btn = event.target;
+      btn.disabled = true;
+      btn.textContent = 'Importing...';
 
       try {
-        const res = await fetch('/api/admin/sellers', {
-          headers: { 'Authorization': 'Bearer ' + adminSecret }
+        const res = await fetch('/api/admin/import-rakuten', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminSecret}` 
+          },
+          body: JSON.stringify({ category, quantity: parseInt(quantity) })
         });
         const data = await res.json();
-        const sellers = data.sellers || [];
+        
+        if (res.ok) {
+          showImportAlert(`✅ Imported ${data.imported || 0} products from Rakuten!`, 'success');
+          loadDashboard();
+        } else {
+          showImportAlert(`❌ ${data.error || 'Import failed'}`, 'error');
+        }
+      } catch (err) {
+        showImportAlert('❌ Connection error. Please try again.', 'error');
+      }
 
-        document.getElementById('statSellers').textContent = sellers.length;
-        document.getElementById('statApproved').textContent = sellers.filter(s => s.status === 'active').length;
-        document.getElementById('sellersLoading').style.display = 'none';
+      btn.disabled = false;
+      btn.textContent = 'Import from Rakuten';
+    }
 
-        if (sellers.length === 0) {
-          document.getElementById('sellersEmpty').style.display = 'block';
+    async function importCJ() {
+      const category = document.getElementById('cjCategory').value;
+      const quantity = document.getElementById('cjQuantity').value;
+      const btn = event.target;
+      btn.disabled = true;
+      btn.textContent = 'Importing...';
+
+      try {
+        const res = await fetch('/api/admin/import-cj', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminSecret}` 
+          },
+          body: JSON.stringify({ category, quantity: parseInt(quantity) })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          showImportAlert(`✅ Imported ${data.imported || 0} products from CJ!`, 'success');
+          loadDashboard();
+        } else {
+          showImportAlert(`❌ ${data.error || 'Import failed'}`, 'error');
+        }
+      } catch (err) {
+        showImportAlert('❌ Connection error. Please try again.', 'error');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Import from CJ';
+    }
+
+    async function syncSquare() {
+      const btn = event.target;
+      btn.disabled = true;
+      btn.textContent = 'Syncing...';
+
+      try {
+        const res = await fetch('/api/admin/sync-square', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${adminSecret}` }
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          showImportAlert(`✅ Synced ${data.synced || 0} products from Square!`, 'success');
+          loadDashboard();
+        } else {
+          showImportAlert(`❌ ${data.error || 'Sync failed'}`, 'error');
+        }
+      } catch (err) {
+        showImportAlert('❌ Connection error. Please try again.', 'error');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Sync Square Inventory';
+    }
+
+    function showImportAlert(message, type) {
+      const alert = document.getElementById('importAlert');
+      alert.className = `alert alert-${type}`;
+      alert.textContent = message;
+      alert.style.display = 'block';
+      setTimeout(() => { alert.style.display = 'none'; }, 5000);
+    }
+
+    async function loadProducts() {
+      document.getElementById('productsLoading').style.display = 'block';
+      document.getElementById('productsTable').style.display = 'none';
+      document.getElementById('productsEmpty').style.display = 'none';
+
+      try {
+        const res = await fetch('/api/admin/products', {
+          headers: { 'Authorization': `Bearer ${adminSecret}` }
+        });
+        const data = await res.json();
+        allProducts = data.products || [];
+
+        document.getElementById('productsLoading').style.display = 'none';
+
+        if (allProducts.length === 0) {
+          document.getElementById('productsEmpty').style.display = 'block';
           return;
         }
 
-        const list = document.getElementById('sellersList');
-        list.innerHTML = sellers.map(s => {
-          const approved = s.is_permanently_approved
-            ? '⭐ Permanently Approved'
-            : (s.approved_until > Date.now() ? '✅ Active (90-day)' : '⚠️ Needs Review');
-          return '<div class="seller-item">' +
-            '<div class="seller-info">' +
-              '<h4>' + s.shop_name + '</h4>' +
-              '<p>📧 ' + s.email + ' · Status: ' + s.status + '</p>' +
-              '<p>' + approved + '</p>' +
-            '</div>' +
-            '<div class="seller-actions">' +
-              (!s.is_permanently_approved ? '<button class="btn-approve" onclick="approveSeller(\'' + s.id + '\')">⭐ Approve Permanently</button>' : '') +
-              '<button class="btn-suspend" onclick="suspendSeller(\'' + s.id + '\')">🚫 Suspend</button>' +
-            '</div>' +
-          '</div>';
-        }).join('');
-        list.style.display = 'flex';
+        renderProducts(allProducts);
       } catch (err) {
-        document.getElementById('sellersLoading').textContent = 'Error loading sellers.';
+        console.error('Error loading products:', err);
+        document.getElementById('productsLoading').textContent = 'Error loading products.';
       }
     }
 
-    async function approveProduct(productId) {
+    function renderProducts(products) {
+      document.getElementById('productsTable').style.display = 'block';
+      const tbody = document.getElementById('productsBody');
+      
+      tbody.innerHTML = products.map(p => {
+        const images = JSON.parse(p.image_urls || p.image_url || '[]');
+        const imageUrl = Array.isArray(images) ? images[0] : images;
+        const typeClass = p.type === 'affiliate' ? 'badge-affiliate' : 'badge-direct';
+        const typeLabel = p.type === 'affiliate' ? 'Affiliate' : 'Direct';
+        
+        return `
+          <tr>
+            <td>${imageUrl ? `<img src="${imageUrl}" class="product-image" alt="">` : '📦'}</td>
+            <td class="product-title">${p.title}</td>
+            <td><span class="badge ${typeClass}">${typeLabel}</span></td>
+            <td>$${parseFloat(p.price).toFixed(2)}</td>
+            <td>${p.category || 'N/A'}</td>
+            <td><span class="badge badge-active">${p.status || 'active'}</span></td>
+            <td><button class="btn-small btn-remove" onclick="removeProduct('${p.id}')">Remove</button></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function searchProducts() {
+      const query = document.getElementById('productSearch').value.toLowerCase();
+      if (!query) {
+        renderProducts(allProducts);
+        return;
+      }
+      const filtered = allProducts.filter(p => 
+        p.title.toLowerCase().includes(query) || 
+        (p.description || '').toLowerCase().includes(query)
+      );
+      renderProducts(filtered);
+    }
+
+    async function removeProduct(productId) {
+      if (!confirm('Remove this product? This cannot be undone.')) return;
+
       try {
-        const res = await fetch('/api/admin/approve-product', {
+        const res = await fetch('/api/admin/remove-product', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + adminSecret },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminSecret}` 
+          },
           body: JSON.stringify({ product_id: productId })
         });
+
         if (res.ok) {
-          document.getElementById('product-' + productId)?.remove();
-          const remaining = document.querySelectorAll('[id^="product-"]').length;
-          document.getElementById('statPending').textContent = remaining;
-          if (remaining === 0) {
-            document.getElementById('pendingEmpty').style.display = 'block';
-            document.getElementById('pendingList').style.display = 'none';
-          }
-          alert('✅ Product approved and now live!');
+          allProducts = allProducts.filter(p => p.id !== productId);
+          renderProducts(allProducts);
+          loadDashboard();
+        } else {
+          alert('Error removing product');
         }
-      } catch (err) { alert('Error approving product.'); }
-    }
-
-    function openRejectModal(productId) {
-      rejectProductId = productId;
-      document.getElementById('rejectReason').value = '';
-      document.getElementById('rejectModal').classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('rejectModal').classList.remove('active');
-      rejectProductId = '';
-    }
-
-    async function confirmReject() {
-      const reason = document.getElementById('rejectReason').value.trim();
-      if (!reason) { alert('Please provide a rejection reason.'); return; }
-      try {
-        const res = await fetch('/api/admin/reject-product', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + adminSecret },
-          body: JSON.stringify({ product_id: rejectProductId, reason })
-        });
-        if (res.ok) {
-          document.getElementById('product-' + rejectProductId)?.remove();
-          const remaining = document.querySelectorAll('[id^="product-"]').length;
-          document.getElementById('statPending').textContent = remaining;
-          if (remaining === 0) {
-            document.getElementById('pendingEmpty').style.display = 'block';
-            document.getElementById('pendingList').style.display = 'none';
-          }
-          closeModal();
-          alert('Product rejected.');
-        }
-      } catch (err) { alert('Error rejecting product.'); }
-    }
-
-    async function approveSeller(sellerId) {
-      if (!confirm('Permanently approve this seller?')) return;
-      try {
-        const res = await fetch('/api/admin/approve-seller', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + adminSecret },
-          body: JSON.stringify({ seller_id: sellerId })
-        });
-        if (res.ok) { alert('✅ Seller permanently approved!'); loadSellers(); }
-      } catch (err) { alert('Error approving seller.'); }
-    }
-
-    async function suspendSeller(sellerId) {
-      if (!confirm('Suspend this seller? They will not be able to login.')) return;
-      try {
-        const res = await fetch('/api/admin/suspend-seller', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + adminSecret },
-          body: JSON.stringify({ seller_id: sellerId })
-        });
-        if (res.ok) { alert('Seller suspended.'); loadSellers(); }
-      } catch (err) { alert('Error suspending seller.'); }
+      } catch (err) {
+        alert('Connection error');
+      }
     }
   </script>
 </body>
