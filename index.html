@@ -75,11 +75,13 @@
       flex: 1;
       max-width: 560px;
       display: flex;
+      align-items: center;
       background: rgba(255,255,255,0.1);
       border: 1.5px solid rgba(255,255,255,0.2);
       border-radius: 10px;
       overflow: hidden;
       transition: border-color 0.2s, background 0.2s;
+      width: 100%;
     }
     .header-search:focus-within {
       background: rgba(255,255,255,0.15);
@@ -87,6 +89,7 @@
     }
     #search-input {
       flex: 1;
+      min-width: 0;
       background: none;
       border: none;
       outline: none;
@@ -94,7 +97,6 @@
       font-family: 'Open Sans', sans-serif;
       font-size: 0.92rem;
       color: var(--white);
-      min-width: 0;
     }
     #search-input::placeholder { color: rgba(255,255,255,0.5); }
     .search-btn {
@@ -109,6 +111,7 @@
       transition: background 0.2s;
       white-space: nowrap;
       flex-shrink: 0;
+      flex-grow: 0;
     }
     .search-btn:hover { background: var(--gold2); }
 
