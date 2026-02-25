@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product - Shoppizzy</title>
+  <meta name="description" content="View product details and pricing.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #f9fafb; color: #111827; line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    
+    /* Header */
+    header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .logo { font-size: 24px; font-weight: 800; color: #2563eb; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #2563eb, #0ea5e9); border-radius: 8px; display: grid; place-items: center; color: #fff; font-weight: 800; }
+    nav { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+    nav a { text-decoration: none; color: #6b7280; font-weight: 600; transition: color 0.2s; }
+    nav a:hover { color: #2563eb; }
+
+    /* Breadcrumb */
+    .breadcrumb { padding: 20px 0; font-size: 14px; color: #6b7280; }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* Product Layout */
+    .product-section { padding: 40px 0 80px; }
+    .product-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    
+    /* Images */
+    .product-images { position: sticky; top: 100px; }
+    .main-image { width: 100%; height: 500px; background: #fff; border-radius: 12px; overflow: hidden; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .main-image img { width: 100%; height: 100%; object-fit: contain; }
+    .main-image .placeholder { font-size: 120px; color: #d1d5db; }
+    .image-thumbnails { display: flex; gap: 12px; overflow-x: auto; }
+    .thumbnail { width: 80px; height: 80px; border-radius: 8px; overflow: hidden; cursor: pointer; border: 2px solid #e5e7eb; transition: all 0.2s; flex-shrink: 0; }
+    .thumbnail:hover { border-color: #2563eb; }
+    .thumbnail.active { border-color: #2563eb; }
+    .thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Product Info */
+    .product-info { }
+    .product-type { display: inline-block; padding: 6px 16px; background: #eff6ff; color: #2563eb; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+    .product-type.affiliate { background: #fef3c7; color: #d97706; }
+    .product-title { font-size: 32px; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
+    .product-price { font-size: 48px; font-weight: 800; color: #2563eb; margin-bottom: 24px; }
+    .product-merchant { font-size: 16px; color: #6b7280; margin-bottom: 24px; padding: 16px; background: #f9fafb; border-radius: 8px; }
+    .product-merchant strong { color: #374151; }
+
+    /* Buy Button */
+    .buy-section { margin: 32px 0; padding: 32px; background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .btn-buy { display: block; width: 100%; padding: 18px 32px; background: #2563eb; color: #fff; border: none; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.2s; text-align: center; text-decoration: none; font-family: inherit; }
+    .btn-buy:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.4); }
+    .btn-buy-secondary { background: #f97316; }
+    .btn-buy-secondary:hover { background: #ea580c; }
+    .buy-note { text-align: center; margin-top: 12px; font-size: 13px; color: #6b7280; }
+
+    /* Description */
+    .product-description { margin-top: 40px; }
+    .section-title { font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #111827; }
+    .description-text { color: #374151; line-height: 1.8; white-space: pre-wrap; }
+
+    /* Specs */
+    .product-specs { margin-top: 40px; }
+    .specs-list { list-style: none; }
+    .specs-list li { padding: 12px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; }
+    .specs-list li:last-child { border-bottom: none; }
+    .spec-label { font-weight: 600; color: #374151; }
+    .spec-value { color: #6b7280; }
+
+    /* Loading/Error */
+    .loading { text-align: center; padding: 80px 20px; color: #6b7280; font-size: 18px; }
+    .error-state { text-align: center; padding: 80px 20px; }
+    .error-state .icon { font-size: 64px; margin-bottom: 16px; }
+    .error-state h3 { font-size: 24px; font-weight: 700; color: #374151; margin-bottom: 8px; }
+    .error-state p { color: #6b7280; }
+
+    /* Footer */
+    footer { background: #111827; color: #9ca3af; padding: 40px 0; text-align: center; margin-top: 60px; }
+    footer a { color: #2563eb; text-decoration: none; }
+
+    @media (max-width: 968px) {
+      .product-container { grid-template-columns: 1fr; gap: 40px; }
+      .product-images { position: static; }
+      .main-image { height: 400px; }
+      .product-title { font-size: 24px; }
+      .product-price { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <a href="/" class="logo">
+        <span class="logo-icon">S</span>
+        <span>Shoppizzy</span>
+      </a>
+      <nav>
+        <a href="/shop.html">Shop</a>
+        <a href="/">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/shop.html">Shop</a> / <span id="breadcrumbProduct">Product</span>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div id="loadingState" class="loading">
+    Loading product...
+  </div>
+
+  <!-- Error State -->
+  <div id="errorState" class="error-state" style="display:none;">
+    <div class="icon">❌</div>
+    <h3>Product Not Found</h3>
+    <p>Sorry, we couldn't find this product.</p>
+    <a href="/shop.html" style="display:inline-block;margin-top:20px;padding:12px 24px;background:#2563eb;color:#fff;border-radius:8px;text-decoration:none;font-weight:700;">Browse All Products</a>
+  </div>
+
+  <!-- Product Section -->
+  <div class="container">
+    <section class="product-section" id="productSection" style="display:none;">
+      <div class="product-container">
+        
+        <!-- Images -->
+        <div class="product-images">
+          <div class="main-image" id="mainImage">
+            <div class="placeholder">📦</div>
+          </div>
+          <div class="image-thumbnails" id="thumbnails"></div>
+        </div>
+
+        <!-- Info -->
+        <div class="product-info">
+          <span class="product-type" id="productType">Loading...</span>
+          <h1 class="product-title" id="productTitle">Loading...</h1>
+          <div class="product-price" id="productPrice">$0.00</div>
+          
+          <div class="product-merchant" id="productMerchant" style="display:none;">
+            <strong>Sold by:</strong> <span id="merchantName"></span>
+          </div>
+
+          <!-- Buy Section -->
+          <div class="buy-section">
+            <button class="btn-buy" id="buyButton" onclick="buyNow()">
+              Buy Now
+            </button>
+            <p class="buy-note" id="buyNote"></p>
+          </div>
+
+          <!-- Description -->
+          <div class="product-description">
+            <h2 class="section-title">Description</h2>
+            <div class="description-text" id="productDescription">Loading...</div>
+          </div>
+
+          <!-- Specs -->
+          <div class="product-specs" id="productSpecs" style="display:none;">
+            <h2 class="section-title">Product Details</h2>
+            <ul class="specs-list" id="specsList"></ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Shoppizzy. Your destination for great deals.</p>
+      <p style="margin-top:12px;">
+        <a href="/terms.html">Terms</a> · 
+        <a href="/privacy.html">Privacy</a> · 
+        <a href="/contact.html">Contact</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const API = ''; // Same origin
+    let currentProduct = null;
+    let currentImages = [];
+
+    // Load product on page load
+    window.addEventListener('load', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id');
+
+      if (!productId) {
+        showError();
+        return;
+      }
+
+      await loadProduct(productId);
+    });
+
+    async function loadProduct(productId) {
+      try {
+        const res = await fetch(`/api/products/${productId}`);
+        const data = await res.json();
+
+        if (!res.ok || !data.product) {
+          showError();
+          return;
+        }
+
+        currentProduct = data.product;
+        renderProduct(currentProduct);
+      } catch (err) {
+        console.error('Error loading product:', err);
+        showError();
+      }
+    }
+
+    function renderProduct(product) {
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('productSection').style.display = 'block';
+
+      // Breadcrumb
+      document.getElementById('breadcrumbProduct').textContent = product.title;
+
+      // Type badge
+      const typeEl = document.getElementById('productType');
+      if (product.type === 'affiliate') {
+        typeEl.textContent = 'Affiliate Deal';
+        typeEl.classList.add('affiliate');
+      } else {
+        typeEl.textContent = 'Direct Sale';
+      }
+
+      // Basic info
+      document.getElementById('productTitle').textContent = product.title;
+      document.getElementById('productPrice').textContent = `$${parseFloat(product.price).toFixed(2)}`;
+      document.getElementById('productDescription').textContent = product.description || 'No description available.';
+
+      // Merchant info
+      if (product.merchant_name) {
+        document.getElementById('productMerchant').style.display = 'block';
+        document.getElementById('merchantName').textContent = product.merchant_name;
+      }
+
+      // Images
+      const images = JSON.parse(product.image_urls || product.image_url || '[]');
+      currentImages = Array.isArray(images) ? images : (images ? [images] : []);
+      
+      if (currentImages.length > 0) {
+        renderImages(currentImages);
+      }
+
+      // Buy button
+      const buyBtn = document.getElementById('buyButton');
+      const buyNote = document.getElementById('buyNote');
+
+      if (product.type === 'affiliate') {
+        buyBtn.textContent = `Shop at ${product.merchant_name || 'Merchant'}`;
+        buyBtn.classList.add('btn-buy-secondary');
+        buyNote.textContent = 'You will be redirected to the merchant\'s website to complete your purchase';
+      } else {
+        buyBtn.textContent = 'Buy Now';
+        buyNote.textContent = 'Secure checkout powered by Square';
+      }
+
+      // Specs (if available)
+      if (product.weight_grams || product.category || product.item_condition) {
+        const specsList = document.getElementById('specsList');
+        specsList.innerHTML = '';
+
+        if (product.category) {
+          specsList.innerHTML += `<li><span class="spec-label">Category</span><span class="spec-value">${formatCategory(product.category)}</span></li>`;
+        }
+        if (product.item_condition) {
+          specsList.innerHTML += `<li><span class="spec-label">Condition</span><span class="spec-value">${formatCondition(product.item_condition)}</span></li>`;
+        }
+        if (product.weight_grams) {
+          const lbs = (product.weight_grams / 453.592).toFixed(2);
+          specsList.innerHTML += `<li><span class="spec-label">Weight</span><span class="spec-value">${lbs} lbs</span></li>`;
+        }
+
+        document.getElementById('productSpecs').style.display = 'block';
+      }
+
+      // Update page title
+      document.title = `${product.title} - Shoppizzy`;
+    }
+
+    function renderImages(images) {
+      const mainImage = document.getElementById('mainImage');
+      const thumbnails = document.getElementById('thumbnails');
+
+      // Main image
+      mainImage.innerHTML = `<img src="${images[0]}" alt="Product image">`;
+
+      // Thumbnails (if multiple images)
+      if (images.length > 1) {
+        thumbnails.innerHTML = images.map((img, i) => `
+          <div class="thumbnail ${i === 0 ? 'active' : ''}" onclick="changeImage(${i})">
+            <img src="${img}" alt="Thumbnail ${i + 1}">
+          </div>
+        `).join('');
+      }
+    }
+
+    function changeImage(index) {
+      const mainImage = document.getElementById('mainImage');
+      mainImage.innerHTML = `<img src="${currentImages[index]}" alt="Product image">`;
+      
+      // Update active thumbnail
+      document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === index);
+      });
+    }
+
+    function buyNow() {
+      if (!currentProduct) return;
+
+      if (currentProduct.type === 'affiliate') {
+        // Track click
+        trackClick(currentProduct.id);
+        
+        // Redirect to affiliate link
+        if (currentProduct.affiliate_link) {
+          window.location.href = currentProduct.affiliate_link;
+        } else {
+          alert('Affiliate link not available');
+        }
+      } else {
+        // Direct sale - go to Square checkout
+        createCheckout();
+      }
+    }
+
+    async function trackClick(productId) {
+      try {
+        await fetch('/api/track-click', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ product_id: productId })
+        });
+      } catch (err) {
+        console.error('Track click error:', err);
+      }
+    }
+
+    async function createCheckout() {
+      const buyBtn = document.getElementById('buyButton');
+      buyBtn.disabled = true;
+      buyBtn.textContent = 'Loading checkout...';
+
+      try {
+        const res = await fetch('/api/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: [{
+              name: currentProduct.title,
+              price: currentProduct.price,
+              quantity: 1
+            }],
+            shipping: { cost: 9.99 } // TODO: Calculate real shipping
+          })
+        });
+
+        const data = await res.json();
+
+        if (data.checkoutUrl) {
+          window.location.href = data.checkoutUrl;
+        } else {
+          alert('Checkout error. Please try again.');
+          buyBtn.disabled = false;
+          buyBtn.textContent = 'Buy Now';
+        }
+      } catch (err) {
+        console.error('Checkout error:', err);
+        alert('Checkout error. Please try again.');
+        buyBtn.disabled = false;
+        buyBtn.textContent = 'Buy Now';
+      }
+    }
+
+    function showError() {
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('errorState').style.display = 'block';
+    }
+
+    function formatCategory(cat) {
+      return cat.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
+
+    function formatCondition(cond) {
+      return cond.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
+  </script>
+</body>
+</html>
