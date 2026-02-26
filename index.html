@@ -585,12 +585,19 @@
     sel.innerHTML = '<option value="">All Merchants</option>' +
       merchants.map(m => `<option value="${escHtml(m)}">${escHtml(m)}</option>`).join('');
   }
-
-  function applyFilters() {
-    const merchant   = document.getElementById('merchant-filter').value;
-    filteredProducts = merchant ? allProducts.filter(p => (p.advertiserName || p.merchant_name) === merchant) : allProducts;
-    renderResults(filteredProducts, currentQuery, currentTotal);
+function applyFilters() {
+  const merchant   = document.getElementById('merchant-filter').value;
+  if (merchant) {
+    filteredProducts = allProducts.filter(p => {
+      const productMerchant = (p.advertiserName || p.merchant_name || '').toLowerCase();
+      return productMerchant.includes(merchant.toLowerCase());
+    });
+  } else {
+    filteredProducts = allProducts;
   }
+  renderResults(filteredProducts, currentQuery, currentTotal);
+}
+  
 
   function renderResults(products, query, total) {
     const grid = document.getElementById('product-grid');
