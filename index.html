@@ -585,19 +585,12 @@
     sel.innerHTML = '<option value="">All Merchants</option>' +
       merchants.map(m => `<option value="${escHtml(m)}">${escHtml(m)}</option>`).join('');
   }
-function applyFilters() {
-  const merchant   = document.getElementById('merchant-filter').value;
-  if (merchant) {
-    filteredProducts = allProducts.filter(p => {
-      const productMerchant = (p.advertiserName || p.merchant_name || '').toLowerCase();
-      return productMerchant.includes(merchant.toLowerCase());
-    });
-  } else {
-    filteredProducts = allProducts;
+
+  function applyFilters() {
+    const merchant   = document.getElementById('merchant-filter').value;
+    filteredProducts = merchant ? allProducts.filter(p => (p.advertiserName || p.merchant_name) === merchant) : allProducts;
+    renderResults(filteredProducts, currentQuery, currentTotal);
   }
-  renderResults(filteredProducts, currentQuery, currentTotal);
-}
-  
 
   function renderResults(products, query, total) {
     const grid = document.getElementById('product-grid');
@@ -630,14 +623,16 @@ function applyFilters() {
     const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>🛍️</div>`;
 
     const productLink = `/product.html?id=${encodeURIComponent(p.id)}`;
-    const sourceBadge = p.source === 'square' ? 'Direct' : p.source === 'rakuten' ? 'Rakuten' : 'CJ';
+    
+    // Show merchant name instead of source badge
     const merchantName = p.advertiserName || p.merchant_name || 'Merchant';
+    const badgeText = p.source === 'square' ? 'Shoppizzy' : merchantName;
 
     return `
       <a class="product-card" href="${productLink}" ${onclickAttr}>
         <div class="product-img-wrap">
           ${imgHtml}${placeholderHtml}
-          <div class="source-badge">${sourceBadge}</div>
+          <div class="source-badge">${escHtml(badgeText)}</div>
           ${hasSale ? '<div class="sale-badge">SALE</div>' : ''}
         </div>
         <div class="product-info">
