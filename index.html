@@ -132,7 +132,7 @@
 
     /* PRODUCT GRID */
     .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-    .product-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
+    .product-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; text-decoration: none; color: inherit; }
     .product-card:hover { box-shadow: 0 8px 28px rgba(10,31,60,0.12); transform: translateY(-3px); border-color: var(--navy); }
     .product-img-wrap { width: 100%; padding-top: 100%; position: relative; background: var(--light); overflow: hidden; }
     .product-img-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
@@ -147,8 +147,6 @@
     .price-sale { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; color: var(--red); }
     .price-regular { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; color: var(--navy); }
     .price-was { font-size: 0.8rem; color: var(--muted); text-decoration: line-through; }
-    .buy-btn { display: block; margin-top: auto; background: var(--navy); color: var(--white); text-align: center; padding: 10px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; text-decoration: none; transition: background 0.2s; }
-    .buy-btn:hover { background: var(--gold); color: var(--navy); }
 
     /* RELATED SEARCHES */
     .related-searches { margin-top: 24px; padding-top: 16px; border-top: 1.5px solid var(--border); }
@@ -309,7 +307,7 @@
         <div class="how-step">
           <div class="how-step-num">3</div>
           <h3>Buy Direct</h3>
-          <p>Click Shop Now and buy directly from the merchant. No middleman markup. No hidden fees.</p>
+          <p>Click the product to see details, then buy directly from the merchant. No middleman markup. No hidden fees.</p>
         </div>
       </div>
     </div>
@@ -415,14 +413,12 @@
     toys:           ['lego','action figures','board games','educational toys'],
   };
 
-  // Init
   document.getElementById('search-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') doSearch(1);
   });
   loadDeals();
   loadRecentlyViewed();
 
-  // DEALS BANNER
   let dealsPage     = 0;
   let dealsProducts = [];
   const DEALS_VISIBLE = 6;
@@ -458,9 +454,9 @@
     track.innerHTML = visible.map(p => {
       const sale = parseFloat(p.salePrice).toFixed(2);
       const was  = parseFloat(p.price).toFixed(2);
-      const pData = encodeURIComponent(JSON.stringify(p));
+      const productLink = `/product.html?id=${encodeURIComponent(p.id)}`;
       return `
-        <a class="deal-card" href="${escHtml(p.buyUrl)}" target="_blank" rel="noopener" onclick="saveRecentEncoded('${pData}')">
+        <a class="deal-card" href="${productLink}">
           <div class="deal-img"><img src="${escHtml(p.imageUrl)}" loading="lazy" alt="${escHtml(p.title)}"></div>
           <div class="deal-info">
             <div class="deal-name">${escHtml(p.title)}</div>
@@ -482,7 +478,6 @@
     renderDeals();
   }
 
-  // RECENTLY VIEWED
   function saveRecentEncoded(encoded) {
     try { saveRecent(JSON.parse(decodeURIComponent(encoded))); } catch(e) {}
   }
@@ -506,7 +501,6 @@
     document.getElementById('recent-grid').innerHTML = recent.map(p => renderCard(p, false)).join('');
   }
 
-  // SEARCH
   function searchCategory(cat) {
     document.getElementById('search-input').value = cat;
     doSearch(1);
@@ -586,7 +580,7 @@
   }
 
   function populateMerchantFilter(products) {
-    const merchants = [...new Set(products.map(p => p.advertiserName))].sort();
+    const merchants = [...new Set(products.map(p => p.advertiserName || p.merchant_name))].filter(Boolean).sort();
     const sel = document.getElementById('merchant-filter');
     sel.innerHTML = '<option value="">All Merchants</option>' +
       merchants.map(m => `<option value="${escHtml(m)}">${escHtml(m)}</option>`).join('');
@@ -594,659 +588,7 @@
 
   function applyFilters() {
     const merchant   = document.getElementById('merchant-filter').value;
-    filteredProducts = merchant ? allProducts.filter(p => p.advertiserName === merchant) : allProducts;
-    renderResults(filteredProducts, currentQuery, currentTotal);
-  }
-
-  function renderResults(products, query, total) {
-    const grid = document.getElementById('product-grid');
-    document.getElementById('results-title').innerHTML =
-      `<span>${total.toLocaleString()}</span> results for "${escHtml(query)}"`;
-
-    if (!products.length) {
-      grid.innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1">
-          <div class="empty-icon">🔍</div>
-          <h3>No products found</h3>
-          <p>Try a more specific search term or browse a category.</p>
-        </div>`;
-      return;
-    }
-    grid.innerHTML = products.map(p => renderCard(p, true)).join('');
-  }
-function renderCard(p, trackView = false) {
-    const hasSale  = p.salePrice && p.salePrice !== '' && parseFloat(p.salePrice) > 0;
-    const price    = hasSale ? p.salePrice : p.price;
-    const priceStr = price ? `$${parseFloat(price).toFixed(2)}` : '';
-    const wasStr   = hasSale && p.price ? `$${parseFloat(p.price).toFixed(2)}` : '';
-    const pEncoded = trackView ? encodeURIComponent(JSON.stringify(p)) : '';
-    const onclickAttr = trackView ? `onclick="saveRecentEncoded('${pEncoded}')"` : '';
-
-    const imgHtml = p.imageUrl
-      ? `<img src="${escHtml(p.imageUrl)}" alt="${escHtml(p.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-      : '';
-    const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>🛍️</div>`;
-
-    // FIXED: Link to product detail page instead of direct to merchant
-    const productLink = `/product.html?id=${encodeURIComponent(p.id)}`;
-    const sourceBadge = p.source === 'square' ? 'Direct' : p.source === 'rakuten' ? 'Rakuten' : 'CJ';
-    const merchantName = p.advertiserName || p.merchant_name || 'Merchant';
-
-    return `
-      <a class="product-card" href="${productLink}" ${onclickAttr}>
-        <div class="product-img-wrap">
-          ${imgHtml}${placeholderHtml}
-          <div class="source-badge">${sourceBadge}</div>
-          ${hasSale ? '<div class="sale-badge">SALE</div>' : ''}
-        </div>
-        <div class="product-info">
-          <div class="product-merchant">${escHtml(merchantName)}</div>
-          <div class="product-title">${escHtml(p.title)}</div>
-          <div class="product-price">
-            ${hasSale
-              ? `<span class="price-sale">${priceStr}</span><span class="price-was">${wasStr}</span>`
-              : `<span class="price-regular">${priceStr}</span>`}
-          </div>
-        </div>
-      </a>`;
-  }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shoppizzy — Shop The World</title>
-  <meta name="description" content="Clean, simple shopping from hundreds of thousands of products across the world's best merchants.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --navy:     #0a1f3c;
-      --navy2:    #122952;
-      --gold:     #c9a84c;
-      --gold2:    #e8c96a;
-      --white:    #ffffff;
-      --offwhite: #f7f8fa;
-      --light:    #eef1f6;
-      --text:     #1a2a3a;
-      --muted:    #6b7a8d;
-      --border:   #d6dce6;
-      --red:      #b22222;
-    }
-
-    body {
-      font-family: 'Open Sans', system-ui, sans-serif;
-      background: var(--offwhite);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      padding-bottom: 70px;
-    }
-
-    /* HEADER */
-    header {
-      background: var(--navy);
-      padding: 0 24px;
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    }
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      gap: 16px;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-    .logo-anchor { font-size: 26px; line-height: 1; }
-    .logo-name { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--white); letter-spacing: -0.5px; }
-    .logo-name span { color: var(--gold); }
-    .header-nav { display: flex; gap: 20px; align-items: center; }
-    .header-nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; transition: color 0.2s; white-space: nowrap; }
-    .header-nav a:hover { color: var(--gold); }
-
-    /* SEARCH BAR */
-    #search-bar-wrap { background: #fff; border-bottom: 1.5px solid var(--border); padding: 16px 24px; position: sticky; top: 64px; z-index: 190; }
-    .search-box { max-width: 700px; margin: 0 auto; }
-    .search-input-row { display: flex; align-items: center; background: var(--offwhite); border: 2px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
-    .search-input-row:focus-within { border-color: var(--navy); }
-    #search-input { flex: 1; min-width: 0; background: none; border: none; outline: none; padding: 12px 16px; font-family: 'Open Sans', sans-serif; font-size: 0.95rem; color: var(--text); }
-    #search-input::placeholder { color: var(--muted); }
-    .search-btn { flex-shrink: 0; background: var(--gold); border: none; padding: 12px 24px; color: var(--navy); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-    .search-btn:hover { background: var(--gold2); }
-    .search-tip { text-align: center; font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
-
-    /* DEALS BANNER */
-    .deals-banner { background: var(--navy); overflow: hidden; }
-    .deals-banner-header { max-width: 1200px; margin: 0 auto; padding: 16px 24px 8px; display: flex; align-items: center; justify-content: space-between; }
-    .deals-banner-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1.5px; }
-    .deals-track-wrap { overflow: hidden; padding: 0 24px 12px; max-width: 1200px; margin: 0 auto; }
-    .deals-track { display: flex; gap: 16px; transition: transform 0.5s ease; }
-    .deal-card { flex-shrink: 0; width: 155px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; overflow: hidden; cursor: pointer; transition: background 0.2s; text-decoration: none; }
-    .deal-card:hover { background: rgba(255,255,255,0.14); }
-    .deal-img { width: 100%; padding-top: 100%; position: relative; background: rgba(255,255,255,0.05); overflow: hidden; }
-    .deal-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .deal-info { padding: 10px; }
-    .deal-name { font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--white); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 6px; line-height: 1.3; }
-    .deal-prices { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .deal-sale { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--gold); }
-    .deal-was { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-decoration: line-through; }
-    .deals-dots { display: flex; justify-content: center; gap: 6px; padding-bottom: 14px; }
-    .deals-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); cursor: pointer; transition: background 0.2s; }
-    .deals-dot.active { background: var(--gold); }
-
-    /* CATEGORIES */
-    .categories-section { max-width: 1200px; margin: 0 auto; padding: 36px 24px; }
-    .section-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; color: var(--navy); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-    .section-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(to right, var(--gold), transparent); }
-    .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .category-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 8px; min-height: 90px; }
-    .category-card:hover { border-color: var(--navy); background: var(--navy); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(10,31,60,0.15); }
-    .category-card:hover .cat-icon { background: rgba(201,168,76,0.2); }
-    .category-card:hover .cat-name { color: var(--white); }
-    .cat-icon { width: 42px; height: 42px; background: var(--light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: background 0.2s; }
-    .cat-name { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.75rem; color: var(--text); transition: color 0.2s; line-height: 1.3; }
-
-    /* HOW IT WORKS */
-    .how-section { background: var(--white); border-top: 1.5px solid var(--border); border-bottom: 1.5px solid var(--border); padding: 40px 24px; }
-    .how-inner { max-width: 900px; margin: 0 auto; }
-    .how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 24px; }
-    .how-step { text-align: center; }
-    .how-step-num { width: 48px; height: 48px; background: var(--navy); color: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.2rem; margin: 0 auto 12px; }
-    .how-step h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--navy); margin-bottom: 6px; }
-    .how-step p { font-size: 0.82rem; color: var(--muted); }
-
-    /* RECENTLY VIEWED */
-    .recent-section { max-width: 1200px; margin: 0 auto; padding: 32px 24px 0; }
-
-    /* RESULTS */
-    #results-section { display: none; max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
-    #results-section.active { display: block; }
-    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
-    .results-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; color: var(--navy); }
-    .results-title span { color: var(--gold); }
-    .results-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .sort-select, .merchant-filter { background: var(--white); border: 1.5px solid var(--border); color: var(--text); padding: 7px 12px; border-radius: 8px; font-family: 'Open Sans', sans-serif; font-size: 0.82rem; outline: none; cursor: pointer; }
-    .sort-select:focus, .merchant-filter:focus { border-color: var(--navy); }
-
-    /* PRODUCT GRID */
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-    .product-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
-    .product-card:hover { box-shadow: 0 8px 28px rgba(10,31,60,0.12); transform: translateY(-3px); border-color: var(--navy); }
-    .product-img-wrap { width: 100%; padding-top: 100%; position: relative; background: var(--light); overflow: hidden; }
-    .product-img-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-    .product-card:hover .product-img-wrap img { transform: scale(1.04); }
-    .product-img-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--border); }
-    .source-badge { position: absolute; top: 8px; left: 8px; background: var(--navy); color: var(--white); font-size: 0.62rem; font-weight: 700; font-family: 'Montserrat', sans-serif; padding: 3px 8px; border-radius: 100px; text-transform: uppercase; }
-    .sale-badge { position: absolute; top: 8px; right: 8px; background: var(--red); color: var(--white); font-size: 0.62rem; font-weight: 700; font-family: 'Montserrat', sans-serif; padding: 3px 8px; border-radius: 100px; }
-    .product-info { padding: 14px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-    .product-merchant { font-size: 0.68rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-    .product-title { font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--text); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .product-price { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .price-sale { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; color: var(--red); }
-    .price-regular { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; color: var(--navy); }
-    .price-was { font-size: 0.8rem; color: var(--muted); text-decoration: line-through; }
-    .buy-btn { display: block; margin-top: auto; background: var(--navy); color: var(--white); text-align: center; padding: 10px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; text-decoration: none; transition: background 0.2s; }
-    .buy-btn:hover { background: var(--gold); color: var(--navy); }
-
-    /* RELATED SEARCHES */
-    .related-searches { margin-top: 24px; padding-top: 16px; border-top: 1.5px solid var(--border); }
-    .related-label { font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-    .related-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .related-pill { background: var(--white); border: 1.5px solid var(--border); color: var(--navy); padding: 6px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Montserrat', sans-serif; }
-    .related-pill:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
-
-    /* STATES */
-    .loading-state, .empty-state { text-align: center; padding: 60px 24px; color: var(--muted); }
-    .loading-spinner { width: 40px; height: 40px; border: 3px solid var(--light); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .empty-icon { font-size: 3rem; margin-bottom: 12px; }
-    .empty-state h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-
-    /* PAGINATION */
-    .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 40px; flex-wrap: wrap; }
-    .page-btn { background: var(--white); border: 1.5px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
-    .page-btn:hover, .page-btn.active { background: var(--navy); border-color: var(--navy); color: var(--white); }
-    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-    /* FOOTER */
-    footer { background: var(--navy); color: rgba(255,255,255,0.5); padding: 40px 24px 24px; margin-top: 60px; }
-    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; margin-bottom: 32px; }
-    .footer-col h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-    .footer-col p { font-size: 0.8rem; line-height: 1.7; }
-    .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.82rem; margin-bottom: 8px; transition: color 0.2s; }
-    .footer-col a:hover { color: var(--gold); }
-    .contact-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
-    .contact-btn { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.82rem; transition: opacity 0.2s; }
-    .contact-btn:hover { opacity: 0.85; }
-    .contact-btn.whatsapp { background: #25D366; color: #fff; }
-    .contact-btn.telegram { background: #0088cc; color: #fff; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; font-size: 0.78rem; max-width: 1200px; margin: 0 auto; }
-    .footer-bottom span { color: var(--gold); }
-
-    /* MOBILE NAV */
-    .mobile-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); border-top: 1.5px solid rgba(255,255,255,0.1); z-index: 300; padding: 8px 0; }
-    .mobile-nav-inner { display: flex; justify-content: space-around; align-items: center; }
-    .mobile-nav-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: none; border: none; color: rgba(255,255,255,0.5); font-size: 0.62rem; font-family: 'Montserrat', sans-serif; font-weight: 600; cursor: pointer; padding: 6px 16px; transition: color 0.2s; }
-    .mobile-nav-btn.active, .mobile-nav-btn:hover { color: var(--gold); }
-    .mobile-nav-btn span { font-size: 1.3rem; line-height: 1; }
-
-    /* MOBILE */
-    @media (max-width: 600px) {
-      body { padding-bottom: 80px; }
-      .header-nav { display: none; }
-      .mobile-nav { display: block; }
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .category-grid { grid-template-columns: repeat(2, 1fr); }
-      .categories-section, .recent-section { padding: 24px 16px; }
-      #results-section { padding: 20px 16px; }
-      .how-steps { grid-template-columns: 1fr; gap: 20px; }
-      .footer-inner { grid-template-columns: 1fr; gap: 24px; }
-      #search-bar-wrap { padding: 12px 16px; }
-    }
-    @media (max-width: 380px) {
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .product-info { padding: 10px; }
-      .category-card { padding: 14px 8px; min-height: 80px; }
-    }
-  </style>
-</head>
-<body>
-
-<!-- HEADER -->
-<header>
-  <div class="header-inner">
-    <div class="logo" onclick="showHome()">
-      <span class="logo-anchor">🌐</span>
-      <span class="logo-name">Shoppiz<span>zy</span></span>
-    </div>
-    <nav class="header-nav">
-      <a href="about.html">About</a>
-      <a href="#how" onclick="showHome()">How It Works</a>
-      <a href="#contact-section">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<!-- PERSISTENT SEARCH BAR -->
-<div id="search-bar-wrap">
-  <div class="search-box">
-    <div class="search-input-row">
-      <input type="text" id="search-input" placeholder="Search products..." autocomplete="off">
-      <button class="search-btn" onclick="doSearch()">Search</button>
-    </div>
-    <div class="search-tip">Tip: Specific searches return better results — try "men's running shoes" instead of "shoes"</div>
-  </div>
-</div>
-
-<!-- HOME SECTION -->
-<div id="hero-section">
-
-  <!-- DEALS BANNER -->
-  <div class="deals-banner" id="deals-banner">
-    <div class="deals-banner-header">
-      <div class="deals-banner-title">🔥 Hot Deals</div>
-    </div>
-    <div class="deals-track-wrap">
-      <div class="deals-track" id="deals-track"></div>
-    </div>
-    <div class="deals-dots" id="deals-dots"></div>
-  </div>
-
-  <!-- CATEGORIES -->
-  <div class="categories-section">
-    <div class="section-title">Browse by Category</div>
-    <div class="category-grid">
-      <div class="category-card" onclick="searchCategory('Accessories')"><div class="cat-icon">👜</div><div class="cat-name">Accessories</div></div>
-      <div class="category-card" onclick="searchCategory('Appliances')"><div class="cat-icon">🏠</div><div class="cat-name">Appliances</div></div>
-      <div class="category-card" onclick="searchCategory('Automotive')"><div class="cat-icon">🚗</div><div class="cat-name">Automotive</div></div>
-      <div class="category-card" onclick="searchCategory('Baby')"><div class="cat-icon">🍼</div><div class="cat-name">Baby</div></div>
-      <div class="category-card" onclick="searchCategory('Beauty')"><div class="cat-icon">💄</div><div class="cat-name">Beauty</div></div>
-      <div class="category-card" onclick="searchCategory('Books')"><div class="cat-icon">📚</div><div class="cat-name">Books</div></div>
-      <div class="category-card" onclick="searchCategory('Clothing')"><div class="cat-icon">👕</div><div class="cat-name">Clothing</div></div>
-      <div class="category-card" onclick="searchCategory('Computers')"><div class="cat-icon">💻</div><div class="cat-name">Computers</div></div>
-      <div class="category-card" onclick="searchCategory('DVDs')"><div class="cat-icon">💿</div><div class="cat-name">DVDs</div></div>
-      <div class="category-card" onclick="searchCategory('Electronics')"><div class="cat-icon">📱</div><div class="cat-name">Electronics</div></div>
-      <div class="category-card" onclick="searchCategory('Flowers')"><div class="cat-icon">🌸</div><div class="cat-name">Flowers</div></div>
-      <div class="category-card" onclick="searchCategory('Footwear')"><div class="cat-icon">👟</div><div class="cat-name">Footwear</div></div>
-      <div class="category-card" onclick="searchCategory('Games')"><div class="cat-icon">🎮</div><div class="cat-name">Games</div></div>
-      <div class="category-card" onclick="searchCategory('Gifts')"><div class="cat-icon">🎁</div><div class="cat-name">Gifts</div></div>
-      <div class="category-card" onclick="searchCategory('Grocery')"><div class="cat-icon">🛒</div><div class="cat-name">Grocery</div></div>
-      <div class="category-card" onclick="searchCategory('Health Beauty')"><div class="cat-icon">🩺</div><div class="cat-name">Health & Beauty</div></div>
-      <div class="category-card" onclick="searchCategory('Home Garden')"><div class="cat-icon">🌿</div><div class="cat-name">Home & Garden</div></div>
-      <div class="category-card" onclick="searchCategory('Household')"><div class="cat-icon">🏡</div><div class="cat-name">Household</div></div>
-      <div class="category-card" onclick="searchCategory('Jewelry')"><div class="cat-icon">💍</div><div class="cat-name">Jewelry</div></div>
-      <div class="category-card" onclick="searchCategory('Luggage')"><div class="cat-icon">🧳</div><div class="cat-name">Luggage</div></div>
-      <div class="category-card" onclick="searchCategory('Pet Care')"><div class="cat-icon">🐾</div><div class="cat-name">Pet Care</div></div>
-      <div class="category-card" onclick="searchCategory('Sporting Goods')"><div class="cat-icon">🏋️</div><div class="cat-name">Sporting Goods</div></div>
-      <div class="category-card" onclick="searchCategory('Telecommunications')"><div class="cat-icon">📡</div><div class="cat-name">Telecom</div></div>
-      <div class="category-card" onclick="searchCategory('Toys')"><div class="cat-icon">🧸</div><div class="cat-name">Toys</div></div>
-    </div>
-  </div>
-
-  <!-- RECENTLY VIEWED -->
-  <div class="recent-section" id="recent-section" style="display:none;">
-    <div class="section-title">Recently Viewed</div>
-    <div class="product-grid" id="recent-grid"></div>
-  </div>
-
-  <!-- HOW IT WORKS -->
-  <div class="how-section" id="how">
-    <div class="how-inner">
-      <div class="section-title">How It Works</div>
-      <div class="how-steps">
-        <div class="how-step">
-          <div class="how-step-num">1</div>
-          <h3>Search</h3>
-          <p>Type what you're looking for. Access hundreds of thousands of products from top merchants instantly.</p>
-        </div>
-        <div class="how-step">
-          <div class="how-step-num">2</div>
-          <h3>Find</h3>
-          <p>Browse clean, clutter-free results. Compare prices and find exactly what you need — no noise.</p>
-        </div>
-        <div class="how-step">
-          <div class="how-step-num">3</div>
-          <h3>Buy Direct</h3>
-          <p>Click Shop Now and buy directly from the merchant. No middleman markup. No hidden fees.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- end hero-section -->
-
-<!-- RESULTS SECTION -->
-<div id="results-section">
-  <div class="results-header">
-    <div class="results-title" id="results-title">Results</div>
-    <div class="results-controls">
-      <select class="merchant-filter" id="merchant-filter" onchange="applyFilters()">
-        <option value="">All Merchants</option>
-      </select>
-      <select class="sort-select" id="sort-select" onchange="doSearch(1)">
-        <option value="price-asc">Price: Low to High</option>
-        <option value="price-desc">Price: High to Low</option>
-      </select>
-    </div>
-  </div>
-  <div id="product-grid" class="product-grid"></div>
-  <div id="related-searches" class="related-searches" style="display:none;"></div>
-  <div id="pagination" class="pagination"></div>
-</div>
-
-<!-- FOOTER -->
-<footer id="contact-section">
-  <div class="footer-inner">
-    <div class="footer-col">
-      <h4>About Shoppizzy</h4>
-      <p>Clean, simple access to hundreds of thousands of products from the world's best merchants. No clutter. No middleman markup. Just great products at great prices.</p>
-      <br>
-      <a href="about.html">Learn more →</a>
-    </div>
-    <div class="footer-col">
-      <h4>Quick Links</h4>
-      <a href="about.html">About Us</a>
-      <a href="#how" onclick="showHome()">How It Works</a>
-      <a href="javascript:void(0)" onclick="showHome()">Browse Categories</a>
-    </div>
-    <div class="footer-col">
-      <h4>Contact Us</h4>
-      <p style="margin-bottom:12px;font-size:0.8rem;">Have questions? Reach us on WhatsApp or Telegram.</p>
-      <div class="contact-btns">
-        <a class="contact-btn whatsapp" href="https://wa.me/YOUR_WHATSAPP_NUMBER" target="_blank" rel="noopener">
-          <span>💬</span> WhatsApp
-        </a>
-        <a class="contact-btn telegram" href="https://t.me/YOUR_TELEGRAM_USERNAME" target="_blank" rel="noopener">
-          <span>✈️</span> Telegram
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    &copy; 2026 <span>Shoppizzy</span> — BSM Enterpryzes. All rights reserved.
-  </div>
-</footer>
-
-<!-- MOBILE BOTTOM NAV -->
-<nav class="mobile-nav">
-  <div class="mobile-nav-inner">
-    <button class="mobile-nav-btn active" id="nav-home" onclick="showHome()">
-      <span>🏠</span>Home
-    </button>
-    <button class="mobile-nav-btn" id="nav-search" onclick="focusSearch()">
-      <span>🔍</span>Search
-    </button>
-    <button class="mobile-nav-btn" id="nav-cats" onclick="showCategories()">
-      <span>☰</span>Categories
-    </button>
-    <button class="mobile-nav-btn" id="nav-about" onclick="window.location='about.html'">
-      <span>ℹ️</span>About
-    </button>
-  </div>
-</nav>
-
-<script>
-  const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
-  let currentPage      = 1;
-  let currentQuery     = '';
-  let currentTotal     = 0;
-  let allProducts      = [];
-  let filteredProducts = [];
-  const LIMIT          = 20;
-  const RECENT_KEY     = 'shoppizzy_recent';
-  const MAX_RECENT     = 8;
-
-  const RELATED_MAP = {
-    shoes:          ['sneakers','boots','sandals','heels','loafers'],
-    watch:          ['smartwatch','luxury watch','mens watch','womens watch'],
-    laptop:         ['gaming laptop','macbook','chromebook','laptop bag'],
-    phone:          ['iphone','samsung','phone case','charger'],
-    clothing:       ['mens clothing','womens clothing','kids clothing','jackets'],
-    baby:           ['baby food','diapers','baby toys','stroller'],
-    jewelry:        ['necklace','bracelet','earrings','rings'],
-    beauty:         ['skincare','makeup','perfume','hair care'],
-    'pet care':     ['dog food','cat food','pet toys','leash'],
-    footwear:       ['running shoes','dress shoes','boots','sandals'],
-    electronics:    ['headphones','smart tv','tablet','speaker'],
-    'sporting goods':['gym equipment','yoga mat','running gear','weights'],
-    grocery:        ['organic food','snacks','beverages','coffee'],
-    toys:           ['lego','action figures','board games','educational toys'],
-  };
-
-  // Init
-  document.getElementById('search-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doSearch(1);
-  });
-  loadDeals();
-  loadRecentlyViewed();
-
-  // DEALS BANNER
-  let dealsPage     = 0;
-  let dealsProducts = [];
-  const DEALS_VISIBLE = 6;
-  let dealsInterval;
-
-  async function loadDeals() {
-    try {
-      const terms = ['shoes','clothing','electronics','beauty','toys','jewelry'];
-      const term  = terms[Math.floor(Math.random() * terms.length)];
-      const res   = await fetch(`${WORKER_URL}/api/products?q=${term}&limit=50&sortBy=price&sortOrder=asc`);
-      const data  = await res.json();
-      dealsProducts = (data.products || [])
-        .filter(p => p.salePrice && parseFloat(p.salePrice) > 0 && p.imageUrl)
-        .slice(0, 24);
-      if (!dealsProducts.length) { document.getElementById('deals-banner').style.display = 'none'; return; }
-      renderDeals();
-      dealsInterval = setInterval(() => {
-        dealsPage = (dealsPage + 1) % Math.ceil(dealsProducts.length / DEALS_VISIBLE);
-        renderDeals();
-      }, 4000);
-    } catch(e) {
-      document.getElementById('deals-banner').style.display = 'none';
-    }
-  }
-
-  function renderDeals() {
-    const track      = document.getElementById('deals-track');
-    const dots       = document.getElementById('deals-dots');
-    const totalPages = Math.ceil(dealsProducts.length / DEALS_VISIBLE);
-    const start      = dealsPage * DEALS_VISIBLE;
-    const visible    = dealsProducts.slice(start, start + DEALS_VISIBLE);
-
-    track.innerHTML = visible.map(p => {
-      const sale = parseFloat(p.salePrice).toFixed(2);
-      const was  = parseFloat(p.price).toFixed(2);
-      const pData = encodeURIComponent(JSON.stringify(p));
-      return `
-        <a class="deal-card" href="${escHtml(p.buyUrl)}" target="_blank" rel="noopener" onclick="saveRecentEncoded('${pData}')">
-          <div class="deal-img"><img src="${escHtml(p.imageUrl)}" loading="lazy" alt="${escHtml(p.title)}"></div>
-          <div class="deal-info">
-            <div class="deal-name">${escHtml(p.title)}</div>
-            <div class="deal-prices">
-              <span class="deal-sale">$${sale}</span>
-              <span class="deal-was">$${was}</span>
-            </div>
-          </div>
-        </a>`;
-    }).join('');
-
-    dots.innerHTML = Array.from({length: totalPages}, (_, i) =>
-      `<div class="deals-dot ${i === dealsPage ? 'active' : ''}" onclick="goDealsPage(${i})"></div>`
-    ).join('');
-  }
-
-  function goDealsPage(page) {
-    dealsPage = page;
-    renderDeals();
-  }
-
-  // RECENTLY VIEWED
-  function saveRecentEncoded(encoded) {
-    try { saveRecent(JSON.parse(decodeURIComponent(encoded))); } catch(e) {}
-  }
-
-  function saveRecent(product) {
-    let recent = getRecent();
-    recent = recent.filter(p => p.id !== product.id);
-    recent.unshift(product);
-    recent = recent.slice(0, MAX_RECENT);
-    try { sessionStorage.setItem(RECENT_KEY, JSON.stringify(recent)); } catch(e) {}
-  }
-
-  function getRecent() {
-    try { return JSON.parse(sessionStorage.getItem(RECENT_KEY) || '[]'); } catch(e) { return []; }
-  }
-
-  function loadRecentlyViewed() {
-    const recent = getRecent();
-    if (!recent.length) return;
-    document.getElementById('recent-section').style.display = 'block';
-    document.getElementById('recent-grid').innerHTML = recent.map(p => renderCard(p, false)).join('');
-  }
-
-  // SEARCH
-  function searchCategory(cat) {
-    document.getElementById('search-input').value = cat;
-    doSearch(1);
-  }
-
-  function showHome() {
-    document.getElementById('hero-section').style.display = '';
-    document.getElementById('results-section').classList.remove('active');
-    document.getElementById('search-input').value = '';
-    setMobileNav('nav-home');
-    loadRecentlyViewed();
-  }
-
-  function focusSearch() {
-    document.getElementById('search-input').focus();
-    setMobileNav('nav-search');
-  }
-
-  function showCategories() {
-    showHome();
-    setTimeout(() => document.querySelector('.categories-section').scrollIntoView({ behavior: 'smooth' }), 100);
-    setMobileNav('nav-cats');
-  }
-
-  function setMobileNav(activeId) {
-    document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
-    const el = document.getElementById(activeId);
-    if (el) el.classList.add('active');
-  }
-
-  async function doSearch(page = 1) {
-    const query = document.getElementById('search-input').value.trim();
-    if (!query) return;
-
-    const sortVal              = document.getElementById('sort-select').value;
-    const [sortBy, sortOrder]  = sortVal.split('-');
-
-    currentQuery = query;
-    currentPage  = page;
-
-    document.getElementById('hero-section').style.display = 'none';
-    document.getElementById('results-section').classList.add('active');
-    document.getElementById('related-searches').style.display = 'none';
-    setMobileNav('nav-search');
-
-    document.getElementById('product-grid').innerHTML = `
-      <div class="loading-state" style="grid-column:1/-1">
-        <div class="loading-spinner"></div>
-        <p>Searching across hundreds of thousands of products...</p>
-      </div>`;
-    document.getElementById('pagination').innerHTML = '';
-    document.getElementById('results-title').innerHTML = `Searching for "<span>${escHtml(query)}</span>"...`;
-
-    try {
-      const params = new URLSearchParams({ q: query, limit: LIMIT, page, sortBy, sortOrder });
-      const res    = await fetch(`${WORKER_URL}/api/products?${params}`);
-      const data   = await res.json();
-
-      allProducts  = data.products || [];
-      currentTotal = data.totalCount || 0;
-
-      populateMerchantFilter(allProducts);
-      filteredProducts = allProducts;
-
-      renderResults(filteredProducts, query, currentTotal);
-      renderPagination(currentTotal, page);
-      renderRelatedSearches(query);
-
-    } catch(err) {
-      document.getElementById('product-grid').innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1">
-          <div class="empty-icon">⚓</div>
-          <h3>Something went wrong</h3>
-          <p>${escHtml(err.message)}</p>
-        </div>`;
-    }
-  }
-
-  function populateMerchantFilter(products) {
-    const merchants = [...new Set(products.map(p => p.advertiserName))].sort();
-    const sel = document.getElementById('merchant-filter');
-    sel.innerHTML = '<option value="">All Merchants</option>' +
-      merchants.map(m => `<option value="${escHtml(m)}">${escHtml(m)}</option>`).join('');
-  }
-
-  function applyFilters() {
-    const merchant   = document.getElementById('merchant-filter').value;
-    filteredProducts = merchant ? allProducts.filter(p => p.advertiserName === merchant) : allProducts;
+    filteredProducts = merchant ? allProducts.filter(p => (p.advertiserName || p.merchant_name) === merchant) : allProducts;
     renderResults(filteredProducts, currentQuery, currentTotal);
   }
 
@@ -1280,70 +622,29 @@ function renderCard(p, trackView = false) {
       : '';
     const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>🛍️</div>`;
 
+    const productLink = `/product.html?id=${encodeURIComponent(p.id)}`;
+    const sourceBadge = p.source === 'square' ? 'Direct' : p.source === 'rakuten' ? 'Rakuten' : 'CJ';
+    const merchantName = p.advertiserName || p.merchant_name || 'Merchant';
+
     return `
-      <div class="product-card">
+      <a class="product-card" href="${productLink}" ${onclickAttr}>
         <div class="product-img-wrap">
           ${imgHtml}${placeholderHtml}
-          <div class="source-badge">${p.source === 'rakuten' ? 'Rakuten' : 'CJ'}</div>
+          <div class="source-badge">${sourceBadge}</div>
           ${hasSale ? '<div class="sale-badge">SALE</div>' : ''}
         </div>
         <div class="product-info">
-          <div class="product-merchant">${escHtml(p.advertiserName)}</div>
+          <div class="product-merchant">${escHtml(merchantName)}</div>
           <div class="product-title">${escHtml(p.title)}</div>
           <div class="product-price">
             ${hasSale
               ? `<span class="price-sale">${priceStr}</span><span class="price-was">${wasStr}</span>`
               : `<span class="price-regular">${priceStr}</span>`}
           </div>
-          <a class="buy-btn" href="${escHtml(p.buyUrl)}" target="_blank" rel="noopener noreferrer" ${onclickAttr}>
-            Shop Now →
-          </a>
         </div>
-      </div>`;
+      </a>`;
   }
 
-  function renderRelatedSearches(query) {
-    const q = query.toLowerCase();
-    let suggestions = [];
-    for (const [key, vals] of Object.entries(RELATED_MAP)) {
-      if (q.includes(key)) { suggestions = vals; break; }
-    }
-    if (!suggestions.length) {
-      suggestions = [`${query} sale`, `best ${query}`, `cheap ${query}`, `${query} deals`];
-    }
-    const el = document.getElementById('related-searches');
-    el.style.display = 'block';
-    el.innerHTML = `
-      <div class="related-label">Related Searches</div>
-      <div class="related-pills">
-        ${suggestions.map(s => `<div class="related-pill" onclick="searchCategory('${escHtml(s)}')">${escHtml(s)}</div>`).join('')}
-      </div>`;
-  }
-
-  function renderPagination(total, current) {
-    const totalPages = Math.min(Math.ceil(total / LIMIT), 500);
-    if (totalPages <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
-    let html = `<button class="page-btn" onclick="doSearch(${current - 1})" ${current <= 1 ? 'disabled' : ''}>← Prev</button>`;
-    const start = Math.max(1, current - 2);
-    const end   = Math.min(totalPages, start + 4);
-    for (let p = start; p <= end; p++) {
-      html += `<button class="page-btn ${p === current ? 'active' : ''}" onclick="doSearch(${p})">${p}</button>`;
-    }
-    html += `<button class="page-btn" onclick="doSearch(${current + 1})" ${current >= totalPages ? 'disabled' : ''}>Next →</button>`;
-    document.getElementById('pagination').innerHTML = html;
-    document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function escHtml(str) {
-    return String(str || '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-</script>
-</body>
-</html>
   function renderRelatedSearches(query) {
     const q = query.toLowerCase();
     let suggestions = [];
