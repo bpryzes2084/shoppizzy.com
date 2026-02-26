@@ -219,12 +219,29 @@
       </div>
     </div>
 
-    <!-- Products Panel -->
+        <!-- Products Panel -->
     <div class="panel" id="panel-products">
       <div class="products-table">
         <div class="table-header">
-          <h3>All Products</h3>
-          <input type="text" class="search-box" id="productSearch" placeholder="Search products..." onkeyup="searchProducts()">
+          <h3>All Products (<span id="productCount">0</span>)</h3>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <select class="search-box" id="merchantFilter" onchange="filterByMerchant()" style="width:200px;">
+              <option value="">All Merchants</option>
+            </select>
+            <select class="search-box" id="sourceFilter" onchange="filterByMerchant()" style="width:150px;">
+              <option value="">All Sources</option>
+              <option value="square">Square (Direct)</option>
+              <option value="rakuten">Rakuten</option>
+              <option value="cj">CJ</option>
+            </select>
+            <input type="text" class="search-box" id="productSearch" placeholder="Search products..." onkeyup="searchProducts()" style="width:250px;">
+          </div>
+        </div>
+        
+        <!-- Merchant Stats -->
+        <div style="padding:20px 24px;border-bottom:1px solid #e5e7eb;background:#f9fafb;">
+          <div style="font-size:14px;font-weight:600;color:#6b7280;margin-bottom:12px;">MERCHANT BREAKDOWN</div>
+          <div id="merchantStats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
         </div>
         
         <div id="productsLoading" class="loading">Loading products...</div>
@@ -235,6 +252,7 @@
               <tr>
                 <th>Image</th>
                 <th>Product</th>
+                <th>Merchant</th>
                 <th>Type</th>
                 <th>Price</th>
                 <th>Category</th>
@@ -252,7 +270,7 @@
       </div>
     </div>
 
-    <!-- Analytics Panel -->
+<!-- Analytics Panel -->
     <div class="panel" id="panel-analytics">
       <div class="import-section">
         <h3>Analytics Dashboard</h3>
@@ -520,6 +538,153 @@
         alert('Connection error');
       }
     }
-  </script>
+  
+  // Merchant filter variables
+  let allProductsData = [];
+  let filteredProductsData = [];
+
+  // Update loadProducts function
+  const originalLoadProducts = loadProducts;
+  async function loadProducts() {
+    document.getElementById('productsLoading').style.display = 'block';
+    document.getElementById('productsTable').style.display = 'none';
+    document.getElementById('productsEmpty').style.display = 'none';
+
+    try {
+      const res = await fetch('/api/admin/products', {
+        headers: { 'Authorization': `Bearer ${adminSecret}` }
+      });
+      const data = await res.json();
+      allProductsData = data.products || [];
+      filteredProductsData = allProductsData;
+
+      document.getElementById('productsLoading').style.display = 'none';
+
+      if (allProductsData.length === 0) {
+        document.getElementById('productsEmpty').style.display = 'block';
+        return;
+      }
+
+      populateMerchantFilter();
+      renderMerchantStats();
+      renderProducts(filteredProductsData);
+    } catch (err) {
+      console.error('Error loading products:', err);
+      document.getElementById('productsLoading').textContent = 'Error loading products.';
+    }
+  }
+
+  function populateMerchantFilter() {
+    const merchants = {};
+    allProductsData.forEach(p => {
+      const merchant = p.merchant_name || p.advertiserName || 'Unknown';
+      merchants[merchant] = (merchants[merchant] || 0) + 1;
+    });
+
+    const sortedMerchants = Object.entries(merchants)
+      .sort((a, b) => b[1] - a[1]);
+
+    const select = document.getElementById('merchantFilter');
+    select.innerHTML = '<option value="">All Merchants (' + allProductsData.length + ')</option>';
+    
+    sortedMerchants.forEach(([merchant, count]) => {
+      select.innerHTML += `<option value="${escapeHtml(merchant)}">${escapeHtml(merchant)} (${count})</option>`;
+    });
+  }
+
+  function renderMerchantStats() {
+    const merchants = {};
+    allProductsData.forEach(p => {
+      const merchant = p.merchant_name || p.advertiserName || 'Unknown';
+      const source = p.source || 'unknown';
+      if (!merchants[merchant]) {
+        merchants[merchant] = { count: 0, source };
+      }
+      merchants[merchant].count++;
+    });
+
+    const sortedMerchants = Object.entries(merchants)
+      .sort((a, b) => b[1].count - a[1].count)
+      .slice(0, 10);
+
+    const statsHtml = sortedMerchants.map(([merchant, data]) => {
+      const sourceColor = data.source === 'square' ? '#2563eb' : data.source === 'rakuten' ? '#10b981' : '#f59e0b';
+      return `
+        <div style="padding:12px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;">
+          <div style="font-size:13px;font-weight:700;color:#111827;margin-bottom:4px;">${escapeHtml(merchant)}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:20px;font-weight:800;color:${sourceColor};">${data.count}</span>
+            <span style="font-size:11px;color:#6b7280;text-transform:uppercase;">${data.source}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    document.getElementById('merchantStats').innerHTML = statsHtml || '<p style="color:#9ca3af;">No products yet</p>';
+  }
+
+  function filterByMerchant() {
+    const merchantFilter = document.getElementById('merchantFilter').value;
+    const sourceFilter = document.getElementById('sourceFilter').value;
+    const searchQuery = document.getElementById('productSearch').value.toLowerCase();
+
+    filteredProductsData = allProductsData.filter(p => {
+      const merchant = p.merchant_name || p.advertiserName || 'Unknown';
+      const source = p.source || '';
+      const title = (p.title || '').toLowerCase();
+      
+      const matchesMerchant = !merchantFilter || merchant === merchantFilter;
+      const matchesSource = !sourceFilter || source === sourceFilter;
+      const matchesSearch = !searchQuery || title.includes(searchQuery);
+      
+      return matchesMerchant && matchesSource && matchesSearch;
+    });
+
+    document.getElementById('productCount').textContent = filteredProductsData.length;
+    renderProducts(filteredProductsData);
+  }
+
+  function searchProducts() {
+    filterByMerchant();
+  }
+
+  function renderProducts(products) {
+    document.getElementById('productsTable').style.display = 'block';
+    document.getElementById('productCount').textContent = products.length;
+    const tbody = document.getElementById('productsBody');
+    
+    if (products.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:#9ca3af;">No products match your filters</td></tr>';
+      return;
+    }
+    
+    tbody.innerHTML = products.map(p => {
+      const images = JSON.parse(p.image_urls || p.image_url || '[]');
+      const imageUrl = Array.isArray(images) ? images[0] : images;
+      const typeClass = p.type === 'affiliate' ? 'badge-affiliate' : 'badge-direct';
+      const typeLabel = p.type === 'affiliate' ? 'Affiliate' : 'Direct';
+      const merchant = p.merchant_name || p.advertiserName || 'Unknown';
+      
+      return `
+        <tr>
+          <td>${imageUrl ? `<img src="${imageUrl}" class="product-image" alt="">` : '📦'}</td>
+          <td class="product-title">${escapeHtml(p.title)}</td>
+          <td><strong>${escapeHtml(merchant)}</strong></td>
+          <td><span class="badge ${typeClass}">${typeLabel}</span></td>
+          <td>$${parseFloat(p.price).toFixed(2)}</td>
+          <td>${p.category || 'N/A'}</td>
+          <td><span class="badge badge-active">${p.status || 'active'}</span></td>
+          <td><button class="btn-small btn-remove" onclick="removeProduct('${p.id}')">Remove</button></td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+</script>
 </body>
 </html>
