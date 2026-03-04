@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools Directory - Shoppizzy</title>
+  <meta name="description" content="Discover and search the best AI tools for your needs. Browse hundreds of AI tools by category.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a1f3c;
+      --gold: #c9a84c;
+      --white: #ffffff;
+      --offwhite: #f7f8fa;
+      --light: #eef1f6;
+      --text: #1a2a3a;
+      --muted: #6b7a8d;
+      --border: #d6dce6;
+    }
+
+    body {
+      font-family: 'Open Sans', system-ui, sans-serif;
+      background: var(--offwhite);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--navy);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .logo-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--white);
+    }
+    .logo-name span { color: var(--gold); }
+    .header-nav { display: flex; gap: 20px; align-items: center; }
+    .header-nav a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .header-nav a:hover { color: var(--gold); }
+    .header-nav a.active { color: var(--gold); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 100%);
+      padding: 60px 24px;
+      text-align: center;
+      color: white;
+    }
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 32px;
+    }
+
+    /* SEARCH BAR */
+    .search-container {
+      max-width: 700px;
+      margin: 0 auto 24px;
+    }
+    .search-box {
+      display: flex;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    #search-input {
+      flex: 1;
+      border: none;
+      padding: 16px 20px;
+      font-size: 1rem;
+      outline: none;
+    }
+    .search-btn {
+      background: var(--gold);
+      border: none;
+      padding: 16px 32px;
+      color: var(--navy);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .search-btn:hover { background: #e8c96a; }
+
+    /* FILTERS */
+    .filters {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .filter-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy);
+    }
+
+    /* MAIN CONTENT */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--navy);
+    }
+    .results-count {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* TOOL GRID */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* TOOL CARD */
+    .tool-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .tool-card:hover {
+      border-color: var(--navy);
+      box-shadow: 0 8px 28px rgba(10,31,60,0.12);
+      transform: translateY(-3px);
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .tool-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      background: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .tool-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .tool-category {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tool-description {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .tool-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .pricing-badge {
+      background: var(--light);
+      color: var(--navy);
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .pricing-badge.free { background: #d4edda; color: #155724; }
+    .pricing-badge.paid { background: #fff3cd; color: #856404; }
+    .pricing-badge.freemium { background: #d1ecf1; color: #0c5460; }
+
+    .tool-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      background: var(--light);
+      color: var(--muted);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* LOADING/EMPTY STATES */
+    .loading, .empty {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--muted);
+    }
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--light);
+      border-top-color: var(--navy);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .filters { justify-content: flex-start; }
+      .header-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <span class="logo-name">Shoppiz<span>zy</span></span>
+    </a>
+    <nav class="header-nav">
+      <a href="/">Products</a>
+      <a href="/aitools.html" class="active">AI Tools</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>🤖 AI Tools Directory</h1>
+  <p>Discover the best AI tools for your needs</p>
+  
+  <div class="search-container">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Search AI tools..." autocomplete="off">
+      <button class="search-btn" onclick="searchTools()">Search</button>
+    </div>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-category="all" onclick="filterByCategory('all')">All</button>
+    <button class="filter-btn" data-category="Chatbots" onclick="filterByCategory('Chatbots')">Chatbots</button>
+    <button class="filter-btn" data-category="Image Generation" onclick="filterByCategory('Image Generation')">Image</button>
+    <button class="filter-btn" data-category="Writing" onclick="filterByCategory('Writing')">Writing</button>
+    <button class="filter-btn" data-category="Video" onclick="filterByCategory('Video')">Video</button>
+    <button class="filter-btn" data-category="Audio" onclick="filterByCategory('Audio')">Audio</button>
+    <button class="filter-btn" data-category="Developer Tools" onclick="filterByCategory('Developer Tools')">Developer</button>
+    <button class="filter-btn" data-category="Productivity" onclick="filterByCategory('Productivity')">Productivity</button>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+  <div class="section-header">
+    <h2 class="section-title" id="section-title">Featured AI Tools</h2>
+    <span class="results-count" id="results-count">Loading...</span>
+  </div>
+
+  <div class="tools-grid" id="tools-grid">
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      <p>Loading AI tools...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
+  let allTools = [];
+  let currentCategory = 'all';
+
+  // Load tools on page load
+  document.addEventListener('DOMContentLoaded', loadTools);
+
+  // Search on Enter key
+  document.getElementById('search-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') searchTools();
+  });
+
+  async function loadTools() {
+    try {
+      const res = await fetch(`${WORKER_URL}/api/aitools`);
+      const data = await res.json();
+      allTools = data.tools || [];
+      renderTools(allTools);
+    } catch(err) {
+      document.getElementById('tools-grid').innerHTML = `
+        <div class="empty">
+          <p>Error loading AI tools. Please try again.</p>
+        </div>`;
+    }
+  }
+
+  function searchTools() {
+    const query = document.getElementById('search-input').value.toLowerCase().trim();
+    if (!query) {
+      renderTools(allTools);
+      return;
+    }
+
+    const filtered = allTools.filter(tool => 
+      tool.name.toLowerCase().includes(query) ||
+      tool.description.toLowerCase().includes(query) ||
+      tool.tags.toLowerCase().includes(query) ||
+      tool.category.toLowerCase().includes(query)
+    );
+
+    document.getElementById('section-title').textContent = `Search Results for "${query}"`;
+    renderTools(filtered);
+  }
+
+  function filterByCategory(category) {
+    currentCategory = category;
+    
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.category === category);
+    });
+
+    const filtered = category === 'all' 
+      ? allTools 
+      : allTools.filter(tool => tool.category === category);
+
+    document.getElementById('section-title').textContent = 
+      category === 'all' ? 'All AI Tools' : `${category} Tools`;
+    document.getElementById('search-input').value = '';
+    renderTools(filtered);
+  }
+
+  function renderTools(tools) {
+    const grid = document.getElementById('tools-grid');
+    document.getElementById('results-count').textContent = `${tools.length} tools`;
+
+    if (!tools.length) {
+      grid.innerHTML = `
+        <div class="empty" style="grid-column: 1/-1;">
+          <p>No AI tools found.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = tools.map(tool => `
+      <a href="${escapeHtml(tool.website_url)}" target="_blank" rel="noopener" class="tool-card">
+        ${tool.is_featured ? '<div class="featured-badge">⭐ Featured</div>' : ''}
+        <div class="tool-header">
+          <div class="tool-logo">${getToolIcon(tool.category)}</div>
+          <div>
+            <div class="tool-name">${escapeHtml(tool.name)}</div>
+            <div class="tool-category">${escapeHtml(tool.category)}</div>
+          </div>
+        </div>
+        <p class="tool-description">${escapeHtml(tool.description)}</p>
+        <div class="tool-meta">
+          <span class="pricing-badge ${tool.pricing.toLowerCase()}">${escapeHtml(tool.pricing)}</span>
+        </div>
+        <div class="tool-tags">
+          ${tool.tags.split(',').slice(0, 3).map(tag => 
+            `<span class="tag">${escapeHtml(tag.trim())}</span>`
+          ).join('')}
+        </div>
+      </a>
+    `).join('');
+  }
+
+  function getToolIcon(category) {
+    const icons = {
+      'Chatbots': '💬',
+      'Image Generation': '🎨',
+      'Writing': '✍️',
+      'Video': '🎬',
+      'Audio': '🎵',
+      'Developer Tools': '👨‍💻',
+      'Productivity': '⚡',
+      'Design': '🎨',
+      'Marketing': '📊',
+      'Data Analysis': '📈'
+    };
+    return icons[category] || '🤖';
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+</script>
+
+</body>
+</html>
