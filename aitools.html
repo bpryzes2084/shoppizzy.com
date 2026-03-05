@@ -444,7 +444,7 @@
     }
 
     grid.innerHTML = tools.map(tool => `
-      <a href="${escapeHtml(tool.website_url)}" target="_blank" rel="noopener" class="tool-card">
+      <a href="${escapeHtml(tool.affiliate_link || tool.website_url)}" target="_blank" rel="noopener" class="tool-card">
         ${tool.is_featured ? '<div class="featured-badge">⭐ Featured</div>' : ''}
         <div class="tool-header">
           <div class="tool-logo">${getToolIcon(tool.category)}</div>
