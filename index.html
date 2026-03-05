@@ -814,11 +814,17 @@
       : '';
     const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>✦</div>`;
 
-    const productLink = `/product.html?id=${encodeURIComponent(p.id)}`;
+    // Link directly to affiliate URL for affiliate products, or product page for Square products
+    const productLink = p.type === 'direct' 
+      ? `/product.html?id=${encodeURIComponent(p.id)}`
+      : (p.buyUrl || p.affiliate_link || '#');
+    const linkTarget = p.type === 'direct' ? '_self' : '_blank';
+    const linkRel = p.type === 'direct' ? '' : 'noopener noreferrer';
+    
     const merchantName = p.advertiserName || p.merchant_name || 'Merchant';
 
     return `
-      <a class="product-card" href="${productLink}">
+      <a class="product-card" href="${escHtml(productLink)}" target="${linkTarget}" ${linkRel ? `rel="${linkRel}"` : ''}>
         <div class="product-img-wrap">
           ${imgHtml}${placeholderHtml}
           <div class="source-badge">${escHtml(merchantName)}</div>
