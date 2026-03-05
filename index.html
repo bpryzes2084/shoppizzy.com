@@ -154,6 +154,19 @@
       background: var(--charcoal);
     }
 
+    .product-count {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    .product-count .count-number {
+      color: var(--gold);
+      font-weight: 400;
+    }
+
     /* CATEGORIES - Minimal Grid */
     .categories-section {
       max-width: 1400px;
@@ -503,9 +516,10 @@
   <div class="header-main">
     <div class="logo" onclick="showHome()">SHOPPIZZY</div>
     <nav class="header-nav">
-      <a href="/aitools.html">AI Tools</a>
-      <a href="#categories">Categories</a>
       <a href="#featured">Featured</a>
+      <a href="#categories">Categories</a>
+      <a href="/aitools.html">AI Tools</a>
+      <a href="/about.html">About</a>
     </nav>
   </div>
 </header>
@@ -516,6 +530,9 @@
     <input type="text" id="search-input" placeholder="Search for products..." autocomplete="off">
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
+  <div class="product-count" id="product-count">
+    <span class="count-number">—</span> products available
+  </div>
 </div>
 
 <!-- HERO SECTION -->
@@ -524,7 +541,7 @@
   <div class="categories-section" id="categories">
     <div class="section-header">
       <h2 class="section-title">Shop by Category</h2>
-      <p class="section-subtitle">Discover by category</p>
+      <p class="section-subtitle">Thoughtfully curated collections</p>
     </div>
     <div class="category-grid">
       <div class="category-card" onclick="searchCategory('Apparel')">
@@ -676,6 +693,25 @@
   });
 
   loadFeatured();
+  loadProductCount();
+
+  async function loadProductCount() {
+    try {
+      const res = await fetch(`${WORKER_URL}/api/stats`);
+      const data = await res.json();
+      
+      const totalProducts = (data.cj || 0) + (data.rakuten || 0) + (data.impact || 0);
+      
+      document.getElementById('product-count').innerHTML = `
+        <span class="count-number">${totalProducts.toLocaleString()}</span> products available
+      `;
+    } catch(e) {
+      console.error('Error loading stats:', e);
+      document.getElementById('product-count').innerHTML = `
+        <span class="count-number">Millions</span> of products available
+      `;
+    }
+  }
 
   async function loadFeatured() {
     try {
