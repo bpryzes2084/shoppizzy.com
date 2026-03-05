@@ -154,29 +154,6 @@
       background: var(--charcoal);
     }
 
-    .merchants-dropdown {
-      background: var(--white);
-      border: none;
-      border-left: 1px solid var(--border);
-      padding: 20px 16px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 400;
-      color: var(--text);
-      cursor: pointer;
-      outline: none;
-      letter-spacing: 0.5px;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      padding-right: 36px;
-    }
-
-    .merchants-dropdown:hover {
-      background-color: var(--cream);
-    }
-
     .product-count {
       text-align: center;
       margin-top: 16px;
@@ -552,15 +529,6 @@
   <div class="search-box">
     <input type="text" id="search-input" placeholder="Search for products..." autocomplete="off">
     <button class="search-btn" onclick="doSearch()">Search</button>
-    <select class="merchants-dropdown" id="merchants-dropdown" onchange="visitMerchant(this.value)">
-      <option value="">Merchants</option>
-      <option value="">━━━━━━━━━━</option>
-      <option value="https://www.example.com/georgiaboot">Georgia Boot</option>
-      <option value="https://www.example.com/dreampairs">Dream Pairs</option>
-      <option value="https://www.example.com/famousfootwear">Famous Footwear</option>
-      <option value="https://www.hotels.com">Hotels.com</option>
-      <option value="https://www.expedia.com">Expedia</option>
-    </select>
   </div>
   <div class="product-count" id="product-count">
     <span class="count-number">—</span> products available
@@ -880,14 +848,6 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
-  }
-
-  function visitMerchant(url) {
-    if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-      // Reset dropdown
-      document.getElementById('merchants-dropdown').value = '';
-    }
   }
 </script>
 
