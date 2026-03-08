@@ -197,7 +197,7 @@
 
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(5, 1fr);
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
@@ -517,9 +517,14 @@
     @media (max-width: 768px) {
       .header-main { padding: 16px 20px; }
       .header-nav { display: none; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
       .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .categories-section, .featured-section { padding: 0 20px; }
       .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .category-grid { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
