@@ -535,7 +535,6 @@
   <div class="header-main">
     <div class="logo" onclick="showHome()">SHOPPIZZY</div>
     <nav class="header-nav">
-      <a href="#featured">Featured</a>
       <a href="#categories">Categories</a>
       <a href="/aitools.html">AI Tools</a>
       <a href="/about.html">About</a>
@@ -791,15 +790,6 @@
       </div>
     </div>
   </div>
-
-  <!-- FEATURED PRODUCTS -->
-  <div class="featured-section" id="featured">
-    <div class="section-header">
-      <h2 class="section-title">Featured Selection</h2>
-      <p class="section-subtitle">Hand-picked recommendations</p>
-    </div>
-    <div class="product-grid" id="recent-grid"></div>
-  </div>
 </div>
 
 <!-- RESULTS SECTION -->
@@ -828,7 +818,6 @@
     </div>
     <div class="footer-col">
       <h4>Explore</h4>
-      <a href="#featured">Featured Selection</a>
       <a href="#categories">Shop by Category</a>
       <a href="/aitools.html">AI Tools Directory</a>
       <a href="/about.html">About Us</a>
@@ -863,7 +852,6 @@
     if (e.key === 'Enter') doSearch(1);
   });
 
-  loadFeatured();
   loadProductCount();
   loadCategoryCounts();
 
@@ -926,17 +914,6 @@
     }
   }
 
-  async function loadFeatured() {
-    try {
-      const res = await fetch(`${WORKER_URL}/api/products?q=luxury&limit=6&sortBy=price&sortOrder=desc`);
-      const data = await res.json();
-      const products = (data.products || []).slice(0, 6);
-      document.getElementById('recent-grid').innerHTML = products.map(p => renderCard(p, false)).join('');
-    } catch(e) {
-      console.error('Error loading featured:', e);
-    }
-  }
-
   function searchCategory(cat) {
     document.getElementById('search-input').value = cat;
     doSearch(1);
@@ -946,7 +923,6 @@
     document.getElementById('hero-section').style.display = 'block';
     document.getElementById('results-section').classList.remove('active');
     document.getElementById('search-input').value = '';
-    loadFeatured();
   }
 
   async function doSearch(page = 1) {
