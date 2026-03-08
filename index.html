@@ -249,6 +249,20 @@
       text-transform: uppercase;
       color: var(--text);
       font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .cat-count {
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      font-weight: 400;
+    }
+
+    .cat-count-loading {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.5px;
     }
 
     /* PRODUCT GRID - Clean & Spacious */
@@ -544,77 +558,231 @@
       <p class="section-subtitle">Thoughtfully curated collections</p>
     </div>
     <div class="category-grid">
+      <!-- ALPHABETIZED A-Z (45 CATEGORIES) -->
       <div class="category-card" onclick="searchCategory('Apparel')">
         <span class="cat-icon">👔</span>
         <div class="cat-name">Apparel</div>
+        <div class="cat-count" data-category="Apparel">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Arts & Crafts')">
+        <span class="cat-icon">✂️</span>
+        <div class="cat-name">Arts & Crafts</div>
+        <div class="cat-count" data-category="Arts & Crafts">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Auto')">
         <span class="cat-icon">🚗</span>
         <div class="cat-name">Auto</div>
+        <div class="cat-count" data-category="Auto">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Baby')">
         <span class="cat-icon">👶</span>
         <div class="cat-name">Baby</div>
+        <div class="cat-count" data-category="Baby">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Bedding & Bath')">
+        <span class="cat-icon">🛁</span>
+        <div class="cat-name">Bedding & Bath</div>
+        <div class="cat-count" data-category="Bedding & Bath">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Belts & Accessories')">
+        <span class="cat-icon">👔</span>
+        <div class="cat-name">Belts & Accessories</div>
+        <div class="cat-count" data-category="Belts & Accessories">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Books & Media')">
+        <span class="cat-icon">📚</span>
+        <div class="cat-name">Books & Media</div>
+        <div class="cat-count" data-category="Books & Media">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Camping & Hiking')">
+        <span class="cat-icon">⛺</span>
+        <div class="cat-name">Camping & Hiking</div>
+        <div class="cat-count" data-category="Camping & Hiking">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Cell Phones')">
         <span class="cat-icon">📱</span>
         <div class="cat-name">Cell Phones</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Computers')">
-        <span class="cat-icon">💻</span>
-        <div class="cat-name">Computers</div>
+        <div class="cat-count" data-category="Cell Phones">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Computer Accessories')">
         <span class="cat-icon">🖱️</span>
         <div class="cat-name">Computer Accessories</div>
+        <div class="cat-count" data-category="Computer Accessories">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Computers')">
+        <span class="cat-icon">💻</span>
+        <div class="cat-name">Computers</div>
+        <div class="cat-count" data-category="Computers">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Desks & Chairs')">
+        <span class="cat-icon">🪑</span>
+        <div class="cat-name">Desks & Chairs</div>
+        <div class="cat-count" data-category="Desks & Chairs">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Electronics')">
         <span class="cat-icon">🔌</span>
         <div class="cat-name">Electronics</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Gaming')">
-        <span class="cat-icon">🎮</span>
-        <div class="cat-name">Gaming</div>
+        <div class="cat-count" data-category="Electronics">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Fitness')">
         <span class="cat-icon">💪</span>
         <div class="cat-name">Fitness</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Footwear')">
-        <span class="cat-icon">👟</span>
-        <div class="cat-name">Footwear</div>
+        <div class="cat-count" data-category="Fitness">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Food & Beverage')">
         <span class="cat-icon">🍽️</span>
         <div class="cat-name">Food & Beverage</div>
+        <div class="cat-count" data-category="Food & Beverage">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Footwear')">
+        <span class="cat-icon">👟</span>
+        <div class="cat-name">Footwear</div>
+        <div class="cat-count" data-category="Footwear">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Furniture')">
+        <span class="cat-icon">🛋️</span>
+        <div class="cat-name">Furniture</div>
+        <div class="cat-count" data-category="Furniture">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Gaming')">
+        <span class="cat-icon">🎮</span>
+        <div class="cat-name">Gaming</div>
+        <div class="cat-count" data-category="Gaming">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Garden & Outdoor')">
+        <span class="cat-icon">🌱</span>
+        <div class="cat-name">Garden & Outdoor</div>
+        <div class="cat-count" data-category="Garden & Outdoor">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Handbags & Wallets')">
+        <span class="cat-icon">👜</span>
+        <div class="cat-name">Handbags & Wallets</div>
+        <div class="cat-count" data-category="Handbags & Wallets">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Hats & Scarves')">
+        <span class="cat-icon">🧢</span>
+        <div class="cat-name">Hats & Scarves</div>
+        <div class="cat-count" data-category="Hats & Scarves">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Health & Beauty')">
         <span class="cat-icon">💄</span>
         <div class="cat-name">Health & Beauty</div>
+        <div class="cat-count" data-category="Health & Beauty">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Home Decor')">
+        <span class="cat-icon">🖼️</span>
+        <div class="cat-name">Home Decor</div>
+        <div class="cat-count" data-category="Home Decor">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Home Theatre')">
         <span class="cat-icon">🎬</span>
         <div class="cat-name">Home Theatre</div>
+        <div class="cat-count" data-category="Home Theatre">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Jewelry & Watches')">
+        <span class="cat-icon">⌚</span>
+        <div class="cat-name">Jewelry & Watches</div>
+        <div class="cat-count" data-category="Jewelry & Watches">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Kitchen & Dining')">
+        <span class="cat-icon">🍴</span>
+        <div class="cat-name">Kitchen & Dining</div>
+        <div class="cat-count" data-category="Kitchen & Dining">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Lighting')">
+        <span class="cat-icon">💡</span>
+        <div class="cat-name">Lighting</div>
+        <div class="cat-count" data-category="Lighting">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Luggage & Travel Bags')">
+        <span class="cat-icon">🧳</span>
+        <div class="cat-name">Luggage & Travel Bags</div>
+        <div class="cat-count" data-category="Luggage & Travel Bags">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Massage & Spa')">
+        <span class="cat-icon">💆</span>
+        <div class="cat-name">Massage & Spa</div>
+        <div class="cat-count" data-category="Massage & Spa">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Musical Instruments')">
+        <span class="cat-icon">🎸</span>
+        <div class="cat-name">Musical Instruments</div>
+        <div class="cat-count" data-category="Musical Instruments">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Office Supplies')">
+        <span class="cat-icon">📝</span>
+        <div class="cat-name">Office Supplies</div>
+        <div class="cat-count" data-category="Office Supplies">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Outdoor & Patio')">
+        <span class="cat-icon">🌿</span>
+        <div class="cat-name">Outdoor & Patio</div>
+        <div class="cat-count" data-category="Outdoor & Patio">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Pets')">
         <span class="cat-icon">🐾</span>
         <div class="cat-name">Pets</div>
+        <div class="cat-count" data-category="Pets">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Photography')">
+        <span class="cat-icon">📷</span>
+        <div class="cat-name">Photography</div>
+        <div class="cat-count" data-category="Photography">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Printers & Scanners')">
+        <span class="cat-icon">🖨️</span>
+        <div class="cat-name">Printers & Scanners</div>
+        <div class="cat-count" data-category="Printers & Scanners">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('School Supplies')">
+        <span class="cat-icon">🎒</span>
+        <div class="cat-name">School Supplies</div>
+        <div class="cat-count" data-category="School Supplies">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Smart Home')">
+        <span class="cat-icon">🏡</span>
+        <div class="cat-name">Smart Home</div>
+        <div class="cat-count" data-category="Smart Home">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Sporting Goods')">
         <span class="cat-icon">⚽</span>
         <div class="cat-name">Sporting Goods</div>
+        <div class="cat-count" data-category="Sporting Goods">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Storage & Organization')">
+        <span class="cat-icon">📦</span>
+        <div class="cat-name">Storage & Organization</div>
+        <div class="cat-count" data-category="Storage & Organization">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Sunglasses')">
+        <span class="cat-icon">🕶️</span>
+        <div class="cat-name">Sunglasses</div>
+        <div class="cat-count" data-category="Sunglasses">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Tools')">
         <span class="cat-icon">🔧</span>
         <div class="cat-name">Tools</div>
+        <div class="cat-count" data-category="Tools">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Toys')">
         <span class="cat-icon">🧸</span>
         <div class="cat-name">Toys</div>
+        <div class="cat-count" data-category="Toys">Loading...</div>
       </div>
       <div class="category-card" onclick="searchCategory('Travel')">
         <span class="cat-icon">✈️</span>
         <div class="cat-name">Travel</div>
+        <div class="cat-count" data-category="Travel">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Vitamins & Supplements')">
+        <span class="cat-icon">💊</span>
+        <div class="cat-name">Vitamins & Supplements</div>
+        <div class="cat-count" data-category="Vitamins & Supplements">Loading...</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('Yoga & Meditation')">
+        <span class="cat-icon">🧘</span>
+        <div class="cat-name">Yoga & Meditation</div>
+        <div class="cat-count" data-category="Yoga & Meditation">Loading...</div>
       </div>
     </div>
   </div>
@@ -685,8 +853,6 @@
   let allProducts = [];
   let filteredProducts = [];
   const LIMIT = 20;
-  const RECENT_KEY = 'shoppizzy_recent';
-  const MAX_RECENT = 6;
 
   document.getElementById('search-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') doSearch(1);
@@ -694,6 +860,7 @@
 
   loadFeatured();
   loadProductCount();
+  loadCategoryCounts();
 
   async function loadProductCount() {
     try {
@@ -710,6 +877,47 @@
       document.getElementById('product-count').innerHTML = `
         <span class="count-number">Millions</span> of products available
       `;
+    }
+  }
+
+  async function loadCategoryCounts() {
+    const categories = [
+      // Original 18
+      'Apparel', 'Auto', 'Baby', 'Cell Phones', 'Computers', 'Computer Accessories',
+      'Electronics', 'Gaming', 'Fitness', 'Footwear', 'Food & Beverage', 
+      'Health & Beauty', 'Home Theatre', 'Pets', 'Sporting Goods', 'Tools', 'Toys', 'Travel',
+      // Home & Living (8)
+      'Furniture', 'Kitchen & Dining', 'Bedding & Bath', 'Home Decor', 'Lighting',
+      'Storage & Organization', 'Outdoor & Patio', 'Smart Home',
+      // Fashion & Accessories (6)
+      'Jewelry & Watches', 'Handbags & Wallets', 'Sunglasses', 'Hats & Scarves',
+      'Belts & Accessories', 'Luggage & Travel Bags',
+      // Hobbies & Lifestyle (6)
+      'Arts & Crafts', 'Musical Instruments', 'Photography', 'Books & Media',
+      'Garden & Outdoor', 'Camping & Hiking',
+      // Office & Education (4)
+      'Office Supplies', 'School Supplies', 'Printers & Scanners', 'Desks & Chairs',
+      // Wellness (3)
+      'Vitamins & Supplements', 'Massage & Spa', 'Yoga & Meditation'
+    ];
+
+    for (const category of categories) {
+      try {
+        const res = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(category)}&limit=1`);
+        const data = await res.json();
+        const count = data.totalCount || 0;
+        
+        const countEl = document.querySelector(`[data-category="${category}"]`);
+        if (countEl) {
+          countEl.textContent = count.toLocaleString() + ' items';
+          countEl.classList.remove('cat-count-loading');
+        }
+      } catch(e) {
+        const countEl = document.querySelector(`[data-category="${category}"]`);
+        if (countEl) {
+          countEl.textContent = '—';
+        }
+      }
     }
   }
 
@@ -814,7 +1022,6 @@
       : '';
     const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>✦</div>`;
 
-    // Link directly to affiliate URL for affiliate products, or product page for Square products
     const productLink = p.type === 'direct' 
       ? `/product.html?id=${encodeURIComponent(p.id)}`
       : (p.buyUrl || p.affiliate_link || '#');
@@ -850,6 +1057,5 @@
       .replace(/"/g, '&quot;');
   }
 </script>
-<script type="text/javascript" src="https://s.skimresources.com/js/299546X1787330.skimlinks.js"></script>
 </body>
 </html>
