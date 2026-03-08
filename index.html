@@ -444,6 +444,69 @@
       letter-spacing: 0.5px;
     }
 
+    /* PAGINATION */
+    .pagination-container {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .pagination-info {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .page-btn {
+      min-width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--text);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    .page-btn:hover:not(.active):not(:disabled) {
+      background: var(--cream);
+      border-color: var(--gold);
+    }
+
+    .page-btn.active {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+      font-weight: 400;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .page-ellipsis {
+      color: var(--muted);
+      padding: 0 8px;
+    }
+
     /* FOOTER - Minimal */
     footer {
       background: var(--black);
@@ -521,6 +584,9 @@
       .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .categories-section, .featured-section { padding: 0 20px; }
       .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+      .page-btn { min-width: 40px; height: 40px; font-size: 0.85rem; padding: 0 12px; }
+      .results-controls { flex-direction: column; width: 100%; }
+      .sort-select, .merchant-filter { width: 100%; }
     }
 
     @media (min-width: 769px) and (max-width: 1024px) {
@@ -807,6 +873,10 @@
     </div>
   </div>
   <div id="product-grid" class="product-grid"></div>
+  <div class="pagination-container" id="pagination-container" style="display:none;">
+    <div class="pagination-info" id="pagination-info"></div>
+    <div class="pagination" id="pagination"></div>
+  </div>
 </div>
 
 <!-- FOOTER -->
@@ -846,7 +916,7 @@
   let currentTotal = 0;
   let allProducts = [];
   let filteredProducts = [];
-  const LIMIT = 20;
+  const LIMIT = 40;
 
   document.getElementById('search-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') doSearch(1);
@@ -987,9 +1057,77 @@
         <div class="empty-state" style="grid-column:1/-1">
           <p>No products found</p>
         </div>`;
+      document.getElementById('pagination-container').style.display = 'none';
       return;
     }
+    
     grid.innerHTML = products.map(p => renderCard(p, true)).join('');
+    
+    // Show pagination
+    renderPagination(total);
+    
+    // Scroll to top of results
+    document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderPagination(total) {
+    const totalPages = Math.ceil(total / LIMIT);
+    
+    if (totalPages <= 1) {
+      document.getElementById('pagination-container').style.display = 'none';
+      return;
+    }
+    
+    document.getElementById('pagination-container').style.display = 'block';
+    
+    // Update info text
+    const start = (currentPage - 1) * LIMIT + 1;
+    const end = Math.min(currentPage * LIMIT, total);
+    document.getElementById('pagination-info').textContent = 
+      `Showing ${start.toLocaleString()}-${end.toLocaleString()} of ${total.toLocaleString()} results`;
+    
+    // Build pagination buttons
+    const paginationEl = document.getElementById('pagination');
+    let html = '';
+    
+    // Previous button
+    html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
+    
+    // Page numbers with ellipsis
+    const maxButtons = 7;
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, currentPage + 2);
+    
+    // Always show first page
+    if (startPage > 1) {
+      html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
+      if (startPage > 2) {
+        html += `<span class="page-ellipsis">...</span>`;
+      }
+    }
+    
+    // Middle pages
+    for (let i = startPage; i <= endPage; i++) {
+      html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+    }
+    
+    // Always show last page
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        html += `<span class="page-ellipsis">...</span>`;
+      }
+      html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+    }
+    
+    // Next button
+    html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>`;
+    
+    paginationEl.innerHTML = html;
+  }
+
+  function goToPage(page) {
+    if (page < 1 || !currentQuery) return;
+    doSearch(page);
   }
 
   function renderCard(p, trackView = false) {
