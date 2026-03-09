@@ -1334,8 +1334,15 @@
 
   async function loadProductCount() {
     try {
+      console.log('Fetching product count from:', `${WORKER_URL}/api/stats`);
       const res = await fetch(`${WORKER_URL}/api/stats`);
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      
       const data = await res.json();
+      console.log('Stats data received:', data);
       
       const totalProducts = (data.cj || 0) + (data.rakuten || 0) + (data.impact || 0);
       
