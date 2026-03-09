@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shoppizzy — Curated Luxury Shopping</title>
   <meta name="description" content="Discover curated luxury and everyday essentials from the world's finest merchants.">
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V1ZKKFFZL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5V1ZKKFFZL');
+  </script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
@@ -1659,6 +1669,15 @@
   function toggleChat() {
     isOpen = !isOpen;
     chatWindow.classList.toggle('open', isOpen);
+    
+    // Track chat widget open/close
+    if (typeof gtag !== 'undefined') {
+      gtag('event', isOpen ? 'chat_opened' : 'chat_closed', {
+        'event_category': 'AI Assistant',
+        'event_label': 'Chat Widget'
+      });
+    }
+    
     if (isOpen) chatInput.focus();
   }
 
@@ -1790,6 +1809,15 @@
     const message = chatInput.value.trim();
     if (!message) return;
     
+    // Track AI chat search in Google Analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'ai_chat_search', {
+        'search_term': message,
+        'event_category': 'AI Assistant',
+        'event_label': message
+      });
+    }
+    
     addChatMessage('user', message);
     chatInput.value = '';
     chatSend.disabled = true;
@@ -1805,9 +1833,26 @@
       if (products.length === 0) {
         addChatMessage('assistant', `I couldn't find any ${searchParams.keyword}. Try searching for something else like "wireless headphones" or "gaming laptops".`);
         showQuickActions(['Electronics', 'Apparel', 'Footwear', 'Home & Kitchen']);
+        
+        // Track no results
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'ai_chat_no_results', {
+            'search_term': message,
+            'event_category': 'AI Assistant'
+          });
+        }
       } else {
         const response = generateChatResponse(searchParams, products);
         addChatMessage('assistant', response, products.slice(0, MAX_PRODUCTS_TO_SHOW));
+        
+        // Track successful search
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'ai_chat_results', {
+            'search_term': message,
+            'results_count': products.length,
+            'event_category': 'AI Assistant'
+          });
+        }
         
         if (products.length > MAX_PRODUCTS_TO_SHOW) {
           setTimeout(() => {
@@ -1818,6 +1863,14 @@
     } catch (error) {
       hideTyping();
       addChatMessage('assistant', 'Sorry, I had trouble searching. Please try again!');
+      
+      // Track errors
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'ai_chat_error', {
+          'search_term': message,
+          'event_category': 'AI Assistant'
+        });
+      }
     }
     
     chatSend.disabled = false;
