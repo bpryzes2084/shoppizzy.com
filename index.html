@@ -6,6 +6,9 @@
   <title>Shoppizzy — Curated Luxury Shopping</title>
   <meta name="description" content="Discover curated luxury and everyday essentials from the world's finest merchants.">
   
+  <!-- Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V1ZKKFFZL"></script>
   <script>
@@ -1962,6 +1965,34 @@
     return response;
   }
 })();
+</script>
+
+<!-- Cloudflare Turnstile - Invisible Protection -->
+<div class="cf-turnstile" 
+     data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" 
+     data-callback="onTurnstileSuccess"
+     data-theme="light"
+     data-size="invisible">
+</div>
+
+<script>
+  // Turnstile success callback
+  function onTurnstileSuccess(token) {
+    console.log('Turnstile verification successful');
+    // Token verified - site is protected
+  }
+  
+  // Auto-execute Turnstile on page load
+  window.addEventListener('load', function() {
+    if (window.turnstile) {
+      window.turnstile.render('.cf-turnstile', {
+        sitekey: '0x4AAAAAACrT9alWCXq-IbVd',
+        callback: onTurnstileSuccess,
+        theme: 'light',
+        size: 'invisible'
+      });
+    }
+  });
 </script>
 
 </body>
