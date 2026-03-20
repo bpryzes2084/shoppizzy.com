@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#4F46E5">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>Shoppizzy with 8.3M+ Products</title>
+  <title>Shoppizzy - AI Shopping Assistant | 8.3M+ Products</title>
   <meta name="description" content="Shop 8.3M+ products across 175 merchants with our AI shopping assistant. Find exactly what you need with natural language search.">
   
   <!-- Google Analytics -->
@@ -478,16 +478,17 @@
       gap: 12px;
     }
 
-    /* Only reduce to 4 columns on smaller screens */
-    @media (max-width: 1100px) {
+    /* Keep 5 columns until tablet size */
+    @media (max-width: 768px) {
       .categories-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 850px) {
+    /* Stack on small phones */
+    @media (max-width: 480px) {
       .categories-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr;
       }
     }
 
@@ -1041,7 +1042,7 @@
     
     <div class="stats">
       <div class="stat">
-        <span class="stat-number" id="product-count">8,341,862</span>
+        <span class="stat-number" id="product-count">Loading...</span>
         <span class="stat-label">Products</span>
       </div>
     </div>
