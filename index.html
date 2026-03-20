@@ -278,6 +278,9 @@
       transition: all 0.3s;
       text-decoration: none;
       color: inherit;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     .product-card:hover {
@@ -290,10 +293,15 @@
       height: 220px;
       object-fit: cover;
       background: var(--bg-light);
+      flex-shrink: 0;
     }
 
     .product-info {
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      min-height: 160px;
     }
 
     .product-title {
@@ -305,6 +313,8 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      height: 2.8em;
+      line-height: 1.4;
     }
 
     .product-price {
@@ -312,11 +322,15 @@
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 5px;
+      margin-top: auto;
     }
 
     .product-merchant {
       font-size: 0.85rem;
       color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .badge {
@@ -383,6 +397,9 @@
       color: var(--text-dark);
       text-decoration: none;
       transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     .deal-card:hover {
@@ -394,10 +411,15 @@
       height: 200px;
       object-fit: cover;
       background: var(--bg-light);
+      flex-shrink: 0;
     }
 
     .deal-info {
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      min-height: 140px;
     }
 
     .deal-discount {
@@ -409,6 +431,7 @@
       border-radius: 6px;
       display: inline-block;
       margin-bottom: 10px;
+      align-self: flex-start;
     }
 
     .deal-title {
@@ -419,12 +442,15 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      height: 2.8em;
+      line-height: 1.4;
     }
 
     .deal-prices {
       display: flex;
       gap: 10px;
       align-items: center;
+      margin-top: auto;
     }
 
     .deal-price {
@@ -452,13 +478,14 @@
       gap: 12px;
     }
 
-    @media (max-width: 1200px) {
+    /* Only reduce to 4 columns on smaller screens */
+    @media (max-width: 1100px) {
       .categories-grid {
         grid-template-columns: repeat(4, 1fr);
       }
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 850px) {
       .categories-grid {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -1069,7 +1096,6 @@
     <div class="deals-content">
       <div class="deals-header">
         <h2>🔥 Today's Hot Deals</h2>
-        <p>Automatically updated daily - new category every 24 hours!</p>
         <div class="deals-category" id="dealsCategory">Loading...</div>
       </div>
       <div class="deals-grid" id="dealsGrid">
