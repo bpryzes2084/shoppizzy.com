@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Shoppizzy - AI Shopping Assistant | 8.3M+ Products</title>
-  <meta name="description" content="Shop 8.3M+ products across 175 merchants with our AI shopping assistant. Find exactly what you need with natural language search.">
+  <meta name="description" content="Shop 8.3M+ products.">
   
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V1ZKKFFZL"></script>
@@ -196,6 +196,27 @@
     .search-btn:hover {
       background: var(--primary-dark);
       transform: translateY(-2px);
+    }
+
+    /* Search Results */
+    .search-results-section {
+      max-width: 1400px;
+      margin: 0 auto 60px;
+      padding: 0 40px;
+    }
+
+    .search-results-content {
+      background: var(--white);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .search-results-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 30px;
     }
 
     /* Featured Carousel */
@@ -427,7 +448,7 @@
 
     .categories-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(5, 1fr);
       gap: 15px;
     }
 
@@ -636,6 +657,15 @@
         gap: 12px;
       }
 
+      .search-results-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
+      .search-results-content {
+        padding: 20px;
+      }
+
       .category-card {
         padding: 20px 10px;
       }
@@ -677,6 +707,10 @@
       }
 
       .categories-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-results-grid {
         grid-template-columns: 1fr;
       }
 
@@ -971,6 +1005,16 @@
         autocomplete="off"
       >
       <button class="search-btn" id="mainSearchBtn">Search</button>
+    </div>
+  </section>
+
+  <!-- Search Results (hidden by default) -->
+  <section class="search-results-section" id="searchResults" style="display: none;">
+    <div class="search-results-content">
+      <h2 class="section-title" id="searchResultsTitle">Search Results</h2>
+      <div class="search-results-grid" id="searchResultsGrid">
+        <!-- Results loaded dynamically -->
+      </div>
     </div>
   </section>
 
@@ -1290,18 +1334,28 @@
         const response = await fetch(`${WORKER_URL}/api/products?q=trending&limit=8`);
         const data = await response.json();
         
+        console.log('Featured API response:', data);
+        
+        if (!data.products || data.products.length === 0) {
+          console.warn('No featured products returned');
+          return;
+        }
+        
         const carousel = document.getElementById('featuredCarousel');
-        carousel.innerHTML = data.products.slice(0, 8).map(product => `
-          <a href="${product.buyUrl || product.affiliate_link}" target="_blank" class="product-card">
-            <img src="${product.imageUrl || 'https://via.placeholder.com/300x220'}" class="product-image" alt="${product.title}">
+        carousel.innerHTML = data.products.slice(0, 8).map(product => {
+          const price = product.salePrice || product.price || product.currentPrice || product.retailPrice || '0.00';
+          return `
+          <a href="${product.buyUrl || product.affiliate_link || product.link || '#'}" target="_blank" class="product-card">
+            <img src="${product.imageUrl || product.imageurl || 'https://via.placeholder.com/300x220'}" class="product-image" alt="${product.title || 'Product'}" onerror="this.src='https://via.placeholder.com/300x220'">
             <div class="product-info">
               <span class="badge">Featured</span>
-              <div class="product-title">${product.title}</div>
-              <div class="product-price">$${product.salePrice || product.price}</div>
-              <div class="product-merchant">${product.merchant_name}</div>
+              <div class="product-title">${product.title || product.name || 'Product'}</div>
+              <div class="product-price">$${price}</div>
+              <div class="product-merchant">${product.merchant_name || product.merchantname || 'Merchant'}</div>
             </div>
           </a>
-        `).join('');
+          `;
+        }).join('');
       } catch (error) {
         console.error('Error loading featured:', error);
       }
@@ -1323,19 +1377,25 @@
         const dealsGrid = document.getElementById('dealsGrid');
         
         if (data.deals && data.deals.length > 0) {
-          dealsGrid.innerHTML = data.deals.map(deal => `
-            <a href="${deal.buyUrl || deal.affiliate_link}" target="_blank" class="deal-card">
-              <img src="${deal.imageUrl || 'https://via.placeholder.com/280x200'}" class="deal-image" alt="${deal.title}">
+          dealsGrid.innerHTML = data.deals.map(deal => {
+            const currentPrice = deal.price || deal.salePrice || deal.currentPrice || '0.00';
+            const originalPrice = deal.originalPrice || deal.retailPrice || (parseFloat(currentPrice) * 1.5).toFixed(2);
+            const discount = deal.discount || Math.floor(((originalPrice - currentPrice) / originalPrice) * 100) || 20;
+            
+            return `
+            <a href="${deal.buyUrl || deal.affiliate_link || deal.link || '#'}" target="_blank" class="deal-card">
+              <img src="${deal.imageUrl || deal.imageurl || 'https://via.placeholder.com/280x200'}" class="deal-image" alt="${deal.title || 'Deal'}" onerror="this.src='https://via.placeholder.com/280x200'">
               <div class="deal-info">
-                <div class="deal-discount">${deal.discount}% OFF</div>
-                <div class="deal-title">${deal.title}</div>
+                <div class="deal-discount">${discount}% OFF</div>
+                <div class="deal-title">${deal.title || deal.name || 'Special Deal'}</div>
                 <div class="deal-prices">
-                  <div class="deal-price">$${deal.price || deal.salePrice}</div>
-                  <div class="deal-original">$${deal.originalPrice}</div>
+                  <div class="deal-price">$${currentPrice}</div>
+                  <div class="deal-original">$${originalPrice}</div>
                 </div>
               </div>
             </a>
-          `).join('');
+            `;
+          }).join('');
         } else {
           dealsGrid.innerHTML = '<p style="color: white;">No deals available today. Check back tomorrow!</p>';
         }
@@ -1346,19 +1406,90 @@
     }
 
     // Search functionality
+    async function performSearch(query) {
+      if (!query || query.trim() === '') {
+        console.warn('Empty search query');
+        return;
+      }
+
+      console.log('Searching for:', query);
+
+      // Show results section
+      const resultsSection = document.getElementById('searchResults');
+      const resultsGrid = document.getElementById('searchResultsGrid');
+      const resultsTitle = document.getElementById('searchResultsTitle');
+
+      if (!resultsSection || !resultsGrid || !resultsTitle) {
+        console.error('Search result elements not found');
+        return;
+      }
+
+      resultsSection.style.display = 'block';
+      resultsTitle.textContent = `Searching for "${query}"...`;
+      resultsGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 20px;">Loading results...</p>';
+
+      // Scroll to results
+      setTimeout(() => {
+        resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+
+      try {
+        const response = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(query)}&limit=20`);
+        
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Search results:', data);
+
+        resultsTitle.textContent = `Search Results for "${query}" (${data.totalCount || data.count || 0} found)`;
+
+        if (data.products && data.products.length > 0) {
+          resultsGrid.innerHTML = data.products.map(product => {
+            const price = product.salePrice || product.price || product.currentPrice || product.retailPrice || '0.00';
+            return `
+            <a href="${product.buyUrl || product.affiliate_link || product.link || '#'}" target="_blank" class="product-card">
+              <img src="${product.imageUrl || product.imageurl || 'https://via.placeholder.com/300x220'}" class="product-image" alt="${product.title || 'Product'}" onerror="this.src='https://via.placeholder.com/300x220'">
+              <div class="product-info">
+                <div class="product-title">${product.title || product.name || 'Product'}</div>
+                <div class="product-price">$${price}</div>
+                <div class="product-merchant">${product.merchant_name || product.merchantname || 'Merchant'}</div>
+              </div>
+            </a>
+            `;
+          }).join('');
+        } else {
+          resultsGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+              <p style="font-size: 1.2rem; color: var(--text-muted);">No products found for "${query}"</p>
+              <p style="margin-top: 10px; color: var(--text-muted);">Try a different search term</p>
+            </div>
+          `;
+        }
+      } catch (error) {
+        console.error('Search error:', error);
+        resultsGrid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+            <p style="color: red;">Error loading results. Please try again.</p>
+          </div>
+        `;
+      }
+    }
+
     function searchCategory(category) {
-      window.location.href = `/search.html?q=${category}`;
+      document.getElementById('mainSearch').value = category;
+      performSearch(category);
     }
 
     document.getElementById('mainSearchBtn').addEventListener('click', () => {
       const query = document.getElementById('mainSearch').value;
-      if (query) window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+      performSearch(query);
     });
 
     document.getElementById('mainSearch').addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        const query = e.target.value;
-        if (query) window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+        performSearch(e.target.value);
       }
     });
 
