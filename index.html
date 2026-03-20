@@ -327,6 +327,17 @@
       color: rgba(255,255,255,0.95);
     }
 
+    .deals-category {
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+
     .deals-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -372,6 +383,10 @@
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .deal-prices {
@@ -586,14 +601,15 @@
     <div class="deals-content">
       <div class="deals-header">
         <h2>🔥 Today's Hot Deals</h2>
-        <p>Limited time offers - grab them before they're gone!</p>
+        <p>Automatically updated daily - new category every 24 hours!</p>
+        <div class="deals-category" id="dealsCategory">Loading...</div>
       </div>
       <div class="deals-grid" id="dealsGrid">
-        <!-- Deals loaded dynamically -->
+        <!-- Deals loaded dynamically from /api/deals -->
         <div class="deal-card">
           <img src="https://via.placeholder.com/280x200/EF4444/ffffff?text=Loading..." class="deal-image" alt="Loading">
           <div class="deal-info">
-            <div class="deal-title">Loading deals...</div>
+            <div class="deal-title">Loading today's deals...</div>
           </div>
         </div>
       </div>
@@ -700,33 +716,41 @@
       }
     }
 
-    // Load deals
+    // Load deals from NEW /api/deals endpoint
     async function loadDeals() {
       try {
-        const response = await fetch(`${WORKER_URL}/api/products?q=sale&limit=6`);
+        const response = await fetch(`${WORKER_URL}/api/deals?limit=6`);
         const data = await response.json();
         
+        console.log('Deals API response:', data);
+        
+        // Update category badge
+        if (data.category) {
+          document.getElementById('dealsCategory').textContent = `Today: ${data.category.toUpperCase()}`;
+        }
+        
         const dealsGrid = document.getElementById('dealsGrid');
-        dealsGrid.innerHTML = data.products.slice(0, 6).map(product => {
-          const discount = Math.floor(Math.random() * 30) + 20; // 20-50% discount
-          const originalPrice = (parseFloat(product.price || product.salePrice) * 1.5).toFixed(2);
-          
-          return `
-            <a href="${product.buyUrl || product.affiliate_link}" target="_blank" class="deal-card">
-              <img src="${product.imageUrl || 'https://via.placeholder.com/280x200'}" class="deal-image" alt="${product.title}">
+        
+        if (data.deals && data.deals.length > 0) {
+          dealsGrid.innerHTML = data.deals.map(deal => `
+            <a href="${deal.buyUrl || deal.affiliate_link}" target="_blank" class="deal-card">
+              <img src="${deal.imageUrl || 'https://via.placeholder.com/280x200'}" class="deal-image" alt="${deal.title}">
               <div class="deal-info">
-                <div class="deal-discount">${discount}% OFF</div>
-                <div class="deal-title">${product.title}</div>
+                <div class="deal-discount">${deal.discount}% OFF</div>
+                <div class="deal-title">${deal.title}</div>
                 <div class="deal-prices">
-                  <div class="deal-price">$${product.price || product.salePrice}</div>
-                  <div class="deal-original">$${originalPrice}</div>
+                  <div class="deal-price">$${deal.price || deal.salePrice}</div>
+                  <div class="deal-original">$${deal.originalPrice}</div>
                 </div>
               </div>
             </a>
-          `;
-        }).join('');
+          `).join('');
+        } else {
+          dealsGrid.innerHTML = '<p style="color: white;">No deals available today. Check back tomorrow!</p>';
+        }
       } catch (error) {
         console.error('Error loading deals:', error);
+        document.getElementById('dealsGrid').innerHTML = '<p style="color: white;">Error loading deals. Please try again later.</p>';
       }
     }
 
@@ -771,7 +795,7 @@
 
     // Initialize
     loadFeatured();
-    loadDeals();
+    loadDeals();  // Now calls /api/deals
     loadStats();
   </script>
 
