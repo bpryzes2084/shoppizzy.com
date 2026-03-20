@@ -1336,26 +1336,47 @@ let carouselAuto;
 const CARDS_VISIBLE = () => window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 4;
 const CARD_W = () => window.innerWidth < 768 ? 256 : 296;
 
-function buildCarousel() {
+async function buildCarousel() {
   const track = document.getElementById('carousel-track');
   const dots = document.getElementById('carousel-dots');
   if (!track || !dots) return;
-  track.innerHTML = SHOPPIZZY_DEALS.map(d => `
+  track.innerHTML = '<div class="score-loading">Loading deals...</div>';
+  
+  let deals = [];
+  try {
+    const res = await fetch('https://modyrnpulse-api.benterpryzes2084.workers.dev/products?q=home+electronics+fashion+beauty+sports&limit=12', {
+      signal: AbortSignal.timeout(6000)
+    });
+    const data = await res.json();
+    if (data.success && data.products.length) {
+      deals = data.products;
+    }
+  } catch(e) {}
+
+  // Fallback to static deals if CJ fails
+  if (!deals.length) deals = SHOPPIZZY_DEALS.map(d => ({
+    title: d.title, price: d.price, image: '', url: d.url, merchant: d.merchant, original: d.original, discount: d.discount, emoji: d.emoji
+  }));
+
+  track.innerHTML = deals.map(d => `
     <a href="${d.url}" target="_blank" rel="noopener" class="deal-card">
-      <div class="deal-card-img-placeholder">${d.emoji}</div>
+      ${d.image 
+        ? `<img src="${d.image}" alt="${d.title}" class="deal-card-img" onerror="this.style.display='none'">` 
+        : `<div class="deal-card-img-placeholder">${d.emoji || '🛍'}</div>`}
       <div class="deal-card-body">
         <div class="deal-card-merchant">${d.merchant}</div>
         <div class="deal-card-title">${d.title}</div>
         <div class="deal-card-footer">
           <div>
             <div class="deal-price">${d.price}</div>
-            <div class="deal-original">${d.original}</div>
+            ${d.original ? `<div class="deal-original">${d.original}</div>` : ''}
           </div>
-          <div class="deal-badge">${d.discount}</div>
+          ${d.discount ? `<div class="deal-badge">${d.discount}</div>` : ''}
         </div>
       </div>
     </a>`).join('');
-  const pages = Math.ceil(SHOPPIZZY_DEALS.length / CARDS_VISIBLE());
+
+  const pages = Math.ceil(deals.length / CARDS_VISIBLE());
   dots.innerHTML = Array.from({length: pages}, (_, i) =>
     `<div class="carousel-dot${i===0?' on':''}" onclick="carouselGoTo(${i})"></div>`
   ).join('');
