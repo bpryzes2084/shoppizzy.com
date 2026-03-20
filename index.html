@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shoppizzy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F46E5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Shoppizzy - AI Shopping Assistant | 8.3M+ Products</title>
   <meta name="description" content="Shop 8.3M+ products across 175 merchants with our AI shopping assistant. Find exactly what you need with natural language search.">
   
   <!-- Google Analytics -->
@@ -46,13 +49,16 @@
       background: var(--bg-light);
       color: var(--text-dark);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
     /* Header */
     header {
       background: var(--white);
       border-bottom: 1px solid var(--border);
-      padding: 20px 0;
+      padding: 15px 0;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -87,6 +93,8 @@
       font-size: 0.95rem;
       font-weight: 500;
       transition: color 0.3s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     .header-nav a:hover {
@@ -180,6 +188,9 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      min-height: 44px;
     }
 
     .search-btn:hover {
@@ -428,6 +439,13 @@
       cursor: pointer;
       transition: all 0.3s;
       border: 2px solid transparent;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .category-card:hover {
@@ -444,6 +462,13 @@
       font-size: 0.9rem;
       font-weight: 600;
       color: var(--text-dark);
+    }
+
+    .category-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 5px;
+      font-weight: 400;
     }
 
     /* Footer */
@@ -492,24 +517,54 @@
 
     /* Responsive */
     @media (max-width: 768px) {
+      .hero {
+        padding: 60px 20px 50px;
+      }
+
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        line-height: 1.3;
+      }
+
+      .hero .highlight {
+        display: block;
       }
 
       .stats {
+        gap: 20px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+      }
+
+      .search-section {
+        padding: 0 20px;
+        margin: -25px auto 40px;
+      }
+
+      .search-container {
         flex-direction: column;
-        gap: 25px;
+        padding: 10px;
+        gap: 10px;
       }
 
-      .carousel {
-        grid-template-columns: repeat(2, 1fr);
+      .search-input {
+        padding: 12px 20px;
+        font-size: 1rem;
       }
 
-      .deals-grid {
-        grid-template-columns: 1fr;
+      .search-btn {
+        width: 100%;
+        padding: 12px 30px;
       }
 
       .header-content {
+        padding: 0 20px;
         flex-direction: column;
         gap: 15px;
       }
@@ -517,11 +572,363 @@
       .header-nav {
         display: flex;
         gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
       .header-nav a {
         margin-left: 0;
         font-size: 0.85rem;
+      }
+
+      .featured-section,
+      .categories-section,
+      .deals-content {
+        padding: 0 20px;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .carousel {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
+      .product-image {
+        height: 180px;
+      }
+
+      .product-info {
+        padding: 15px;
+      }
+
+      .product-title {
+        font-size: 0.85rem;
+      }
+
+      .product-price {
+        font-size: 1.1rem;
+      }
+
+      .deals-section {
+        padding: 40px 20px;
+      }
+
+      .deals-header h2 {
+        font-size: 1.8rem;
+      }
+
+      .deals-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .category-card {
+        padding: 20px 10px;
+      }
+
+      .category-icon {
+        font-size: 2rem;
+      }
+
+      .category-name {
+        font-size: 0.8rem;
+      }
+
+      .category-count {
+        font-size: 0.7rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      footer {
+        padding: 40px 20px 30px;
+      }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .stat-number {
+        font-size: 1.8rem;
+      }
+
+      .carousel {
+        grid-template-columns: 1fr;
+      }
+
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+      }
+    }
+
+    /* Touch improvements */
+    @media (hover: none) and (pointer: coarse) {
+      .category-card,
+      .product-card,
+      .deal-card {
+        -webkit-tap-highlight-color: rgba(79, 70, 229, 0.1);
+      }
+
+      .search-btn,
+      .carousel-btn {
+        min-height: 44px;
+        min-width: 44px;
+      }
+
+      .header-nav a {
+        padding: 8px 12px;
+      }
+    }
+        flex-direction: row;
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+      }
+
+      /* Search bar mobile */
+      .search-section {
+        margin: -25px auto 40px;
+        padding: 0 20px;
+      }
+
+      .search-container {
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+      }
+
+      .search-input {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+      }
+
+      .search-btn {
+        width: 100%;
+        padding: 12px 30px;
+      }
+
+      /* Header mobile */
+      .header-content {
+        padding: 0 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      .header-nav {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .header-nav a {
+        margin-left: 0;
+        font-size: 0.8rem;
+        padding: 5px 10px;
+      }
+
+      /* Featured carousel mobile */
+      .featured-section {
+        padding: 0 20px;
+        margin-bottom: 60px;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .carousel {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .product-card {
+        border-radius: 8px;
+      }
+
+      .product-image {
+        height: 150px;
+      }
+
+      .product-info {
+        padding: 12px;
+      }
+
+      .product-title {
+        font-size: 0.85rem;
+        -webkit-line-clamp: 3;
+      }
+
+      .product-price {
+        font-size: 1.1rem;
+      }
+
+      .product-merchant {
+        font-size: 0.75rem;
+      }
+
+      .badge {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+      }
+
+      .carousel-controls {
+        display: none;
+      }
+
+      /* Deals section mobile */
+      .deals-section {
+        padding: 40px 20px;
+        margin-bottom: 60px;
+      }
+
+      .deals-header h2 {
+        font-size: 1.8rem;
+      }
+
+      .deals-header p {
+        font-size: 0.95rem;
+      }
+
+      .deals-category {
+        font-size: 0.8rem;
+        padding: 6px 16px;
+      }
+
+      .deals-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .deal-image {
+        height: 180px;
+      }
+
+      .deal-info {
+        padding: 15px;
+      }
+
+      .deal-discount {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+      }
+
+      .deal-title {
+        font-size: 0.9rem;
+      }
+
+      .deal-price {
+        font-size: 1.3rem;
+      }
+
+      .deal-original {
+        font-size: 1rem;
+      }
+
+      /* Categories mobile */
+      .categories-section {
+        padding: 0 20px;
+        margin-bottom: 60px;
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .category-card {
+        padding: 20px 10px;
+        border-radius: 8px;
+      }
+
+      .category-icon {
+        font-size: 2rem;
+        margin-bottom: 8px;
+      }
+
+      .category-name {
+        font-size: 0.8rem;
+      }
+
+      .category-count {
+        font-size: 0.65rem;
+        margin-top: 3px;
+      }
+
+      /* Footer mobile */
+      footer {
+        padding: 40px 20px 30px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .footer-section h3 {
+        font-size: 1rem;
+      }
+
+      .footer-section a {
+        font-size: 0.85rem;
+      }
+
+      .footer-bottom {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Extra small mobile (phones < 400px) */
+    @media (max-width: 400px) {
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .stat-number {
+        font-size: 1.75rem;
+      }
+
+      .carousel {
+        grid-template-columns: 1fr;
+      }
+
+      .categories-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -544,20 +951,11 @@
   <!-- Hero -->
   <section class="hero">
     <h1>Find Anything with <span class="highlight">AI Search</span></h1>
-    <p>Search 8.3 million products across 175 merchants. Just type what you're looking for.</p>
     
     <div class="stats">
       <div class="stat">
         <span class="stat-number" id="product-count">8,321,745</span>
         <span class="stat-label">Products</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">175</span>
-        <span class="stat-label">Merchants</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">45</span>
-        <span class="stat-label">Categories</span>
       </div>
     </div>
   </section>
@@ -620,37 +1018,230 @@
   <section class="categories-section" id="categories">
     <h2 class="section-title">Shop by Category</h2>
     <div class="categories-grid">
-      <div class="category-card" onclick="searchCategory('electronics')">
-        <div class="category-icon">📱</div>
-        <div class="category-name">Electronics</div>
+      <div class="category-card" onclick="searchCategory('accessories')">
+        <div class="category-icon">🕶️</div>
+        <div class="category-name">Accessories</div>
+        <div class="category-count">440K+ products</div>
       </div>
-      <div class="category-card" onclick="searchCategory('fashion')">
-        <div class="category-icon">👗</div>
-        <div class="category-name">Fashion</div>
+      <div class="category-card" onclick="searchCategory('appliances')">
+        <div class="category-icon">🔌</div>
+        <div class="category-name">Appliances</div>
+        <div class="category-count">285K+ products</div>
       </div>
-      <div class="category-card" onclick="searchCategory('home')">
-        <div class="category-icon">🏠</div>
-        <div class="category-name">Home & Garden</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('sports')">
-        <div class="category-icon">⚽</div>
-        <div class="category-name">Sports</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('beauty')">
-        <div class="category-icon">💄</div>
-        <div class="category-name">Beauty</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('toys')">
-        <div class="category-icon">🎮</div>
-        <div class="category-name">Toys</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('books')">
-        <div class="category-icon">📚</div>
-        <div class="category-name">Books</div>
+      <div class="category-card" onclick="searchCategory('art')">
+        <div class="category-icon">🎨</div>
+        <div class="category-name">Art & Crafts</div>
+        <div class="category-count">195K+ products</div>
       </div>
       <div class="category-card" onclick="searchCategory('automotive')">
         <div class="category-icon">🚗</div>
         <div class="category-name">Automotive</div>
+        <div class="category-count">420K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('baby')">
+        <div class="category-icon">👶</div>
+        <div class="category-name">Baby & Kids</div>
+        <div class="category-count">310K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('bags')">
+        <div class="category-icon">👜</div>
+        <div class="category-name">Bags & Luggage</div>
+        <div class="category-count">165K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('beauty')">
+        <div class="category-icon">💄</div>
+        <div class="category-name">Beauty & Cosmetics</div>
+        <div class="category-count">380K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('bedding')">
+        <div class="category-icon">🛏️</div>
+        <div class="category-name">Bedding & Bath</div>
+        <div class="category-count">265K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('books')">
+        <div class="category-icon">📚</div>
+        <div class="category-name">Books & Media</div>
+        <div class="category-count">520K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('cameras')">
+        <div class="category-icon">📷</div>
+        <div class="category-name">Cameras & Photo</div>
+        <div class="category-count">125K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('clothing')">
+        <div class="category-icon">👕</div>
+        <div class="category-name">Clothing</div>
+        <div class="category-count">890K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('collectibles')">
+        <div class="category-icon">🏆</div>
+        <div class="category-name">Collectibles</div>
+        <div class="category-count">155K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('computers')">
+        <div class="category-icon">💻</div>
+        <div class="category-name">Computers</div>
+        <div class="category-count">340K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('electronics')">
+        <div class="category-icon">📱</div>
+        <div class="category-name">Electronics</div>
+        <div class="category-count">650K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('fitness')">
+        <div class="category-icon">🏋️</div>
+        <div class="category-name">Fitness & Exercise</div>
+        <div class="category-count">215K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('food')">
+        <div class="category-icon">🍕</div>
+        <div class="category-name">Food & Beverage</div>
+        <div class="category-count">275K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('furniture')">
+        <div class="category-icon">🛋️</div>
+        <div class="category-name">Furniture</div>
+        <div class="category-count">295K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('gaming')">
+        <div class="category-icon">🎮</div>
+        <div class="category-name">Gaming</div>
+        <div class="category-count">185K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('garden')">
+        <div class="category-icon">🌱</div>
+        <div class="category-name">Garden & Outdoor</div>
+        <div class="category-count">240K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('gifts')">
+        <div class="category-icon">🎁</div>
+        <div class="category-name">Gifts & Occasions</div>
+        <div class="category-count">320K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('health')">
+        <div class="category-icon">💊</div>
+        <div class="category-name">Health & Wellness</div>
+        <div class="category-count">405K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('home')">
+        <div class="category-icon">🏠</div>
+        <div class="category-name">Home & Decor</div>
+        <div class="category-count">485K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('jewelry')">
+        <div class="category-icon">💎</div>
+        <div class="category-name">Jewelry & Watches</div>
+        <div class="category-count">225K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('kitchen')">
+        <div class="category-icon">🍳</div>
+        <div class="category-name">Kitchen & Dining</div>
+        <div class="category-count">365K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('mens')">
+        <div class="category-icon">🧥</div>
+        <div class="category-name">Men's Fashion</div>
+        <div class="category-count">565K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('music')">
+        <div class="category-icon">🎵</div>
+        <div class="category-name">Music & Instruments</div>
+        <div class="category-count">145K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('office')">
+        <div class="category-icon">📎</div>
+        <div class="category-name">Office Supplies</div>
+        <div class="category-count">280K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('outdoors')">
+        <div class="category-icon">🏕️</div>
+        <div class="category-name">Outdoors & Camping</div>
+        <div class="category-count">195K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('party')">
+        <div class="category-icon">🎉</div>
+        <div class="category-name">Party Supplies</div>
+        <div class="category-count">125K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('pets')">
+        <div class="category-icon">🐾</div>
+        <div class="category-name">Pet Supplies</div>
+        <div class="category-count">340K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('phones')">
+        <div class="category-icon">📱</div>
+        <div class="category-name">Phones & Accessories</div>
+        <div class="category-count">385K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('safety')">
+        <div class="category-icon">🦺</div>
+        <div class="category-name">Safety & Security</div>
+        <div class="category-count">165K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('school')">
+        <div class="category-icon">🎒</div>
+        <div class="category-name">School & Education</div>
+        <div class="category-count">185K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('seasonal')">
+        <div class="category-icon">🎄</div>
+        <div class="category-name">Seasonal & Holiday</div>
+        <div class="category-count">185K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('shoes')">
+        <div class="category-icon">👟</div>
+        <div class="category-name">Shoes & Footwear</div>
+        <div class="category-count">425K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('sports')">
+        <div class="category-icon">⚽</div>
+        <div class="category-name">Sports Equipment</div>
+        <div class="category-count">315K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('tools')">
+        <div class="category-icon">🔧</div>
+        <div class="category-name">Tools & Hardware</div>
+        <div class="category-count">395K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('toys')">
+        <div class="category-icon">🧸</div>
+        <div class="category-name">Toys & Games</div>
+        <div class="category-count">455K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('travel')">
+        <div class="category-icon">✈️</div>
+        <div class="category-name">Travel & Luggage</div>
+        <div class="category-count">175K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('tvs')">
+        <div class="category-icon">📺</div>
+        <div class="category-name">TVs & Home Theater</div>
+        <div class="category-count">135K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('video')">
+        <div class="category-icon">🎥</div>
+        <div class="category-name">Video & Streaming</div>
+        <div class="category-count">145K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('watches')">
+        <div class="category-icon">⌚</div>
+        <div class="category-name">Watches & Smart Tech</div>
+        <div class="category-count">205K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('wedding')">
+        <div class="category-icon">💍</div>
+        <div class="category-name">Wedding & Events</div>
+        <div class="category-count">155K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('wine')">
+        <div class="category-icon">🍷</div>
+        <div class="category-name">Wine & Spirits</div>
+        <div class="category-count">85K+ products</div>
+      </div>
+      <div class="category-card" onclick="searchCategory('womens')">
+        <div class="category-icon">👗</div>
+        <div class="category-name">Women's Fashion</div>
+        <div class="category-count">695K+ products</div>
       </div>
     </div>
   </section>
