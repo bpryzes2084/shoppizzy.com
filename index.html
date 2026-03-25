@@ -598,23 +598,6 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* MOBILE */
-    @media (max-width: 768px) {
-      .header-main { padding: 16px 20px; }
-      .header-nav { display: none; }
-      .category-grid { grid-template-columns: repeat(2, 1fr); }
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .categories-section, .featured-section { padding: 0 20px; }
-      .footer-inner { grid-template-columns: 1fr; gap: 40px; }
-      .page-btn { min-width: 40px; height: 40px; font-size: 0.85rem; padding: 0 12px; }
-      .results-controls { flex-direction: column; width: 100%; }
-      .sort-select, .merchant-filter { width: 100%; }
-    }
-
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .category-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
     /* SHOPPING ASSISTANT STYLES */
     .chat-widget-container {
       position: fixed;
@@ -1004,7 +987,37 @@
       background: var(--muted);
     }
 
+    /* ========== MOBILE OPTIMIZATION ========== */
     @media (max-width: 768px) {
+      .header-main { padding: 16px 20px; }
+      .header-nav { display: none; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .categories-section, .featured-section { padding: 0 20px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+      .page-btn { min-width: 40px; height: 40px; font-size: 0.85rem; padding: 0 12px; }
+      .results-controls { flex-direction: column; width: 100%; }
+      .sort-select, .merchant-filter { width: 100%; }
+      
+      /* MOBILE IMAGE OPTIMIZATION */
+      .product-img-wrap {
+        height: 180px !important;
+      }
+      
+      .product-card-chat-image {
+        width: 70px !important;
+        height: 70px !important;
+      }
+      
+      .product-title {
+        font-size: 0.95rem !important;
+        -webkit-line-clamp: 2;
+      }
+      
+      .product-price {
+        font-size: 0.95rem !important;
+      }
+      
       .chat-window {
         bottom: 0;
         right: 0;
@@ -1025,6 +1038,31 @@
         width: 56px;
         height: 56px;
       }
+    }
+
+    /* Extra small phones */
+    @media (max-width: 480px) {
+      .product-img-wrap {
+        height: 160px !important;
+      }
+      
+      .product-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+      }
+      
+      .product-card-chat-image {
+        width: 60px !important;
+        height: 60px !important;
+      }
+      
+      .product-title {
+        font-size: 0.9rem !important;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .category-grid { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
