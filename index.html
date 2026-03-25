@@ -1644,11 +1644,18 @@
   }
 
   function escHtml(str) {
-    return String(str || '')
+    // Create a temporary div to decode any existing HTML entities
+    const temp = document.createElement('div');
+    temp.innerHTML = String(str || '');
+    const decoded = temp.textContent || temp.innerText || '';
+    
+    // Now encode for safe HTML output
+    return decoded
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 </script>
 
