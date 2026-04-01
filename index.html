@@ -1639,13 +1639,25 @@
   }
 
   function renderCard(p, trackView = false) {
+    // Debug: log product data to see what's coming through
+    if (trackView) {
+      console.log('Product data:', {
+        title: p.title,
+        price: p.price,
+        salePrice: p.salePrice,
+        rawProduct: p
+      });
+    }
+    
     const hasSale = p.salePrice && p.salePrice !== '' && parseFloat(p.salePrice) > 0;
     const price = hasSale ? p.salePrice : p.price;
-    const priceStr = price ? `$${parseFloat(price).toFixed(2)}` : '';
-    const wasStr = hasSale && p.price ? `$${parseFloat(p.price).toFixed(2)}` : '';
+    
+    // Fallback: Show "See Price" if no price available
+    const priceStr = price && parseFloat(price) > 0 ? `$${parseFloat(price).toFixed(2)}` : 'See Price';
+    const wasStr = hasSale && p.price && parseFloat(p.price) > 0 ? `$${parseFloat(p.price).toFixed(2)}` : '';
 
     const imgHtml = p.imageUrl
-      ? `<img src="${escHtml(p.imageUrl)}" alt="${escHtml(p.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      ? `<img src="${p.imageUrl}" alt="${escHtml(p.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
       : '';
     const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>✦</div>`;
 
@@ -1658,7 +1670,7 @@
     const merchantName = p.advertiserName || p.merchant_name || 'Merchant';
 
     return `
-      <a class="product-card" href="${escHtml(productLink)}" target="${linkTarget}" ${linkRel ? `rel="${linkRel}"` : ''}>
+      <a class="product-card" href="${productLink}" target="${linkTarget}" ${linkRel ? `rel="${linkRel}"` : ''}>
         <div class="product-img-wrap">
           ${imgHtml}${placeholderHtml}
           <div class="source-badge">${escHtml(merchantName)}</div>
@@ -1668,7 +1680,7 @@
           <div class="product-merchant">${escHtml(merchantName)}</div>
           <div class="product-title">${escHtml(p.title)}</div>
           <div class="product-price">
-            ${hasSale
+            ${hasSale && wasStr
               ? `<span class="price-sale">${priceStr}</span><span class="price-was">${wasStr}</span>`
               : `<span class="price-regular">${priceStr}</span>`}
           </div>
