@@ -1,1 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Become a Seller — Shoppizzy</title>
+  <meta name="description" content="Join Shoppizzy as a seller and reach thousands of luxury shoppers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --black: #000000;
+      --charcoal: #2b2b2b;
+      --cream: #f8f7f4;
+      --white: #ffffff;
+      --gold: #c5a572;
+      --gold-light: #d4b88a;
+      --text: #333333;
+      --muted: #888888;
+      --border: #e5e5e5;
+      --error: #c0392b;
+      --success: #27ae60;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: rgba(255,255,255,0.98);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .header-nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 400;
+      transition: color 0.3s;
+      margin-left: 40px;
+    }
+
+    .header-nav a:hover { color: var(--gold); }
+
+    /* HERO BANNER */
+    .seller-hero {
+      background: var(--black);
+      color: var(--white);
+      padding: 80px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .seller-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(197,165,114,0.03) 40px,
+        rgba(197,165,114,0.03) 80px
+      );
+    }
+
+    .seller-hero-content { position: relative; z-index: 1; }
+
+    .hero-tag {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 8px 24px;
+      margin-bottom: 30px;
+    }
+
+    .seller-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .seller-hero p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.7);
+      font-weight: 300;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* PERKS */
+    .perks-bar {
+      background: var(--gold);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      flex-wrap: wrap;
+    }
+
+    .perk {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--black);
+    }
+
+    .perk-icon { font-size: 1.4rem; }
+
+    .perk-text {
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* MAIN LAYOUT */
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* LEFT INFO PANEL */
+    .info-panel { position: sticky; top: 100px; }
+
+    .info-panel h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .info-panel .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .feature-list { list-style: none; }
+
+    .feature-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--black);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .feature-text p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .already-seller {
+      margin-top: 40px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      text-align: center;
+    }
+
+    .already-seller p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .already-seller a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+    }
+
+    /* FORM CARD */
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 56px 48px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+    }
+
+    .form-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--black);
+      letter-spacing: 1px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .form-section-title .step-num {
+      width: 28px;
+      height: 28px;
+      background: var(--black);
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-family: 'Lato', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .form-section { margin-bottom: 48px; }
+
+    .form-group { margin-bottom: 24px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    label span.required { color: var(--gold); margin-left: 4px; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(197,165,114,0.12);
+    }
+
+    input.error, select.error, textarea.error {
+      border-color: var(--error);
+    }
+
+    .field-error {
+      font-size: 0.75rem;
+      color: var(--error);
+      margin-top: 6px;
+      display: none;
+    }
+
+    .field-error.show { display: block; }
+
+    textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+    select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+      padding-right: 44px;
+    }
+
+    .helper-text {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* PASSWORD STRENGTH */
+    .password-strength {
+      margin-top: 8px;
+      display: flex;
+      gap: 4px;
+    }
+
+    .strength-bar {
+      height: 3px;
+      flex: 1;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+
+    .strength-bar.weak { background: var(--error); }
+    .strength-bar.fair { background: #f39c12; }
+    .strength-bar.strong { background: var(--success); }
+
+    .strength-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* CHECKBOX */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--black);
+      cursor: pointer;
+    }
+
+    .checkbox-group .checkbox-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+      cursor: pointer;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 300;
+    }
+
+    .checkbox-group .checkbox-label a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold);
+    }
+
+    /* SUBMIT BUTTON */
+    .btn-submit {
+      width: 100%;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 20px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 400;
+      position: relative;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .btn-submit::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--gold);
+      transition: left 0.4s;
+      z-index: 0;
+    }
+
+    .btn-submit:hover::after { left: 0; }
+    .btn-submit span { position: relative; z-index: 1; }
+    .btn-submit:hover { color: var(--black); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--black);
+      color: var(--white);
+      padding: 16px 28px;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      z-index: 9999;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.4s;
+      border-left: 3px solid var(--gold);
+      max-width: 360px;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-left-color: var(--success); }
+    .toast.error-toast { border-left-color: var(--error); }
+
+    /* SUCCESS STATE */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 60px 40px;
+    }
+
+    .success-screen.show { display: block; }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--black);
+      color: var(--gold);
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+    }
+
+    .success-screen h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .success-screen p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-dashboard {
+      display: inline-block;
+      background: var(--black);
+      color: var(--white);
+      text-decoration: none;
+      padding: 16px 48px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: background 0.3s;
+    }
+
+    .btn-dashboard:hover { background: var(--gold); color: var(--black); }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.5);
+      padding: 40px;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-top: 60px;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .page-wrapper { grid-template-columns: 1fr; gap: 40px; }
+      .info-panel { position: static; }
+      .seller-hero h1 { font-size: 2.4rem; }
+      .perks-bar { gap: 40px; }
+    }
+
+    @media (max-width: 600px) {
+      .header-main { padding: 16px 20px; }
+      .header-nav { display: none; }
+      .seller-hero { padding: 60px 24px; }
+      .seller-hero h1 { font-size: 2rem; }
+      .page-wrapper { padding: 40px 20px; }
+      .form-card { padding: 32px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .perks-bar { padding: 20px; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-main">
+    <a href="/index.html" class="logo">SHOPPIZZY</a>
+    <nav class="header-nav">
+      <a href="/index.html">Shop</a>
+      <a href="/seller/login.html">Seller Login</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="seller-hero">
+  <div class="seller-hero-content">
+    <div class="hero-tag">Seller Program</div>
+    <h1>Sell on Shoppizzy</h1>
+    <p>Join a curated marketplace of luxury and everyday essentials. No surprise fees. No fuel surcharges.</p>
+  </div>
+</div>
+
+<!-- PERKS BAR -->
+<div class="perks-bar">
+  <div class="perk">
+    <span class="perk-icon">✦</span>
+    <span class="perk-text">Zero Surprise Fees</span>
+  </div>
+  <div class="perk">
+    <span class="perk-icon">✦</span>
+    <span class="perk-text">PayPal & Square Payouts</span>
+  </div>
+  <div class="perk">
+    <span class="perk-icon">✦</span>
+    <span class="perk-text">Real-Time Inventory</span>
+  </div>
+  <div class="perk">
+    <span class="perk-icon">✦</span>
+    <span class="perk-text">Seller Dashboard</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="page-wrapper">
+
+  <!-- LEFT PANEL -->
+  <div class="info-panel">
+    <h2>Why Shoppizzy?</h2>
+    <p class="subtitle">A better marketplace for independent sellers</p>
+
+    <ul class="feature-list">
+      <li class="feature-item">
+        <div class="feature-icon">💰</div>
+        <div class="feature-text">
+          <h4>Transparent Pricing</h4>
+          <p>No fuel surcharges. No hidden fees. Know exactly what you'll pay before you list.</p>
+        </div>
+      </li>
+      <li class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-text">
+          <h4>Fast Payouts</h4>
+          <p>Get paid via PayPal or Square. Automatic commission splits on every sale.</p>
+        </div>
+      </li>
+      <li class="feature-item">
+        <div class="feature-icon">📦</div>
+        <div class="feature-text">
+          <h4>Inventory Tracking</h4>
+          <p>Real-time stock management with low-stock alerts. Square users sync automatically.</p>
+        </div>
+      </li>
+      <li class="feature-item">
+        <div class="feature-icon">📊</div>
+        <div class="feature-text">
+          <h4>Seller Dashboard</h4>
+          <p>Manage listings, track orders, and view your performance — all in one place.</p>
+        </div>
+      </li>
+      <li class="feature-item">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-text">
+          <h4>Secure & Compliant</h4>
+          <p>Cloudflare-protected infrastructure. PayPal handles buyer/seller dispute resolution.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="already-seller">
+      <p>Already have an account?</p>
+      <a href="/seller/login.html">Sign in to your Seller Dashboard →</a>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-card" id="form-card">
+    <div id="register-form-wrapper">
+
+      <!-- SECTION 1: SHOP INFO -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="step-num">1</span>
+          Shop Information
+        </div>
+
+        <div class="form-group">
+          <label for="shop_name">Shop Name <span class="required">*</span></label>
+          <input type="text" id="shop_name" placeholder="Your store name" maxlength="60">
+          <div class="field-error" id="shop_name_error">Please enter your shop name</div>
+        </div>
+
+        <div class="form-group">
+          <label for="shop_description">Shop Description</label>
+          <textarea id="shop_description" placeholder="Tell customers what makes your shop special..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="category">Primary Category <span class="required">*</span></label>
+            <select id="category">
+              <option value="">Select a category</option>
+              <option value="cat_electronics">Electronics</option>
+              <option value="cat_home_garden">Home & Garden</option>
+              <option value="cat_clothing">Clothing & Apparel</option>
+              <option value="cat_beauty">Beauty & Personal Care</option>
+              <option value="cat_sports">Sports & Outdoors</option>
+              <option value="cat_toys">Toys & Games</option>
+              <option value="cat_books">Books & Media</option>
+              <option value="cat_food">Food & Grocery</option>
+              <option value="cat_automotive">Automotive</option>
+              <option value="cat_health">Health & Household</option>
+              <option value="cat_pets">Pet Supplies</option>
+              <option value="cat_office">Office & School</option>
+              <option value="cat_jewelry">Jewelry & Watches</option>
+              <option value="cat_baby">Baby & Kids</option>
+              <option value="cat_other">Other</option>
+            </select>
+            <div class="field-error" id="category_error">Please select a category</div>
+          </div>
+          <div class="form-group">
+            <label for="ship_from_zip">Ship From ZIP Code <span class="required">*</span></label>
+            <input type="text" id="ship_from_zip" placeholder="e.g. 80019" maxlength="10">
+            <div class="field-error" id="zip_error">Please enter a valid ZIP code</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: ACCOUNT INFO -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="step-num">2</span>
+          Account Details
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="you@example.com">
+          <div class="field-error" id="email_error">Please enter a valid email address</div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password <span class="required">*</span></label>
+          <input type="password" id="password" placeholder="Minimum 8 characters">
+          <div class="password-strength" id="strength-bars">
+            <div class="strength-bar" id="bar1"></div>
+            <div class="strength-bar" id="bar2"></div>
+            <div class="strength-bar" id="bar3"></div>
+            <div class="strength-bar" id="bar4"></div>
+          </div>
+          <div class="strength-label" id="strength-label"></div>
+          <div class="field-error" id="password_error">Password must be at least 8 characters</div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm_password">Confirm Password <span class="required">*</span></label>
+          <input type="password" id="confirm_password" placeholder="Repeat your password">
+          <div class="field-error" id="confirm_error">Passwords do not match</div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: PAYMENT -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="step-num">3</span>
+          Payout Information
+        </div>
+
+        <div class="form-group">
+          <label for="paypal_email">PayPal Email <span class="required">*</span></label>
+          <input type="email" id="paypal_email" placeholder="your-paypal@email.com">
+          <p class="helper-text">This is where your earnings will be sent. Must be a verified PayPal account.</p>
+          <div class="field-error" id="paypal_error">Please enter your PayPal email</div>
+        </div>
+
+        <div class="form-group">
+          <label for="square_id">Square Seller ID <span style="color:var(--muted);font-weight:300;letter-spacing:0;">(optional)</span></label>
+          <input type="text" id="square_id" placeholder="Your Square merchant ID">
+          <p class="helper-text">Connect your Square account to automatically sync inventory from your physical store.</p>
+        </div>
+      </div>
+
+      <!-- SECTION 4: AGREE -->
+      <div class="form-section" style="margin-bottom:32px;">
+        <div class="form-section-title">
+          <span class="step-num">4</span>
+          Agreement
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-group">
+            <input type="checkbox" id="agree_terms">
+            <span class="checkbox-label">I agree to the <a href="/terms-of-service.html" target="_blank">Terms of Service</a> and <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>. I understand that my shop is subject to approval.</span>
+          </label>
+          <div class="field-error" id="terms_error">You must agree to the terms to continue</div>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-group">
+            <input type="checkbox" id="agree_fees">
+            <span class="checkbox-label">I understand Shoppizzy charges a commission on each sale. No monthly fees. No surprise surcharges.</span>
+          </label>
+        </div>
+      </div>
+
+      <button class="btn-submit" id="submit-btn" onclick="submitRegistration()">
+        <span>Create Seller Account</span>
+      </button>
+
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">✦</div>
+      <h2>Application Received</h2>
+      <p>Your seller account has been created and is pending approval. You'll receive an email at <strong id="success-email"></strong> within 24–48 hours.</p>
+      <a href="/seller/login.html" class="btn-dashboard">Go to Seller Login</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Shoppizzy — BSM Enterpryzes. All Rights Reserved. &nbsp;|&nbsp;
+  <a href="/terms-of-service.html">Terms</a> &nbsp;|&nbsp;
+  <a href="/privacy-policy.html">Privacy</a>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
+
+  // Password strength meter
+  document.getElementById('password').addEventListener('input', function() {
+    const val = this.value;
+    const bars = [document.getElementById('bar1'), document.getElementById('bar2'),
+                  document.getElementById('bar3'), document.getElementById('bar4')];
+    const label = document.getElementById('strength-label');
+    bars.forEach(b => { b.className = 'strength-bar'; });
+
+    if (!val) { label.textContent = ''; return; }
+
+    let score = 0;
+    if (val.length >= 8) score++;
+    if (val.length >= 12) score++;
+    if (/[A-Z]/.test(val) && /[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+
+    const levels = ['', 'weak', 'fair', 'fair', 'strong'];
+    const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+    for (let i = 0; i < score; i++) bars[i].classList.add(levels[score]);
+    label.textContent = labels[score] || '';
+  });
+
+  function showToast(msg, type = '') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast show ${type}`;
+    setTimeout(() => { t.className = 'toast'; }, 4000);
+  }
+
+  function validateField(id, errorId, condition, msg) {
+    const el = document.getElementById(id);
+    const err = document.getElementById(errorId);
+    if (!condition) {
+      el.classList.add('error');
+      err.textContent = msg || err.textContent;
+      err.classList.add('show');
+      return false;
+    }
+    el.classList.remove('error');
+    err.classList.remove('show');
+    return true;
+  }
+
+  async function submitRegistration() {
+    const shopName = document.getElementById('shop_name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPwd = document.getElementById('confirm_password').value;
+    const paypalEmail = document.getElementById('paypal_email').value.trim();
+    const zip = document.getElementById('ship_from_zip').value.trim();
+    const category = document.getElementById('category').value;
+    const terms = document.getElementById('agree_terms').checked;
+
+    let valid = true;
+    valid = validateField('shop_name', 'shop_name_error', shopName.length >= 2) && valid;
+    valid = validateField('category', 'category_error', category !== '') && valid;
+    valid = validateField('ship_from_zip', 'zip_error', /^\d{5}(-\d{4})?$/.test(zip)) && valid;
+    valid = validateField('email', 'email_error', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) && valid;
+    valid = validateField('password', 'password_error', password.length >= 8) && valid;
+    valid = validateField('confirm_password', 'confirm_error', password === confirmPwd, 'Passwords do not match') && valid;
+    valid = validateField('paypal_email', 'paypal_error', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(paypalEmail)) && valid;
+    valid = validateField('agree_terms', 'terms_error', terms) && valid;
+
+    if (!valid) {
+      showToast('Please fix the errors above', 'error-toast');
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Creating Account...';
+
+    try {
+      const res = await fetch(`${WORKER_URL}/api/sellers/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          shop_name: shopName,
+          shop_description: document.getElementById('shop_description').value.trim(),
+          email,
+          password,
+          paypal_email: paypalEmail,
+          ship_from_zip: zip,
+          category,
+          square_id: document.getElementById('square_id').value.trim()
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        document.getElementById('register-form-wrapper').style.display = 'none';
+        document.getElementById('success-email').textContent = email;
+        document.getElementById('success-screen').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        showToast(data.error || 'Registration failed. Please try again.', 'error-toast');
+        btn.disabled = false;
+        btn.querySelector('span').textContent = 'Create Seller Account';
+      }
+    } catch (err) {
+      showToast('Network error. Please check your connection.', 'error-toast');
+      btn.disabled = false;
+      btn.querySelector('span').textContent = 'Create Seller Account';
+    }
+  }
+
+  // Clear errors on input
+  document.querySelectorAll('input, select, textarea').forEach(el => {
+    el.addEventListener('input', () => {
+      el.classList.remove('error');
+      const errId = el.id + '_error';
+      const errEl = document.getElementById(errId);
+      if (errEl) errEl.classList.remove('show');
+    });
+  });
+</script>
+
+</body>
+</html>
