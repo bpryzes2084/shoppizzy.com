@@ -1,1 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seller Login — Shoppizzy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --black: #000000;
+      --charcoal: #2b2b2b;
+      --cream: #f8f7f4;
+      --white: #ffffff;
+      --gold: #c5a572;
+      --text: #333333;
+      --muted: #888888;
+      --border: #e5e5e5;
+      --error: #c0392b;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--black);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* SPLIT LAYOUT */
+    .login-wrapper {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    /* LEFT PANEL — Brand */
+    .brand-panel {
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 60px,
+        rgba(197,165,114,0.04) 60px,
+        rgba(197,165,114,0.04) 61px
+      );
+    }
+
+    .brand-panel-content { position: relative; z-index: 1; }
+
+    .brand-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 3px;
+      display: block;
+      margin-bottom: 80px;
+    }
+
+    .brand-logo span { color: var(--gold); }
+
+    .brand-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+    }
+
+    .brand-tagline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .brand-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.8;
+      max-width: 380px;
+      letter-spacing: 0.3px;
+    }
+
+    .brand-stats {
+      display: flex;
+      gap: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-item { }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--gold);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* RIGHT PANEL — Form */
+    .form-panel {
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 72px;
+    }
+
+    .form-header {
+      margin-bottom: 48px;
+    }
+
+    .form-header .eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .form-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--black);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .form-header p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+
+    .form-group { margin-bottom: 24px; }
+
+    label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      border-radius: 0;
+    }
+
+    input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(197,165,114,0.12);
+    }
+
+    input.error { border-color: var(--error); }
+
+    .field-error {
+      font-size: 0.75rem;
+      color: var(--error);
+      margin-top: 6px;
+      display: none;
+    }
+
+    .field-error.show { display: block; }
+
+    .form-row-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .remember-me input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--black);
+      cursor: pointer;
+    }
+
+    .remember-me span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      font-size: 0.8rem;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .forgot-link:hover { border-color: var(--gold); }
+
+    .btn-login {
+      width: 100%;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 20px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 400;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    .btn-login::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: var(--gold);
+      transition: left 0.4s;
+      z-index: 0;
+    }
+
+    .btn-login:hover::after { left: 0; }
+    .btn-login span { position: relative; z-index: 1; }
+    .btn-login:hover { color: var(--black); }
+    .btn-login:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .divider {
+      text-align: center;
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider span {
+      position: relative;
+      background: var(--cream);
+      padding: 0 16px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .register-prompt {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .register-prompt a {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 1px;
+      transition: color 0.3s;
+    }
+
+    .register-prompt a:hover { color: var(--gold); }
+
+    /* ERROR BANNER */
+    .error-banner {
+      background: #fdf0f0;
+      border: 1px solid #f5c6c6;
+      border-left: 3px solid var(--error);
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      color: var(--error);
+      margin-bottom: 24px;
+      display: none;
+    }
+
+    .error-banner.show { display: block; }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--black);
+      color: var(--white);
+      padding: 16px 28px;
+      font-size: 0.85rem;
+      z-index: 9999;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.4s;
+      border-left: 3px solid var(--gold);
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .login-wrapper { grid-template-columns: 1fr; }
+      .brand-panel { display: none; }
+      .form-panel { padding: 60px 32px; }
+    }
+
+    @media (max-width: 480px) {
+      .form-panel { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-wrapper">
+
+  <!-- LEFT: BRAND -->
+  <div class="brand-panel">
+    <div class="brand-panel-content">
+      <a href="/index.html" class="brand-logo">SHOPPIZZY</a>
+      <div class="brand-tagline">
+        Your marketplace.<br>
+        <em>Your rules.</em>
+      </div>
+      <p class="brand-desc">
+        A seller platform built for independent merchants who are tired of surprise fees, fuel surcharges, and rules that change overnight. Welcome back.
+      </p>
+    </div>
+    <div class="brand-stats">
+      <div class="stat-item">
+        <span class="stat-number">$0</span>
+        <span class="stat-label">Hidden Fees</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">24h</span>
+        <span class="stat-label">Payout Speed</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">2</span>
+        <span class="stat-label">Payment Options</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: FORM -->
+  <div class="form-panel">
+    <div class="form-header">
+      <span class="eyebrow">Seller Portal</span>
+      <h1>Welcome Back</h1>
+      <p>Sign in to manage your shop</p>
+    </div>
+
+    <div class="error-banner" id="error-banner">
+      Invalid email or password. Please try again.
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="your@email.com" autocomplete="email">
+      <div class="field-error" id="email_error">Please enter a valid email</div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Your password" autocomplete="current-password">
+      <div class="field-error" id="password_error">Please enter your password</div>
+    </div>
+
+    <div class="form-row-between">
+      <label class="remember-me">
+        <input type="checkbox" id="remember">
+        <span>Remember me</span>
+      </label>
+      <a href="/seller/forgot-password.html" class="forgot-link">Forgot password?</a>
+    </div>
+
+    <button class="btn-login" id="login-btn" onclick="doLogin()">
+      <span>Sign In</span>
+    </button>
+
+    <div class="divider"><span>New to Shoppizzy?</span></div>
+
+    <div class="register-prompt">
+      <a href="/seller/register.html">Apply to become a seller →</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
+
+  // Allow Enter key
+  document.getElementById('email').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  document.getElementById('password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  // Pre-fill if remembered
+  window.addEventListener('load', () => {
+    const saved = localStorage.getItem('seller_email');
+    if (saved) {
+      document.getElementById('email').value = saved;
+      document.getElementById('remember').checked = true;
+    }
+  });
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const remember = document.getElementById('remember').checked;
+    const btn = document.getElementById('login-btn');
+    const banner = document.getElementById('error-banner');
+
+    banner.classList.remove('show');
+    document.getElementById('email_error').classList.remove('show');
+    document.getElementById('password_error').classList.remove('show');
+
+    let valid = true;
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById('email').classList.add('error');
+      document.getElementById('email_error').classList.add('show');
+      valid = false;
+    }
+
+    if (!password) {
+      document.getElementById('password').classList.add('error');
+      document.getElementById('password_error').classList.add('show');
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Signing In...';
+
+    try {
+      const res = await fetch(`${WORKER_URL}/api/sellers/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        // Store session token
+        sessionStorage.setItem('seller_token', data.token);
+        sessionStorage.setItem('seller_id', data.seller.id);
+        sessionStorage.setItem('seller_name', data.seller.shop_name);
+        sessionStorage.setItem('seller_email', data.seller.email);
+
+        if (remember) {
+          localStorage.setItem('seller_email', email);
+        } else {
+          localStorage.removeItem('seller_email');
+        }
+
+        showToast('Welcome back! Redirecting...');
+        setTimeout(() => { window.location.href = '/seller/dashboard.html'; }, 800);
+      } else {
+        banner.classList.add('show');
+        btn.disabled = false;
+        btn.querySelector('span').textContent = 'Sign In';
+      }
+    } catch (err) {
+      showToast('Connection error. Please try again.');
+      btn.disabled = false;
+      btn.querySelector('span').textContent = 'Sign In';
+    }
+  }
+
+  // Clear field errors on input
+  document.querySelectorAll('input').forEach(el => {
+    el.addEventListener('input', () => {
+      el.classList.remove('error');
+    });
+  });
+</script>
+
+</body>
+</html>
