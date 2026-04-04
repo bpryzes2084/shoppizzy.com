@@ -101,9 +101,7 @@
       position: relative;
     }
 
-    .header-nav a:hover {
-      color: var(--gold);
-    }
+    .header-nav a:hover { color: var(--gold); }
 
     .header-nav a::after {
       content: '';
@@ -116,14 +114,21 @@
       transition: width 0.3s;
     }
 
-    .header-nav a:hover::after {
-      width: 100%;
+    .header-nav a:hover::after { width: 100%; }
+
+    /* SELL WITH US button */
+    .header-nav a.nav-sell {
+      background: var(--black);
+      color: var(--white);
+      padding: 8px 20px;
+      letter-spacing: 1.5px;
+      transition: background 0.3s, color 0.3s;
     }
+    .header-nav a.nav-sell:hover { background: var(--gold); color: var(--black); }
+    .header-nav a.nav-sell::after { display: none; }
 
     /* SEARCH - Elegant Minimal */
-    .search-container {
-      padding: 0 24px;
-    }
+    .search-container { padding: 0 24px; }
 
     .search-box {
       background: var(--white);
@@ -145,10 +150,7 @@
       outline: none;
     }
 
-    #search-input::placeholder {
-      color: var(--muted);
-      font-style: italic;
-    }
+    #search-input::placeholder { color: var(--muted); font-style: italic; }
 
     .search-btn {
       background: var(--black);
@@ -163,9 +165,7 @@
       font-weight: 400;
     }
 
-    .search-btn:hover {
-      background: var(--charcoal);
-    }
+    .search-btn:hover { background: var(--charcoal); }
 
     .product-count {
       text-align: center;
@@ -175,10 +175,7 @@
       letter-spacing: 0.5px;
     }
 
-    .product-count .count-number {
-      color: var(--gold);
-      font-weight: 400;
-    }
+    .product-count .count-number { color: var(--gold); font-weight: 400; }
 
     /* CATEGORIES - Minimal Grid */
     .categories-section {
@@ -187,10 +184,7 @@
       padding: 0 40px;
     }
 
-    .section-header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
+    .section-header { text-align: center; margin-bottom: 50px; }
 
     .section-title {
       font-family: 'Playfair Display', serif;
@@ -230,10 +224,7 @@
     .category-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: var(--cream);
       transform: scaleY(0);
       transform-origin: bottom;
@@ -241,20 +232,10 @@
       z-index: 0;
     }
 
-    .category-card:hover::before {
-      transform: scaleY(1);
-    }
+    .category-card:hover::before { transform: scaleY(1); }
+    .category-card > * { position: relative; z-index: 1; }
 
-    .category-card > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .cat-icon {
-      font-size: 2rem;
-      margin-bottom: 16px;
-      display: block;
-    }
+    .cat-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
 
     .cat-name {
       font-size: 0.85rem;
@@ -265,18 +246,78 @@
       margin-bottom: 8px;
     }
 
-    .cat-count {
-      font-size: 0.7rem;
-      color: var(--gold);
-      letter-spacing: 0.5px;
-      font-weight: 400;
+    .cat-count { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.5px; font-weight: 400; }
+    .cat-count-loading { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.5px; }
+
+    /* SELLER BANNER */
+    .seller-banner {
+      background: var(--black);
+      color: var(--white);
+      padding: 56px 40px;
+      text-align: center;
+      margin: 0 0 80px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .cat-count-loading {
-      font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 0.5px;
+    .seller-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 40px,
+        rgba(197,165,114,0.04) 40px, rgba(197,165,114,0.04) 80px
+      );
     }
+
+    .seller-banner-content { position: relative; z-index: 1; }
+
+    .seller-banner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .seller-banner p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 28px;
+    }
+
+    .seller-banner-perks {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .seller-banner-perk {
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .seller-banner-perk::before { content: '✦  '; }
+
+    .btn-sell {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      text-decoration: none;
+      padding: 15px 52px;
+      font-size: 0.8rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+
+    .btn-sell:hover { background: var(--white); }
 
     /* PRODUCT GRID - Clean & Spacious */
     .featured-section {
@@ -302,9 +343,7 @@
       height: 100%;
     }
 
-    .product-card:hover {
-      transform: translateY(-5px);
-    }
+    .product-card:hover { transform: translateY(-5px); }
 
     .product-img-wrap {
       width: 100%;
@@ -325,9 +364,7 @@
       transition: transform 0.5s;
     }
 
-    .product-card:hover .product-img-wrap img {
-      transform: scale(1.05);
-    }
+    .product-card:hover .product-img-wrap img { transform: scale(1.05); }
 
     .product-img-placeholder {
       position: absolute;
@@ -341,8 +378,7 @@
 
     .source-badge {
       position: absolute;
-      top: 16px;
-      left: 16px;
+      top: 16px; left: 16px;
       background: var(--white);
       color: var(--black);
       font-size: 0.65rem;
@@ -354,8 +390,7 @@
 
     .sale-badge {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 16px; right: 16px;
       background: var(--gold);
       color: var(--white);
       font-size: 0.65rem;
@@ -365,12 +400,7 @@
       text-transform: uppercase;
     }
 
-    .product-info {
-      padding: 0 4px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
+    .product-info { padding: 0 4px; display: flex; flex-direction: column; flex: 1; }
 
     .product-merchant {
       font-size: 0.7rem;
@@ -396,30 +426,10 @@
       flex-shrink: 0;
     }
 
-    .product-price {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      margin-top: auto;
-    }
-
-    .price-sale {
-      font-size: 1.1rem;
-      color: var(--gold);
-      font-weight: 400;
-    }
-
-    .price-regular {
-      font-size: 1.1rem;
-      color: var(--black);
-      font-weight: 400;
-    }
-
-    .price-was {
-      font-size: 0.9rem;
-      color: var(--muted);
-      text-decoration: line-through;
-    }
+    .product-price { display: flex; align-items: baseline; gap: 10px; margin-top: auto; }
+    .price-sale { font-size: 1.1rem; color: var(--gold); font-weight: 400; }
+    .price-regular { font-size: 1.1rem; color: var(--black); font-weight: 400; }
+    .price-was { font-size: 0.9rem; color: var(--muted); text-decoration: line-through; }
 
     /* RESULTS SECTION */
     #results-section {
@@ -429,9 +439,7 @@
       padding: 0 40px;
     }
 
-    #results-section.active {
-      display: block;
-    }
+    #results-section.active { display: block; }
 
     .results-header {
       display: flex;
@@ -449,10 +457,7 @@
       color: var(--black);
     }
 
-    .results-controls {
-      display: flex;
-      gap: 16px;
-    }
+    .results-controls { display: flex; gap: 16px; }
 
     .sort-select, .merchant-filter {
       border: 1px solid var(--border);
@@ -467,11 +472,7 @@
     }
 
     /* PAGINATION */
-    .pagination-container {
-      margin-top: 60px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
+    .pagination-container { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border); }
 
     .pagination-info {
       text-align: center;
@@ -481,13 +482,7 @@
       letter-spacing: 0.5px;
     }
 
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
 
     .page-btn {
       min-width: 44px;
@@ -507,27 +502,10 @@
       letter-spacing: 0.5px;
     }
 
-    .page-btn:hover:not(.active):not(:disabled) {
-      background: var(--cream);
-      border-color: var(--gold);
-    }
-
-    .page-btn.active {
-      background: var(--black);
-      color: var(--white);
-      border-color: var(--black);
-      font-weight: 400;
-    }
-
-    .page-btn:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-
-    .page-ellipsis {
-      color: var(--muted);
-      padding: 0 8px;
-    }
+    .page-btn:hover:not(.active):not(:disabled) { background: var(--cream); border-color: var(--gold); }
+    .page-btn.active { background: var(--black); color: var(--white); border-color: var(--black); font-weight: 400; }
+    .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .page-ellipsis { color: var(--muted); padding: 0 8px; }
 
     /* FOOTER - Minimal */
     footer {
@@ -541,7 +519,7 @@
       max-width: 1400px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 60px;
       margin-bottom: 60px;
     }
@@ -565,9 +543,7 @@
       letter-spacing: 0.5px;
     }
 
-    .footer-col a:hover {
-      color: var(--gold);
-    }
+    .footer-col a:hover { color: var(--gold); }
 
     .footer-bottom {
       border-top: 1px solid rgba(255,255,255,0.1);
@@ -580,11 +556,7 @@
     }
 
     /* LOADING/EMPTY STATES */
-    .loading-state, .empty-state {
-      text-align: center;
-      padding: 100px 40px;
-      color: var(--muted);
-    }
+    .loading-state, .empty-state { text-align: center; padding: 100px 40px; color: var(--muted); }
 
     .loading-spinner {
       width: 40px;
@@ -599,12 +571,7 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* SHOPPING ASSISTANT STYLES */
-    .chat-widget-container {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 10000;
-    }
+    .chat-widget-container { position: fixed; bottom: 24px; right: 24px; z-index: 10000; }
 
     .chat-button {
       width: 64px;
@@ -620,16 +587,8 @@
       transition: all 0.3s ease;
     }
 
-    .chat-button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 30px rgba(197, 165, 114, 0.4);
-    }
-
-    .chat-button svg {
-      width: 28px;
-      height: 28px;
-      fill: var(--gold);
-    }
+    .chat-button:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(197, 165, 114, 0.4); }
+    .chat-button svg { width: 28px; height: 28px; fill: var(--gold); }
 
     .chat-window {
       position: fixed;
@@ -648,10 +607,7 @@
       border: 1px solid var(--border);
     }
 
-    .chat-window.open {
-      display: flex;
-      animation: slideUp 0.3s ease;
-    }
+    .chat-window.open { display: flex; animation: slideUp 0.3s ease; }
 
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -668,15 +624,10 @@
       border-bottom: 2px solid var(--gold);
     }
 
-    .chat-header-content {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .chat-header-content { display: flex; align-items: center; gap: 12px; }
 
     .chat-avatar {
-      width: 40px;
-      height: 40px;
+      width: 40px; height: 40px;
       border-radius: 50%;
       background: var(--gold);
       display: flex;
@@ -685,23 +636,11 @@
       font-size: 20px;
     }
 
-    .chat-header-text h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin: 0;
-      letter-spacing: 0.5px;
-    }
-
-    .chat-header-text p {
-      font-size: 12px;
-      margin: 2px 0 0 0;
-      color: var(--gold);
-      letter-spacing: 0.3px;
-    }
+    .chat-header-text h3 { font-size: 16px; font-weight: 600; margin: 0; letter-spacing: 0.5px; }
+    .chat-header-text p { font-size: 12px; margin: 2px 0 0 0; color: var(--gold); letter-spacing: 0.3px; }
 
     .chat-close {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       border: none;
       background: rgba(255,255,255,0.1);
       color: var(--white);
@@ -714,9 +653,7 @@
       transition: all 0.3s;
     }
 
-    .chat-close:hover {
-      background: rgba(255,255,255,0.2);
-    }
+    .chat-close:hover { background: rgba(255,255,255,0.2); }
 
     .chat-messages {
       flex: 1;
@@ -728,24 +665,17 @@
       gap: 16px;
     }
 
-    .message {
-      display: flex;
-      gap: 10px;
-      animation: fadeIn 0.3s ease;
-    }
+    .message { display: flex; gap: 10px; animation: fadeIn 0.3s ease; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .message.user {
-      flex-direction: row-reverse;
-    }
+    .message.user { flex-direction: row-reverse; }
 
     .message-avatar {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -754,15 +684,8 @@
       font-size: 16px;
     }
 
-    .message.assistant .message-avatar {
-      background: var(--gold);
-      color: var(--black);
-    }
-
-    .message.user .message-avatar {
-      background: var(--black);
-      color: var(--white);
-    }
+    .message.assistant .message-avatar { background: var(--gold); color: var(--black); }
+    .message.user .message-avatar { background: var(--black); color: var(--white); }
 
     .message-content {
       max-width: 75%;
@@ -773,23 +696,10 @@
       letter-spacing: 0.3px;
     }
 
-    .message.assistant .message-content {
-      background: var(--white);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
+    .message.assistant .message-content { background: var(--white); color: var(--text); border: 1px solid var(--border); }
+    .message.user .message-content { background: var(--black); color: var(--white); }
 
-    .message.user .message-content {
-      background: var(--black);
-      color: var(--white);
-    }
-
-    .product-cards-chat {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 12px;
-    }
+    .product-cards-chat { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
 
     .product-card-chat {
       background: var(--white);
@@ -803,15 +713,10 @@
       transition: all 0.3s;
     }
 
-    .product-card-chat:hover {
-      border-color: var(--gold);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
+    .product-card-chat:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
     .product-card-chat-image {
-      width: 80px;
-      height: 80px;
+      width: 80px; height: 80px;
       border-radius: 6px;
       background: var(--cream);
       flex-shrink: 0;
@@ -821,30 +726,10 @@
       justify-content: center;
     }
 
-    .product-card-chat-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .product-card-chat-placeholder {
-      font-size: 32px;
-      color: var(--muted);
-    }
-
-    .product-card-chat-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .product-card-chat-merchant {
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+    .product-card-chat-image img { width: 100%; height: 100%; object-fit: cover; }
+    .product-card-chat-placeholder { font-size: 32px; color: var(--muted); }
+    .product-card-chat-info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .product-card-chat-merchant { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 
     .product-card-chat-title {
       font-size: 13px;
@@ -857,12 +742,7 @@
       overflow: hidden;
     }
 
-    .product-card-chat-price {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gold);
-      margin-top: auto;
-    }
+    .product-card-chat-price { font-size: 14px; font-weight: 600; color: var(--gold); margin-top: auto; }
 
     .typing-indicator {
       display: flex;
@@ -874,14 +754,7 @@
       border: 1px solid var(--border);
     }
 
-    .typing-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--muted);
-      animation: typing 1.4s infinite;
-    }
-
+    .typing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); animation: typing 1.4s infinite; }
     .typing-dot:nth-child(2) { animation-delay: 0.2s; }
     .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
@@ -890,13 +763,7 @@
       30% { transform: translateY(-10px); }
     }
 
-    .chat-input-container {
-      padding: 16px;
-      background: var(--white);
-      border-top: 1px solid var(--border);
-      display: flex;
-      gap: 12px;
-    }
+    .chat-input-container { padding: 16px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 12px; }
 
     .chat-input {
       flex: 1;
@@ -909,14 +776,10 @@
       transition: all 0.3s;
     }
 
-    .chat-input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(197, 165, 114, 0.1);
-    }
+    .chat-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197, 165, 114, 0.1); }
 
     .chat-send {
-      width: 44px;
-      height: 44px;
+      width: 44px; height: 44px;
       border: none;
       border-radius: 50%;
       background: var(--black);
@@ -929,29 +792,11 @@
       flex-shrink: 0;
     }
 
-    .chat-send:hover:not(:disabled) {
-      background: var(--gold);
-      color: var(--black);
-      transform: scale(1.1);
-    }
+    .chat-send:hover:not(:disabled) { background: var(--gold); color: var(--black); transform: scale(1.1); }
+    .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+    .chat-send svg { width: 20px; height: 20px; fill: currentColor; }
 
-    .chat-send:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .chat-send svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    .quick-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
+    .quick-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 
     .quick-action-btn {
       background: var(--white);
@@ -964,28 +809,12 @@
       letter-spacing: 0.3px;
     }
 
-    .quick-action-btn:hover {
-      background: var(--cream);
-      border-color: var(--gold);
-      color: var(--gold);
-    }
+    .quick-action-btn:hover { background: var(--cream); border-color: var(--gold); color: var(--gold); }
 
-    .chat-messages::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .chat-messages::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .chat-messages::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 3px;
-    }
-
-    .chat-messages::-webkit-scrollbar-thumb:hover {
-      background: var(--muted);
-    }
+    .chat-messages::-webkit-scrollbar { width: 6px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .chat-messages::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
     /* ========== MOBILE OPTIMIZATION ========== */
     @media (max-width: 768px) {
@@ -994,104 +823,40 @@
       .category-grid { grid-template-columns: repeat(2, 1fr); }
       .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .categories-section, .featured-section { padding: 0 20px; }
-      .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
       .page-btn { min-width: 40px; height: 40px; font-size: 0.85rem; padding: 0 12px; }
       .results-controls { flex-direction: column; width: 100%; }
       .sort-select, .merchant-filter { width: 100%; }
-      
+      .seller-banner { padding: 40px 24px; }
+      .seller-banner h2 { font-size: 1.6rem; }
+      .seller-banner-perks { gap: 24px; }
+
       /* MOBILE SEARCH BOX FIX */
-      .search-container {
-        padding: 0 16px !important;
-        margin: 30px auto 50px !important;
-      }
-      
-      .search-box {
-        width: 100%;
-      }
-      
-      #search-input {
-        padding: 16px 16px !important;
-        font-size: 0.9rem;
-      }
-      
-      .search-btn {
-        padding: 16px 20px !important;
-        font-size: 0.75rem;
-        white-space: nowrap;
-      }
-      
+      .search-container { padding: 0 16px !important; margin: 30px auto 50px !important; }
+      .search-box { width: 100%; }
+      #search-input { padding: 16px 16px !important; font-size: 0.9rem; }
+      .search-btn { padding: 16px 20px !important; font-size: 0.75rem; white-space: nowrap; }
+
       /* MOBILE IMAGE OPTIMIZATION */
-      .product-img-wrap {
-        height: 180px !important;
-      }
-      
-      .product-card-chat-image {
-        width: 70px !important;
-        height: 70px !important;
-      }
-      
-      .product-title {
-        font-size: 0.95rem !important;
-        -webkit-line-clamp: 2;
-      }
-      
-      .product-price {
-        font-size: 0.95rem !important;
-      }
-      
-      .chat-window {
-        bottom: 0;
-        right: 0;
-        left: 0;
-        width: 100%;
-        max-width: 100%;
-        height: 100vh;
-        max-height: 100vh;
-        border-radius: 0;
-      }
+      .product-img-wrap { height: 180px !important; }
+      .product-card-chat-image { width: 70px !important; height: 70px !important; }
+      .product-title { font-size: 0.95rem !important; -webkit-line-clamp: 2; }
+      .product-price { font-size: 0.95rem !important; }
 
-      .chat-widget-container {
-        bottom: 16px;
-        right: 16px;
-      }
-
-      .chat-button {
-        width: 56px;
-        height: 56px;
-      }
+      .chat-window { bottom: 0; right: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; max-height: 100vh; border-radius: 0; }
+      .chat-widget-container { bottom: 16px; right: 16px; }
+      .chat-button { width: 56px; height: 56px; }
     }
 
     /* Extra small phones */
     @media (max-width: 480px) {
-      /* SEARCH BOX EXTRA SMALL */
-      #search-input {
-        padding: 14px 12px !important;
-        font-size: 0.85rem;
-      }
-      
-      .search-btn {
-        padding: 14px 16px !important;
-        font-size: 0.7rem;
-      }
-      
-      /* PRODUCT IMAGES EXTRA SMALL */
-      .product-img-wrap {
-        height: 160px !important;
-      }
-      
-      .product-grid {
-        grid-template-columns: 1fr !important;
-        gap: 16px;
-      }
-      
-      .product-card-chat-image {
-        width: 60px !important;
-        height: 60px !important;
-      }
-      
-      .product-title {
-        font-size: 0.9rem !important;
-      }
+      #search-input { padding: 14px 12px !important; font-size: 0.85rem; }
+      .search-btn { padding: 14px 16px !important; font-size: 0.7rem; }
+      .product-img-wrap { height: 160px !important; }
+      .product-grid { grid-template-columns: 1fr !important; gap: 16px; }
+      .product-card-chat-image { width: 60px !important; height: 60px !important; }
+      .product-title { font-size: 0.9rem !important; }
+      .footer-inner { grid-template-columns: 1fr; }
     }
 
     @media (min-width: 769px) and (max-width: 1024px) {
@@ -1109,6 +874,8 @@
       <a href="#categories">Categories</a>
       <a href="/aitools.html">AI Tools</a>
       <a href="/about.html">About</a>
+      <a href="/seller/login">Seller Login</a>
+      <a href="/seller/register" class="nav-sell">Sell With Us</a>
     </nav>
   </div>
 </header>
@@ -1361,6 +1128,22 @@
       </div>
     </div>
   </div>
+
+  <!-- SELLER BANNER -->
+  <div class="seller-banner">
+    <div class="seller-banner-content">
+      <h2>Tired of Amazon's Fees?</h2>
+      <p>No fuel surcharges. No surprise hikes. Just a fair place to sell.</p>
+      <div class="seller-banner-perks">
+        <span class="seller-banner-perk">Zero Hidden Fees</span>
+        <span class="seller-banner-perk">PayPal & Square Payouts</span>
+        <span class="seller-banner-perk">Real-Time Inventory</span>
+        <span class="seller-banner-perk">Easy Onboarding</span>
+      </div>
+      <a href="/seller/register" class="btn-sell">Start Selling Today</a>
+    </div>
+  </div>
+
 </div>
 
 <!-- RESULTS SECTION -->
@@ -1398,6 +1181,12 @@
       <a href="/about.html">About Us</a>
     </div>
     <div class="footer-col">
+      <h4>Sell With Us</h4>
+      <a href="/seller/register">Become a Seller</a>
+      <a href="/seller/login">Seller Login</a>
+      <a href="/seller/dashboard">Seller Dashboard</a>
+    </div>
+    <div class="footer-col">
       <h4>Legal</h4>
       <a href="/terms-of-service.html">Terms of Service</a>
       <a href="/privacy-policy.html">Privacy Policy</a>
@@ -1429,17 +1218,10 @@
     try {
       console.log('Fetching product count from:', `${WORKER_URL}/api/stats`);
       const res = await fetch(`${WORKER_URL}/api/stats`);
-      
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const data = await res.json();
       console.log('Stats data received:', data);
-      
       const totalProducts = (data.cj || 0) + (data.rakuten || 0) + (data.impact || 0);
-      
-      // Display actual count: 8,256,372 products (8.2M+)
       document.getElementById('product-count').innerHTML = `
         <span class="count-number">${totalProducts.toLocaleString()}</span> products available
       `;
@@ -1453,22 +1235,16 @@
 
   async function loadCategoryCounts() {
     const categories = [
-      // Original 18
       'Apparel', 'Auto', 'Baby', 'Cell Phones', 'Computers', 'Computer Accessories',
-      'Electronics', 'Gaming', 'Fitness', 'Footwear', 'Food & Beverage', 
+      'Electronics', 'Gaming', 'Fitness', 'Footwear', 'Food & Beverage',
       'Health & Beauty', 'Home Theatre', 'Pets', 'Sporting Goods', 'Tools', 'Toys', 'Travel',
-      // Home & Living (8)
       'Furniture', 'Kitchen & Dining', 'Bedding & Bath', 'Home Decor', 'Lighting',
       'Storage & Organization', 'Outdoor & Patio', 'Smart Home',
-      // Fashion & Accessories (6)
       'Jewelry & Watches', 'Handbags & Wallets', 'Sunglasses', 'Hats & Scarves',
       'Belts & Accessories', 'Luggage & Travel Bags',
-      // Hobbies & Lifestyle (6)
       'Arts & Crafts', 'Musical Instruments', 'Photography', 'Books & Media',
       'Garden & Outdoor', 'Camping & Hiking',
-      // Office & Education (4)
       'Office Supplies', 'School Supplies', 'Printers & Scanners', 'Desks & Chairs',
-      // Wellness (3)
       'Vitamins & Supplements', 'Massage & Spa', 'Yoga & Meditation'
     ];
 
@@ -1477,7 +1253,6 @@
         const res = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(category)}&limit=1`);
         const data = await res.json();
         const count = data.totalCount || 0;
-        
         const countEl = document.querySelector(`[data-category="${category}"]`);
         if (countEl) {
           countEl.textContent = count.toLocaleString() + ' items';
@@ -1485,9 +1260,7 @@
         }
       } catch(e) {
         const countEl = document.querySelector(`[data-category="${category}"]`);
-        if (countEl) {
-          countEl.textContent = '—';
-        }
+        if (countEl) countEl.textContent = '—';
       }
     }
   }
@@ -1559,77 +1332,47 @@
 
   function renderResults(products, query, total) {
     const grid = document.getElementById('product-grid');
-    
     if (!products.length) {
-      grid.innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1">
-          <p>No products found</p>
-        </div>`;
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><p>No products found</p></div>`;
       document.getElementById('pagination-container').style.display = 'none';
       return;
     }
-    
     grid.innerHTML = products.map(p => renderCard(p, true)).join('');
-    
-    // Show pagination
     renderPagination(total);
-    
-    // Scroll to top of results
     document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function renderPagination(total) {
     const totalPages = Math.ceil(total / LIMIT);
-    
     if (totalPages <= 1) {
       document.getElementById('pagination-container').style.display = 'none';
       return;
     }
-    
     document.getElementById('pagination-container').style.display = 'block';
-    
-    // Update info text
     const start = (currentPage - 1) * LIMIT + 1;
     const end = Math.min(currentPage * LIMIT, total);
-    document.getElementById('pagination-info').textContent = 
+    document.getElementById('pagination-info').textContent =
       `Showing ${start.toLocaleString()}-${end.toLocaleString()} of ${total.toLocaleString()} results`;
-    
-    // Build pagination buttons
+
     const paginationEl = document.getElementById('pagination');
     let html = '';
-    
-    // Previous button
     html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
-    
-    // Page numbers with ellipsis
-    const maxButtons = 7;
+
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, currentPage + 2);
-    
-    // Always show first page
+
     if (startPage > 1) {
       html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
-      if (startPage > 2) {
-        html += `<span class="page-ellipsis">...</span>`;
-      }
+      if (startPage > 2) html += `<span class="page-ellipsis">...</span>`;
     }
-    
-    // Middle pages
     for (let i = startPage; i <= endPage; i++) {
       html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
     }
-    
-    // Always show last page
     if (endPage < totalPages) {
-      if (endPage < totalPages - 1) {
-        html += `<span class="page-ellipsis">...</span>`;
-      }
+      if (endPage < totalPages - 1) html += `<span class="page-ellipsis">...</span>`;
       html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
     }
-    
-    // Next button
     html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>`;
-    
     paginationEl.innerHTML = html;
   }
 
@@ -1639,20 +1382,11 @@
   }
 
   function renderCard(p, trackView = false) {
-    // Debug: log product data to see what's coming through
     if (trackView) {
-      console.log('Product data:', {
-        title: p.title,
-        price: p.price,
-        salePrice: p.salePrice,
-        rawProduct: p
-      });
+      console.log('Product data:', { title: p.title, price: p.price, salePrice: p.salePrice, rawProduct: p });
     }
-    
     const hasSale = p.salePrice && p.salePrice !== '' && parseFloat(p.salePrice) > 0;
     const price = hasSale ? p.salePrice : p.price;
-    
-    // Fallback: Show "See Price" if no price available
     const priceStr = price && parseFloat(price) > 0 ? `$${parseFloat(price).toFixed(2)}` : 'See Price';
     const wasStr = hasSale && p.price && parseFloat(p.price) > 0 ? `$${parseFloat(p.price).toFixed(2)}` : '';
 
@@ -1661,12 +1395,11 @@
       : '';
     const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>✦</div>`;
 
-    const productLink = p.type === 'direct' 
+    const productLink = p.type === 'direct'
       ? `/product.html?id=${encodeURIComponent(p.id)}`
       : (p.buyUrl || p.affiliate_link || '#');
     const linkTarget = p.type === 'direct' ? '_self' : '_blank';
     const linkRel = p.type === 'direct' ? '' : 'noopener noreferrer';
-    
     const merchantName = p.advertiserName || p.merchant_name || 'Merchant';
 
     return `
@@ -1689,18 +1422,12 @@
   }
 
   function escHtml(str) {
-    // Create a temporary div to decode any existing HTML entities
     const temp = document.createElement('div');
     temp.innerHTML = String(str || '');
     const decoded = temp.textContent || temp.innerText || '';
-    
-    // Now encode for safe HTML output
     return decoded
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 </script>
 
@@ -1723,21 +1450,11 @@
       </div>
       <button class="chat-close" id="chatClose">×</button>
     </div>
-
     <div class="chat-messages" id="chatMessages"></div>
-
     <div class="chat-input-container">
-      <input 
-        type="text" 
-        class="chat-input" 
-        id="chatInput" 
-        placeholder="What are you looking for?"
-        autocomplete="off"
-      />
+      <input type="text" class="chat-input" id="chatInput" placeholder="What are you looking for?" autocomplete="off"/>
       <button class="chat-send" id="chatSend">
-        <svg viewBox="0 0 24 24">
-          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
   </div>
@@ -1760,9 +1477,7 @@
   chatButton.addEventListener('click', toggleChat);
   chatClose.addEventListener('click', toggleChat);
   chatSend.addEventListener('click', sendChatMessage);
-  chatInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') sendChatMessage();
-  });
+  chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
 
   setTimeout(() => {
     addChatMessage('assistant', "Hi! I'm your AI shopping assistant. What are you looking for today?");
@@ -1772,46 +1487,30 @@
   function toggleChat() {
     isOpen = !isOpen;
     chatWindow.classList.toggle('open', isOpen);
-    
-    // Track chat widget open/close
     if (typeof gtag !== 'undefined') {
-      gtag('event', isOpen ? 'chat_opened' : 'chat_closed', {
-        'event_category': 'AI Assistant',
-        'event_label': 'Chat Widget'
-      });
+      gtag('event', isOpen ? 'chat_opened' : 'chat_closed', { 'event_category': 'AI Assistant', 'event_label': 'Chat Widget' });
     }
-    
     if (isOpen) chatInput.focus();
   }
 
   function addChatMessage(sender, content, products = []) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}`;
-    
     const avatar = document.createElement('div');
     avatar.className = 'message-avatar';
     avatar.textContent = sender === 'assistant' ? '🤖' : '👤';
-    
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
     contentDiv.textContent = content;
-    
     messageDiv.appendChild(avatar);
     messageDiv.appendChild(contentDiv);
     chatMessages.appendChild(messageDiv);
-    
     if (products && products.length > 0) {
       const productsContainer = document.createElement('div');
       productsContainer.className = 'product-cards-chat';
-      
-      products.forEach(product => {
-        const card = createChatProductCard(product);
-        productsContainer.appendChild(card);
-      });
-      
+      products.forEach(product => productsContainer.appendChild(createChatProductCard(product)));
       contentDiv.appendChild(productsContainer);
     }
-    
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
@@ -1821,10 +1520,8 @@
     card.href = product.buyUrl || product.affiliate_link || '#';
     card.target = '_blank';
     card.rel = 'noopener noreferrer';
-    
     const imageDiv = document.createElement('div');
     imageDiv.className = 'product-card-chat-image';
-    
     if (product.imageUrl) {
       const img = document.createElement('img');
       img.src = product.imageUrl;
@@ -1836,30 +1533,23 @@
       placeholder.textContent = '✦';
       imageDiv.appendChild(placeholder);
     }
-    
     const infoDiv = document.createElement('div');
     infoDiv.className = 'product-card-chat-info';
-    
     const merchant = document.createElement('div');
     merchant.className = 'product-card-chat-merchant';
     merchant.textContent = product.advertiserName || product.merchant_name || 'Merchant';
-    
     const title = document.createElement('div');
     title.className = 'product-card-chat-title';
     title.textContent = product.title;
-    
     const price = document.createElement('div');
     price.className = 'product-card-chat-price';
     const priceValue = product.salePrice || product.price;
     price.textContent = priceValue ? `$${parseFloat(priceValue).toFixed(2)}` : 'See Price';
-    
     infoDiv.appendChild(merchant);
     infoDiv.appendChild(title);
     infoDiv.appendChild(price);
-    
     card.appendChild(imageDiv);
     card.appendChild(infoDiv);
-    
     return card;
   }
 
@@ -1867,15 +1557,12 @@
     const typingDiv = document.createElement('div');
     typingDiv.className = 'message assistant';
     typingDiv.id = 'typing-indicator';
-    
     const avatar = document.createElement('div');
     avatar.className = 'message-avatar';
     avatar.textContent = '🤖';
-    
     const indicator = document.createElement('div');
     indicator.className = 'typing-indicator';
     indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-    
     typingDiv.appendChild(avatar);
     typingDiv.appendChild(indicator);
     chatMessages.appendChild(typingDiv);
@@ -1890,18 +1577,13 @@
   function showQuickActions(actions) {
     const quickDiv = document.createElement('div');
     quickDiv.className = 'quick-actions';
-    
     actions.forEach(action => {
       const btn = document.createElement('button');
       btn.className = 'quick-action-btn';
       btn.textContent = action;
-      btn.onclick = () => {
-        chatInput.value = action;
-        sendChatMessage();
-      };
+      btn.onclick = () => { chatInput.value = action; sendChatMessage(); };
       quickDiv.appendChild(btn);
     });
-    
     const lastMessage = chatMessages.lastElementChild;
     if (lastMessage && lastMessage.querySelector('.message-content')) {
       lastMessage.querySelector('.message-content').appendChild(quickDiv);
@@ -1911,168 +1593,89 @@
   async function sendChatMessage() {
     const message = chatInput.value.trim();
     if (!message) return;
-    
-    // Track AI chat search in Google Analytics
     if (typeof gtag !== 'undefined') {
-      gtag('event', 'ai_chat_search', {
-        'search_term': message,
-        'event_category': 'AI Assistant',
-        'event_label': message
-      });
+      gtag('event', 'ai_chat_search', { 'search_term': message, 'event_category': 'AI Assistant', 'event_label': message });
     }
-    
     addChatMessage('user', message);
     chatInput.value = '';
     chatSend.disabled = true;
-    
     showTyping();
-    
     const searchParams = extractChatSearchParams(message);
-    
     try {
       const products = await searchChatProducts(searchParams);
       hideTyping();
-      
       if (products.length === 0) {
         addChatMessage('assistant', `I couldn't find any ${searchParams.keyword}. Try searching for something else like "wireless headphones" or "gaming laptops".`);
         showQuickActions(['Electronics', 'Apparel', 'Footwear', 'Home & Kitchen']);
-        
-        // Track no results
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'ai_chat_no_results', {
-            'search_term': message,
-            'event_category': 'AI Assistant'
-          });
-        }
+        if (typeof gtag !== 'undefined') gtag('event', 'ai_chat_no_results', { 'search_term': message, 'event_category': 'AI Assistant' });
       } else {
         const response = generateChatResponse(searchParams, products);
         addChatMessage('assistant', response, products.slice(0, MAX_PRODUCTS_TO_SHOW));
-        
-        // Track successful search
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'ai_chat_results', {
-            'search_term': message,
-            'results_count': products.length,
-            'event_category': 'AI Assistant'
-          });
-        }
-        
+        if (typeof gtag !== 'undefined') gtag('event', 'ai_chat_results', { 'search_term': message, 'results_count': products.length, 'event_category': 'AI Assistant' });
         if (products.length > MAX_PRODUCTS_TO_SHOW) {
-          setTimeout(() => {
-            addChatMessage('assistant', `Want to see more? I found ${products.length} total results. Try refining your search!`);
-          }, 500);
+          setTimeout(() => { addChatMessage('assistant', `Want to see more? I found ${products.length} total results. Try refining your search!`); }, 500);
         }
       }
     } catch (error) {
       hideTyping();
       addChatMessage('assistant', 'Sorry, I had trouble searching. Please try again!');
-      
-      // Track errors
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'ai_chat_error', {
-          'search_term': message,
-          'event_category': 'AI Assistant'
-        });
-      }
+      if (typeof gtag !== 'undefined') gtag('event', 'ai_chat_error', { 'search_term': message, 'event_category': 'AI Assistant' });
     }
-    
     chatSend.disabled = false;
     chatInput.focus();
   }
 
   function extractChatSearchParams(message) {
     const lower = message.toLowerCase();
-    
     let maxPrice = null;
     const priceMatches = lower.match(/under\s+\$?(\d+)|below\s+\$?(\d+)|less than\s+\$?(\d+)|\$(\d+)\s+or less|max\s+\$?(\d+)|budget\s+\$?(\d+)/);
-    if (priceMatches) {
-      maxPrice = parseInt(priceMatches.find(m => m && !isNaN(m)));
-    }
-    
+    if (priceMatches) maxPrice = parseInt(priceMatches.find(m => m && !isNaN(m)));
     let minPrice = null;
     const minPriceMatches = lower.match(/over\s+\$?(\d+)|above\s+\$?(\d+)|more than\s+\$?(\d+)|min\s+\$?(\d+)/);
-    if (minPriceMatches) {
-      minPrice = parseInt(minPriceMatches.find(m => m && !isNaN(m)));
-    }
-    
+    if (minPriceMatches) minPrice = parseInt(minPriceMatches.find(m => m && !isNaN(m)));
     let keyword = message
-      .replace(/under\s+\$?\d+/gi, '')
-      .replace(/below\s+\$?\d+/gi, '')
-      .replace(/less than\s+\$?\d+/gi, '')
-      .replace(/\$\d+\s+or less/gi, '')
-      .replace(/over\s+\$?\d+/gi, '')
-      .replace(/above\s+\$?\d+/gi, '')
-      .replace(/more than\s+\$?\d+/gi, '')
-      .replace(/max\s+\$?\d+/gi, '')
-      .replace(/budget\s+\$?\d+/gi, '')
-      .replace(/around\s+\$?\d+/gi, '')
-      .trim();
-    
+      .replace(/under\s+\$?\d+/gi, '').replace(/below\s+\$?\d+/gi, '')
+      .replace(/less than\s+\$?\d+/gi, '').replace(/\$\d+\s+or less/gi, '')
+      .replace(/over\s+\$?\d+/gi, '').replace(/above\s+\$?\d+/gi, '')
+      .replace(/more than\s+\$?\d+/gi, '').replace(/max\s+\$?\d+/gi, '')
+      .replace(/budget\s+\$?\d+/gi, '').replace(/around\s+\$?\d+/gi, '').trim();
     return { keyword, maxPrice, minPrice };
   }
 
   async function searchChatProducts(params) {
     const searchQuery = params.keyword || 'products';
     const url = `${WORKER_URL}/api/products?q=${encodeURIComponent(searchQuery)}&limit=20`;
-    
     const response = await fetch(url);
     const data = await response.json();
     let products = data.products || [];
-    
-    if (params.maxPrice) {
-      products = products.filter(p => {
-        const price = parseFloat(p.salePrice || p.price || 0);
-        return price > 0 && price <= params.maxPrice;
-      });
-    }
-    
-    if (params.minPrice) {
-      products = products.filter(p => {
-        const price = parseFloat(p.salePrice || p.price || 0);
-        return price >= params.minPrice;
-      });
-    }
-    
+    if (params.maxPrice) products = products.filter(p => { const price = parseFloat(p.salePrice || p.price || 0); return price > 0 && price <= params.maxPrice; });
+    if (params.minPrice) products = products.filter(p => { const price = parseFloat(p.salePrice || p.price || 0); return price >= params.minPrice; });
     return products;
   }
 
   function generateChatResponse(params, products) {
     const count = products.length;
     const keyword = params.keyword || 'products';
-    
     let response = `I found ${count} ${keyword}`;
-    
-    if (params.maxPrice) {
-      response += ` under $${params.maxPrice}`;
-    }
-    
-    if (count > MAX_PRODUCTS_TO_SHOW) {
-      response += `. Here are the top ${MAX_PRODUCTS_TO_SHOW}:`;
-    } else if (count > 0) {
-      response += `:`;
-    }
-    
+    if (params.maxPrice) response += ` under $${params.maxPrice}`;
+    response += count > MAX_PRODUCTS_TO_SHOW ? `. Here are the top ${MAX_PRODUCTS_TO_SHOW}:` : ':';
     return response;
   }
 })();
 </script>
 
 <!-- Cloudflare Turnstile - Invisible Protection -->
-<div class="cf-turnstile" 
-     data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" 
+<div class="cf-turnstile"
+     data-sitekey="0x4AAAAAACrT9alWCXq-IbVd"
      data-callback="onTurnstileSuccess"
      data-theme="light"
      data-size="invisible">
 </div>
 
 <script>
-  // Turnstile success callback
   function onTurnstileSuccess(token) {
     console.log('Turnstile verification successful');
-    // Token verified - site is protected
   }
-  
-  // Auto-execute Turnstile on page load
   window.addEventListener('load', function() {
     if (window.turnstile) {
       window.turnstile.render('.cf-turnstile', {
