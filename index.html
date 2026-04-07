@@ -975,46 +975,46 @@
     <aside class="merchant-sidebar">
       <div class="sidebar-title">Shop by Merchant</div>
 
-      <!-- FEATURED -->
+      <!-- FEATURED - Alphabetized A-Z -->
       <div class="sidebar-section-label">✦ Featured</div>
-      <div class="merchant-item featured" onclick="searchMerchant('Nike')">
-        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Nike</span></div>
-        <span class="merchant-arrow">›</span>
-      </div>
       <div class="merchant-item featured" onclick="searchMerchant('Adidas')">
         <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Adidas</span></div>
-        <span class="merchant-arrow">›</span>
-      </div>
-      <div class="merchant-item featured" onclick="searchMerchant('Walmart')">
-        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Walmart</span></div>
         <span class="merchant-arrow">›</span>
       </div>
       <div class="merchant-item featured" onclick="searchMerchant('Best Buy')">
         <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Best Buy</span></div>
         <span class="merchant-arrow">›</span>
       </div>
-      <div class="merchant-item featured" onclick="searchMerchant('Target')">
-        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Target</span></div>
-        <span class="merchant-arrow">›</span>
-      </div>
-      <div class="merchant-item featured" onclick="searchMerchant('Sephora')">
-        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Sephora</span></div>
-        <span class="merchant-arrow">›</span>
-      </div>
       <div class="merchant-item featured" onclick="searchMerchant('Home Depot')">
         <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Home Depot</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Macy\'s')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Macy's</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Nike')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Nike</span></div>
         <span class="merchant-arrow">›</span>
       </div>
       <div class="merchant-item featured" onclick="searchMerchant('Samsung')">
         <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Samsung</span></div>
         <span class="merchant-arrow">›</span>
       </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Sephora')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Sephora</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Target')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Target</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
       <div class="merchant-item featured" onclick="searchMerchant('Under Armour')">
         <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Under Armour</span></div>
         <span class="merchant-arrow">›</span>
       </div>
-      <div class="merchant-item featured" onclick="searchMerchant('Macy\'s')">
-        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Macy's</span></div>
+      <div class="merchant-item featured" onclick="searchMerchant('Walmart')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Walmart</span></div>
         <span class="merchant-arrow">›</span>
       </div>
 
@@ -1199,7 +1199,7 @@
       const featured = ['Nike','Adidas','Walmart','Best Buy','Target','Sephora','Home Depot','Samsung','Under Armour',"Macy's"];
       dynamicMerchants = Object.entries(counts)
         .filter(([name]) => !featured.some(f => name.toLowerCase().includes(f.toLowerCase())))
-        .sort((a, b) => b[1] - a[1])
+        .sort((a, b) => a[0].localeCompare(b[0]))
         .map(([name, count]) => ({ name, count }));
 
       renderDynamicMerchants(dynamicMerchants);
