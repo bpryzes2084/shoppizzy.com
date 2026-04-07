@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shoppizzy — Curated Luxury Shopping</title>
   <meta name="description" content="Discover curated luxury and everyday essentials from the world's finest merchants.">
-  
-  <!-- Cloudflare Turnstile -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V1ZKKFFZL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -17,7 +13,6 @@
     gtag('js', new Date());
     gtag('config', 'G-5V1ZKKFFZL');
   </script>
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
@@ -44,25 +39,13 @@
       letter-spacing: 0.3px;
     }
 
-    /* HEADER - Minimal & Elegant */
     header {
-      background: var(--white);
+      background: rgba(255,255,255,0.98);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 1000;
       backdrop-filter: blur(10px);
-      background: rgba(255,255,255,0.98);
-    }
-
-    .header-top {
-      background: var(--black);
-      color: var(--white);
-      text-align: center;
-      padding: 8px 24px;
-      font-size: 0.75rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
     }
 
     .header-main {
@@ -84,11 +67,7 @@
       cursor: pointer;
     }
 
-    .header-nav {
-      display: flex;
-      gap: 40px;
-      align-items: center;
-    }
+    .header-nav { display: flex; gap: 40px; align-items: center; }
 
     .header-nav a {
       color: var(--text);
@@ -106,17 +85,14 @@
     .header-nav a::after {
       content: '';
       position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1px;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
       background: var(--gold);
       transition: width 0.3s;
     }
 
     .header-nav a:hover::after { width: 100%; }
 
-    /* SELL WITH US button */
     .header-nav a.nav-sell {
       background: var(--black);
       color: var(--white);
@@ -124,16 +100,16 @@
       letter-spacing: 1.5px;
       transition: background 0.3s, color 0.3s;
     }
+
     .header-nav a.nav-sell:hover { background: var(--gold); color: var(--black); }
     .header-nav a.nav-sell::after { display: none; }
 
-    /* SEARCH - Elegant Minimal */
+    /* SEARCH */
     .search-container { padding: 0 24px; }
 
     .search-box {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 0;
       overflow: hidden;
       display: flex;
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
@@ -177,14 +153,149 @@
 
     .product-count .count-number { color: var(--gold); font-weight: 400; }
 
-    /* CATEGORIES - Minimal Grid */
-    .categories-section {
+    /* HOMEPAGE LAYOUT WITH SIDEBAR */
+    .homepage-layout {
       max-width: 1400px;
-      margin: 0 auto 100px;
+      margin: 0 auto;
       padding: 0 40px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      align-items: start;
     }
 
-    .section-header { text-align: center; margin-bottom: 50px; }
+    /* MERCHANT SIDEBAR */
+    .merchant-sidebar {
+      position: sticky;
+      top: 90px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .sidebar-title {
+      background: var(--black);
+      color: var(--white);
+      padding: 14px 18px;
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .sidebar-section-label {
+      padding: 10px 18px 6px;
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: var(--cream);
+    }
+
+    .sidebar-section-label:first-of-type { border-top: none; }
+
+    .merchant-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.2s;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .merchant-item:last-child { border-bottom: none; }
+
+    .merchant-item:hover {
+      background: var(--cream);
+      padding-left: 22px;
+      color: var(--black);
+    }
+
+    .merchant-item.featured {
+      background: var(--cream);
+    }
+
+    .merchant-item.featured:hover {
+      background: #f0ece4;
+      padding-left: 22px;
+    }
+
+    .merchant-name-wrap { display: flex; align-items: center; gap: 6px; }
+
+    .merchant-star {
+      color: var(--gold);
+      font-size: 0.55rem;
+      flex-shrink: 0;
+    }
+
+    .merchant-name {
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 140px;
+    }
+
+    .merchant-arrow {
+      font-size: 0.7rem;
+      color: var(--muted);
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .merchant-item:hover .merchant-arrow {
+      color: var(--gold);
+      transform: translateX(3px);
+    }
+
+    .sidebar-loading {
+      padding: 20px 18px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .sidebar-spinner {
+      width: 18px; height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 8px;
+    }
+
+    .sidebar-search {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-search input {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 7px 11px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      outline: none;
+      background: var(--cream);
+      color: var(--text);
+    }
+
+    .sidebar-search input:focus { border-color: var(--gold); }
+
+    .dynamic-merchant-list { max-height: 300px; overflow-y: auto; }
+    .dynamic-merchant-list::-webkit-scrollbar { width: 3px; }
+    .dynamic-merchant-list::-webkit-scrollbar-thumb { background: var(--border); }
+
+    /* CATEGORIES SECTION */
+    .categories-section { margin-bottom: 60px; }
+
+    .section-header { text-align: center; margin-bottom: 40px; }
 
     .section-title {
       font-family: 'Playfair Display', serif;
@@ -204,7 +315,7 @@
 
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
@@ -212,7 +323,7 @@
 
     .category-card {
       background: var(--white);
-      padding: 50px 20px;
+      padding: 40px 16px;
       text-align: center;
       cursor: pointer;
       transition: all 0.3s;
@@ -224,7 +335,7 @@
     .category-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      inset: 0;
       background: var(--cream);
       transform: scaleY(0);
       transform-origin: bottom;
@@ -235,27 +346,27 @@
     .category-card:hover::before { transform: scaleY(1); }
     .category-card > * { position: relative; z-index: 1; }
 
-    .cat-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+    .cat-icon { font-size: 1.8rem; margin-bottom: 12px; display: block; }
 
     .cat-name {
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--text);
       font-weight: 400;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    .cat-count { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.5px; font-weight: 400; }
-    .cat-count-loading { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.5px; }
+    .cat-count { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.5px; font-weight: 400; }
+    .cat-count-loading { font-size: 0.68rem; color: var(--muted); }
 
     /* SELLER BANNER */
     .seller-banner {
       background: var(--black);
       color: var(--white);
-      padding: 56px 40px;
+      padding: 48px 32px;
       text-align: center;
-      margin: 0 0 80px;
+      margin: 0 0 60px;
       position: relative;
       overflow: hidden;
     }
@@ -264,39 +375,36 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: repeating-linear-gradient(
-        45deg, transparent, transparent 40px,
-        rgba(197,165,114,0.04) 40px, rgba(197,165,114,0.04) 80px
-      );
+      background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(197,165,114,0.04) 40px, rgba(197,165,114,0.04) 80px);
     }
 
     .seller-banner-content { position: relative; z-index: 1; }
 
     .seller-banner h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 500;
       letter-spacing: 2px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .seller-banner p {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: rgba(255,255,255,0.65);
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
 
     .seller-banner-perks {
       display: flex;
       justify-content: center;
-      gap: 48px;
-      margin-bottom: 32px;
+      gap: 32px;
+      margin-bottom: 24px;
       flex-wrap: wrap;
     }
 
     .seller-banner-perk {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--gold);
@@ -309,8 +417,8 @@
       background: var(--gold);
       color: var(--black);
       text-decoration: none;
-      padding: 15px 52px;
-      font-size: 0.8rem;
+      padding: 12px 40px;
+      font-size: 0.78rem;
       letter-spacing: 2.5px;
       text-transform: uppercase;
       font-weight: 700;
@@ -319,17 +427,11 @@
 
     .btn-sell:hover { background: var(--white); }
 
-    /* PRODUCT GRID - Clean & Spacious */
-    .featured-section {
-      max-width: 1400px;
-      margin: 0 auto 100px;
-      padding: 0 40px;
-    }
-
+    /* PRODUCT GRID */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 40px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 32px;
     }
 
     .product-card {
@@ -339,7 +441,6 @@
       display: flex;
       flex-direction: column;
       transition: all 0.3s;
-      border: 1px solid transparent;
       height: 100%;
     }
 
@@ -347,11 +448,11 @@
 
     .product-img-wrap {
       width: 100%;
-      height: 350px;
+      height: 300px;
       position: relative;
       background: var(--cream);
       overflow: hidden;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       flex-shrink: 0;
     }
 
@@ -378,46 +479,46 @@
 
     .source-badge {
       position: absolute;
-      top: 16px; left: 16px;
+      top: 12px; left: 12px;
       background: var(--white);
       color: var(--black);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 400;
       letter-spacing: 1.5px;
-      padding: 6px 14px;
+      padding: 5px 12px;
       text-transform: uppercase;
     }
 
     .sale-badge {
       position: absolute;
-      top: 16px; right: 16px;
+      top: 12px; right: 12px;
       background: var(--gold);
       color: var(--white);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 400;
       letter-spacing: 1.5px;
-      padding: 6px 14px;
+      padding: 5px 12px;
       text-transform: uppercase;
     }
 
     .product-info { padding: 0 4px; display: flex; flex-direction: column; flex: 1; }
 
     .product-merchant {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-weight: 400;
     }
 
     .product-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 400;
       color: var(--black);
       line-height: 1.4;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -427,15 +528,15 @@
     }
 
     .product-price { display: flex; align-items: baseline; gap: 10px; margin-top: auto; }
-    .price-sale { font-size: 1.1rem; color: var(--gold); font-weight: 400; }
-    .price-regular { font-size: 1.1rem; color: var(--black); font-weight: 400; }
-    .price-was { font-size: 0.9rem; color: var(--muted); text-decoration: line-through; }
+    .price-sale { font-size: 1.05rem; color: var(--gold); font-weight: 400; }
+    .price-regular { font-size: 1.05rem; color: var(--black); font-weight: 400; }
+    .price-was { font-size: 0.85rem; color: var(--muted); text-decoration: line-through; }
 
     /* RESULTS SECTION */
     #results-section {
       display: none;
       max-width: 1400px;
-      margin: 60px auto 100px;
+      margin: 40px auto 100px;
       padding: 0 40px;
     }
 
@@ -445,21 +546,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 40px;
-      padding-bottom: 20px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
     }
 
     .results-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 500;
       color: var(--black);
     }
 
     .results-controls { display: flex; gap: 16px; }
 
-    .sort-select, .merchant-filter {
+    .sort-select {
       border: 1px solid var(--border);
       padding: 10px 16px;
       font-family: 'Lato', sans-serif;
@@ -468,7 +569,6 @@
       cursor: pointer;
       outline: none;
       font-weight: 300;
-      letter-spacing: 0.5px;
     }
 
     /* PAGINATION */
@@ -479,14 +579,12 @@
       color: var(--muted);
       font-size: 0.9rem;
       margin-bottom: 24px;
-      letter-spacing: 0.5px;
     }
 
     .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
 
     .page-btn {
-      min-width: 44px;
-      height: 44px;
+      min-width: 44px; height: 44px;
       border: 1px solid var(--border);
       background: var(--white);
       color: var(--text);
@@ -499,7 +597,6 @@
       justify-content: center;
       padding: 0 16px;
       font-weight: 300;
-      letter-spacing: 0.5px;
     }
 
     .page-btn:hover:not(.active):not(:disabled) { background: var(--cream); border-color: var(--gold); }
@@ -507,7 +604,7 @@
     .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
     .page-ellipsis { color: var(--muted); padding: 0 8px; }
 
-    /* FOOTER - Minimal */
+    /* FOOTER */
     footer {
       background: var(--black);
       color: rgba(255,255,255,0.7);
@@ -540,7 +637,6 @@
       font-size: 0.85rem;
       margin-bottom: 12px;
       transition: color 0.3s;
-      letter-spacing: 0.5px;
     }
 
     .footer-col a:hover { color: var(--gold); }
@@ -555,12 +651,11 @@
       margin: 0 auto;
     }
 
-    /* LOADING/EMPTY STATES */
-    .loading-state, .empty-state { text-align: center; padding: 100px 40px; color: var(--muted); }
+    /* LOADING/EMPTY */
+    .loading-state, .empty-state { text-align: center; padding: 80px 40px; color: var(--muted); }
 
     .loading-spinner {
-      width: 40px;
-      height: 40px;
+      width: 40px; height: 40px;
       border: 2px solid var(--border);
       border-top-color: var(--black);
       border-radius: 50%;
@@ -570,12 +665,11 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* SHOPPING ASSISTANT STYLES */
+    /* CHAT WIDGET */
     .chat-widget-container { position: fixed; bottom: 24px; right: 24px; z-index: 10000; }
 
     .chat-button {
-      width: 64px;
-      height: 64px;
+      width: 64px; height: 64px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%);
       border: 2px solid var(--gold);
@@ -587,13 +681,12 @@
       transition: all 0.3s ease;
     }
 
-    .chat-button:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(197, 165, 114, 0.4); }
+    .chat-button:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(197,165,114,0.4); }
     .chat-button svg { width: 28px; height: 28px; fill: var(--gold); }
 
     .chat-window {
       position: fixed;
-      bottom: 100px;
-      right: 24px;
+      bottom: 100px; right: 24px;
       width: 400px;
       max-width: calc(100vw - 48px);
       height: 600px;
@@ -637,7 +730,7 @@
     }
 
     .chat-header-text h3 { font-size: 16px; font-weight: 600; margin: 0; letter-spacing: 0.5px; }
-    .chat-header-text p { font-size: 12px; margin: 2px 0 0 0; color: var(--gold); letter-spacing: 0.3px; }
+    .chat-header-text p { font-size: 12px; margin: 2px 0 0 0; color: var(--gold); }
 
     .chat-close {
       width: 32px; height: 32px;
@@ -693,7 +786,6 @@
       border-radius: 12px;
       font-size: 14px;
       line-height: 1.6;
-      letter-spacing: 0.3px;
     }
 
     .message.assistant .message-content { background: var(--white); color: var(--text); border: 1px solid var(--border); }
@@ -713,7 +805,7 @@
       transition: all 0.3s;
     }
 
-    .product-card-chat:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .product-card-chat:hover { border-color: var(--gold); transform: translateY(-2px); }
 
     .product-card-chat-image {
       width: 80px; height: 80px;
@@ -745,8 +837,7 @@
     .product-card-chat-price { font-size: 14px; font-weight: 600; color: var(--gold); margin-top: auto; }
 
     .typing-indicator {
-      display: flex;
-      gap: 4px;
+      display: flex; gap: 4px;
       padding: 12px 16px;
       background: var(--white);
       border-radius: 12px;
@@ -776,7 +867,7 @@
       transition: all 0.3s;
     }
 
-    .chat-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197, 165, 114, 0.1); }
+    .chat-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197,165,114,0.1); }
 
     .chat-send {
       width: 44px; height: 44px;
@@ -806,56 +897,43 @@
       font-size: 12px;
       cursor: pointer;
       transition: all 0.3s;
-      letter-spacing: 0.3px;
     }
 
     .quick-action-btn:hover { background: var(--cream); border-color: var(--gold); color: var(--gold); }
 
     .chat-messages::-webkit-scrollbar { width: 6px; }
-    .chat-messages::-webkit-scrollbar-track { background: transparent; }
     .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    .chat-messages::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
-    /* ========== MOBILE OPTIMIZATION ========== */
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .homepage-layout { grid-template-columns: 1fr; }
+      .merchant-sidebar { position: static; display: none; }
+    }
+
     @media (max-width: 768px) {
       .header-main { padding: 16px 20px; }
       .header-nav { display: none; }
+      .homepage-layout { padding: 0 20px; }
       .category-grid { grid-template-columns: repeat(2, 1fr); }
       .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .categories-section, .featured-section { padding: 0 20px; }
       .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
-      .page-btn { min-width: 40px; height: 40px; font-size: 0.85rem; padding: 0 12px; }
-      .results-controls { flex-direction: column; width: 100%; }
-      .sort-select, .merchant-filter { width: 100%; }
-      .seller-banner { padding: 40px 24px; }
-      .seller-banner h2 { font-size: 1.6rem; }
-      .seller-banner-perks { gap: 24px; }
-
-      /* MOBILE SEARCH BOX FIX */
       .search-container { padding: 0 16px !important; margin: 30px auto 50px !important; }
       .search-box { width: 100%; }
       #search-input { padding: 16px 16px !important; font-size: 0.9rem; }
       .search-btn { padding: 16px 20px !important; font-size: 0.75rem; white-space: nowrap; }
-
-      /* MOBILE IMAGE OPTIMIZATION */
       .product-img-wrap { height: 180px !important; }
       .product-card-chat-image { width: 70px !important; height: 70px !important; }
-      .product-title { font-size: 0.95rem !important; -webkit-line-clamp: 2; }
-      .product-price { font-size: 0.95rem !important; }
-
+      .product-title { font-size: 0.95rem !important; }
       .chat-window { bottom: 0; right: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; max-height: 100vh; border-radius: 0; }
       .chat-widget-container { bottom: 16px; right: 16px; }
       .chat-button { width: 56px; height: 56px; }
     }
 
-    /* Extra small phones */
     @media (max-width: 480px) {
       #search-input { padding: 14px 12px !important; font-size: 0.85rem; }
       .search-btn { padding: 14px 16px !important; font-size: 0.7rem; }
       .product-img-wrap { height: 160px !important; }
       .product-grid { grid-template-columns: 1fr !important; gap: 16px; }
-      .product-card-chat-image { width: 60px !important; height: 60px !important; }
-      .product-title { font-size: 0.9rem !important; }
       .footer-inner { grid-template-columns: 1fr; }
     }
 
@@ -866,7 +944,6 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-main">
     <div class="logo" onclick="showHome()">SHOPPIZZY</div>
@@ -880,8 +957,7 @@
   </div>
 </header>
 
-<!-- SEARCH BAR -->
-<div class="search-container" style="max-width: 800px; margin: 40px auto 60px; position: static; z-index: auto;">
+<div class="search-container" style="max-width: 800px; margin: 40px auto 40px; position: static; z-index: auto;">
   <div class="search-box">
     <input type="text" id="search-input" placeholder="Search for products..." autocomplete="off">
     <button class="search-btn" onclick="doSearch()">Search</button>
@@ -893,258 +969,144 @@
 
 <!-- HERO SECTION -->
 <div id="hero-section">
-  <!-- CATEGORIES -->
-  <div class="categories-section" id="categories">
-    <div class="section-header">
-      <h2 class="section-title">Shop by Category</h2>
-      <p class="section-subtitle">Thoughtfully curated collections</p>
-    </div>
-    <div class="category-grid">
-      <!-- ALPHABETIZED A-Z (45 CATEGORIES) -->
-      <div class="category-card" onclick="searchCategory('Apparel')">
-        <span class="cat-icon">👔</span>
-        <div class="cat-name">Apparel</div>
-        <div class="cat-count" data-category="Apparel">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Arts & Crafts')">
-        <span class="cat-icon">✂️</span>
-        <div class="cat-name">Arts & Crafts</div>
-        <div class="cat-count" data-category="Arts & Crafts">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Auto')">
-        <span class="cat-icon">🚗</span>
-        <div class="cat-name">Auto</div>
-        <div class="cat-count" data-category="Auto">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Baby')">
-        <span class="cat-icon">👶</span>
-        <div class="cat-name">Baby</div>
-        <div class="cat-count" data-category="Baby">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Bedding & Bath')">
-        <span class="cat-icon">🛁</span>
-        <div class="cat-name">Bedding & Bath</div>
-        <div class="cat-count" data-category="Bedding & Bath">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Belts & Accessories')">
-        <span class="cat-icon">👔</span>
-        <div class="cat-name">Belts & Accessories</div>
-        <div class="cat-count" data-category="Belts & Accessories">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Books & Media')">
-        <span class="cat-icon">📚</span>
-        <div class="cat-name">Books & Media</div>
-        <div class="cat-count" data-category="Books & Media">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Camping & Hiking')">
-        <span class="cat-icon">⛺</span>
-        <div class="cat-name">Camping & Hiking</div>
-        <div class="cat-count" data-category="Camping & Hiking">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Cell Phones')">
-        <span class="cat-icon">📱</span>
-        <div class="cat-name">Cell Phones</div>
-        <div class="cat-count" data-category="Cell Phones">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Computer Accessories')">
-        <span class="cat-icon">🖱️</span>
-        <div class="cat-name">Computer Accessories</div>
-        <div class="cat-count" data-category="Computer Accessories">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Computers')">
-        <span class="cat-icon">💻</span>
-        <div class="cat-name">Computers</div>
-        <div class="cat-count" data-category="Computers">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Desks & Chairs')">
-        <span class="cat-icon">🪑</span>
-        <div class="cat-name">Desks & Chairs</div>
-        <div class="cat-count" data-category="Desks & Chairs">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Electronics')">
-        <span class="cat-icon">🔌</span>
-        <div class="cat-name">Electronics</div>
-        <div class="cat-count" data-category="Electronics">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Fitness')">
-        <span class="cat-icon">💪</span>
-        <div class="cat-name">Fitness</div>
-        <div class="cat-count" data-category="Fitness">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Food & Beverage')">
-        <span class="cat-icon">🍽️</span>
-        <div class="cat-name">Food & Beverage</div>
-        <div class="cat-count" data-category="Food & Beverage">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Footwear')">
-        <span class="cat-icon">👟</span>
-        <div class="cat-name">Footwear</div>
-        <div class="cat-count" data-category="Footwear">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Furniture')">
-        <span class="cat-icon">🛋️</span>
-        <div class="cat-name">Furniture</div>
-        <div class="cat-count" data-category="Furniture">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Gaming')">
-        <span class="cat-icon">🎮</span>
-        <div class="cat-name">Gaming</div>
-        <div class="cat-count" data-category="Gaming">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Garden & Outdoor')">
-        <span class="cat-icon">🌱</span>
-        <div class="cat-name">Garden & Outdoor</div>
-        <div class="cat-count" data-category="Garden & Outdoor">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Handbags & Wallets')">
-        <span class="cat-icon">👜</span>
-        <div class="cat-name">Handbags & Wallets</div>
-        <div class="cat-count" data-category="Handbags & Wallets">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Hats & Scarves')">
-        <span class="cat-icon">🧢</span>
-        <div class="cat-name">Hats & Scarves</div>
-        <div class="cat-count" data-category="Hats & Scarves">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Health & Beauty')">
-        <span class="cat-icon">💄</span>
-        <div class="cat-name">Health & Beauty</div>
-        <div class="cat-count" data-category="Health & Beauty">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Home Decor')">
-        <span class="cat-icon">🖼️</span>
-        <div class="cat-name">Home Decor</div>
-        <div class="cat-count" data-category="Home Decor">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Home Theatre')">
-        <span class="cat-icon">🎬</span>
-        <div class="cat-name">Home Theatre</div>
-        <div class="cat-count" data-category="Home Theatre">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Jewelry & Watches')">
-        <span class="cat-icon">⌚</span>
-        <div class="cat-name">Jewelry & Watches</div>
-        <div class="cat-count" data-category="Jewelry & Watches">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Kitchen & Dining')">
-        <span class="cat-icon">🍴</span>
-        <div class="cat-name">Kitchen & Dining</div>
-        <div class="cat-count" data-category="Kitchen & Dining">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Lighting')">
-        <span class="cat-icon">💡</span>
-        <div class="cat-name">Lighting</div>
-        <div class="cat-count" data-category="Lighting">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Luggage & Travel Bags')">
-        <span class="cat-icon">🧳</span>
-        <div class="cat-name">Luggage & Travel Bags</div>
-        <div class="cat-count" data-category="Luggage & Travel Bags">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Massage & Spa')">
-        <span class="cat-icon">💆</span>
-        <div class="cat-name">Massage & Spa</div>
-        <div class="cat-count" data-category="Massage & Spa">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Musical Instruments')">
-        <span class="cat-icon">🎸</span>
-        <div class="cat-name">Musical Instruments</div>
-        <div class="cat-count" data-category="Musical Instruments">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Office Supplies')">
-        <span class="cat-icon">📝</span>
-        <div class="cat-name">Office Supplies</div>
-        <div class="cat-count" data-category="Office Supplies">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Outdoor & Patio')">
-        <span class="cat-icon">🌿</span>
-        <div class="cat-name">Outdoor & Patio</div>
-        <div class="cat-count" data-category="Outdoor & Patio">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Pets')">
-        <span class="cat-icon">🐾</span>
-        <div class="cat-name">Pets</div>
-        <div class="cat-count" data-category="Pets">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Photography')">
-        <span class="cat-icon">📷</span>
-        <div class="cat-name">Photography</div>
-        <div class="cat-count" data-category="Photography">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Printers & Scanners')">
-        <span class="cat-icon">🖨️</span>
-        <div class="cat-name">Printers & Scanners</div>
-        <div class="cat-count" data-category="Printers & Scanners">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('School Supplies')">
-        <span class="cat-icon">🎒</span>
-        <div class="cat-name">School Supplies</div>
-        <div class="cat-count" data-category="School Supplies">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Smart Home')">
-        <span class="cat-icon">🏡</span>
-        <div class="cat-name">Smart Home</div>
-        <div class="cat-count" data-category="Smart Home">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Sporting Goods')">
-        <span class="cat-icon">⚽</span>
-        <div class="cat-name">Sporting Goods</div>
-        <div class="cat-count" data-category="Sporting Goods">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Storage & Organization')">
-        <span class="cat-icon">📦</span>
-        <div class="cat-name">Storage & Organization</div>
-        <div class="cat-count" data-category="Storage & Organization">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Sunglasses')">
-        <span class="cat-icon">🕶️</span>
-        <div class="cat-name">Sunglasses</div>
-        <div class="cat-count" data-category="Sunglasses">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Tools')">
-        <span class="cat-icon">🔧</span>
-        <div class="cat-name">Tools</div>
-        <div class="cat-count" data-category="Tools">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Toys')">
-        <span class="cat-icon">🧸</span>
-        <div class="cat-name">Toys</div>
-        <div class="cat-count" data-category="Toys">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Travel')">
-        <span class="cat-icon">✈️</span>
-        <div class="cat-name">Travel</div>
-        <div class="cat-count" data-category="Travel">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Vitamins & Supplements')">
-        <span class="cat-icon">💊</span>
-        <div class="cat-name">Vitamins & Supplements</div>
-        <div class="cat-count" data-category="Vitamins & Supplements">Loading...</div>
-      </div>
-      <div class="category-card" onclick="searchCategory('Yoga & Meditation')">
-        <span class="cat-icon">🧘</span>
-        <div class="cat-name">Yoga & Meditation</div>
-        <div class="cat-count" data-category="Yoga & Meditation">Loading...</div>
-      </div>
-    </div>
-  </div>
+  <div class="homepage-layout">
 
-  <!-- SELLER BANNER -->
-  <div class="seller-banner">
-    <div class="seller-banner-content">
-      <h2>Tired of Amazon's Fees?</h2>
-      <p>No fuel surcharges. No surprise hikes. Just a fair place to sell.</p>
-      <div class="seller-banner-perks">
-        <span class="seller-banner-perk">Zero Hidden Fees</span>
-        <span class="seller-banner-perk">PayPal & Square Payouts</span>
-        <span class="seller-banner-perk">Real-Time Inventory</span>
-        <span class="seller-banner-perk">Easy Onboarding</span>
-      </div>
-      <a href="/seller/register" class="btn-sell">Start Selling Today</a>
-    </div>
-  </div>
+    <!-- LEFT: MERCHANT SIDEBAR -->
+    <aside class="merchant-sidebar">
+      <div class="sidebar-title">Shop by Merchant</div>
 
-</div>
+      <!-- FEATURED -->
+      <div class="sidebar-section-label">✦ Featured</div>
+      <div class="merchant-item featured" onclick="searchMerchant('Nike')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Nike</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Adidas')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Adidas</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Walmart')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Walmart</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Best Buy')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Best Buy</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Target')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Target</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Sephora')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Sephora</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Home Depot')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Home Depot</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Samsung')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Samsung</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Under Armour')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Under Armour</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+      <div class="merchant-item featured" onclick="searchMerchant('Macy\'s')">
+        <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Macy's</span></div>
+        <span class="merchant-arrow">›</span>
+      </div>
+
+      <!-- MORE MERCHANTS (dynamic) -->
+      <div class="sidebar-section-label">More Merchants</div>
+      <div class="sidebar-search">
+        <input type="text" id="sidebar-search-input" placeholder="Search merchants..." oninput="filterDynamicMerchants(this.value)">
+      </div>
+      <div class="dynamic-merchant-list" id="dynamic-merchant-list">
+        <div class="sidebar-loading">
+          <div class="sidebar-spinner"></div>
+          Loading...
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT: CATEGORIES + BANNER -->
+    <div class="homepage-right">
+
+      <!-- CATEGORIES -->
+      <div class="categories-section" id="categories">
+        <div class="section-header">
+          <h2 class="section-title">Shop by Category</h2>
+          <p class="section-subtitle">Thoughtfully curated collections</p>
+        </div>
+        <div class="category-grid">
+          <div class="category-card" onclick="searchCategory('Apparel')"><span class="cat-icon">👔</span><div class="cat-name">Apparel</div><div class="cat-count" data-category="Apparel">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Arts & Crafts')"><span class="cat-icon">✂️</span><div class="cat-name">Arts & Crafts</div><div class="cat-count" data-category="Arts & Crafts">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Auto')"><span class="cat-icon">🚗</span><div class="cat-name">Auto</div><div class="cat-count" data-category="Auto">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Baby')"><span class="cat-icon">👶</span><div class="cat-name">Baby</div><div class="cat-count" data-category="Baby">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Bedding & Bath')"><span class="cat-icon">🛁</span><div class="cat-name">Bedding & Bath</div><div class="cat-count" data-category="Bedding & Bath">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Belts & Accessories')"><span class="cat-icon">👔</span><div class="cat-name">Belts & Accessories</div><div class="cat-count" data-category="Belts & Accessories">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Books & Media')"><span class="cat-icon">📚</span><div class="cat-name">Books & Media</div><div class="cat-count" data-category="Books & Media">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Camping & Hiking')"><span class="cat-icon">⛺</span><div class="cat-name">Camping & Hiking</div><div class="cat-count" data-category="Camping & Hiking">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Cell Phones')"><span class="cat-icon">📱</span><div class="cat-name">Cell Phones</div><div class="cat-count" data-category="Cell Phones">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Computer Accessories')"><span class="cat-icon">🖱️</span><div class="cat-name">Computer Accessories</div><div class="cat-count" data-category="Computer Accessories">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Computers')"><span class="cat-icon">💻</span><div class="cat-name">Computers</div><div class="cat-count" data-category="Computers">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Desks & Chairs')"><span class="cat-icon">🪑</span><div class="cat-name">Desks & Chairs</div><div class="cat-count" data-category="Desks & Chairs">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Electronics')"><span class="cat-icon">🔌</span><div class="cat-name">Electronics</div><div class="cat-count" data-category="Electronics">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Fitness')"><span class="cat-icon">💪</span><div class="cat-name">Fitness</div><div class="cat-count" data-category="Fitness">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Food & Beverage')"><span class="cat-icon">🍽️</span><div class="cat-name">Food & Beverage</div><div class="cat-count" data-category="Food & Beverage">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Footwear')"><span class="cat-icon">👟</span><div class="cat-name">Footwear</div><div class="cat-count" data-category="Footwear">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Furniture')"><span class="cat-icon">🛋️</span><div class="cat-name">Furniture</div><div class="cat-count" data-category="Furniture">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Gaming')"><span class="cat-icon">🎮</span><div class="cat-name">Gaming</div><div class="cat-count" data-category="Gaming">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Garden & Outdoor')"><span class="cat-icon">🌱</span><div class="cat-name">Garden & Outdoor</div><div class="cat-count" data-category="Garden & Outdoor">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Handbags & Wallets')"><span class="cat-icon">👜</span><div class="cat-name">Handbags & Wallets</div><div class="cat-count" data-category="Handbags & Wallets">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Hats & Scarves')"><span class="cat-icon">🧢</span><div class="cat-name">Hats & Scarves</div><div class="cat-count" data-category="Hats & Scarves">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Health & Beauty')"><span class="cat-icon">💄</span><div class="cat-name">Health & Beauty</div><div class="cat-count" data-category="Health & Beauty">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Home Decor')"><span class="cat-icon">🖼️</span><div class="cat-name">Home Decor</div><div class="cat-count" data-category="Home Decor">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Home Theatre')"><span class="cat-icon">🎬</span><div class="cat-name">Home Theatre</div><div class="cat-count" data-category="Home Theatre">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Jewelry & Watches')"><span class="cat-icon">⌚</span><div class="cat-name">Jewelry & Watches</div><div class="cat-count" data-category="Jewelry & Watches">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Kitchen & Dining')"><span class="cat-icon">🍴</span><div class="cat-name">Kitchen & Dining</div><div class="cat-count" data-category="Kitchen & Dining">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Lighting')"><span class="cat-icon">💡</span><div class="cat-name">Lighting</div><div class="cat-count" data-category="Lighting">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Luggage & Travel Bags')"><span class="cat-icon">🧳</span><div class="cat-name">Luggage & Travel Bags</div><div class="cat-count" data-category="Luggage & Travel Bags">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Massage & Spa')"><span class="cat-icon">💆</span><div class="cat-name">Massage & Spa</div><div class="cat-count" data-category="Massage & Spa">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Musical Instruments')"><span class="cat-icon">🎸</span><div class="cat-name">Musical Instruments</div><div class="cat-count" data-category="Musical Instruments">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Office Supplies')"><span class="cat-icon">📝</span><div class="cat-name">Office Supplies</div><div class="cat-count" data-category="Office Supplies">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Outdoor & Patio')"><span class="cat-icon">🌿</span><div class="cat-name">Outdoor & Patio</div><div class="cat-count" data-category="Outdoor & Patio">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Pets')"><span class="cat-icon">🐾</span><div class="cat-name">Pets</div><div class="cat-count" data-category="Pets">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Photography')"><span class="cat-icon">📷</span><div class="cat-name">Photography</div><div class="cat-count" data-category="Photography">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Printers & Scanners')"><span class="cat-icon">🖨️</span><div class="cat-name">Printers & Scanners</div><div class="cat-count" data-category="Printers & Scanners">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('School Supplies')"><span class="cat-icon">🎒</span><div class="cat-name">School Supplies</div><div class="cat-count" data-category="School Supplies">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Smart Home')"><span class="cat-icon">🏡</span><div class="cat-name">Smart Home</div><div class="cat-count" data-category="Smart Home">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Sporting Goods')"><span class="cat-icon">⚽</span><div class="cat-name">Sporting Goods</div><div class="cat-count" data-category="Sporting Goods">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Storage & Organization')"><span class="cat-icon">📦</span><div class="cat-name">Storage & Organization</div><div class="cat-count" data-category="Storage & Organization">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Sunglasses')"><span class="cat-icon">🕶️</span><div class="cat-name">Sunglasses</div><div class="cat-count" data-category="Sunglasses">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Tools')"><span class="cat-icon">🔧</span><div class="cat-name">Tools</div><div class="cat-count" data-category="Tools">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Toys')"><span class="cat-icon">🧸</span><div class="cat-name">Toys</div><div class="cat-count" data-category="Toys">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Travel')"><span class="cat-icon">✈️</span><div class="cat-name">Travel</div><div class="cat-count" data-category="Travel">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Vitamins & Supplements')"><span class="cat-icon">💊</span><div class="cat-name">Vitamins & Supplements</div><div class="cat-count" data-category="Vitamins & Supplements">Loading...</div></div>
+          <div class="category-card" onclick="searchCategory('Yoga & Meditation')"><span class="cat-icon">🧘</span><div class="cat-name">Yoga & Meditation</div><div class="cat-count" data-category="Yoga & Meditation">Loading...</div></div>
+        </div>
+      </div>
+
+      <!-- SELLER BANNER -->
+      <div class="seller-banner">
+        <div class="seller-banner-content">
+          <h2>Tired of Amazon's Fees?</h2>
+          <p>No fuel surcharges. No surprise hikes. Just a fair place to sell.</p>
+          <div class="seller-banner-perks">
+            <span class="seller-banner-perk">Zero Hidden Fees</span>
+            <span class="seller-banner-perk">PayPal & Square Payouts</span>
+            <span class="seller-banner-perk">Real-Time Inventory</span>
+            <span class="seller-banner-perk">Easy Onboarding</span>
+          </div>
+          <a href="/seller/register" class="btn-sell">Start Selling Today</a>
+        </div>
+      </div>
+
+    </div><!-- end homepage-right -->
+  </div><!-- end homepage-layout -->
+</div><!-- end hero-section -->
 
 <!-- RESULTS SECTION -->
 <div id="results-section">
@@ -1157,27 +1119,10 @@
       </select>
     </div>
   </div>
-  <div class="results-layout">
-    <!-- MERCHANT SIDEBAR -->
-    <aside class="merchant-sidebar" id="merchant-sidebar">
-      <div class="sidebar-header">
-        Merchants <span id="sidebar-merchant-count"></span>
-      </div>
-      <div class="sidebar-search">
-        <input type="text" id="sidebar-search" placeholder="Filter merchants..." oninput="filterSidebarMerchants(this.value)">
-      </div>
-      <div class="merchant-list" id="merchant-list">
-        <div class="sidebar-loading">Search to see merchants</div>
-      </div>
-    </aside>
-    <!-- PRODUCT GRID + PAGINATION -->
-    <div class="results-main">
-      <div id="product-grid" class="product-grid"></div>
-      <div class="pagination-container" id="pagination-container" style="display:none;">
-        <div class="pagination-info" id="pagination-info"></div>
-        <div class="pagination" id="pagination"></div>
-      </div>
-    </div>
+  <div id="product-grid" class="product-grid"></div>
+  <div class="pagination-container" id="pagination-container" style="display:none;">
+    <div class="pagination-info" id="pagination-info"></div>
+    <div class="pagination" id="pagination"></div>
   </div>
 </div>
 
@@ -1186,7 +1131,7 @@
   <div class="footer-inner">
     <div class="footer-col">
       <h4>Shoppizzy</h4>
-      <p style="font-size:0.85rem;line-height:1.8;">Curated luxury and everyday essentials from the world's finest merchants. Experience shopping reimagined.</p>
+      <p style="font-size:0.85rem;line-height:1.8;">Curated luxury and everyday essentials from the world's finest merchants.</p>
     </div>
     <div class="footer-col">
       <h4>Explore</h4>
@@ -1207,9 +1152,7 @@
       <a href="https://wa.me/YOUR_WHATSAPP_NUMBER" target="_blank">Contact Us</a>
     </div>
   </div>
-  <div class="footer-bottom">
-    © 2026 Shoppizzy — BSM Enterpryzes. All Rights Reserved.
-  </div>
+  <div class="footer-bottom">© 2026 Shoppizzy — BSM Enterpryzes. All Rights Reserved.</div>
 </footer>
 
 <script>
@@ -1218,7 +1161,7 @@
   let currentQuery = '';
   let currentTotal = 0;
   let allProducts = [];
-  let filteredProducts = [];
+  let dynamicMerchants = [];
   const LIMIT = 40;
 
   document.getElementById('search-input').addEventListener('keydown', e => {
@@ -1227,49 +1170,94 @@
 
   loadProductCount();
   loadCategoryCounts();
+  loadDynamicMerchants();
 
   async function loadProductCount() {
     try {
-      console.log('Fetching product count from:', `${WORKER_URL}/api/stats`);
       const res = await fetch(`${WORKER_URL}/api/stats`);
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      if (!res.ok) throw new Error();
       const data = await res.json();
-      console.log('Stats data received:', data);
-      const totalProducts = (data.cj || 0) + (data.rakuten || 0) + (data.impact || 0);
-      document.getElementById('product-count').innerHTML = `
-        <span class="count-number">${totalProducts.toLocaleString()}</span> products available
-      `;
+      const total = (data.cj || 0) + (data.rakuten || 0) + (data.impact || 0);
+      document.getElementById('product-count').innerHTML = `<span class="count-number">${total.toLocaleString()}</span> products available`;
     } catch(e) {
-      console.error('Error loading stats:', e);
-      document.getElementById('product-count').innerHTML = `
-        <span class="count-number">Millions</span> of products available
-      `;
+      document.getElementById('product-count').innerHTML = `<span class="count-number">Millions</span> of products available`;
     }
+  }
+
+  async function loadDynamicMerchants() {
+    try {
+      const res = await fetch(`${WORKER_URL}/api/products?q=clothing&limit=100`);
+      const data = await res.json();
+      const products = data.products || [];
+      const counts = {};
+      products.forEach(p => {
+        const name = p.advertiserName || p.merchant_name || '';
+        if (name) counts[name] = (counts[name] || 0) + 1;
+      });
+
+      // Filter out featured ones already shown
+      const featured = ['Nike','Adidas','Walmart','Best Buy','Target','Sephora','Home Depot','Samsung','Under Armour',"Macy's"];
+      dynamicMerchants = Object.entries(counts)
+        .filter(([name]) => !featured.some(f => name.toLowerCase().includes(f.toLowerCase())))
+        .sort((a, b) => b[1] - a[1])
+        .map(([name, count]) => ({ name, count }));
+
+      renderDynamicMerchants(dynamicMerchants);
+    } catch(e) {
+      document.getElementById('dynamic-merchant-list').innerHTML =
+        '<div class="sidebar-loading">Unable to load merchants</div>';
+    }
+  }
+
+  function renderDynamicMerchants(merchants) {
+    const list = document.getElementById('dynamic-merchant-list');
+    if (!merchants.length) {
+      list.innerHTML = '<div class="sidebar-loading">No additional merchants</div>';
+      return;
+    }
+    list.innerHTML = merchants.map(m => `
+      <div class="merchant-item" onclick="searchMerchant('${m.name.replace(/'/g,"\\'")}')">
+        <div class="merchant-name-wrap">
+          <span class="merchant-name">${escHtml(m.name)}</span>
+        </div>
+        <span class="merchant-arrow">›</span>
+      </div>
+    `).join('');
+  }
+
+  function filterDynamicMerchants(query) {
+    const filtered = query
+      ? dynamicMerchants.filter(m => m.name.toLowerCase().includes(query.toLowerCase()))
+      : dynamicMerchants;
+    renderDynamicMerchants(filtered);
+  }
+
+  function searchMerchant(name) {
+    document.getElementById('search-input').value = name;
+    doSearch(1);
   }
 
   async function loadCategoryCounts() {
     const categories = [
-      'Apparel', 'Auto', 'Baby', 'Cell Phones', 'Computers', 'Computer Accessories',
-      'Electronics', 'Gaming', 'Fitness', 'Footwear', 'Food & Beverage',
-      'Health & Beauty', 'Home Theatre', 'Pets', 'Sporting Goods', 'Tools', 'Toys', 'Travel',
-      'Furniture', 'Kitchen & Dining', 'Bedding & Bath', 'Home Decor', 'Lighting',
-      'Storage & Organization', 'Outdoor & Patio', 'Smart Home',
-      'Jewelry & Watches', 'Handbags & Wallets', 'Sunglasses', 'Hats & Scarves',
-      'Belts & Accessories', 'Luggage & Travel Bags',
-      'Arts & Crafts', 'Musical Instruments', 'Photography', 'Books & Media',
-      'Garden & Outdoor', 'Camping & Hiking',
-      'Office Supplies', 'School Supplies', 'Printers & Scanners', 'Desks & Chairs',
-      'Vitamins & Supplements', 'Massage & Spa', 'Yoga & Meditation'
+      'Apparel','Auto','Baby','Cell Phones','Computers','Computer Accessories',
+      'Electronics','Gaming','Fitness','Footwear','Food & Beverage',
+      'Health & Beauty','Home Theatre','Pets','Sporting Goods','Tools','Toys','Travel',
+      'Furniture','Kitchen & Dining','Bedding & Bath','Home Decor','Lighting',
+      'Storage & Organization','Outdoor & Patio','Smart Home',
+      'Jewelry & Watches','Handbags & Wallets','Sunglasses','Hats & Scarves',
+      'Belts & Accessories','Luggage & Travel Bags',
+      'Arts & Crafts','Musical Instruments','Photography','Books & Media',
+      'Garden & Outdoor','Camping & Hiking',
+      'Office Supplies','School Supplies','Printers & Scanners','Desks & Chairs',
+      'Vitamins & Supplements','Massage & Spa','Yoga & Meditation'
     ];
-
     for (const category of categories) {
       try {
         const res = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(category)}&limit=1`);
         const data = await res.json();
-        const count = data.totalCount || 0;
         const countEl = document.querySelector(`[data-category="${category}"]`);
         if (countEl) {
-          countEl.textContent = count.toLocaleString() + ' items';
+          countEl.textContent = (data.totalCount || 0).toLocaleString() + ' items';
           countEl.classList.remove('cat-count-loading');
         }
       } catch(e) {
@@ -1319,26 +1307,11 @@
       allProducts = data.products || [];
       currentTotal = data.totalCount || 0;
 
-      populateMerchantFilter(allProducts);
-      filteredProducts = allProducts;
-
-      renderResults(filteredProducts, query, currentTotal);
+      renderResults(allProducts, query, currentTotal);
     } catch(err) {
       document.getElementById('product-grid').innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1">
-          <p>Unable to load results</p>
-        </div>`;
+        <div class="empty-state" style="grid-column:1/-1"><p>Unable to load results</p></div>`;
     }
-  }
-
-  function populateMerchantFilter(products) {
-    // Sidebar handles merchant filtering now
-  }
-
-  function applyFilters() {
-    const merchant = document.getElementById('merchant-filter').value;
-    filteredProducts = merchant ? allProducts.filter(p => (p.advertiserName || p.merchant_name) === merchant) : allProducts;
-    renderResults(filteredProducts, currentQuery, currentTotal);
   }
 
   function renderResults(products, query, total) {
@@ -1348,18 +1321,14 @@
       document.getElementById('pagination-container').style.display = 'none';
       return;
     }
-    grid.innerHTML = products.map(p => renderCard(p, true)).join('');
+    grid.innerHTML = products.map(p => renderCard(p)).join('');
     renderPagination(total);
-    buildMerchantSidebar(allProducts);
     document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function renderPagination(total) {
     const totalPages = Math.ceil(total / LIMIT);
-    if (totalPages <= 1) {
-      document.getElementById('pagination-container').style.display = 'none';
-      return;
-    }
+    if (totalPages <= 1) { document.getElementById('pagination-container').style.display = 'none'; return; }
     document.getElementById('pagination-container').style.display = 'block';
     const start = (currentPage - 1) * LIMIT + 1;
     const end = Math.min(currentPage * LIMIT, total);
@@ -1367,53 +1336,29 @@
       `Showing ${start.toLocaleString()}-${end.toLocaleString()} of ${total.toLocaleString()} results`;
 
     const paginationEl = document.getElementById('pagination');
-    let html = '';
-    html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
-
+    let html = `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, currentPage + 2);
-
-    if (startPage > 1) {
-      html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
-      if (startPage > 2) html += `<span class="page-ellipsis">...</span>`;
-    }
-    for (let i = startPage; i <= endPage; i++) {
-      html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
-    }
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1) html += `<span class="page-ellipsis">...</span>`;
-      html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
-    }
+    if (startPage > 1) { html += `<button class="page-btn" onclick="goToPage(1)">1</button>`; if (startPage > 2) html += `<span class="page-ellipsis">...</span>`; }
+    for (let i = startPage; i <= endPage; i++) html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+    if (endPage < totalPages) { if (endPage < totalPages - 1) html += `<span class="page-ellipsis">...</span>`; html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`; }
     html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>`;
     paginationEl.innerHTML = html;
   }
 
-  function goToPage(page) {
-    if (page < 1 || !currentQuery) return;
-    doSearch(page);
-  }
+  function goToPage(page) { if (page < 1 || !currentQuery) return; doSearch(page); }
 
-  function renderCard(p, trackView = false) {
-    if (trackView) {
-      console.log('Product data:', { title: p.title, price: p.price, salePrice: p.salePrice, rawProduct: p });
-    }
+  function renderCard(p) {
     const hasSale = p.salePrice && p.salePrice !== '' && parseFloat(p.salePrice) > 0;
     const price = hasSale ? p.salePrice : p.price;
     const priceStr = price && parseFloat(price) > 0 ? `$${parseFloat(price).toFixed(2)}` : 'See Price';
     const wasStr = hasSale && p.price && parseFloat(p.price) > 0 ? `$${parseFloat(p.price).toFixed(2)}` : '';
-
-    const imgHtml = p.imageUrl
-      ? `<img src="${p.imageUrl}" alt="${escHtml(p.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-      : '';
+    const imgHtml = p.imageUrl ? `<img src="${p.imageUrl}" alt="${escHtml(p.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : '';
     const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>✦</div>`;
-
-    const productLink = p.type === 'direct'
-      ? `/product.html?id=${encodeURIComponent(p.id)}`
-      : (p.buyUrl || p.affiliate_link || '#');
+    const productLink = p.type === 'direct' ? `/product.html?id=${encodeURIComponent(p.id)}` : (p.buyUrl || p.affiliate_link || '#');
     const linkTarget = p.type === 'direct' ? '_self' : '_blank';
     const linkRel = p.type === 'direct' ? '' : 'noopener noreferrer';
     const merchantName = p.advertiserName || p.merchant_name || 'Merchant';
-
     return `
       <a class="product-card" href="${productLink}" target="${linkTarget}" ${linkRel ? `rel="${linkRel}"` : ''}>
         <div class="product-img-wrap">
@@ -1425,84 +1370,25 @@
           <div class="product-merchant">${escHtml(merchantName)}</div>
           <div class="product-title">${escHtml(p.title)}</div>
           <div class="product-price">
-            ${hasSale && wasStr
-              ? `<span class="price-sale">${priceStr}</span><span class="price-was">${wasStr}</span>`
-              : `<span class="price-regular">${priceStr}</span>`}
+            ${hasSale && wasStr ? `<span class="price-sale">${priceStr}</span><span class="price-was">${wasStr}</span>` : `<span class="price-regular">${priceStr}</span>`}
           </div>
         </div>
       </a>`;
-  }
-
-
-  // ── MERCHANT SIDEBAR ──────────────────────────────────────
-  let allMerchants = [];
-  let activeMerchant = null;
-
-  function buildMerchantSidebar(products) {
-    const counts = {};
-    products.forEach(p => {
-      const name = p.advertiserName || p.merchant_name || 'Unknown';
-      counts[name] = (counts[name] || 0) + 1;
-    });
-
-    allMerchants = Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .map(([name, count]) => ({ name, count }));
-
-    document.getElementById('sidebar-merchant-count').textContent = 
-      allMerchants.length > 0 ? allMerchants.length + ' stores' : '';
-
-    renderMerchantList(allMerchants);
-  }
-
-  function renderMerchantList(merchants) {
-    const list = document.getElementById('merchant-list');
-    if (!merchants.length) {
-      list.innerHTML = '<div class="sidebar-loading">No merchants found</div>';
-      return;
-    }
-    list.innerHTML = merchants.map(m => `
-      <div class="merchant-item ${activeMerchant === m.name ? 'active' : ''}" 
-           onclick="selectMerchant('${escHtml(m.name)}')">
-        <span class="merchant-name">${escHtml(m.name)}</span>
-        <span class="merchant-count">${m.count}</span>
-      </div>
-    `).join('');
-  }
-
-  function filterSidebarMerchants(query) {
-    const filtered = query
-      ? allMerchants.filter(m => m.name.toLowerCase().includes(query.toLowerCase()))
-      : allMerchants;
-    renderMerchantList(filtered);
-  }
-
-  function selectMerchant(name) {
-    activeMerchant = name;
-    document.getElementById('search-input').value = name;
-    doSearch(1);
-    renderMerchantList(allMerchants);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function escHtml(str) {
     const temp = document.createElement('div');
     temp.innerHTML = String(str || '');
     const decoded = temp.textContent || temp.innerText || '';
-    return decoded
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    return decoded.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 </script>
 
 <!-- SHOPPING ASSISTANT WIDGET -->
 <div class="chat-widget-container">
   <div class="chat-button" id="chatButton">
-    <svg viewBox="0 0 24 24">
-      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
-    </svg>
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
   </div>
-
   <div class="chat-window" id="chatWindow">
     <div class="chat-header">
       <div class="chat-header-content">
@@ -1525,7 +1411,6 @@
 </div>
 
 <script>
-// Shopping Assistant
 (function() {
   const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
   const MAX_PRODUCTS_TO_SHOW = 5;
@@ -1551,9 +1436,7 @@
   function toggleChat() {
     isOpen = !isOpen;
     chatWindow.classList.toggle('open', isOpen);
-    if (typeof gtag !== 'undefined') {
-      gtag('event', isOpen ? 'chat_opened' : 'chat_closed', { 'event_category': 'AI Assistant', 'event_label': 'Chat Widget' });
-    }
+    if (typeof gtag !== 'undefined') gtag('event', isOpen ? 'chat_opened' : 'chat_closed', { 'event_category': 'AI Assistant' });
     if (isOpen) chatInput.focus();
   }
 
@@ -1570,15 +1453,15 @@
     messageDiv.appendChild(contentDiv);
     chatMessages.appendChild(messageDiv);
     if (products && products.length > 0) {
-      const productsContainer = document.createElement('div');
-      productsContainer.className = 'product-cards-chat';
-      products.forEach(product => productsContainer.appendChild(createChatProductCard(product)));
-      contentDiv.appendChild(productsContainer);
+      const container = document.createElement('div');
+      container.className = 'product-cards-chat';
+      products.forEach(p => container.appendChild(createChatCard(p)));
+      contentDiv.appendChild(container);
     }
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
-  function createChatProductCard(product) {
+  function createChatCard(product) {
     const card = document.createElement('a');
     card.className = 'product-card-chat';
     card.href = product.buyUrl || product.affiliate_link || '#';
@@ -1586,169 +1469,94 @@
     card.rel = 'noopener noreferrer';
     const imageDiv = document.createElement('div');
     imageDiv.className = 'product-card-chat-image';
-    if (product.imageUrl) {
-      const img = document.createElement('img');
-      img.src = product.imageUrl;
-      img.alt = product.title;
-      imageDiv.appendChild(img);
-    } else {
-      const placeholder = document.createElement('div');
-      placeholder.className = 'product-card-chat-placeholder';
-      placeholder.textContent = '✦';
-      imageDiv.appendChild(placeholder);
-    }
+    if (product.imageUrl) { const img = document.createElement('img'); img.src = product.imageUrl; img.alt = product.title; imageDiv.appendChild(img); }
+    else { const ph = document.createElement('div'); ph.className = 'product-card-chat-placeholder'; ph.textContent = '✦'; imageDiv.appendChild(ph); }
     const infoDiv = document.createElement('div');
     infoDiv.className = 'product-card-chat-info';
-    const merchant = document.createElement('div');
-    merchant.className = 'product-card-chat-merchant';
-    merchant.textContent = product.advertiserName || product.merchant_name || 'Merchant';
-    const title = document.createElement('div');
-    title.className = 'product-card-chat-title';
-    title.textContent = product.title;
-    const price = document.createElement('div');
-    price.className = 'product-card-chat-price';
-    const priceValue = product.salePrice || product.price;
-    price.textContent = priceValue ? `$${parseFloat(priceValue).toFixed(2)}` : 'See Price';
-    infoDiv.appendChild(merchant);
-    infoDiv.appendChild(title);
-    infoDiv.appendChild(price);
-    card.appendChild(imageDiv);
-    card.appendChild(infoDiv);
+    const merchant = document.createElement('div'); merchant.className = 'product-card-chat-merchant'; merchant.textContent = product.advertiserName || product.merchant_name || 'Merchant';
+    const title = document.createElement('div'); title.className = 'product-card-chat-title'; title.textContent = product.title;
+    const price = document.createElement('div'); price.className = 'product-card-chat-price';
+    const pv = product.salePrice || product.price;
+    price.textContent = pv ? `$${parseFloat(pv).toFixed(2)}` : 'See Price';
+    infoDiv.appendChild(merchant); infoDiv.appendChild(title); infoDiv.appendChild(price);
+    card.appendChild(imageDiv); card.appendChild(infoDiv);
     return card;
   }
 
   function showTyping() {
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'message assistant';
-    typingDiv.id = 'typing-indicator';
-    const avatar = document.createElement('div');
-    avatar.className = 'message-avatar';
-    avatar.textContent = '🤖';
-    const indicator = document.createElement('div');
-    indicator.className = 'typing-indicator';
-    indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-    typingDiv.appendChild(avatar);
-    typingDiv.appendChild(indicator);
-    chatMessages.appendChild(typingDiv);
+    const d = document.createElement('div'); d.className = 'message assistant'; d.id = 'typing-indicator';
+    const a = document.createElement('div'); a.className = 'message-avatar'; a.textContent = '🤖';
+    const i = document.createElement('div'); i.className = 'typing-indicator';
+    i.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    d.appendChild(a); d.appendChild(i); chatMessages.appendChild(d);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
-  function hideTyping() {
-    const typing = document.getElementById('typing-indicator');
-    if (typing) typing.remove();
-  }
+  function hideTyping() { const t = document.getElementById('typing-indicator'); if (t) t.remove(); }
 
   function showQuickActions(actions) {
-    const quickDiv = document.createElement('div');
-    quickDiv.className = 'quick-actions';
+    const qd = document.createElement('div'); qd.className = 'quick-actions';
     actions.forEach(action => {
-      const btn = document.createElement('button');
-      btn.className = 'quick-action-btn';
-      btn.textContent = action;
+      const btn = document.createElement('button'); btn.className = 'quick-action-btn'; btn.textContent = action;
       btn.onclick = () => { chatInput.value = action; sendChatMessage(); };
-      quickDiv.appendChild(btn);
+      qd.appendChild(btn);
     });
-    const lastMessage = chatMessages.lastElementChild;
-    if (lastMessage && lastMessage.querySelector('.message-content')) {
-      lastMessage.querySelector('.message-content').appendChild(quickDiv);
-    }
+    const last = chatMessages.lastElementChild;
+    if (last && last.querySelector('.message-content')) last.querySelector('.message-content').appendChild(qd);
   }
 
   async function sendChatMessage() {
     const message = chatInput.value.trim();
     if (!message) return;
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'ai_chat_search', { 'search_term': message, 'event_category': 'AI Assistant', 'event_label': message });
-    }
+    if (typeof gtag !== 'undefined') gtag('event', 'ai_chat_search', { 'search_term': message, 'event_category': 'AI Assistant' });
     addChatMessage('user', message);
     chatInput.value = '';
     chatSend.disabled = true;
     showTyping();
-    const searchParams = extractChatSearchParams(message);
+    const params = extractParams(message);
     try {
-      const products = await searchChatProducts(searchParams);
+      const products = await searchProducts(params);
       hideTyping();
-      if (products.length === 0) {
-        addChatMessage('assistant', `I couldn't find any ${searchParams.keyword}. Try searching for something else like "wireless headphones" or "gaming laptops".`);
+      if (!products.length) {
+        addChatMessage('assistant', `I couldn't find any ${params.keyword}. Try something else!`);
         showQuickActions(['Electronics', 'Apparel', 'Footwear', 'Home & Kitchen']);
-        if (typeof gtag !== 'undefined') gtag('event', 'ai_chat_no_results', { 'search_term': message, 'event_category': 'AI Assistant' });
       } else {
-        const response = generateChatResponse(searchParams, products);
-        addChatMessage('assistant', response, products.slice(0, MAX_PRODUCTS_TO_SHOW));
-        if (typeof gtag !== 'undefined') gtag('event', 'ai_chat_results', { 'search_term': message, 'results_count': products.length, 'event_category': 'AI Assistant' });
-        if (products.length > MAX_PRODUCTS_TO_SHOW) {
-          setTimeout(() => { addChatMessage('assistant', `Want to see more? I found ${products.length} total results. Try refining your search!`); }, 500);
-        }
+        addChatMessage('assistant', `I found ${products.length} ${params.keyword}${params.maxPrice ? ` under $${params.maxPrice}` : ''}:`, products.slice(0, MAX_PRODUCTS_TO_SHOW));
+        if (products.length > MAX_PRODUCTS_TO_SHOW) setTimeout(() => addChatMessage('assistant', `Want to see more? I found ${products.length} total results!`), 500);
       }
-    } catch (error) {
-      hideTyping();
-      addChatMessage('assistant', 'Sorry, I had trouble searching. Please try again!');
-      if (typeof gtag !== 'undefined') gtag('event', 'ai_chat_error', { 'search_term': message, 'event_category': 'AI Assistant' });
-    }
+    } catch(e) { hideTyping(); addChatMessage('assistant', 'Sorry, I had trouble searching. Please try again!'); }
     chatSend.disabled = false;
     chatInput.focus();
   }
 
-  function extractChatSearchParams(message) {
+  function extractParams(message) {
     const lower = message.toLowerCase();
     let maxPrice = null;
-    const priceMatches = lower.match(/under\s+\$?(\d+)|below\s+\$?(\d+)|less than\s+\$?(\d+)|\$(\d+)\s+or less|max\s+\$?(\d+)|budget\s+\$?(\d+)/);
-    if (priceMatches) maxPrice = parseInt(priceMatches.find(m => m && !isNaN(m)));
+    const pm = lower.match(/under\s+\$?(\d+)|below\s+\$?(\d+)|less than\s+\$?(\d+)|\$(\d+)\s+or less|max\s+\$?(\d+)/);
+    if (pm) maxPrice = parseInt(pm.find(m => m && !isNaN(m)));
     let minPrice = null;
-    const minPriceMatches = lower.match(/over\s+\$?(\d+)|above\s+\$?(\d+)|more than\s+\$?(\d+)|min\s+\$?(\d+)/);
-    if (minPriceMatches) minPrice = parseInt(minPriceMatches.find(m => m && !isNaN(m)));
-    let keyword = message
-      .replace(/under\s+\$?\d+/gi, '').replace(/below\s+\$?\d+/gi, '')
-      .replace(/less than\s+\$?\d+/gi, '').replace(/\$\d+\s+or less/gi, '')
-      .replace(/over\s+\$?\d+/gi, '').replace(/above\s+\$?\d+/gi, '')
-      .replace(/more than\s+\$?\d+/gi, '').replace(/max\s+\$?\d+/gi, '')
-      .replace(/budget\s+\$?\d+/gi, '').replace(/around\s+\$?\d+/gi, '').trim();
+    const mm = lower.match(/over\s+\$?(\d+)|above\s+\$?(\d+)|more than\s+\$?(\d+)|min\s+\$?(\d+)/);
+    if (mm) minPrice = parseInt(mm.find(m => m && !isNaN(m)));
+    let keyword = message.replace(/under\s+\$?\d+/gi,'').replace(/below\s+\$?\d+/gi,'').replace(/less than\s+\$?\d+/gi,'').replace(/\$\d+\s+or less/gi,'').replace(/over\s+\$?\d+/gi,'').replace(/above\s+\$?\d+/gi,'').replace(/more than\s+\$?\d+/gi,'').replace(/max\s+\$?\d+/gi,'').replace(/budget\s+\$?\d+/gi,'').trim();
     return { keyword, maxPrice, minPrice };
   }
 
-  async function searchChatProducts(params) {
-    const searchQuery = params.keyword || 'products';
-    const url = `${WORKER_URL}/api/products?q=${encodeURIComponent(searchQuery)}&limit=20`;
-    const response = await fetch(url);
-    const data = await response.json();
+  async function searchProducts(params) {
+    const res = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(params.keyword || 'products')}&limit=20`);
+    const data = await res.json();
     let products = data.products || [];
-    if (params.maxPrice) products = products.filter(p => { const price = parseFloat(p.salePrice || p.price || 0); return price > 0 && price <= params.maxPrice; });
-    if (params.minPrice) products = products.filter(p => { const price = parseFloat(p.salePrice || p.price || 0); return price >= params.minPrice; });
+    if (params.maxPrice) products = products.filter(p => { const pr = parseFloat(p.salePrice || p.price || 0); return pr > 0 && pr <= params.maxPrice; });
+    if (params.minPrice) products = products.filter(p => parseFloat(p.salePrice || p.price || 0) >= params.minPrice);
     return products;
-  }
-
-  function generateChatResponse(params, products) {
-    const count = products.length;
-    const keyword = params.keyword || 'products';
-    let response = `I found ${count} ${keyword}`;
-    if (params.maxPrice) response += ` under $${params.maxPrice}`;
-    response += count > MAX_PRODUCTS_TO_SHOW ? `. Here are the top ${MAX_PRODUCTS_TO_SHOW}:` : ':';
-    return response;
   }
 })();
 </script>
 
-<!-- Cloudflare Turnstile - Invisible Protection -->
-<div class="cf-turnstile"
-     data-sitekey="0x4AAAAAACrT9alWCXq-IbVd"
-     data-callback="onTurnstileSuccess"
-     data-theme="light"
-     data-size="invisible">
-</div>
-
+<div class="cf-turnstile" data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" data-callback="onTurnstileSuccess" data-theme="light" data-size="invisible"></div>
 <script>
-  function onTurnstileSuccess(token) {
-    console.log('Turnstile verification successful');
-  }
+  function onTurnstileSuccess(token) { console.log('Turnstile verification successful'); }
   window.addEventListener('load', function() {
-    if (window.turnstile) {
-      window.turnstile.render('.cf-turnstile', {
-        sitekey: '0x4AAAAAACrT9alWCXq-IbVd',
-        callback: onTurnstileSuccess,
-        theme: 'light',
-        size: 'invisible'
-      });
-    }
+    if (window.turnstile) window.turnstile.render('.cf-turnstile', { sitekey: '0x4AAAAAACrT9alWCXq-IbVd', callback: onTurnstileSuccess, theme: 'light', size: 'invisible' });
   });
 </script>
 
