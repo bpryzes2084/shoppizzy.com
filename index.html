@@ -1151,19 +1151,33 @@
   <div class="results-header">
     <h2 class="results-title" id="results-title">Results</h2>
     <div class="results-controls">
-      <select class="merchant-filter" id="merchant-filter" onchange="applyFilters()">
-        <option value="">All Merchants</option>
-      </select>
       <select class="sort-select" id="sort-select" onchange="doSearch(1)">
         <option value="price-asc">Price: Low to High</option>
         <option value="price-desc">Price: High to Low</option>
       </select>
     </div>
   </div>
-  <div id="product-grid" class="product-grid"></div>
-  <div class="pagination-container" id="pagination-container" style="display:none;">
-    <div class="pagination-info" id="pagination-info"></div>
-    <div class="pagination" id="pagination"></div>
+  <div class="results-layout">
+    <!-- MERCHANT SIDEBAR -->
+    <aside class="merchant-sidebar" id="merchant-sidebar">
+      <div class="sidebar-header">
+        Merchants <span id="sidebar-merchant-count"></span>
+      </div>
+      <div class="sidebar-search">
+        <input type="text" id="sidebar-search" placeholder="Filter merchants..." oninput="filterSidebarMerchants(this.value)">
+      </div>
+      <div class="merchant-list" id="merchant-list">
+        <div class="sidebar-loading">Search to see merchants</div>
+      </div>
+    </aside>
+    <!-- PRODUCT GRID + PAGINATION -->
+    <div class="results-main">
+      <div id="product-grid" class="product-grid"></div>
+      <div class="pagination-container" id="pagination-container" style="display:none;">
+        <div class="pagination-info" id="pagination-info"></div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1318,10 +1332,7 @@
   }
 
   function populateMerchantFilter(products) {
-    const merchants = [...new Set(products.map(p => p.advertiserName || p.merchant_name))].filter(Boolean).sort();
-    const sel = document.getElementById('merchant-filter');
-    sel.innerHTML = '<option value="">All Merchants</option>' +
-      merchants.map(m => `<option value="${escHtml(m)}">${escHtml(m)}</option>`).join('');
+    // Sidebar handles merchant filtering now
   }
 
   function applyFilters() {
@@ -1339,6 +1350,7 @@
     }
     grid.innerHTML = products.map(p => renderCard(p, true)).join('');
     renderPagination(total);
+    buildMerchantSidebar(allProducts);
     document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -1419,6 +1431,58 @@
           </div>
         </div>
       </a>`;
+  }
+
+
+  // ── MERCHANT SIDEBAR ──────────────────────────────────────
+  let allMerchants = [];
+  let activeMerchant = null;
+
+  function buildMerchantSidebar(products) {
+    const counts = {};
+    products.forEach(p => {
+      const name = p.advertiserName || p.merchant_name || 'Unknown';
+      counts[name] = (counts[name] || 0) + 1;
+    });
+
+    allMerchants = Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => ({ name, count }));
+
+    document.getElementById('sidebar-merchant-count').textContent = 
+      allMerchants.length > 0 ? allMerchants.length + ' stores' : '';
+
+    renderMerchantList(allMerchants);
+  }
+
+  function renderMerchantList(merchants) {
+    const list = document.getElementById('merchant-list');
+    if (!merchants.length) {
+      list.innerHTML = '<div class="sidebar-loading">No merchants found</div>';
+      return;
+    }
+    list.innerHTML = merchants.map(m => `
+      <div class="merchant-item ${activeMerchant === m.name ? 'active' : ''}" 
+           onclick="selectMerchant('${escHtml(m.name)}')">
+        <span class="merchant-name">${escHtml(m.name)}</span>
+        <span class="merchant-count">${m.count}</span>
+      </div>
+    `).join('');
+  }
+
+  function filterSidebarMerchants(query) {
+    const filtered = query
+      ? allMerchants.filter(m => m.name.toLowerCase().includes(query.toLowerCase()))
+      : allMerchants;
+    renderMerchantList(filtered);
+  }
+
+  function selectMerchant(name) {
+    activeMerchant = name;
+    document.getElementById('search-input').value = name;
+    doSearch(1);
+    renderMerchantList(allMerchants);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function escHtml(str) {
