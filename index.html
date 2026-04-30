@@ -699,11 +699,8 @@
   <div class="product-count" id="product-count">
     <span class="count-number">—</span> products available
   </div>
-  <div class="product-count" id="square-count" style="margin-top:6px;">
-    <span class="count-number" id="square-item-count">—</span> items direct shipped from seller
-  </div>
   <div class="product-count" id="seller-count" style="margin-top:6px;">
-    <span class="count-number" id="seller-item-count">—</span> items listed by sellers
+    <span class="count-number" id="seller-item-count">—</span> items available from our sellers
   </div>
 </div>
 
@@ -830,7 +827,7 @@
       <!-- SELLER BANNER -->
       <div class="seller-banner">
         <div class="seller-banner-content">
-          <h2>Tired of  other platform seller Fees?</h2>
+          <h2>Tired of Amazon's Fees?</h2>
           <p>No fuel surcharges. No surprise hikes. Just a fair place to sell.</p>
           <div class="seller-banner-perks">
             <span class="seller-banner-perk">Zero Hidden Fees</span>
@@ -925,11 +922,9 @@
       const sellerRes = await fetch(`${WORKER_URL}/api/seller-stats`);
       if (sellerRes.ok) {
         const sellerData = await sellerRes.json();
-        document.getElementById('square-item-count').textContent = (sellerData.squareProducts || 0).toLocaleString();
-        document.getElementById('seller-item-count').textContent = (sellerData.sellerProducts || 0).toLocaleString();
+        document.getElementById('seller-item-count').textContent = (sellerData.activeProducts || 0).toLocaleString();
       }
     } catch(e) {
-      document.getElementById('square-item-count').textContent = '0';
       document.getElementById('seller-item-count').textContent = '0';
     }
   }
