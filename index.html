@@ -215,22 +215,12 @@
       color: var(--black);
     }
 
-    .merchant-item.featured {
-      background: var(--cream);
-    }
-
-    .merchant-item.featured:hover {
-      background: #f0ece4;
-      padding-left: 22px;
-    }
+    .merchant-item.featured { background: var(--cream); }
+    .merchant-item.featured:hover { background: #f0ece4; padding-left: 22px; }
 
     .merchant-name-wrap { display: flex; align-items: center; gap: 6px; }
 
-    .merchant-star {
-      color: var(--gold);
-      font-size: 0.55rem;
-      flex-shrink: 0;
-    }
+    .merchant-star { color: var(--gold); font-size: 0.55rem; flex-shrink: 0; }
 
     .merchant-name {
       font-size: 0.82rem;
@@ -242,23 +232,10 @@
       max-width: 140px;
     }
 
-    .merchant-arrow {
-      font-size: 0.7rem;
-      color: var(--muted);
-      transition: color 0.2s, transform 0.2s;
-    }
+    .merchant-arrow { font-size: 0.7rem; color: var(--muted); transition: color 0.2s, transform 0.2s; }
+    .merchant-item:hover .merchant-arrow { color: var(--gold); transform: translateX(3px); }
 
-    .merchant-item:hover .merchant-arrow {
-      color: var(--gold);
-      transform: translateX(3px);
-    }
-
-    .sidebar-loading {
-      padding: 20px 18px;
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-align: center;
-    }
+    .sidebar-loading { padding: 20px 18px; font-size: 0.78rem; color: var(--muted); text-align: center; }
 
     .sidebar-spinner {
       width: 18px; height: 18px;
@@ -269,10 +246,7 @@
       margin: 0 auto 8px;
     }
 
-    .sidebar-search {
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--border);
-    }
+    .sidebar-search { padding: 10px 14px; border-bottom: 1px solid var(--border); }
 
     .sidebar-search input {
       width: 100%;
@@ -294,7 +268,6 @@
 
     /* CATEGORIES SECTION */
     .categories-section { margin-bottom: 60px; }
-
     .section-header { text-align: center; margin-bottom: 40px; }
 
     .section-title {
@@ -306,12 +279,7 @@
       margin-bottom: 12px;
     }
 
-    .section-subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      color: var(--muted);
-      font-weight: 300;
-    }
+    .section-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--muted); font-weight: 300; }
 
     .category-grid {
       display: grid;
@@ -388,28 +356,11 @@
       margin-bottom: 8px;
     }
 
-    .seller-banner p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.65);
-      margin-bottom: 20px;
-    }
+    .seller-banner p { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
 
-    .seller-banner-perks {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
+    .seller-banner-perks { display: flex; justify-content: center; gap: 32px; margin-bottom: 24px; flex-wrap: wrap; }
 
-    .seller-banner-perk {
-      font-size: 0.68rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
+    .seller-banner-perk { font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
     .seller-banner-perk::before { content: '✦  '; }
 
     .btn-sell {
@@ -428,11 +379,7 @@
     .btn-sell:hover { background: var(--white); }
 
     /* PRODUCT GRID */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 32px;
-    }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 32px; }
 
     .product-card {
       background: var(--white);
@@ -456,26 +403,10 @@
       flex-shrink: 0;
     }
 
-    .product-img-wrap img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s;
-    }
-
+    .product-img-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
     .product-card:hover .product-img-wrap img { transform: scale(1.05); }
 
-    .product-img-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      color: var(--muted);
-    }
+    .product-img-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--muted); }
 
     .source-badge {
       position: absolute;
@@ -503,14 +434,7 @@
 
     .product-info { padding: 0 4px; display: flex; flex-direction: column; flex: 1; }
 
-    .product-merchant {
-      font-size: 0.68rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 6px;
-      font-weight: 400;
-    }
+    .product-merchant { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; font-weight: 400; }
 
     .product-title {
       font-family: 'Cormorant Garamond', serif;
@@ -533,54 +457,20 @@
     .price-was { font-size: 0.85rem; color: var(--muted); text-decoration: line-through; }
 
     /* RESULTS SECTION */
-    #results-section {
-      display: none;
-      max-width: 1400px;
-      margin: 40px auto 100px;
-      padding: 0 40px;
-    }
-
+    #results-section { display: none; max-width: 1400px; margin: 40px auto 100px; padding: 0 40px; }
     #results-section.active { display: block; }
 
-    .results-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 32px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--border);
-    }
+    .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
 
-    .results-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: var(--black);
-    }
+    .results-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--black); }
 
     .results-controls { display: flex; gap: 16px; }
 
-    .sort-select {
-      border: 1px solid var(--border);
-      padding: 10px 16px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.85rem;
-      background: var(--white);
-      cursor: pointer;
-      outline: none;
-      font-weight: 300;
-    }
+    .sort-select { border: 1px solid var(--border); padding: 10px 16px; font-family: 'Lato', sans-serif; font-size: 0.85rem; background: var(--white); cursor: pointer; outline: none; font-weight: 300; }
 
     /* PAGINATION */
     .pagination-container { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border); }
-
-    .pagination-info {
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 24px;
-    }
-
+    .pagination-info { text-align: center; color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
     .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
 
     .page-btn {
@@ -605,63 +495,21 @@
     .page-ellipsis { color: var(--muted); padding: 0 8px; }
 
     /* FOOTER */
-    footer {
-      background: var(--black);
-      color: rgba(255,255,255,0.7);
-      padding: 80px 40px 40px;
-      margin-top: 120px;
-    }
+    footer { background: var(--black); color: rgba(255,255,255,0.7); padding: 80px 40px 40px; margin-top: 120px; }
 
-    .footer-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 60px;
-      margin-bottom: 60px;
-    }
+    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; margin-bottom: 60px; }
 
-    .footer-col h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--white);
-      margin-bottom: 20px;
-      font-weight: 500;
-      letter-spacing: 1px;
-    }
+    .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); margin-bottom: 20px; font-weight: 500; letter-spacing: 1px; }
 
-    .footer-col a {
-      display: block;
-      color: rgba(255,255,255,0.6);
-      text-decoration: none;
-      font-size: 0.85rem;
-      margin-bottom: 12px;
-      transition: color 0.3s;
-    }
-
+    .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; margin-bottom: 12px; transition: color 0.3s; }
     .footer-col a:hover { color: var(--gold); }
 
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 40px;
-      text-align: center;
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; text-align: center; font-size: 0.75rem; letter-spacing: 1px; max-width: 1400px; margin: 0 auto; }
 
     /* LOADING/EMPTY */
     .loading-state, .empty-state { text-align: center; padding: 80px 40px; color: var(--muted); }
 
-    .loading-spinner {
-      width: 40px; height: 40px;
-      border: 2px solid var(--border);
-      border-top-color: var(--black);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 20px;
-    }
+    .loading-spinner { width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: var(--black); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -719,44 +567,15 @@
 
     .chat-header-content { display: flex; align-items: center; gap: 12px; }
 
-    .chat-avatar {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
+    .chat-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 20px; }
 
     .chat-header-text h3 { font-size: 16px; font-weight: 600; margin: 0; letter-spacing: 0.5px; }
     .chat-header-text p { font-size: 12px; margin: 2px 0 0 0; color: var(--gold); }
 
-    .chat-close {
-      width: 32px; height: 32px;
-      border: none;
-      background: rgba(255,255,255,0.1);
-      color: var(--white);
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-    }
-
+    .chat-close { width: 32px; height: 32px; border: none; background: rgba(255,255,255,0.1); color: var(--white); border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
     .chat-close:hover { background: rgba(255,255,255,0.2); }
 
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-      background: var(--cream);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 20px; background: var(--cream); display: flex; flex-direction: column; gap: 16px; }
 
     .message { display: flex; gap: 10px; animation: fadeIn 0.3s ease; }
 
@@ -767,83 +586,29 @@
 
     .message.user { flex-direction: row-reverse; }
 
-    .message-avatar {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 16px;
-    }
-
+    .message-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
     .message.assistant .message-avatar { background: var(--gold); color: var(--black); }
     .message.user .message-avatar { background: var(--black); color: var(--white); }
 
-    .message-content {
-      max-width: 75%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
+    .message-content { max-width: 75%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.6; }
     .message.assistant .message-content { background: var(--white); color: var(--text); border: 1px solid var(--border); }
     .message.user .message-content { background: var(--black); color: var(--white); }
 
     .product-cards-chat { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
 
-    .product-card-chat {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      display: flex;
-      gap: 12px;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.3s;
-    }
-
+    .product-card-chat { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; gap: 12px; text-decoration: none; color: inherit; transition: all 0.3s; }
     .product-card-chat:hover { border-color: var(--gold); transform: translateY(-2px); }
 
-    .product-card-chat-image {
-      width: 80px; height: 80px;
-      border-radius: 6px;
-      background: var(--cream);
-      flex-shrink: 0;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
+    .product-card-chat-image { width: 80px; height: 80px; border-radius: 6px; background: var(--cream); flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .product-card-chat-image img { width: 100%; height: 100%; object-fit: cover; }
     .product-card-chat-placeholder { font-size: 32px; color: var(--muted); }
     .product-card-chat-info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
     .product-card-chat-merchant { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 
-    .product-card-chat-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1.3;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
+    .product-card-chat-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .product-card-chat-price { font-size: 14px; font-weight: 600; color: var(--gold); margin-top: auto; }
 
-    .typing-indicator {
-      display: flex; gap: 4px;
-      padding: 12px 16px;
-      background: var(--white);
-      border-radius: 12px;
-      width: fit-content;
-      border: 1px solid var(--border);
-    }
+    .typing-indicator { display: flex; gap: 4px; padding: 12px 16px; background: var(--white); border-radius: 12px; width: fit-content; border: 1px solid var(--border); }
 
     .typing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); animation: typing 1.4s infinite; }
     .typing-dot:nth-child(2) { animation-delay: 0.2s; }
@@ -856,49 +621,17 @@
 
     .chat-input-container { padding: 16px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 12px; }
 
-    .chat-input {
-      flex: 1;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 12px 20px;
-      font-size: 14px;
-      font-family: inherit;
-      outline: none;
-      transition: all 0.3s;
-    }
-
+    .chat-input { flex: 1; border: 1px solid var(--border); border-radius: 24px; padding: 12px 20px; font-size: 14px; font-family: inherit; outline: none; transition: all 0.3s; }
     .chat-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197,165,114,0.1); }
 
-    .chat-send {
-      width: 44px; height: 44px;
-      border: none;
-      border-radius: 50%;
-      background: var(--black);
-      color: var(--white);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-      flex-shrink: 0;
-    }
-
+    .chat-send { width: 44px; height: 44px; border: none; border-radius: 50%; background: var(--black); color: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; flex-shrink: 0; }
     .chat-send:hover:not(:disabled) { background: var(--gold); color: var(--black); transform: scale(1.1); }
     .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
     .chat-send svg { width: 20px; height: 20px; fill: currentColor; }
 
     .quick-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 
-    .quick-action-btn {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 6px 14px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
+    .quick-action-btn { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 6px 14px; font-size: 12px; cursor: pointer; transition: all 0.3s; }
     .quick-action-btn:hover { background: var(--cream); border-color: var(--gold); color: var(--gold); }
 
     .chat-messages::-webkit-scrollbar { width: 6px; }
@@ -962,11 +695,15 @@
     <input type="text" id="search-input" placeholder="Search for products..." autocomplete="off">
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
+  <!-- ── COUNTS ── -->
   <div class="product-count" id="product-count">
     <span class="count-number">—</span> products available
   </div>
+  <div class="product-count" id="square-count" style="margin-top:6px;">
+    <span class="count-number" id="square-item-count">—</span> items direct shipped from seller
+  </div>
   <div class="product-count" id="seller-count" style="margin-top:6px;">
-    <span class="count-number" id="seller-item-count">—</span> items listed by our sellers
+    <span class="count-number" id="seller-item-count">—</span> items listed by sellers
   </div>
 </div>
 
@@ -977,8 +714,6 @@
     <!-- LEFT: MERCHANT SIDEBAR -->
     <aside class="merchant-sidebar">
       <div class="sidebar-title">Shop by Merchant</div>
-
-      <!-- FEATURED - Alphabetized A-Z -->
       <div class="sidebar-section-label">✦ Featured</div>
       <div class="merchant-item featured" onclick="searchMerchant('Adidas')">
         <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Adidas</span></div>
@@ -1024,8 +759,6 @@
         <div class="merchant-name-wrap"><span class="merchant-star">✦</span><span class="merchant-name">Walmart</span></div>
         <span class="merchant-arrow">›</span>
       </div>
-
-      <!-- MORE MERCHANTS (dynamic) -->
       <div class="sidebar-section-label">More Merchants</div>
       <div class="sidebar-search">
         <input type="text" id="sidebar-search-input" placeholder="Search merchants..." oninput="filterDynamicMerchants(this.value)">
@@ -1040,8 +773,6 @@
 
     <!-- RIGHT: CATEGORIES + BANNER -->
     <div class="homepage-right">
-
-      <!-- CATEGORIES -->
       <div class="categories-section" id="categories">
         <div class="section-header">
           <h2 class="section-title">Shop by Category</h2>
@@ -1099,7 +830,7 @@
       <!-- SELLER BANNER -->
       <div class="seller-banner">
         <div class="seller-banner-content">
-          <h2>Tired of Amazon's Fees?</h2>
+          <h2>Tired of  other platform seller Fees?</h2>
           <p>No fuel surcharges. No surprise hikes. Just a fair place to sell.</p>
           <div class="seller-banner-perks">
             <span class="seller-banner-perk">Zero Hidden Fees</span>
@@ -1179,6 +910,7 @@
   loadCategoryCounts();
   loadDynamicMerchants();
 
+  // ── UPDATED: loads merchant count + both seller counts separately ──
   async function loadProductCount() {
     try {
       const res = await fetch(`${WORKER_URL}/api/stats`);
@@ -1188,6 +920,17 @@
       document.getElementById('product-count').innerHTML = `<span class="count-number">${total.toLocaleString()}</span> products available`;
     } catch(e) {
       document.getElementById('product-count').innerHTML = `<span class="count-number">Millions</span> of products available`;
+    }
+    try {
+      const sellerRes = await fetch(`${WORKER_URL}/api/seller-stats`);
+      if (sellerRes.ok) {
+        const sellerData = await sellerRes.json();
+        document.getElementById('square-item-count').textContent = (sellerData.squareProducts || 0).toLocaleString();
+        document.getElementById('seller-item-count').textContent = (sellerData.sellerProducts || 0).toLocaleString();
+      }
+    } catch(e) {
+      document.getElementById('square-item-count').textContent = '0';
+      document.getElementById('seller-item-count').textContent = '0';
     }
   }
 
@@ -1201,14 +944,11 @@
         const name = p.advertiserName || p.merchant_name || '';
         if (name) counts[name] = (counts[name] || 0) + 1;
       });
-
-      // Filter out featured ones already shown
       const featured = ['Nike','Adidas','Walmart','Best Buy','Target','Sephora','Home Depot','Samsung','Under Armour',"Macy's"];
       dynamicMerchants = Object.entries(counts)
         .filter(([name]) => !featured.some(f => name.toLowerCase().includes(f.toLowerCase())))
         .sort((a, b) => a[0].localeCompare(b[0]))
         .map(([name, count]) => ({ name, count }));
-
       renderDynamicMerchants(dynamicMerchants);
     } catch(e) {
       document.getElementById('dynamic-merchant-list').innerHTML =
@@ -1310,10 +1050,8 @@
       const params = new URLSearchParams({ q: query, limit: LIMIT, page, sortBy, sortOrder });
       const res = await fetch(`${WORKER_URL}/api/products?${params}`);
       const data = await res.json();
-
       allProducts = data.products || [];
       currentTotal = data.totalCount || 0;
-
       renderResults(allProducts, query, currentTotal);
     } catch(err) {
       document.getElementById('product-grid').innerHTML = `
@@ -1341,7 +1079,6 @@
     const end = Math.min(currentPage * LIMIT, total);
     document.getElementById('pagination-info').textContent =
       `Showing ${start.toLocaleString()}-${end.toLocaleString()} of ${total.toLocaleString()} results`;
-
     const paginationEl = document.getElementById('pagination');
     let html = `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
     let startPage = Math.max(1, currentPage - 2);
