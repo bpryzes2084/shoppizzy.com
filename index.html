@@ -1309,7 +1309,7 @@
     const productLink = buildProductUrl(p);
     const linkTarget = '_self';
     const linkRel = '';
-    const merchantName = 'Shoppizzy';
+    const merchantName = (p.source === 'square' || p.type === 'direct') ? 'Shoppizzy' : (p.advertiserName || p.merchant_name || 'Merchant');
     return `
       <a class="product-card" href="${productLink}" target="${linkTarget}" ${linkRel ? `rel="${linkRel}"` : ''}>
         <div class="product-img-wrap">
