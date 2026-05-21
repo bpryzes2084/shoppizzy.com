@@ -698,6 +698,17 @@
         <div id="ship-result" style="font-size:0.8rem;color:var(--muted);min-height:18px;"></div>
       </div>
 
+      <!-- QUANTITY SELECTOR -->
+      <div id="quantity-wrap" style="display:none;margin-bottom:20px;">
+        <div style="font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--charcoal);font-weight:700;margin-bottom:12px;">Quantity</div>
+        <div style="display:flex;align-items:center;gap:0;width:fit-content;border:1px solid var(--border);">
+          <button onclick="adjustQty(-1)" style="width:44px;height:48px;background:var(--cream);border:none;font-size:1.2rem;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='var(--cream)'">−</button>
+          <input type="number" id="item-qty" value="1" min="1" max="99"
+            style="width:60px;height:48px;border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);text-align:center;font-family:'Lato',sans-serif;font-size:1rem;font-weight:400;outline:none;">
+          <button onclick="adjustQty(1)" style="width:44px;height:48px;background:var(--cream);border:none;font-size:1.2rem;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='var(--cream)'">+</button>
+        </div>
+      </div>
+
       <a class="btn-buy" id="btn-buy" href="#" target="_blank" rel="noopener noreferrer">
         <span>Buy Now</span>
       </a>
@@ -924,6 +935,7 @@
     } else if (p.square_item_id) {
       // Square product - show shipping calc and create checkout on click
       document.getElementById('shipping-calc').style.display = 'block';
+      document.getElementById('quantity-wrap').style.display = 'block';
       btnBuy.href = '#';
       btnBuy.addEventListener('click', async (e) => {
         e.preventDefault();
@@ -943,6 +955,7 @@
             body: JSON.stringify({
               square_item_id: p.square_item_id,
               title: p.title,
+              quantity: parseInt(document.getElementById('item-qty').value) || 1,
               shipping: window._shippingRate || null
             })
           });
@@ -1038,6 +1051,16 @@
     document.getElementById('state-error').style.display = 'block';
   }
 
+  function adjustQty(delta) {
+    const input = document.getElementById('item-qty');
+    const newVal = Math.max(1, Math.min(99, parseInt(input.value || 1) + delta));
+    input.value = newVal;
+    // Reset shipping rate when qty changes
+    window._shippingRate = null;
+    document.getElementById('ship-result').textContent = 'Update ZIP to recalculate shipping for new quantity.';
+    document.getElementById('ship-result').style.color = 'var(--muted)';
+  }
+
   async function calcShipping() {
     const zip = document.getElementById('ship-zip').value.trim();
     const resultEl = document.getElementById('ship-result');
@@ -1064,7 +1087,7 @@
           content: {
             shippingAddressPostalCode: zip,
             shippingAddressCountry: 'US',
-            items: [{ weight, quantity: 1 }]
+            items: [{ weight, quantity: parseInt(document.getElementById('item-qty')?.value || 1) }]
           }
         }),
         signal: controller.signal
