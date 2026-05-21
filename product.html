@@ -1051,8 +1051,12 @@
     btn.disabled = true;
     resultEl.textContent = 'Getting UPS Ground rate...';
     resultEl.style.color = 'var(--muted)';
+    const weight = window._currentProduct?.weight_grams || 227;
+    // Set fallback immediately so Buy Now works even if Shippo is slow
+    window._shippingRate = { cost: 9.99, zip };
     try {
-      const weight = window._currentProduct?.weight_grams || 227;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
       const res = await fetch(`${WORKER_URL}/api/grocery/shipping`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1062,8 +1066,10 @@
             shippingAddressCountry: 'US',
             items: [{ weight, quantity: 1 }]
           }
-        })
+        }),
+        signal: controller.signal
       });
+      clearTimeout(timeout);
       const data = await res.json();
       const rate = data.rates?.[0];
       if (rate && rate.cost > 0) {
@@ -1071,13 +1077,11 @@
         resultEl.textContent = `UPS Ground to ${zip}: $${rate.cost.toFixed(2)} (${rate.guaranteedDaysToDelivery || 5} business days)`;
         resultEl.style.color = 'var(--success)';
       } else {
-        window._shippingRate = { cost: 9.99, zip };
         resultEl.textContent = `UPS Ground to ${zip}: $9.99 (estimated)`;
         resultEl.style.color = 'var(--muted)';
       }
     } catch {
-      window._shippingRate = { cost: 9.99, zip };
-      resultEl.textContent = 'UPS Ground: $9.99 (estimated)';
+      resultEl.textContent = `UPS Ground to ${zip}: $9.99 (estimated)`;
       resultEl.style.color = 'var(--muted)';
     }
     btn.textContent = 'Get Rate';
