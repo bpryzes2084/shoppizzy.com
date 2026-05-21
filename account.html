@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account — Shoppizzy</title>
+  <meta name="description" content="Join Shoppizzy. Sign in or create your account to unlock free items with every order.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000000;
+      --charcoal: #2b2b2b;
+      --cream: #f8f7f4;
+      --white: #ffffff;
+      --gold: #c5a572;
+      --gold-light: #d4b88a;
+      --text: #333333;
+      --muted: #888888;
+      --border: #e5e5e5;
+      --success: #27ae60;
+      --error: #c0392b;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: rgba(255,255,255,0.98);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .header-nav { display: flex; gap: 40px; align-items: center; }
+
+    .header-nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+
+    .header-nav a:hover { color: var(--gold); }
+
+    .header-nav a.nav-sell {
+      background: var(--black);
+      color: var(--white);
+      padding: 8px 20px;
+      transition: background 0.3s;
+    }
+
+    .header-nav a.nav-sell:hover { background: var(--gold); color: var(--black); }
+
+    /* ── MAIN LAYOUT ── */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 40px 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* ── LEFT: MEMBERSHIP PITCH ── */
+    .pitch-side { padding-top: 8px; }
+
+    .pitch-label {
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .pitch-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--black);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+
+    .pitch-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .pitch-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 420px;
+    }
+
+    /* ── PERKS LIST ── */
+    .perks-list { margin-bottom: 40px; }
+
+    .perk-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .perk-row:first-child { border-top: 1px solid var(--border); }
+
+    .perk-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .perk-text h4 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: 0.3px;
+      margin-bottom: 3px;
+    }
+
+    .perk-text p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── PRICE CARD ── */
+    .price-card {
+      background: var(--black);
+      color: var(--white);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .price-card-left h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: var(--white);
+    }
+
+    .price-card-left p {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.5px;
+    }
+
+    .price-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 500;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .price-amount span {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.4);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+    }
+
+    /* ── RIGHT: AUTH FORMS ── */
+    .auth-side { position: sticky; top: 100px; }
+
+    .auth-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 40px;
+    }
+
+    /* ── TABS ── */
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+
+    .auth-tab {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 14px 0;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+
+    .auth-tab.active {
+      color: var(--black);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ── FORM ── */
+    .auth-form { display: none; }
+    .auth-form.active { display: block; }
+
+    .auth-form h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .auth-form p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.3s;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(197,165,114,0.1);
+    }
+
+    .form-input::placeholder { color: var(--muted); }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 16px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: translateX(-101%);
+      transition: transform 0.4s ease;
+    }
+
+    .btn-submit:hover::after { transform: translateX(0); }
+    .btn-submit span { position: relative; z-index: 1; }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-submit:disabled::after { display: none; }
+
+    .form-error {
+      background: #fdf0f0;
+      border-left: 3px solid var(--error);
+      padding: 12px 16px;
+      font-size: 0.8rem;
+      color: var(--error);
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .form-success {
+      background: #f0f8f0;
+      border-left: 3px solid var(--success);
+      padding: 12px 16px;
+      font-size: 0.8rem;
+      color: var(--success);
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .form-divider {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .form-divider::before, .form-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .form-divider::before { left: 0; }
+    .form-divider::after { right: 0; }
+
+    /* ── DASHBOARD (logged in state) ── */
+    .dashboard { display: none; }
+    .dashboard.active { display: block; }
+
+    .dashboard-header {
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dashboard-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+
+    .dashboard-header p { font-size: 0.875rem; color: var(--muted); }
+
+    .membership-status-card {
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .membership-status-card.active-member {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--white);
+    }
+
+    .membership-status-card.inactive-member {
+      background: var(--cream);
+    }
+
+    .membership-status-label {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+
+    .membership-status-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    .membership-status-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+    }
+
+    .membership-status-desc.inactive { color: var(--muted); }
+
+    .membership-expires {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 8px;
+    }
+
+    .btn-upgrade {
+      display: block;
+      background: var(--gold);
+      color: var(--black);
+      text-decoration: none;
+      text-align: center;
+      padding: 14px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: background 0.3s;
+    }
+
+    .btn-upgrade:hover { background: var(--white); }
+
+    .dashboard-info { margin-bottom: 20px; }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+
+    .info-row:last-child { border-bottom: none; }
+
+    .info-key {
+      font-size: 0.68rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .info-val { color: var(--text); font-weight: 400; }
+
+    .btn-signout {
+      width: 100%;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 12px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 16px;
+    }
+
+    .btn-signout:hover { border-color: var(--error); color: var(--error); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.7);
+      padding: 60px 40px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 24px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      letter-spacing: 2px;
+    }
+
+    .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .page-wrap { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px 80px; }
+      .auth-side { position: static; }
+      .header-main { padding: 16px 20px; }
+      .header-nav { display: none; }
+      .price-card { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-main">
+    <a class="logo" href="/">SHOPPIZZY</a>
+    <nav class="header-nav">
+      <a href="/#categories">Categories</a>
+      <a href="/#grocery-section">Grocery</a>
+      <a href="/about.html">About</a>
+      <a href="/seller/register" class="nav-sell">Sell With Us</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <!-- LEFT: PITCH -->
+  <div class="pitch-side">
+    <div class="pitch-label">✦ Shoppizzy Membership</div>
+    <h1 class="pitch-title">Shop smarter.<br><em>Get rewarded.</em></h1>
+    <p class="pitch-desc">One simple membership unlocks free items with every order — across millions of products from the world's top brands.</p>
+
+    <div class="perks-list">
+      <div class="perk-row">
+        <div class="perk-icon">🎁</div>
+        <div class="perk-text">
+          <h4>Free Item With Every Order</h4>
+          <p>Choose from 50+ items — snacks, household goods, pantry staples — added free to every order you place.</p>
+        </div>
+      </div>
+      <div class="perk-row">
+        <div class="perk-icon">🌐</div>
+        <div class="perk-text">
+          <h4>Millions of Products</h4>
+          <p>Access our full catalog of products from top merchants — electronics, apparel, home goods, and more.</p>
+        </div>
+      </div>
+      <div class="perk-row">
+        <div class="perk-icon">🚚</div>
+        <div class="perk-text">
+          <h4>UPS Tracked Shipping</h4>
+          <p>Every grocery order ships via UPS with full tracking so you always know when to expect your delivery.</p>
+        </div>
+      </div>
+      <div class="perk-row">
+        <div class="perk-icon">🧻</div>
+        <div class="perk-text">
+          <h4>Free Paper Towels for New Members</h4>
+          <p>Your first order includes a complimentary roll of paper towels — our welcome gift to you.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="price-card">
+      <div class="price-card-left">
+        <h3>Standard Membership</h3>
+        <p>Everything above, every order</p>
+      </div>
+      <div class="price-amount">$20<span>/yr</span></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: AUTH -->
+  <div class="auth-side">
+    <div class="auth-card" id="auth-card">
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" onclick="switchTab('register')">Create Account</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div class="auth-form active" id="form-login">
+        <h2>Welcome back</h2>
+        <p>Sign in to access your membership and free item perks.</p>
+
+        <div class="form-error" id="login-error"></div>
+        <div class="form-success" id="login-success"></div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email Address</label>
+          <input type="email" id="login-email" class="form-input" placeholder="your@email.com" autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="Your password" autocomplete="current-password">
+        </div>
+
+        <button class="btn-submit" id="login-btn" onclick="doLogin()">
+          <span>Sign In</span>
+        </button>
+
+        <div class="form-divider">or</div>
+
+        <p style="text-align:center;font-size:0.8rem;color:var(--muted);">
+          Don't have an account? <a href="#" onclick="switchTab('register')" style="color:var(--black);font-weight:700;">Create one free →</a>
+        </p>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div class="auth-form" id="form-register">
+        <h2>Create your account</h2>
+        <p>Free to join. Membership unlocks your free item perk for just $20/yr.</p>
+
+        <div class="form-error" id="register-error"></div>
+        <div class="form-success" id="register-success"></div>
+
+        <div class="form-group">
+          <label class="form-label" for="register-name">Full Name</label>
+          <input type="text" id="register-name" class="form-input" placeholder="Your name" autocomplete="name">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="register-email">Email Address</label>
+          <input type="email" id="register-email" class="form-input" placeholder="your@email.com" autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="register-password">Password</label>
+          <input type="password" id="register-password" class="form-input" placeholder="At least 6 characters" autocomplete="new-password">
+        </div>
+
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" data-callback="onRegisterTurnstile" data-theme="light" style="margin-bottom:16px;"></div>
+
+        <button class="btn-submit" id="register-btn" onclick="doRegister()">
+          <span>Create Account</span>
+        </button>
+
+        <div class="form-divider">or</div>
+
+        <p style="text-align:center;font-size:0.8rem;color:var(--muted);">
+          Already have an account? <a href="#" onclick="switchTab('login')" style="color:var(--black);font-weight:700;">Sign in →</a>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- DASHBOARD (shown when logged in) -->
+    <div class="auth-card dashboard" id="dashboard">
+
+      <div class="dashboard-header">
+        <h2>My Account</h2>
+        <p id="dashboard-email" style="color:var(--muted);font-size:0.875rem;"></p>
+      </div>
+
+      <!-- MEMBERSHIP STATUS -->
+      <div class="membership-status-card active-member" id="membership-active" style="display:none;">
+        <div class="membership-label" style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">✦ Active Member</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white);margin-bottom:6px;">Standard Membership</div>
+        <div style="font-size:0.8rem;color:rgba(255,255,255,0.6);margin-bottom:8px;">Your free item perk is unlocked on every order.</div>
+        <div class="membership-expires" id="membership-expires"></div>
+      </div>
+
+      <div class="membership-status-card inactive-member" id="membership-inactive" style="display:none;">
+        <div class="membership-label" style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Membership</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--black);margin-bottom:6px;">Not Active</div>
+        <div class="membership-status-desc inactive">Join for $20/yr to unlock free items with every order.</div>
+        <a href="https://square.link/u/CP70vULk" class="btn-upgrade" target="_blank">Activate Membership — $20/yr</a>
+      </div>
+
+      <!-- ACCOUNT INFO -->
+      <div class="dashboard-info" id="dashboard-info"></div>
+
+      <a href="/" style="display:block;background:var(--black);color:var(--white);text-align:center;padding:14px;text-decoration:none;font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;font-weight:400;transition:background 0.3s;margin-bottom:12px;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)';" onmouseout="this.style.background='var(--black)';this.style.color='var(--white)';">
+        Start Shopping →
+      </a>
+
+      <button class="btn-signout" onclick="doSignOut()">Sign Out</button>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">SHOPPIZZY</div>
+    <div class="footer-links">
+      <a href="/">Shop</a>
+      <a href="/#grocery-section">Grocery</a>
+      <a href="/seller/register">Sell With Us</a>
+      <a href="/terms-of-service.html">Terms</a>
+      <a href="/privacy-policy.html">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Shoppizzy — BSM Enterpryzes. All Rights Reserved.</div>
+</footer>
+
+<script>
+  const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
+  let registerTurnstileToken = null;
+
+  function onRegisterTurnstile(token) { registerTurnstileToken = token; }
+
+  // ── CHECK SESSION ON LOAD ──
+  window.addEventListener('load', async () => {
+    const session = JSON.parse(localStorage.getItem('shoppizzy_session') || 'null');
+    if (session?.token) {
+      await loadDashboard(session.token);
+    }
+  });
+
+  // ── TAB SWITCHER ──
+  function switchTab(tab) {
+    document.querySelectorAll('.auth-tab').forEach((t, i) => {
+      t.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'register' && i === 1));
+    });
+    document.getElementById('form-login').classList.toggle('active', tab === 'login');
+    document.getElementById('form-register').classList.toggle('active', tab === 'register');
+  }
+
+  // ── LOGIN ──
+  async function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const btn = document.getElementById('login-btn');
+    const errorEl = document.getElementById('login-error');
+    const successEl = document.getElementById('login-success');
+
+    errorEl.style.display = 'none';
+    successEl.style.display = 'none';
+
+    if (!email || !password) { showError('login-error', 'Please enter your email and password.'); return; }
+
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Signing in…';
+
+    try {
+      const res = await fetch(`${WORKER_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+
+      if (!res.ok) { showError('login-error', data.error || 'Login failed.'); return; }
+
+      localStorage.setItem('shoppizzy_session', JSON.stringify({ token: data.token, name: data.user.name, email: data.user.email }));
+      showSuccess('login-success', 'Signed in! Loading your account…');
+      setTimeout(() => loadDashboard(data.token), 800);
+    } catch { showError('login-error', 'Network error. Please try again.'); }
+    finally { btn.disabled = false; btn.querySelector('span').textContent = 'Sign In'; }
+  }
+
+  // ── REGISTER ──
+  async function doRegister() {
+    const name = document.getElementById('register-name').value.trim();
+    const email = document.getElementById('register-email').value.trim();
+    const password = document.getElementById('register-password').value;
+    const btn = document.getElementById('register-btn');
+
+    document.getElementById('register-error').style.display = 'none';
+    document.getElementById('register-success').style.display = 'none';
+
+    if (!name || !email || !password) { showError('register-error', 'Please fill in all fields.'); return; }
+    if (password.length < 6) { showError('register-error', 'Password must be at least 6 characters.'); return; }
+
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Creating account…';
+
+    try {
+      const res = await fetch(`${WORKER_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password, tier: 'standard', turnstile_token: registerTurnstileToken })
+      });
+      const data = await res.json();
+
+      if (!res.ok) { showError('register-error', data.error || 'Registration failed.'); return; }
+
+      localStorage.setItem('shoppizzy_session', JSON.stringify({ token: data.token, name: data.user.name, email: data.user.email }));
+      showSuccess('register-success', 'Account created! Loading your dashboard…');
+      setTimeout(() => loadDashboard(data.token), 800);
+    } catch { showError('register-error', 'Network error. Please try again.'); }
+    finally { btn.disabled = false; btn.querySelector('span').textContent = 'Create Account'; }
+  }
+
+  // ── LOAD DASHBOARD ──
+  async function loadDashboard(token) {
+    try {
+      const res = await fetch(`${WORKER_URL}/api/auth/me`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (!res.ok) { localStorage.removeItem('shoppizzy_session'); return; }
+
+      const data = await res.json();
+      const user = data.user;
+      const membership = data.membership;
+
+      // Show dashboard, hide auth
+      document.getElementById('auth-card').style.display = 'none';
+      const dash = document.getElementById('dashboard');
+      dash.classList.add('active');
+
+      document.getElementById('dashboard-email').textContent = user.email;
+
+      // Membership status
+      const isActive = membership?.status === 'active';
+      document.getElementById('membership-active').style.display = isActive ? 'block' : 'none';
+      document.getElementById('membership-inactive').style.display = isActive ? 'none' : 'block';
+
+      if (isActive && membership.expires_at) {
+        const exp = new Date(membership.expires_at);
+        document.getElementById('membership-expires').textContent = `Renews ${exp.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+      }
+
+      // Account info
+      document.getElementById('dashboard-info').innerHTML = `
+        <div class="info-row"><span class="info-key">Name</span><span class="info-val">${escHtml(user.name)}</span></div>
+        <div class="info-row"><span class="info-key">Email</span><span class="info-val">${escHtml(user.email)}</span></div>
+        <div class="info-row"><span class="info-key">Member Since</span><span class="info-val">${new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span></div>
+        <div class="info-row"><span class="info-key">Membership</span><span class="info-val">${isActive ? '✦ Active — Standard' : 'Not active'}</span></div>
+      `;
+
+    } catch { localStorage.removeItem('shoppizzy_session'); }
+  }
+
+  // ── SIGN OUT ──
+  async function doSignOut() {
+    const session = JSON.parse(localStorage.getItem('shoppizzy_session') || 'null');
+    if (session?.token) {
+      try {
+        await fetch(`${WORKER_URL}/api/auth/logout`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${session.token}` }
+        });
+      } catch {}
+    }
+    localStorage.removeItem('shoppizzy_session');
+    document.getElementById('auth-card').style.display = 'block';
+    document.getElementById('dashboard').classList.remove('active');
+    document.getElementById('login-email').value = '';
+    document.getElementById('login-password').value = '';
+  }
+
+  // Enter key support
+  document.getElementById('login-password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  document.getElementById('register-password').addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
+
+  function showError(id, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function showSuccess(id, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function escHtml(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
+
+</body>
+</html>
