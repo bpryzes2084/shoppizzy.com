@@ -939,13 +939,14 @@
   let dynamicMerchants = [];
   const LIMIT = 40;
 
-  document.getElementById('search-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doSearch(1);
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('search-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doSearch(1);
+    });
+    loadProductCount();
+    loadCategoryCounts();
+    loadDynamicMerchants();
   });
-
-  loadProductCount();
-  loadCategoryCounts();
-  loadDynamicMerchants();
 
   // ── UPDATED: loads merchant count + both seller counts separately ──
   async function loadProductCount() {
