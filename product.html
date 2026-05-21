@@ -650,7 +650,7 @@
 
     <!-- RIGHT: INFO -->
     <div class="product-info">
-      <div class="product-seller">Shoppizzy</div>
+      <div class="product-seller" id="p-seller">Shoppizzy</div>
       <h1 class="product-title" id="p-title">—</h1>
 
       <div class="product-price-wrap">
@@ -683,6 +683,20 @@
       </div>
 
       <div class="product-description" id="p-description"></div>
+
+      <!-- SHIPPING CALC (Square products only) -->
+      <div id="shipping-calc" style="display:none;margin-bottom:20px;border:1px solid var(--border);padding:20px;">
+        <div style="font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--charcoal);font-weight:700;margin-bottom:12px;">Calculate Shipping</div>
+        <div style="display:flex;gap:0;margin-bottom:8px;">
+          <input type="text" id="ship-zip" placeholder="Enter ZIP code" maxlength="5"
+            style="flex:1;border:1px solid var(--border);padding:12px 14px;font-family:'Lato',sans-serif;font-size:0.9rem;outline:none;">
+          <button onclick="calcShipping()" id="calc-ship-btn"
+            style="background:var(--black);color:var(--white);border:none;padding:12px 20px;font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background 0.3s;">
+            Get Rate
+          </button>
+        </div>
+        <div id="ship-result" style="font-size:0.8rem;color:var(--muted);min-height:18px;"></div>
+      </div>
 
       <a class="btn-buy" id="btn-buy" href="#" target="_blank" rel="noopener noreferrer">
         <span>Buy Now</span>
@@ -838,6 +852,12 @@
     document.getElementById('breadcrumb-category').textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
     document.getElementById('breadcrumb-title').textContent = p.title.length > 40 ? p.title.substring(0, 40) + '...' : p.title;
 
+    // Seller name
+    const sellerEl = document.getElementById('p-seller');
+    if (sellerEl) {
+      sellerEl.textContent = (p.source === 'square' || p.type === 'direct') ? 'Shoppizzy' : (p.advertiserName || p.merchant_name || 'Shoppizzy');
+    }
+
     // Title
     document.getElementById('p-title').textContent = p.title;
 
@@ -902,10 +922,17 @@
       // Affiliate product - direct link
       btnBuy.href = buyLink;
     } else if (p.square_item_id) {
-      // Square product - create checkout on click
+      // Square product - show shipping calc and create checkout on click
+      document.getElementById('shipping-calc').style.display = 'block';
       btnBuy.href = '#';
       btnBuy.addEventListener('click', async (e) => {
         e.preventDefault();
+        const zip = document.getElementById('ship-zip').value.trim();
+        if (!zip || zip.length !== 5) {
+          showToast('Please enter your ZIP code first to calculate shipping.');
+          document.getElementById('ship-zip').focus();
+          return;
+        }
         const span = btnBuy.querySelector('span');
         span.textContent = 'Processing...';
         btnBuy.style.pointerEvents = 'none';
@@ -913,7 +940,11 @@
           const res = await fetch(`${WORKER_URL}/api/checkout/square`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ square_item_id: p.square_item_id, title: p.title })
+            body: JSON.stringify({
+              square_item_id: p.square_item_id,
+              title: p.title,
+              shipping: window._shippingRate || null
+            })
           });
           const data = await res.json();
           if (data.checkoutUrl) {
@@ -933,6 +964,9 @@
       btnBuy.href = '#';
       btnBuy.style.display = 'none';
     }
+
+    // Store product reference for shipping calc
+    window._currentProduct = p;
 
     // Show product
     document.getElementById('state-loading').style.display = 'none';
@@ -970,7 +1004,7 @@
         return `
           <a class="related-card" href="${productUrl}">
             <div class="related-img">${imgHtml}</div>
-            <div class="related-seller">Shoppizzy</div>
+            <div class="related-seller">${(p.source === 'square' || p.type === 'direct') ? 'Shoppizzy' : (p.advertiserName || p.merchant_name || 'Shoppizzy')}</div>
             <div class="related-name">${escHtml(p.title)}</div>
             <div class="related-price">${priceStr}</div>
           </a>`;
@@ -1002,6 +1036,52 @@
   function showError() {
     document.getElementById('state-loading').style.display = 'none';
     document.getElementById('state-error').style.display = 'block';
+  }
+
+  async function calcShipping() {
+    const zip = document.getElementById('ship-zip').value.trim();
+    const resultEl = document.getElementById('ship-result');
+    const btn = document.getElementById('calc-ship-btn');
+    if (!zip || zip.length !== 5 || !/^\d{5}$/.test(zip)) {
+      resultEl.textContent = 'Please enter a valid 5-digit ZIP code.';
+      resultEl.style.color = 'var(--error)';
+      return;
+    }
+    btn.textContent = 'Calculating...';
+    btn.disabled = true;
+    resultEl.textContent = 'Getting UPS Ground rate...';
+    resultEl.style.color = 'var(--muted)';
+    try {
+      const weight = window._currentProduct?.weight_grams || 227;
+      const res = await fetch(`${WORKER_URL}/api/grocery/shipping`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content: {
+            shippingAddressPostalCode: zip,
+            shippingAddressCountry: 'US',
+            items: [{ weight, quantity: 1 }]
+          }
+        })
+      });
+      const data = await res.json();
+      const rate = data.rates?.[0];
+      if (rate && rate.cost > 0) {
+        window._shippingRate = { cost: rate.cost, zip };
+        resultEl.textContent = `UPS Ground to ${zip}: $${rate.cost.toFixed(2)} (${rate.guaranteedDaysToDelivery || 5} business days)`;
+        resultEl.style.color = 'var(--success)';
+      } else {
+        window._shippingRate = { cost: 9.99, zip };
+        resultEl.textContent = `UPS Ground to ${zip}: $9.99 (estimated)`;
+        resultEl.style.color = 'var(--muted)';
+      }
+    } catch {
+      window._shippingRate = { cost: 9.99, zip };
+      resultEl.textContent = 'UPS Ground: $9.99 (estimated)';
+      resultEl.style.color = 'var(--muted)';
+    }
+    btn.textContent = 'Get Rate';
+    btn.disabled = false;
   }
 
   function showToast(msg) {
