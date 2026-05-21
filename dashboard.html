@@ -877,14 +877,19 @@
 
         <div class="form-group form-full">
           <label class="form-label">Product Images</label>
-          <div class="image-upload-area" onclick="document.getElementById('p_images').click()">
-            <div class="upload-icon">&#128248;</div>
-            <p>Click to upload images &#8212; JPG, PNG, WEBP up to 5MB each</p>
-            <input type="file" id="p_images" accept="image/*" multiple onchange="previewImages(event)">
+          <div class="image-upload-area" onclick="document.getElementById('p_images').click()" id="upload-area">
+            <div class="upload-icon" id="upload-icon">&#128248;</div>
+            <p id="upload-text">Click to upload images &#8212; JPG, PNG, WEBP up to 5MB each</p>
+            <input type="file" id="p_images" accept="image/jpeg,image/png,image/webp,image/gif" multiple onchange="handleImageUpload(event)">
+          </div>
+          <div id="upload-progress" style="display:none;margin-top:12px;">
+            <div style="background:var(--border);height:4px;border-radius:2px;overflow:hidden;">
+              <div id="upload-bar" style="background:var(--gold);height:100%;width:0%;transition:width 0.3s;"></div>
+            </div>
+            <p id="upload-status" style="font-size:0.75rem;color:var(--muted);margin-top:6px;"></p>
           </div>
           <div class="image-preview-grid" id="image-preview-grid"></div>
-          <p style="font-size:0.75rem;color:var(--muted);margin-top:8px;">Image upload via Cloudflare R2 &#8212; coming soon. Paste image URLs below for now.</p>
-          <input type="text" id="p_image_urls" placeholder="Comma-separated image URLs (optional)" style="margin-top:8px;">
+          <input type="hidden" id="p_image_urls" value="">
         </div>
 
       </div>
@@ -1238,21 +1243,78 @@
     document.getElementById('p_low_stock').value = '5';
     document.getElementById('p_weight').value = '227';
     document.getElementById('image-preview-grid').innerHTML = '';
+    uploadedImageUrls = [];
+    document.getElementById('upload-progress').style.display = 'none';
+  }
+
+  let uploadedImageUrls = [];
+
+  async function handleImageUpload(event) {
+    const files = Array.from(event.target.files);
+    if (!files.length) return;
+
+    const token = sessionStorage.getItem('seller_token');
+    const sellerId = sessionStorage.getItem('seller_id');
+    const progressEl = document.getElementById('upload-progress');
+    const barEl = document.getElementById('upload-bar');
+    const statusEl = document.getElementById('upload-status');
+    const grid = document.getElementById('image-preview-grid');
+
+    progressEl.style.display = 'block';
+    let uploaded = 0;
+
+    for (const file of files) {
+      statusEl.textContent = `Uploading ${file.name}...`;
+      try {
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('seller_id', sellerId);
+
+        const res = await fetch(`${WORKER_URL}/api/seller/upload-image`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: formData
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.url) {
+          uploadedImageUrls.push(data.url);
+          document.getElementById('p_image_urls').value = uploadedImageUrls.join(',');
+
+          // Add preview
+          const div = document.createElement('div');
+          div.className = 'preview-thumb';
+          div.innerHTML = `<img src="${data.url}" alt="Product image"><button class="preview-remove" onclick="removeUploadedImage('${data.url}', this)">&#215;</button>`;
+          grid.appendChild(div);
+
+          uploaded++;
+          barEl.style.width = `${(uploaded / files.length) * 100}%`;
+          statusEl.textContent = `Uploaded ${uploaded} of ${files.length} images`;
+        } else {
+          showToast(data.error || 'Upload failed', 'error-toast');
+        }
+      } catch(err) {
+        showToast('Upload error: ' + err.message, 'error-toast');
+      }
+    }
+
+    statusEl.textContent = uploaded === files.length
+      ? `&#10003; All ${uploaded} image${uploaded > 1 ? 's' : ''} uploaded successfully`
+      : `${uploaded} of ${files.length} uploaded`;
+    barEl.style.width = '100%';
+    setTimeout(() => { progressEl.style.display = 'none'; }, 3000);
+  }
+
+  function removeUploadedImage(url, btn) {
+    uploadedImageUrls = uploadedImageUrls.filter(u => u !== url);
+    document.getElementById('p_image_urls').value = uploadedImageUrls.join(',');
+    btn.parentNode.remove();
   }
 
   function previewImages(event) {
-    const grid = document.getElementById('image-preview-grid');
-    const files = Array.from(event.target.files);
-    files.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        const div = document.createElement('div');
-        div.className = 'preview-thumb';
-        div.innerHTML = `<img src="${e.target.result}"><button class="preview-remove" onclick="this.parentNode.remove()">x</button>`;
-        grid.appendChild(div);
-      };
-      reader.readAsDataURL(file);
-    });
+    // Legacy fallback - kept for compatibility
+    handleImageUpload(event);
   }
 
   function editProduct(id) {
