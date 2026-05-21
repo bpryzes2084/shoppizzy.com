@@ -475,6 +475,7 @@
     input[type="text"],
     input[type="number"],
     input[type="email"],
+    input[type="password"],
     select,
     textarea {
       width: 100%;
@@ -691,34 +692,39 @@
   <div class="seller-info">
     <div class="seller-avatar" id="sidebar-avatar">S</div>
     <div class="seller-name" id="sidebar-name">Loading...</div>
-    <div class="seller-status active" id="sidebar-status">● Active</div>
+    <div class="seller-status active" id="sidebar-status">&#9679; Active</div>
   </div>
 
   <nav class="nav-section">
     <div class="nav-label">Overview</div>
     <div class="nav-item active" onclick="showSection('dashboard')">
-      <span class="nav-icon">📊</span> Dashboard
+      <span class="nav-icon">&#128202;</span> Dashboard
     </div>
 
     <div class="nav-label" style="margin-top:20px;">Catalog</div>
     <div class="nav-item" onclick="showSection('products')">
-      <span class="nav-icon">📦</span> My Products
+      <span class="nav-icon">&#128230;</span> My Products
     </div>
     <div class="nav-item" onclick="showSection('add-product')">
-      <span class="nav-icon">➕</span> Add Product
+      <span class="nav-icon">&#10133;</span> Add Product
     </div>
 
     <div class="nav-label" style="margin-top:20px;">Sales</div>
     <div class="nav-item" onclick="showSection('orders')">
-      <span class="nav-icon">🛍️</span> Orders
+      <span class="nav-icon">&#128717;</span> Orders
+    </div>
+
+    <div class="nav-label" style="margin-top:20px;">Admin</div>
+    <div class="nav-item" onclick="showSection('sync-square')">
+      <span class="nav-icon">&#128260;</span> Sync Square Inventory
     </div>
 
     <div class="nav-label" style="margin-top:20px;">Account</div>
     <div class="nav-item" onclick="showSection('settings')">
-      <span class="nav-icon">⚙️</span> Settings
+      <span class="nav-icon">&#9881;&#65039;</span> Settings
     </div>
     <div class="nav-item" onclick="window.open('/index.html','_blank')">
-      <span class="nav-icon">🌐</span> View Store
+      <span class="nav-icon">&#127760;</span> View Store
     </div>
   </nav>
 
@@ -733,7 +739,7 @@
   <!-- TOPBAR -->
   <div class="topbar">
     <div style="display:flex;align-items:center;gap:16px;">
-      <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+      <button class="mobile-menu-btn" onclick="toggleSidebar()">&#9776;</button>
       <div class="topbar-title" id="topbar-title">Dashboard</div>
     </div>
     <div class="topbar-actions">
@@ -747,22 +753,22 @@
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Total Products</div>
-        <div class="stat-value" id="stat-products">—</div>
+        <div class="stat-value" id="stat-products">&#8212;</div>
         <div class="stat-change">Listed in your shop</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Active Listings</div>
-        <div class="stat-value" id="stat-active">—</div>
+        <div class="stat-value" id="stat-active">&#8212;</div>
         <div class="stat-change up">Live on store</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Total Orders</div>
-        <div class="stat-value" id="stat-orders">—</div>
+        <div class="stat-value" id="stat-orders">&#8212;</div>
         <div class="stat-change">All time</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Low Stock Items</div>
-        <div class="stat-value" id="stat-lowstock">—</div>
+        <div class="stat-value" id="stat-lowstock">&#8212;</div>
         <div class="stat-change down">Needs attention</div>
       </div>
     </div>
@@ -817,19 +823,19 @@
           <select id="p_category">
             <option value="">Select category</option>
             <option value="cat_electronics">Electronics</option>
-            <option value="cat_home_garden">Home & Garden</option>
-            <option value="cat_clothing">Clothing & Apparel</option>
-            <option value="cat_beauty">Beauty & Personal Care</option>
-            <option value="cat_sports">Sports & Outdoors</option>
-            <option value="cat_toys">Toys & Games</option>
-            <option value="cat_books">Books & Media</option>
-            <option value="cat_food">Food & Grocery</option>
+            <option value="cat_home_garden">Home &amp; Garden</option>
+            <option value="cat_clothing">Clothing &amp; Apparel</option>
+            <option value="cat_beauty">Beauty &amp; Personal Care</option>
+            <option value="cat_sports">Sports &amp; Outdoors</option>
+            <option value="cat_toys">Toys &amp; Games</option>
+            <option value="cat_books">Books &amp; Media</option>
+            <option value="cat_food">Food &amp; Grocery</option>
             <option value="cat_automotive">Automotive</option>
-            <option value="cat_health">Health & Household</option>
+            <option value="cat_health">Health &amp; Household</option>
             <option value="cat_pets">Pet Supplies</option>
-            <option value="cat_office">Office & School</option>
-            <option value="cat_jewelry">Jewelry & Watches</option>
-            <option value="cat_baby">Baby & Kids</option>
+            <option value="cat_office">Office &amp; School</option>
+            <option value="cat_jewelry">Jewelry &amp; Watches</option>
+            <option value="cat_baby">Baby &amp; Kids</option>
             <option value="cat_other">Other</option>
           </select>
         </div>
@@ -866,18 +872,18 @@
 
         <div class="form-group">
           <label class="form-label" for="p_square_id">Square Item ID</label>
-          <input type="text" id="p_square_id" placeholder="Optional — links to Square inventory">
+          <input type="text" id="p_square_id" placeholder="Optional &#8212; links to Square inventory">
         </div>
 
         <div class="form-group form-full">
           <label class="form-label">Product Images</label>
           <div class="image-upload-area" onclick="document.getElementById('p_images').click()">
-            <div class="upload-icon">📸</div>
-            <p>Click to upload images — JPG, PNG, WEBP up to 5MB each</p>
+            <div class="upload-icon">&#128248;</div>
+            <p>Click to upload images &#8212; JPG, PNG, WEBP up to 5MB each</p>
             <input type="file" id="p_images" accept="image/*" multiple onchange="previewImages(event)">
           </div>
           <div class="image-preview-grid" id="image-preview-grid"></div>
-          <p style="font-size:0.75rem;color:var(--muted);margin-top:8px;">Image upload via Cloudflare R2 — coming soon. Paste image URLs below for now.</p>
+          <p style="font-size:0.75rem;color:var(--muted);margin-top:8px;">Image upload via Cloudflare R2 &#8212; coming soon. Paste image URLs below for now.</p>
           <input type="text" id="p_image_urls" placeholder="Comma-separated image URLs (optional)" style="margin-top:8px;">
         </div>
 
@@ -901,10 +907,32 @@
     </div>
     <div class="table-wrapper" id="orders-table">
       <div class="empty-state">
-        <div class="empty-icon">🛍️</div>
+        <div class="empty-icon">&#128717;</div>
         <h3>No Orders Yet</h3>
         <p>Orders from customers will appear here once your products are live.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- SYNC SQUARE INVENTORY -->
+  <section class="page-section" id="section-sync-square">
+    <div class="form-card">
+      <div class="section-header" style="margin-bottom:24px;">
+        <div class="section-title">Sync Square Inventory</div>
+      </div>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:24px;line-height:1.8;">
+        Click the button below to pull your latest Square inventory into Shoppizzy.
+        This makes your Square products searchable on the storefront immediately.
+        Run this any time you add or update products in Square.
+      </p>
+      <div class="form-group" style="margin-bottom:24px;max-width:400px;">
+        <label class="form-label" for="admin-secret-input">Admin Secret</label>
+        <input type="password" id="admin-secret-input" placeholder="Enter your admin secret">
+      </div>
+      <button id="sync-btn" onclick="syncSquare()" class="btn-primary" style="background:var(--gold);color:var(--black);padding:16px 40px;letter-spacing:2px;font-weight:700;">
+        &#128260; Sync Square Inventory Now
+      </button>
+      <div id="sync-result" style="display:none;margin-top:24px;padding:20px 24px;font-size:0.875rem;"></div>
     </div>
   </section>
 
@@ -915,15 +943,15 @@
         <h3>Shop Details</h3>
         <div class="settings-row">
           <span class="settings-key">Shop Name</span>
-          <span class="settings-val" id="setting-shop-name">—</span>
+          <span class="settings-val" id="setting-shop-name">&#8212;</span>
         </div>
         <div class="settings-row">
           <span class="settings-key">Status</span>
-          <span class="settings-val" id="setting-status">—</span>
+          <span class="settings-val" id="setting-status">&#8212;</span>
         </div>
         <div class="settings-row">
           <span class="settings-key">Ship From ZIP</span>
-          <span class="settings-val" id="setting-zip">—</span>
+          <span class="settings-val" id="setting-zip">&#8212;</span>
         </div>
         <div style="margin-top:20px;">
           <button class="btn-secondary" style="width:100%;" onclick="showToast('Profile editing coming soon')">Edit Shop Profile</button>
@@ -934,7 +962,7 @@
         <h3>Payout Account</h3>
         <div class="settings-row">
           <span class="settings-key">PayPal Email</span>
-          <span class="settings-val" id="setting-paypal">—</span>
+          <span class="settings-val" id="setting-paypal">&#8212;</span>
         </div>
         <div class="settings-row">
           <span class="settings-key">Square Linked</span>
@@ -1041,7 +1069,7 @@
     if (!products || products.length === 0) {
       container.innerHTML = `
         <div class="empty-state">
-          <div class="empty-icon">📦</div>
+          <div class="empty-icon">&#128230;</div>
           <h3>No Products Yet</h3>
           <p>Add your first product to start selling on Shoppizzy.</p>
           <button class="btn-primary" onclick="showSection('add-product')" style="margin-top:8px;">+ Add Product</button>
@@ -1065,7 +1093,7 @@
       const imageUrls = JSON.parse(p.image_urls || '[]');
       const imgHtml = imageUrls.length > 0
         ? `<img src="${imageUrls[0]}" alt="${escHtml(p.title)}">`
-        : '✦';
+        : '&#10086;';
 
       return `<tr>
         <td>
@@ -1073,7 +1101,7 @@
             <div class="product-thumb">${imgHtml}</div>
             <div>
               <div class="product-name">${escHtml(p.title)}</div>
-              <div class="product-sku">${p.sku || '—'}</div>
+              <div class="product-sku">${p.sku || '&#8212;'}</div>
             </div>
           </div>
         </td>
@@ -1085,7 +1113,7 @@
           </div>
         </td>
         <td>${statusBadge}</td>
-        <td>${escHtml(p.category || '—')}</td>
+        <td>${escHtml(p.category || '&#8212;')}</td>
         <td>
           <div class="table-actions">
             <button class="action-btn" onclick="editProduct('${p.id}')">Edit</button>
@@ -1109,6 +1137,39 @@
         </thead>
         <tbody>${rows}</tbody>
       </table>`;
+  }
+
+  // ── SYNC SQUARE INVENTORY ──
+  async function syncSquare() {
+    const secret = document.getElementById('admin-secret-input').value.trim();
+    if (!secret) { showToast('Please enter your admin secret', 'error-toast'); return; }
+    const btn = document.getElementById('sync-btn');
+    const result = document.getElementById('sync-result');
+    btn.disabled = true;
+    btn.textContent = 'Syncing...';
+    result.style.display = 'none';
+    try {
+      const res = await fetch(`${WORKER_URL}/api/admin/sync-square`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${secret}` }
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        result.style.cssText = 'display:block;background:#e8f8ee;color:#27ae60;border-left:3px solid #27ae60;padding:20px 24px;margin-top:24px;font-size:0.875rem;';
+        result.textContent = `Sync complete — ${data.synced} products synced from Square to Shoppizzy.`;
+        showToast(`Synced ${data.synced} Square products`, 'success-toast');
+      } else {
+        result.style.cssText = 'display:block;background:#fdf0f0;color:#c0392b;border-left:3px solid #c0392b;padding:20px 24px;margin-top:24px;font-size:0.875rem;';
+        result.textContent = `Sync failed: ${data.error || 'Unauthorized — check your admin secret'}`;
+        showToast('Sync failed', 'error-toast');
+      }
+    } catch (err) {
+      result.style.cssText = 'display:block;background:#fdf0f0;color:#c0392b;border-left:3px solid #c0392b;padding:20px 24px;margin-top:24px;font-size:0.875rem;';
+      result.textContent = 'Network error. Please try again.';
+      showToast('Network error', 'error-toast');
+    }
+    btn.disabled = false;
+    btn.textContent = 'Sync Square Inventory Now';
   }
 
   async function submitProduct() {
@@ -1187,7 +1248,7 @@
       reader.onload = e => {
         const div = document.createElement('div');
         div.className = 'preview-thumb';
-        div.innerHTML = `<img src="${e.target.result}"><button class="preview-remove" onclick="this.parentNode.remove()">×</button>`;
+        div.innerHTML = `<img src="${e.target.result}"><button class="preview-remove" onclick="this.parentNode.remove()">x</button>`;
         grid.appendChild(div);
       };
       reader.readAsDataURL(file);
@@ -1218,13 +1279,14 @@
       products: 'My Products',
       'add-product': 'Add Product',
       orders: 'Orders',
+      'sync-square': 'Sync Square Inventory',
       settings: 'Settings'
     };
 
     document.getElementById('topbar-title').textContent = titles[name] || 'Dashboard';
 
     const navMap = {
-      dashboard: 0, products: 1, 'add-product': 2, orders: 3, settings: 4
+      dashboard: 0, products: 1, 'add-product': 2, orders: 3, 'sync-square': 4, settings: 5
     };
 
     const navItems = document.querySelectorAll('.nav-item');
