@@ -674,64 +674,6 @@
       .category-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
-    /* ── GROCERY SECTION ── */
-    .grocery-section { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .grocery-search-wrap { background: var(--white); border: 1px solid var(--border); padding: 32px; max-width: 800px; margin: 0 auto; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
-    .grocery-search-wrap h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--black); margin-bottom: 6px; }
-    .grocery-search-wrap p { font-size: 0.875rem; color: var(--muted); margin-bottom: 16px; }
-    .grocery-search-form { display: flex; gap: 0; }
-    .grocery-search-form input { flex: 1; border: 1px solid var(--border); padding: 20px 24px; font-family: 'Lato', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.3s; font-weight: 300; letter-spacing: 0.5px; }
-    .grocery-search-form input:focus { border-color: var(--gold); }
-    .grocery-search-form input::placeholder { color: var(--muted); font-style: italic; }
-    .grocery-search-form button { background: var(--black); color: var(--white); border: none; padding: 20px 40px; font-family: 'Lato', sans-serif; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; font-weight: 400; transition: background 0.3s; white-space: nowrap; }
-    .grocery-search-form button:hover { background: var(--charcoal); }
-    .grocery-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 32px; margin-top: 32px; }
-    .grocery-card { background: var(--white); border: 1px solid var(--border); padding: 0; display: flex; flex-direction: column; transition: transform 0.3s; }
-    .grocery-card:hover { transform: translateY(-5px); }
-    .grocery-card img { width: 100%; height: 260px; object-fit: cover; margin-bottom: 0; background: var(--cream); }
-    .grocery-card-info { padding: 16px; flex: 1; display: flex; flex-direction: column; }
-    .grocery-card .g-name { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1rem; margin-bottom: 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .grocery-card .g-price { color: var(--black); font-weight: 400; font-size: 1.05rem; margin-bottom: 6px; }
-    .grocery-card .g-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 12px; flex: 1; }
-    .btn-grocery-add { width: 100%; background: var(--black); color: var(--white); border: none; padding: 12px; font-family: 'Lato', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: background 0.3s; margin-top: auto; }
-    .btn-grocery-add:hover { background: var(--gold); color: var(--black); }
-    .btn-grocery-add:disabled { opacity: 0.5; cursor: not-allowed; }
-    .grocery-cat-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 40px; }
-    .grocery-cat-tile { background: var(--white); padding: 28px 8px; text-align: center; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; overflow: hidden; border: none; }
-    .grocery-cat-tile::before { content: ''; position: absolute; inset: 0; background: var(--cream); transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s; z-index: 0; }
-    .grocery-cat-tile:hover::before { transform: scaleY(1); }
-    .grocery-cat-tile > * { position: relative; z-index: 1; }
-    .grocery-cat-icon { font-size: 1.6rem; }
-    .grocery-cat-label { font-size: 0.68rem; font-weight: 400; color: var(--text); letter-spacing: 1px; text-transform: uppercase; }
-    .free-item-box { background: var(--white); border: 1px solid var(--border); padding: 40px; margin-top: 40px; }
-    .free-item-box h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; margin-bottom: 8px; color: var(--black); }
-    .free-item-box p { font-size: 0.875rem; color: var(--muted); margin-bottom: 24px; }
-    .free-item-controls { display: flex; gap: 0; }
-    .free-item-controls select { flex: 1; padding: 14px 16px; border: 1px solid var(--border); font-family: 'Lato', sans-serif; font-size: 0.875rem; outline: none; background: var(--white); font-weight: 300; }
-    .free-item-controls select:focus { border-color: var(--gold); }
-    .btn-free-add { background: var(--black); color: var(--white); border: none; padding: 14px 32px; font-family: 'Lato', sans-serif; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; font-weight: 400; white-space: nowrap; transition: background 0.3s; }
-    .btn-free-add:hover { background: var(--gold); color: var(--black); }
-    .btn-free-add:disabled { opacity: 0.5; cursor: not-allowed; }
-    .membership-green-card { background: var(--black); border: 1px solid var(--border); padding: 40px 32px; text-align: center; max-width: 400px; margin: 0 auto; color: var(--white); }
-    .membership-green-card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 8px; color: var(--white); }
-    .membership-green-card .price { font-size: 3rem; font-weight: 400; color: var(--gold); line-height: 1; margin-bottom: 6px; font-family: 'Playfair Display', serif; }
-    .membership-green-card .price span { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.5); }
-    .membership-green-card ul { list-style: none; text-align: left; margin: 20px 0 28px; }
-    .membership-green-card ul li { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.875rem; color: rgba(255,255,255,0.8); }
-    .membership-green-card ul li:last-child { border-bottom: none; }
-    .btn-join { display: block; width: 100%; background: var(--gold); color: var(--black); border: none; padding: 14px; font-family: 'Lato', sans-serif; font-size: 0.78rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; transition: background 0.3s; }
-    .btn-join:hover { background: var(--white); }
-    .grocery-cart-panel { position: fixed; right: 18px; bottom: 90px; width: 360px; max-width: calc(100vw - 32px); background: var(--white); border: 1px solid var(--border); padding: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.12); z-index: 300; display: none; flex-direction: column; gap: 10px; max-height: 70vh; overflow-y: auto; }
-    .grocery-cart-panel.open { display: flex; }
-    .grocery-cart-btn { position: fixed; right: 88px; bottom: 22px; z-index: 999; background: var(--black); color: var(--white); border: 2px solid var(--gold); padding: 12px 20px; font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; gap: 8px; }
-    .grocery-cart-btn:hover { background: var(--gold); color: var(--black); }
-    .g-cart-badge { background: var(--gold); color: var(--black); border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; }
-    @media (max-width: 768px) {
-      .grocery-cat-grid { grid-template-columns: repeat(4, 1fr); }
-      .grocery-search-form { flex-direction: column; }
-      .free-item-controls { flex-direction: column; }
-      .grocery-cart-btn { right: 80px; }
-    }
   </style>
 </head>
 <body>
@@ -743,6 +685,7 @@
       <a href="#categories">Categories</a>
       <a href="#grocery-section">Grocery</a>
       <a href="/about.html">About</a>
+      <a href="/account.html">My Account</a>
       <a href="/seller/login">Seller Login</a>
       <a href="/seller/register" class="nav-sell">Sell With Us</a>
     </nav>
@@ -919,18 +862,18 @@
         </div>
       </div>
 
-      <!-- SELLER BANNER -->
+      <!-- MEMBERSHIP BANNER -->
       <div class="seller-banner">
         <div class="seller-banner-content">
-          <h2>Tired of Amazon's Fees?</h2>
-          <p>No fuel surcharges. No surprise hikes. Just a fair place to sell.</p>
+          <h2>Unlock Free Items With Every Order</h2>
+          <p>Join Shoppizzy for just $20/yr and get a free item added to every order you place.</p>
           <div class="seller-banner-perks">
-            <span class="seller-banner-perk">Zero Hidden Fees</span>
-            <span class="seller-banner-perk">PayPal & Square Payouts</span>
-            <span class="seller-banner-perk">Real-Time Inventory</span>
-            <span class="seller-banner-perk">Easy Onboarding</span>
+            <span class="seller-banner-perk">Free Item Every Order</span>
+            <span class="seller-banner-perk">Free Bottle of Water</span>
+            <span class="seller-banner-perk">Free Paper Towels</span>
+            <span class="seller-banner-perk">UPS Tracked Shipping</span>
           </div>
-          <a href="/seller/register" class="btn-sell">Start Selling Today</a>
+          <a href="/account.html" class="btn-sell">Join Now — $20/yr</a>
         </div>
       </div>
 
@@ -956,167 +899,6 @@
   </div>
 </div>
 
-<!-- GROCERY SECTION -->
-<div id="grocery-section" class="grocery-section" style="padding: 60px 0;">
-  <div style="max-width:1400px;margin:0 auto;padding:0 40px;">
-
-    <div style="text-align:center;margin-bottom:40px;">
-      <p style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:400;">🛒 Shoppizzy Grocery</p>
-      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:500;color:var(--black);margin-bottom:10px;">Grocery & Household Essentials</h2>
-      <p style="font-size:0.9rem;color:var(--muted);max-width:500px;margin:0 auto;">Snacks, pantry staples, cleaning supplies and more. Shipped via UPS with tracking. Free item with every member order.</p>
-    </div>
-
-    <!-- GROCERY CATEGORIES -->
-    <div class="grocery-cat-grid">
-      <button class="grocery-cat-tile" data-gq="appliances"><span class="grocery-cat-icon">🔌</span><span class="grocery-cat-label">Appliances</span></button>
-      <button class="grocery-cat-tile" data-gq="baby care"><span class="grocery-cat-icon">👶</span><span class="grocery-cat-label">Baby Care</span></button>
-      <button class="grocery-cat-tile" data-gq="baking"><span class="grocery-cat-icon">🧁</span><span class="grocery-cat-label">Baking</span></button>
-      <button class="grocery-cat-tile" data-gq="beverages"><span class="grocery-cat-icon">🧃</span><span class="grocery-cat-label">Beverages</span></button>
-      <button class="grocery-cat-tile" data-gq="breakfast"><span class="grocery-cat-icon">🥣</span><span class="grocery-cat-label">Breakfast</span></button>
-      <button class="grocery-cat-tile" data-gq="canned foods"><span class="grocery-cat-icon">🥫</span><span class="grocery-cat-label">Canned Foods</span></button>
-      <button class="grocery-cat-tile" data-gq="cleaning"><span class="grocery-cat-icon">🧽</span><span class="grocery-cat-label">Cleaning</span></button>
-      <button class="grocery-cat-tile" data-gq="household"><span class="grocery-cat-icon">🏠</span><span class="grocery-cat-label">Household</span></button>
-      <button class="grocery-cat-tile" data-gq="paper goods"><span class="grocery-cat-icon">🧻</span><span class="grocery-cat-label">Paper Goods</span></button>
-      <button class="grocery-cat-tile" data-gq="pet care"><span class="grocery-cat-icon">🐾</span><span class="grocery-cat-label">Pet Care</span></button>
-      <button class="grocery-cat-tile" data-gq="snacks"><span class="grocery-cat-icon">🍿</span><span class="grocery-cat-label">Snacks</span></button>
-      <button class="grocery-cat-tile" data-gq="toys"><span class="grocery-cat-icon">🧸</span><span class="grocery-cat-label">Toys</span></button>
-      <button class="grocery-cat-tile" data-gq="seasonal"><span class="grocery-cat-icon">☀️</span><span class="grocery-cat-label">Seasonal</span></button>
-      <button class="grocery-cat-tile" data-gq="sporting goods"><span class="grocery-cat-icon">⚽</span><span class="grocery-cat-label">Sporting</span></button>
-      <button class="grocery-cat-tile" data-gq="media"><span class="grocery-cat-icon">📀</span><span class="grocery-cat-label">Media</span></button>
-      <button class="grocery-cat-tile" data-gq="auto care"><span class="grocery-cat-icon">🚗</span><span class="grocery-cat-label">Auto Care</span></button>
-    </div>
-
-    <!-- GROCERY SEARCH -->
-    <div class="grocery-search-wrap">
-      <h2>Search Grocery Inventory</h2>
-      <p>Cereal, snacks, cleaning supplies, pantry essentials — find what you need.</p>
-      <div class="grocery-search-form">
-        <input type="search" id="grocery-q" placeholder="Try &quot;chips&quot;, &quot;cereal&quot;, &quot;dish soap&quot;…" autocomplete="off">
-        <button id="grocery-search-btn" onclick="doGrocerySearch()">Search</button>
-      </div>
-      <div id="grocery-status" style="font-size:13px;color:var(--muted);margin-top:8px;min-height:18px;text-align:center;"></div>
-      <div id="grocery-results" class="grocery-results"></div>
-    </div>
-
-    <!-- FREE ITEM SELECTOR -->
-    <div class="free-item-box">
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
-        <span style="font-size:2.5rem;">🎁</span>
-        <div>
-          <h3>Choose Your Free Item</h3>
-          <p>Members get one free item per order. Select yours below.</p>
-        </div>
-      </div>
-      <div class="free-item-controls">
-        <select id="freeItemDropdown">
-          <option value="">— Select a free item —</option>
-          <option value="free-item-2">ACT II Butter Lovers Microwave Popcorn, 2.75oz</option>
-          <option value="free-item-3">Aim Cavity Protection Toothpaste Ultra Mint Gel, 5.5oz</option>
-          <option value="free-item-28">Arm &amp; Hammer Baking Soda Fridge-n-Freezer Odor Absorber, 14oz</option>
-          <option value="free-item-45">Arm &amp; Hammer Pure Baking Soda, 8oz</option>
-          <option value="free-item-4">Armour Star Potted Meat, 3oz</option>
-          <option value="free-item-5">Capri Sun, 6 fl. oz pouch</option>
-          <option value="free-item-6">Cesar Soft Wet Dog Food Classic Loaf, 3.5oz</option>
-          <option value="free-item-37">Cheetos Crunchy Cheese Flavored Snacks, 1oz</option>
-          <option value="free-item-7">Cheez-It Original Baked Snack Crackers, 1.5oz</option>
-          <option value="free-item-8">Cheez-It White Cheddar Snack Packs, 1.5oz</option>
-          <option value="free-item-41">Colgate Toothpaste Cavity Protection Regular Flavor, 1oz</option>
-          <option value="free-item-27">Comet All Purpose Abrasive Powder Cleaner with Bleach, 21oz</option>
-          <option value="free-item-9">Cracker Jack Caramel Coated Popcorn &amp; Peanuts, 1oz</option>
-          <option value="free-item-30">Dawn Ultra Liquid Dish Soap Original, 5.8oz</option>
-          <option value="free-item-10">Del Monte Cut Green Beans, 14.5oz</option>
-          <option value="free-item-11">Del Monte Golden Sweet Whole Kernel Corn, 15.25oz</option>
-          <option value="free-item-34">Doritos Nacho Cheese Tortilla Chips, 1oz</option>
-          <option value="free-item-40">Dove Beauty Bar Soap Original, 2.6oz</option>
-          <option value="free-item-12">Famous Amos Chocolate Chip Cookies, 2oz</option>
-          <option value="free-item-33">Fritos The Original Corn Chip, 1oz</option>
-          <option value="free-item-38">Funyuns Onion Rings Snacks, 0.75oz</option>
-          <option value="free-item-31">Gain Ultra Dishwashing Liquid Dish Soap Original, 8 fl oz</option>
-          <option value="free-item-13">Gerber 2nd Foods Chicken &amp; Gravy, 2.5oz</option>
-          <option value="free-item-43">Glade Odor Fighting Soft Mist Air Freshener Clean Linen, 7.3oz</option>
-          <option value="free-item-15">Kar's Sweet 'n Salty Trail Mix, 2oz</option>
-          <option value="free-item-16">Knott's Berry Farm Strawberry Shortbread Cookies, 2oz</option>
-          <option value="free-item-46">Kraft Mac and Cheese Original Flavor, 7.25oz</option>
-          <option value="free-item-17">Lance ToastChee Peanut Butter Crackers, 1.52oz</option>
-          <option value="free-item-19">Lay's Classic Potato Chips, 1oz</option>
-          <option value="free-item-36">Lay's Barbecue Potato Chips, 1oz</option>
-          <option value="free-item-20">Libby's Vienna Sausage, 4.6oz</option>
-          <option value="free-item-21">Martha White Muffin Mix Strawberry, 7oz</option>
-          <option value="free-item-22">Nature Valley Oats 'n Honey Crunchy Granola Bar, 1.49oz</option>
-          <option value="free-item-26">Nutri-Grain Cereal Bar, 1.3oz</option>
-          <option value="free-item-29">Premium Adjust-A-Size White Paper Towels, 1 Roll</option>
-          <option value="free-item-32">Pringles Snack Stacks Chips, 0.67oz</option>
-          <option value="free-item-23">Purina Friskies Shreds, Chicken in Gravy, Wet Cat Food, 5.5oz</option>
-          <option value="free-item-24">Rice A Roni, Beef, Rice Mix, 6.8oz</option>
-          <option value="free-item-35">Ruffles Original Potato Chips, 1oz</option>
-          <option value="free-item-42">Scott 1000 1-Ply Toilet Paper, 1 Roll</option>
-          <option value="free-item-44">Snuggle Fabric Softener Dryer Sheets Blue Sparkle, 40 Count</option>
-          <option value="free-item-25">StarKist Chunk Light Tuna in Water, 5oz</option>
-        </select>
-        <button class="btn-free-add" id="addFreeItemBtn" onclick="addFreeItem()">Add Free Item</button>
-      </div>
-      <div id="freeItemStatus" style="font-size:13px;color:var(--muted);margin-top:8px;min-height:18px;"></div>
-    </div>
-
-    <!-- MEMBERSHIP -->
-    <div style="margin-top:48px;">
-      <div style="text-align:center;margin-bottom:32px;">
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:500;color:var(--black);margin-bottom:8px;">Shoppizzy Grocery Membership</h2>
-        <p style="font-size:0.9rem;color:var(--muted);">One membership. Free perks on every grocery order.</p>
-      </div>
-      <div class="membership-green-card">
-        <h3>Standard Member</h3>
-        <div class="price">$20<span>/yr</span></div>
-        <ul>
-          <li>✓ Free item with every order</li>
-          <li>✓ Free bottle of water included</li>
-          <li>✓ Free paper towels (new members)</li>
-          <li>✓ UPS tracked shipping on every order</li>
-        </ul>
-        <a href="https://square.link/u/CP70vULk" class="btn-join" target="_blank">Join Now — $20/yr</a>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- GROCERY CART BUTTON -->
-<button class="grocery-cart-btn" id="groceryCartBtn" onclick="toggleGroceryCart()" style="display:none;">
-  🛒 Grocery Cart <span class="g-cart-badge" id="groceryCartCount">0</span>
-</button>
-
-<!-- GROCERY CART PANEL -->
-<div class="grocery-cart-panel" id="groceryCartPanel">
-  <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--border);">
-    <strong style="font-size:15px;">Grocery Cart</strong>
-    <button onclick="toggleGroceryCart()" style="background:var(--cream);border:none;width:28px;height:28px;cursor:pointer;font-size:14px;">✕</button>
-  </div>
-  <div id="groceryCartItems" style="font-size:13px;color:var(--muted);text-align:center;padding:16px;">Cart is empty.</div>
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--border);">
-    <span style="font-size:13px;color:var(--muted);">Subtotal</span>
-    <span style="font-weight:800;font-size:16px;" id="grocerySubtotal">$0.00</span>
-  </div>
-  <div style="margin-bottom:8px;">
-    <label style="font-size:11px;font-weight:700;color:var(--muted);display:block;margin-bottom:6px;">📦 ZIP Code for Shipping</label>
-    <div style="display:flex;gap:8px;">
-      <input type="text" id="groceryZip" placeholder="Enter ZIP" maxlength="5" style="flex:1;padding:8px 10px;border:1px solid var(--border);font-family:'Lato',sans-serif;font-size:13px;outline:none;">
-      <button onclick="calcGroceryShipping()" style="background:var(--black);color:var(--white);border:none;padding:8px 12px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Get Rate</button>
-    </div>
-    <div id="groceryShippingResult" style="font-size:11px;margin-top:4px;color:var(--muted);min-height:16px;"></div>
-  </div>
-  <div id="groceryTotalRow" style="display:none;padding:8px 0;border-top:1px solid var(--border);">
-    <div style="display:flex;justify-content:space-between;">
-      <span style="font-size:13px;color:var(--muted);">Shipping</span>
-      <span style="font-size:13px;" id="groceryShippingAmt">$0.00</span>
-    </div>
-    <div style="display:flex;justify-content:space-between;margin-top:4px;padding-top:8px;border-top:2px solid var(--black);">
-      <span style="font-weight:800;font-size:14px;">Total</span>
-      <span style="font-weight:800;font-size:16px;color:#2d7a3a;" id="groceryTotal">$0.00</span>
-    </div>
-  </div>
-  <div class="cf-turnstile" data-sitekey="0x4AAAAAACfyt-w_IPJWrbKK" data-callback="onGroceryTurnstile" data-size="compact" id="groceryTurnstile" style="margin:4px 0;"></div>
-  <button id="groceryCheckoutBtn" onclick="doGroceryCheckout()" disabled style="background:var(--black);color:var(--white);border:none;padding:12px;font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;width:100%;transition:background 0.3s;">Checkout</button>
-</div>
 
 <!-- FOOTER -->
 <footer>
@@ -1128,14 +910,15 @@
     <div class="footer-col">
       <h4>Explore</h4>
       <a href="#categories">Shop by Category</a>
-      <a href="#grocery-section">Grocery</a>
+      <a href="/account.html">My Account</a>
       <a href="/about.html">About Us</a>
     </div>
     <div class="footer-col">
-      <h4>Sell With Us</h4>
-      <a href="/seller/register">Become a Seller</a>
+      <h4>Membership</h4>
+      <a href="/account.html">Join — $20/yr</a>
+      <a href="/account.html">My Account</a>
+      <a href="/seller/register">Sell With Us</a>
       <a href="/seller/login">Seller Login</a>
-      <a href="/seller/dashboard">Seller Dashboard</a>
     </div>
     <div class="footer-col">
       <h4>Legal</h4>
@@ -1397,18 +1180,6 @@
     return decoded.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
-  // ── GROCERY ──────────────────────────────────────────────────────────────
-  const GROCERY_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
-  let groceryCart = JSON.parse(localStorage.getItem('shoppizzy_grocery_cart') || '[]');
-  let groceryShippingRate = null;
-  let groceryTurnstileToken = null;
-  let isMemberActive = false;
-
-  function onGroceryTurnstile(token) { groceryTurnstileToken = token; }
-
-  function saveGroceryCart() {
-    localStorage.setItem('shoppizzy_grocery_cart', JSON.stringify(groceryCart));
-    renderGroceryCart();
   }
 
   function addToGroceryCart(item) {
