@@ -953,7 +953,7 @@
             <tr style="border-bottom:1px solid var(--border);background:var(--cream);"><td style="padding:10px 14px;">category</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">cat_clothing</td><td style="padding:10px 14px;color:var(--muted);">See category codes below</td></tr>
             <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;">condition</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">new</td><td style="padding:10px 14px;color:var(--muted);">new, like_new, used, refurbished</td></tr>
             <tr style="border-bottom:1px solid var(--border);background:var(--cream);"><td style="padding:10px 14px;">stock_quantity</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">25</td><td style="padding:10px 14px;color:var(--muted);">Number of units available</td></tr>
-            <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;">weight_grams</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">227</td><td style="padding:10px 14px;color:var(--muted);">Weight in grams (1oz=28g, 1lb=454g)</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;">weight_lbs</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">0.5</td><td style="padding:10px 14px;color:var(--muted);">Weight in pounds (e.g. 0.5, 1.25, 2.0)</td></tr>
             <tr style="border-bottom:1px solid var(--border);background:var(--cream);"><td style="padding:10px 14px;">sku</td><td style="padding:10px 14px;color:var(--muted);">No</td><td style="padding:10px 14px;color:var(--muted);">WALLET-001</td><td style="padding:10px 14px;color:var(--muted);">Your internal product code</td></tr>
             <tr style="background:var(--cream);"><td style="padding:10px 14px;">image_urls</td><td style="padding:10px 14px;color:var(--muted);">No</td><td style="padding:10px 14px;color:var(--muted);">https://example.com/img.jpg</td><td style="padding:10px 14px;color:var(--muted);">Separate multiple URLs with |</td></tr>
           </tbody>
@@ -1488,8 +1488,8 @@
   }
 
   // ── CSV BULK UPLOAD ──────────────────────────────────────────────────────
-  const CSV_HEADERS = ['title','description','price','category','condition','stock_quantity','weight_grams','sku','image_urls'];
-  const REQUIRED_HEADERS = ['title','description','price','category','condition','stock_quantity','weight_grams'];
+  const CSV_HEADERS = ['title','description','price','category','condition','stock_quantity','weight_lbs','sku','image_urls'];
+  const REQUIRED_HEADERS = ['title','description','price','category','condition','stock_quantity','weight_lbs'];
   const VALID_CONDITIONS = ['new','like_new','used','refurbished'];
   const VALID_CATEGORIES = ['cat_electronics','cat_home_garden','cat_clothing','cat_beauty','cat_sports','cat_toys','cat_books','cat_food','cat_automotive','cat_health','cat_pets','cat_office','cat_jewelry','cat_baby','cat_other'];
 
@@ -1504,7 +1504,7 @@
       'cat_clothing',
       'new',
       '25',
-      '227',
+      '0.5',
       'WALLET-001',
       '"https://example.com/image1.jpg|https://example.com/image2.jpg"'
     ].join(',');
@@ -1571,7 +1571,7 @@
     if (!VALID_CATEGORIES.includes(row.category)) errors.push(`Invalid category: ${row.category}`);
     if (!VALID_CONDITIONS.includes(row.condition)) errors.push(`Invalid condition: ${row.condition}`);
     if (!row.stock_quantity || isNaN(parseInt(row.stock_quantity))) errors.push('Valid stock quantity required');
-    if (!row.weight_grams || isNaN(parseInt(row.weight_grams))) errors.push('Valid weight required');
+    if (!row.weight_lbs || isNaN(parseFloat(row.weight_lbs))) errors.push('Valid weight in pounds required (e.g. 0.5, 1.25, 2.0)');
     return errors;
   }
 
@@ -1608,7 +1608,7 @@
     }
 
     // Preview table (first 5 rows)
-    const previewCols = ['title', 'price', 'category', 'condition', 'stock_quantity', 'weight_grams'];
+    const previewCols = ['title', 'price', 'category', 'condition', 'stock_quantity', 'weight_lbs'];
     const previewHeaders = previewCols.filter(h => headers.includes(h));
     const headerRow = previewHeaders.map(h => `<th style="background:var(--black);color:var(--white);padding:10px 14px;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;font-weight:400;text-align:left;white-space:nowrap;">${h}</th>`).join('');
     const dataRows = data.slice(0, 5).map((row, i) => {
@@ -1640,6 +1640,7 @@
       statusEl.textContent = `Importing ${i + 1} of ${csvData.length}...`;
       barEl.style.width = `${((i + 1) / csvData.length) * 100}%`;
       const imageUrls = row.image_urls ? row.image_urls.split('|').map(u => u.trim()).filter(Boolean) : [];
+      const weightLbs = parseFloat(row.weight_lbs) || 0.5;
       const payload = {
         seller_id: sellerId,
         title: row.title,
@@ -1649,7 +1650,7 @@
         item_condition: row.condition,
         stock_quantity: parseInt(row.stock_quantity) || 0,
         low_stock_threshold: 5,
-        weight_grams: parseInt(row.weight_grams) || 227,
+        weight_grams: Math.round(weightLbs * 453.592),
         sku: row.sku || '',
         image_urls: JSON.stringify(imageUrls)
       };
