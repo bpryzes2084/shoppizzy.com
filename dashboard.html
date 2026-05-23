@@ -708,6 +708,9 @@
     <div class="nav-item" onclick="showSection('add-product')">
       <span class="nav-icon">&#10133;</span> Add Product
     </div>
+    <div class="nav-item" onclick="showSection('bulk-upload')">
+      <span class="nav-icon">&#128196;</span> Bulk Upload CSV
+    </div>
 
     <div class="nav-label" style="margin-top:20px;">Sales</div>
     <div class="nav-item" onclick="showSection('orders')">
@@ -916,6 +919,108 @@
         <h3>No Orders Yet</h3>
         <p>Orders from customers will appear here once your products are live.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- BULK UPLOAD -->
+  <section class="page-section" id="section-bulk-upload">
+    <div class="form-card" style="max-width:900px;">
+      <div class="section-header" style="margin-bottom:32px;">
+        <div class="section-title">Bulk Upload Products via CSV</div>
+      </div>
+
+      <!-- STEP 1: DOWNLOAD TEMPLATE -->
+      <div style="margin-bottom:40px;padding:28px;background:var(--cream);border:1px solid var(--border);">
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:400;">Step 1</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:var(--black);margin-bottom:8px;">Download the CSV Template</h3>
+        <p style="font-size:0.875rem;color:var(--muted);margin-bottom:20px;line-height:1.7;">
+          Download the template below, fill in your product details, then upload it in Step 2.
+          Do not change the column headers.
+        </p>
+        <table style="width:100%;border-collapse:collapse;font-size:0.78rem;margin-bottom:20px;">
+          <thead>
+            <tr>
+              <th style="background:var(--black);color:var(--white);padding:10px 14px;text-align:left;font-weight:400;letter-spacing:1px;font-size:0.68rem;text-transform:uppercase;">Column</th>
+              <th style="background:var(--black);color:var(--white);padding:10px 14px;text-align:left;font-weight:400;letter-spacing:1px;font-size:0.68rem;text-transform:uppercase;">Required</th>
+              <th style="background:var(--black);color:var(--white);padding:10px 14px;text-align:left;font-weight:400;letter-spacing:1px;font-size:0.68rem;text-transform:uppercase;">Example</th>
+              <th style="background:var(--black);color:var(--white);padding:10px 14px;text-align:left;font-weight:400;letter-spacing:1px;font-size:0.68rem;text-transform:uppercase;">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;">title</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">Handmade Leather Wallet</td><td style="padding:10px 14px;color:var(--muted);">Product name</td></tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--cream);"><td style="padding:10px 14px;">description</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">Full grain leather, 4 card slots</td><td style="padding:10px 14px;color:var(--muted);">Product description</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;">price</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">29.99</td><td style="padding:10px 14px;color:var(--muted);">Numbers only, no $ sign</td></tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--cream);"><td style="padding:10px 14px;">category</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">cat_clothing</td><td style="padding:10px 14px;color:var(--muted);">See category codes below</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;">condition</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">new</td><td style="padding:10px 14px;color:var(--muted);">new, like_new, used, refurbished</td></tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--cream);"><td style="padding:10px 14px;">stock_quantity</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">25</td><td style="padding:10px 14px;color:var(--muted);">Number of units available</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;">weight_grams</td><td style="padding:10px 14px;color:var(--success);">Yes</td><td style="padding:10px 14px;color:var(--muted);">227</td><td style="padding:10px 14px;color:var(--muted);">Weight in grams (1oz=28g, 1lb=454g)</td></tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--cream);"><td style="padding:10px 14px;">sku</td><td style="padding:10px 14px;color:var(--muted);">No</td><td style="padding:10px 14px;color:var(--muted);">WALLET-001</td><td style="padding:10px 14px;color:var(--muted);">Your internal product code</td></tr>
+            <tr style="background:var(--cream);"><td style="padding:10px 14px;">image_urls</td><td style="padding:10px 14px;color:var(--muted);">No</td><td style="padding:10px 14px;color:var(--muted);">https://example.com/img.jpg</td><td style="padding:10px 14px;color:var(--muted);">Separate multiple URLs with |</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-bottom:16px;">
+          <div style="font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--charcoal);margin-bottom:8px;">Category Codes</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:0.75rem;color:var(--muted);">
+            <span>cat_electronics</span><span>cat_home_garden</span><span>cat_clothing</span>
+            <span>cat_beauty</span><span>cat_sports</span><span>cat_toys</span>
+            <span>cat_books</span><span>cat_food</span><span>cat_automotive</span>
+            <span>cat_health</span><span>cat_pets</span><span>cat_office</span>
+            <span>cat_jewelry</span><span>cat_baby</span><span>cat_other</span>
+          </div>
+        </div>
+        <button onclick="downloadTemplate()" class="btn-primary" style="padding:14px 32px;">
+          &#11015; Download CSV Template
+        </button>
+      </div>
+
+      <!-- STEP 2: UPLOAD CSV -->
+      <div style="margin-bottom:40px;padding:28px;background:var(--cream);border:1px solid var(--border);">
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:400;">Step 2</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:var(--black);margin-bottom:8px;">Upload Your Completed CSV</h3>
+        <p style="font-size:0.875rem;color:var(--muted);margin-bottom:20px;line-height:1.7;">
+          Select your filled-in CSV file. We'll preview the first 5 rows before importing.
+        </p>
+        <div class="image-upload-area" onclick="document.getElementById('csv-file').click()" id="csv-drop-area"
+          style="border:2px dashed var(--border);padding:40px;text-align:center;cursor:pointer;transition:all 0.3s;background:var(--white);">
+          <div style="font-size:2.5rem;margin-bottom:12px;">&#128196;</div>
+          <p style="font-size:0.875rem;color:var(--muted);">Click to select your CSV file</p>
+          <input type="file" id="csv-file" accept=".csv" style="display:none;" onchange="previewCSV(event)">
+        </div>
+      </div>
+
+      <!-- STEP 3: PREVIEW & IMPORT -->
+      <div id="csv-preview-section" style="display:none;">
+        <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:400;">Step 3</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:var(--black);margin-bottom:16px;">Preview & Import</h3>
+
+        <div id="csv-stats" style="display:flex;gap:24px;margin-bottom:20px;padding:16px;background:var(--cream);border:1px solid var(--border);font-size:0.875rem;"></div>
+
+        <div style="overflow-x:auto;margin-bottom:24px;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.78rem;" id="csv-preview-table">
+          </table>
+        </div>
+
+        <div id="csv-errors" style="display:none;background:#fdf0f0;border-left:3px solid var(--error);padding:16px;margin-bottom:20px;font-size:0.8rem;color:var(--error);"></div>
+
+        <div style="display:flex;gap:16px;">
+          <button onclick="importCSV()" id="import-btn" class="btn-primary" style="padding:16px 40px;">
+            Import Products
+          </button>
+          <button onclick="resetCSV()" class="btn-secondary" style="padding:16px 32px;">
+            Cancel
+          </button>
+        </div>
+
+        <div id="import-progress" style="display:none;margin-top:24px;">
+          <div style="background:var(--border);height:6px;border-radius:3px;overflow:hidden;margin-bottom:12px;">
+            <div id="import-bar" style="background:var(--gold);height:100%;width:0%;transition:width 0.3s;"></div>
+          </div>
+          <div id="import-status" style="font-size:0.875rem;color:var(--muted);"></div>
+        </div>
+
+        <div id="import-result" style="display:none;margin-top:24px;padding:20px;font-size:0.875rem;"></div>
+      </div>
+
     </div>
   </section>
 
@@ -1341,6 +1446,7 @@
       products: 'My Products',
       'add-product': 'Add Product',
       orders: 'Orders',
+      'bulk-upload': 'Bulk Upload CSV',
       'sync-square': 'Sync Square Inventory',
       settings: 'Settings'
     };
@@ -1348,7 +1454,7 @@
     document.getElementById('topbar-title').textContent = titles[name] || 'Dashboard';
 
     const navMap = {
-      dashboard: 0, products: 1, 'add-product': 2, orders: 3, 'sync-square': 4, settings: 5
+      dashboard: 0, products: 1, 'add-product': 2, orders: 3, 'bulk-upload': 4, 'sync-square': 5, settings: 6
     };
 
     const navItems = document.querySelectorAll('.nav-item');
@@ -1379,6 +1485,205 @@
     return String(str || '')
       .replace(/&/g,'&amp;').replace(/</g,'&lt;')
       .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── CSV BULK UPLOAD ──────────────────────────────────────────────────────
+  const CSV_HEADERS = ['title','description','price','category','condition','stock_quantity','weight_grams','sku','image_urls'];
+  const REQUIRED_HEADERS = ['title','description','price','category','condition','stock_quantity','weight_grams'];
+  const VALID_CONDITIONS = ['new','like_new','used','refurbished'];
+  const VALID_CATEGORIES = ['cat_electronics','cat_home_garden','cat_clothing','cat_beauty','cat_sports','cat_toys','cat_books','cat_food','cat_automotive','cat_health','cat_pets','cat_office','cat_jewelry','cat_baby','cat_other'];
+
+  let csvData = [];
+
+  function downloadTemplate() {
+    const headers = CSV_HEADERS.join(',');
+    const example = [
+      '"Handmade Leather Wallet"',
+      '"Full grain leather wallet with 4 card slots and bill compartment"',
+      '29.99',
+      'cat_clothing',
+      'new',
+      '25',
+      '227',
+      'WALLET-001',
+      '"https://example.com/image1.jpg|https://example.com/image2.jpg"'
+    ].join(',');
+    const csv = headers + '\n' + example;
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'shoppizzy-product-template.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Template downloaded!', 'success-toast');
+  }
+
+  function previewCSV(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target.result;
+      const rows = parseCSV(text);
+      if (rows.length < 2) { showToast('CSV file is empty or invalid', 'error-toast'); return; }
+      const headers = rows[0].map(h => h.trim().toLowerCase());
+      const missing = REQUIRED_HEADERS.filter(h => !headers.includes(h));
+      if (missing.length) {
+        showToast('Missing required columns: ' + missing.join(', '), 'error-toast');
+        return;
+      }
+      csvData = rows.slice(1).filter(row => row.some(cell => cell.trim())).map(row => {
+        const obj = {};
+        headers.forEach((h, i) => { obj[h] = (row[i] || '').trim(); });
+        return obj;
+      });
+      renderCSVPreview(headers, csvData);
+      document.getElementById('csv-preview-section').style.display = 'block';
+      document.getElementById('csv-preview-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    reader.readAsText(file);
+  }
+
+  function parseCSV(text) {
+    const rows = [];
+    const lines = text.split(/\r?\n/);
+    for (const line of lines) {
+      if (!line.trim()) continue;
+      const row = [];
+      let inQuotes = false, cell = '';
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') { inQuotes = !inQuotes; }
+        else if (ch === ',' && !inQuotes) { row.push(cell); cell = ''; }
+        else { cell += ch; }
+      }
+      row.push(cell);
+      rows.push(row);
+    }
+    return rows;
+  }
+
+  function validateRow(row, index) {
+    const errors = [];
+    if (!row.title) errors.push('Title is required');
+    if (!row.price || isNaN(parseFloat(row.price))) errors.push('Valid price required');
+    if (!VALID_CATEGORIES.includes(row.category)) errors.push(`Invalid category: ${row.category}`);
+    if (!VALID_CONDITIONS.includes(row.condition)) errors.push(`Invalid condition: ${row.condition}`);
+    if (!row.stock_quantity || isNaN(parseInt(row.stock_quantity))) errors.push('Valid stock quantity required');
+    if (!row.weight_grams || isNaN(parseInt(row.weight_grams))) errors.push('Valid weight required');
+    return errors;
+  }
+
+  function renderCSVPreview(headers, data) {
+    const table = document.getElementById('csv-preview-table');
+    const statsEl = document.getElementById('csv-stats');
+    const errorsEl = document.getElementById('csv-errors');
+    const importBtn = document.getElementById('import-btn');
+
+    // Validate all rows
+    let totalErrors = 0;
+    const rowErrors = data.map((row, i) => validateRow(row, i));
+    rowErrors.forEach(errs => { totalErrors += errs.length; });
+
+    // Stats
+    statsEl.innerHTML = `
+      <span>&#128196; <strong>${data.length}</strong> products found</span>
+      <span style="color:${totalErrors ? 'var(--error)' : 'var(--success)'}">
+        ${totalErrors ? '&#9888; ' + totalErrors + ' error(s) found' : '&#10003; All rows valid'}
+      </span>
+      <span style="color:var(--muted);">Preview shows first 5 rows</span>`;
+
+    // Error details
+    if (totalErrors > 0) {
+      const errorList = rowErrors.map((errs, i) => errs.length ? `Row ${i+2}: ${errs.join(', ')}` : null).filter(Boolean);
+      errorsEl.innerHTML = '<strong>Please fix these errors before importing:</strong><br>' + errorList.slice(0, 10).join('<br>');
+      errorsEl.style.display = 'block';
+      importBtn.disabled = true;
+      importBtn.style.opacity = '0.5';
+    } else {
+      errorsEl.style.display = 'none';
+      importBtn.disabled = false;
+      importBtn.style.opacity = '1';
+    }
+
+    // Preview table (first 5 rows)
+    const previewCols = ['title', 'price', 'category', 'condition', 'stock_quantity', 'weight_grams'];
+    const previewHeaders = previewCols.filter(h => headers.includes(h));
+    const headerRow = previewHeaders.map(h => `<th style="background:var(--black);color:var(--white);padding:10px 14px;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;font-weight:400;text-align:left;white-space:nowrap;">${h}</th>`).join('');
+    const dataRows = data.slice(0, 5).map((row, i) => {
+      const errs = rowErrors[i];
+      const bg = errs.length ? '#fdf0f0' : '';
+      const cells = previewHeaders.map(h => `<td style="padding:10px 14px;font-size:0.8rem;border-bottom:1px solid var(--border);max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escHtml(row[h] || '—')}</td>`).join('');
+      return `<tr style="background:${bg}">${cells}</tr>`;
+    }).join('');
+    table.innerHTML = `<thead><tr>${headerRow}</tr></thead><tbody>${dataRows}</tbody>`;
+  }
+
+  async function importCSV() {
+    const token = sessionStorage.getItem('seller_token');
+    const sellerId = sessionStorage.getItem('seller_id');
+    const btn = document.getElementById('import-btn');
+    const progressEl = document.getElementById('import-progress');
+    const barEl = document.getElementById('import-bar');
+    const statusEl = document.getElementById('import-status');
+    const resultEl = document.getElementById('import-result');
+
+    if (!csvData.length) return;
+    btn.disabled = true;
+    progressEl.style.display = 'block';
+    resultEl.style.display = 'none';
+
+    let success = 0, failed = 0;
+    for (let i = 0; i < csvData.length; i++) {
+      const row = csvData[i];
+      statusEl.textContent = `Importing ${i + 1} of ${csvData.length}...`;
+      barEl.style.width = `${((i + 1) / csvData.length) * 100}%`;
+      const imageUrls = row.image_urls ? row.image_urls.split('|').map(u => u.trim()).filter(Boolean) : [];
+      const payload = {
+        seller_id: sellerId,
+        title: row.title,
+        description: row.description || '',
+        price: parseFloat(row.price),
+        category: row.category,
+        item_condition: row.condition,
+        stock_quantity: parseInt(row.stock_quantity) || 0,
+        low_stock_threshold: 5,
+        weight_grams: parseInt(row.weight_grams) || 227,
+        sku: row.sku || '',
+        image_urls: JSON.stringify(imageUrls)
+      };
+      try {
+        const res = await fetch(`${WORKER_URL}/api/products`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (res.ok && data.success) success++;
+        else failed++;
+      } catch { failed++; }
+      await new Promise(r => setTimeout(r, 100)); // small delay between requests
+    }
+
+    barEl.style.width = '100%';
+    statusEl.textContent = 'Import complete.';
+    resultEl.style.cssText = `display:block;background:${failed ? '#fef9e7' : '#e8f8ee'};border-left:3px solid ${failed ? 'var(--warning)' : 'var(--success)'};padding:20px;margin-top:16px;font-size:0.875rem;`;
+    resultEl.innerHTML = `
+      <strong>${success} product${success !== 1 ? 's' : ''} imported successfully.</strong>
+      ${failed ? `<br>${failed} product${failed !== 1 ? 's' : ''} failed — check your data and try again.` : ''}
+      <br><br><a href="#" onclick="showSection('products')" style="color:var(--black);font-weight:700;">View My Products →</a>`;
+
+    loadDashboardData(sellerId, token);
+    btn.disabled = false;
+  }
+
+  function resetCSV() {
+    csvData = [];
+    document.getElementById('csv-file').value = '';
+    document.getElementById('csv-preview-section').style.display = 'none';
+    document.getElementById('import-progress').style.display = 'none';
+    document.getElementById('import-result').style.display = 'none';
   }
 </script>
 
