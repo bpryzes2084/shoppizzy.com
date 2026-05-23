@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Shoppizzy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000000;
+      --charcoal: #2b2b2b;
+      --cream: #f8f7f4;
+      --white: #ffffff;
+      --gold: #c5a572;
+      --text: #333333;
+      --muted: #888888;
+      --border: #e5e5e5;
+      --success: #27ae60;
+      --error: #c0392b;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .secure-badge {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .checkout-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 40px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── LEFT: FORM ── */
+    .checkout-form { }
+
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.5px;
+    }
+
+    .form-section { margin-bottom: 36px; }
+
+    .form-section-label {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-full { grid-column: 1 / -1; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+    .form-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--charcoal);
+    }
+
+    .form-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.3s;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+
+    .form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197,165,114,0.1); }
+    .form-input::placeholder { color: var(--muted); }
+
+    select.form-input {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+
+    /* ── SHIPPING CALC ── */
+    .shipping-calc {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .shipping-calc-label {
+      font-size: 0.68rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .shipping-row { display: flex; gap: 0; }
+
+    .shipping-row .form-input { flex: 1; }
+
+    .btn-calc {
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 14px 20px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.3s;
+    }
+
+    .btn-calc:hover { background: var(--charcoal); }
+    .btn-calc:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .shipping-result {
+      font-size: 0.85rem;
+      margin-top: 10px;
+      min-height: 20px;
+      color: var(--muted);
+    }
+
+    .shipping-result.success { color: var(--success); font-weight: 400; }
+    .shipping-result.error { color: var(--error); }
+
+    /* ── PAYMENT ── */
+    .payment-note {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ── PLACE ORDER BUTTON ── */
+    .btn-order {
+      width: 100%;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 20px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-order::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: translateX(-101%);
+      transition: transform 0.4s ease;
+    }
+
+    .btn-order:hover::after { transform: translateX(0); }
+    .btn-order span { position: relative; z-index: 1; }
+    .btn-order:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-order:disabled::after { display: none; }
+
+    .form-error {
+      background: #fdf0f0;
+      border-left: 3px solid var(--error);
+      padding: 12px 16px;
+      font-size: 0.8rem;
+      color: var(--error);
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    /* ── RIGHT: ORDER SUMMARY ── */
+    .order-summary {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 32px;
+      position: sticky;
+      top: 24px;
+    }
+
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .summary-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .summary-img {
+      width: 64px;
+      height: 64px;
+      background: var(--cream);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .summary-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .summary-item-info { flex: 1; }
+
+    .summary-item-name {
+      font-size: 0.875rem;
+      color: var(--black);
+      font-weight: 400;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .summary-item-meta { font-size: 0.75rem; color: var(--muted); }
+
+    .summary-item-price {
+      font-size: 0.95rem;
+      color: var(--black);
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 0.875rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .summary-line:last-of-type { border-bottom: none; }
+
+    .summary-line .label { color: var(--muted); }
+    .summary-line .value { color: var(--text); }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0 0;
+      margin-top: 8px;
+      border-top: 2px solid var(--black);
+    }
+
+    .summary-total .label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    .summary-total .value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    .trust-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .trust-item {
+      flex: 1;
+      text-align: center;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .trust-item span { display: block; font-size: 1.2rem; margin-bottom: 4px; }
+
+    /* ── SUCCESS STATE ── */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 80px 40px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .success-icon { font-size: 4rem; margin-bottom: 24px; }
+
+    .success-state h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    .success-state p { font-size: 0.95rem; color: var(--muted); margin-bottom: 8px; }
+
+    .btn-continue {
+      display: inline-block;
+      background: var(--black);
+      color: var(--white);
+      text-decoration: none;
+      padding: 16px 40px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 32px;
+      transition: background 0.3s;
+    }
+
+    .btn-continue:hover { background: var(--gold); color: var(--black); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .checkout-wrap { grid-template-columns: 1fr; padding: 24px 20px; gap: 32px; }
+      .order-summary { position: static; order: -1; }
+      header { padding: 16px 20px; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">SHOPPIZZY</a>
+  <div class="secure-badge">🔒 Secure Checkout</div>
+</header>
+
+<!-- SUCCESS STATE -->
+<div class="success-state" id="success-state">
+  <div class="success-icon">✦</div>
+  <h2>Order Placed</h2>
+  <p>Thank you for your purchase. Your order has been confirmed.</p>
+  <p id="success-order-id" style="font-size:0.8rem;color:var(--muted);margin-top:8px;"></p>
+  <p style="margin-top:16px;font-size:0.875rem;color:var(--text);">The seller will ship your item and provide tracking information once dispatched.</p>
+  <a href="/" class="btn-continue">Continue Shopping</a>
+</div>
+
+<!-- CHECKOUT FORM -->
+<div class="checkout-wrap" id="checkout-wrap">
+
+  <!-- LEFT: FORM -->
+  <div class="checkout-form">
+    <h1 class="step-title">Complete Your Order</h1>
+
+    <div class="form-error" id="checkout-error"></div>
+
+    <!-- CONTACT -->
+    <div class="form-section">
+      <span class="form-section-label">Contact Information</span>
+      <div class="form-grid">
+        <div class="form-group form-full">
+          <label class="form-label" for="c-email">Email Address</label>
+          <input type="email" id="c-email" class="form-input" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="c-first">First Name</label>
+          <input type="text" id="c-first" class="form-input" placeholder="First name" autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="c-last">Last Name</label>
+          <input type="text" id="c-last" class="form-input" placeholder="Last name" autocomplete="family-name">
+        </div>
+        <div class="form-group form-full">
+          <label class="form-label" for="c-phone">Phone Number</label>
+          <input type="tel" id="c-phone" class="form-input" placeholder="(555) 000-0000" autocomplete="tel">
+        </div>
+      </div>
+    </div>
+
+    <!-- SHIPPING ADDRESS -->
+    <div class="form-section">
+      <span class="form-section-label">Shipping Address</span>
+      <div class="form-grid">
+        <div class="form-group form-full">
+          <label class="form-label" for="s-address">Street Address</label>
+          <input type="text" id="s-address" class="form-input" placeholder="123 Main St" autocomplete="street-address">
+        </div>
+        <div class="form-group form-full">
+          <label class="form-label" for="s-address2">Apt, Suite, Unit (optional)</label>
+          <input type="text" id="s-address2" class="form-input" placeholder="Apt 4B" autocomplete="address-line2">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="s-city">City</label>
+          <input type="text" id="s-city" class="form-input" placeholder="City" autocomplete="address-level2">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="s-state">State</label>
+          <select id="s-state" class="form-input" autocomplete="address-level1">
+            <option value="">Select state</option>
+            <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+            <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+            <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+            <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+            <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+            <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+            <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+            <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+            <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+            <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+            <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+            <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+            <option>WI</option><option>WY</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="s-zip">ZIP Code</label>
+          <input type="text" id="s-zip" class="form-input" placeholder="00000" maxlength="5" autocomplete="postal-code" oninput="onZipInput(this.value)">
+        </div>
+      </div>
+    </div>
+
+    <!-- SHIPPING RATE -->
+    <div class="form-section">
+      <span class="form-section-label">Shipping Rate</span>
+      <div class="shipping-calc">
+        <span class="shipping-calc-label">UPS Ground — Real-Time Rate</span>
+        <div class="shipping-row">
+          <input type="text" id="ship-zip-calc" class="form-input" placeholder="Enter ZIP to calculate" maxlength="5">
+          <button class="btn-calc" id="calc-btn" onclick="calcShipping()">Calculate</button>
+        </div>
+        <div class="shipping-result" id="ship-result"></div>
+      </div>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="form-section">
+      <span class="form-section-label">Payment</span>
+      <div class="payment-note">
+        🔒 Payments are processed securely. Your card details are never stored on our servers.
+      </div>
+      <div class="form-grid">
+        <div class="form-group form-full">
+          <label class="form-label" for="p-card">Card Number</label>
+          <input type="text" id="p-card" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="p-exp">Expiry Date</label>
+          <input type="text" id="p-exp" class="form-input" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="p-cvv">CVV</label>
+          <input type="text" id="p-cvv" class="form-input" placeholder="123" maxlength="4">
+        </div>
+        <div class="form-group form-full">
+          <label class="form-label" for="p-name">Name on Card</label>
+          <input type="text" id="p-name" class="form-input" placeholder="As it appears on your card">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-order" id="order-btn" onclick="placeOrder()" disabled>
+      <span id="order-btn-text">Calculate Shipping to Continue</span>
+    </button>
+
+    <p style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:16px;line-height:1.6;">
+      By placing your order you agree to Shoppizzy's
+      <a href="/terms-of-service.html" style="color:var(--text);">Terms of Service</a> and
+      <a href="/privacy-policy.html" style="color:var(--text);">Privacy Policy</a>.
+    </p>
+  </div>
+
+  <!-- RIGHT: ORDER SUMMARY -->
+  <div class="order-summary">
+    <div class="summary-title">Order Summary</div>
+
+    <div class="summary-item" id="summary-item">
+      <div class="summary-img" id="summary-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--muted);">✦</div>
+      </div>
+      <div class="summary-item-info">
+        <div class="summary-item-name" id="summary-name">Loading...</div>
+        <div class="summary-item-meta" id="summary-meta"></div>
+      </div>
+      <div class="summary-item-price" id="summary-price">—</div>
+    </div>
+
+    <div class="summary-line">
+      <span class="label">Subtotal</span>
+      <span class="value" id="summary-subtotal">—</span>
+    </div>
+    <div class="summary-line">
+      <span class="label">Shipping (UPS Ground)</span>
+      <span class="value" id="summary-shipping">—</span>
+    </div>
+    <div class="summary-line">
+      <span class="label">Tax</span>
+      <span class="value">Calculated at order</span>
+    </div>
+
+    <div class="summary-total">
+      <span class="label">Total</span>
+      <span class="value" id="summary-total">—</span>
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-item"><span>🔒</span>Secure<br>Checkout</div>
+      <div class="trust-item"><span>🚚</span>UPS<br>Tracked</div>
+      <div class="trust-item"><span>↩️</span>Easy<br>Returns</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
+  let productData = null;
+  let shippingRate = null;
+  let sellerZip = '80019'; // default, will be overridden by seller's zip
+
+  window.addEventListener('load', async () => {
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id');
+
+    if (!productId) { window.location.href = '/'; return; }
+
+    try {
+      const res = await fetch(`${WORKER_URL}/api/products/${encodeURIComponent(productId)}`);
+      const data = await res.json();
+      if (!data.product) throw new Error();
+      productData = data.product;
+      renderSummary(productData);
+
+      // Get seller's ship-from ZIP
+      if (productData.seller_id) {
+        try {
+          const sellerRes = await fetch(`${WORKER_URL}/api/sellers/${productData.seller_id}/info`);
+          const sellerData = await sellerRes.json();
+          if (sellerData.ship_from_zip) sellerZip = sellerData.ship_from_zip;
+        } catch(e) {}
+      }
+    } catch(e) {
+      window.location.href = '/';
+    }
+  });
+
+  function renderSummary(p) {
+    const price = parseFloat(p.price || 0);
+    document.getElementById('summary-name').textContent = p.title;
+    document.getElementById('summary-meta').textContent = `Qty: 1 · ${p.item_condition || 'New'}`;
+    document.getElementById('summary-price').textContent = `$${price.toFixed(2)}`;
+    document.getElementById('summary-subtotal').textContent = `$${price.toFixed(2)}`;
+    document.getElementById('summary-total').textContent = `$${price.toFixed(2)}`;
+    if (p.imageUrl) {
+      document.getElementById('summary-img').innerHTML = `<img src="${p.imageUrl}" alt="${escHtml(p.title)}">`;
+    }
+  }
+
+  function updateTotal() {
+    if (!productData) return;
+    const price = parseFloat(productData.price || 0);
+    const shipping = shippingRate ? shippingRate.cost : 0;
+    const total = price + shipping;
+    document.getElementById('summary-shipping').textContent = shippingRate ? `$${shippingRate.cost.toFixed(2)}` : '—';
+    document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+  }
+
+  function onZipInput(val) {
+    if (val.length === 5) {
+      document.getElementById('ship-zip-calc').value = val;
+      calcShipping();
+    }
+  }
+
+  async function calcShipping() {
+    const zip = (document.getElementById('ship-zip-calc').value || document.getElementById('s-zip').value).trim();
+    const resultEl = document.getElementById('ship-result');
+    const btn = document.getElementById('calc-btn');
+    const orderBtn = document.getElementById('order-btn');
+    const orderBtnText = document.getElementById('order-btn-text');
+
+    if (!zip || zip.length !== 5 || !/^\d{5}$/.test(zip)) {
+      resultEl.textContent = 'Please enter a valid 5-digit ZIP code.';
+      resultEl.className = 'shipping-result error';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Calculating...';
+    resultEl.textContent = 'Getting UPS Ground rate...';
+    resultEl.className = 'shipping-result';
+
+    // Sync ZIP fields
+    document.getElementById('s-zip').value = zip;
+    document.getElementById('ship-zip-calc').value = zip;
+
+    try {
+      const weight = productData?.weight_grams || 227;
+      const length = productData?.length_in || 6;
+      const width = productData?.width_in || 6;
+      const height = productData?.height_in || 4;
+
+      const res = await fetch(`${WORKER_URL}/api/grocery/shipping`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content: {
+            shippingAddressPostalCode: zip,
+            shippingAddressCountry: 'US',
+            shipFromPostalCode: sellerZip,
+            items: [{ weight, quantity: 1, length_in: length, width_in: width, height_in: height }]
+          }
+        })
+      });
+
+      const data = await res.json();
+      const rate = data.rates?.[0];
+
+      if (rate && rate.cost > 0) {
+        shippingRate = { cost: rate.cost, zip };
+        resultEl.textContent = `UPS Ground to ${zip}: $${rate.cost.toFixed(2)} (${rate.guaranteedDaysToDelivery || 5} business days)`;
+        resultEl.className = 'shipping-result success';
+      } else {
+        shippingRate = { cost: 9.99, zip };
+        resultEl.textContent = `UPS Ground to ${zip}: $9.99 (estimated)`;
+        resultEl.className = 'shipping-result';
+      }
+    } catch {
+      shippingRate = { cost: 9.99, zip };
+      resultEl.textContent = `UPS Ground: $9.99 (estimated)`;
+      resultEl.className = 'shipping-result';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Calculate';
+    updateTotal();
+    orderBtn.disabled = false;
+    orderBtnText.textContent = `Place Order — $${(parseFloat(productData?.price || 0) + shippingRate.cost).toFixed(2)}`;
+  }
+
+  async function placeOrder() {
+    const btn = document.getElementById('order-btn');
+    const btnText = document.getElementById('order-btn-text');
+    const errorEl = document.getElementById('checkout-error');
+
+    errorEl.style.display = 'none';
+
+    // Validate
+    const email = document.getElementById('c-email').value.trim();
+    const firstName = document.getElementById('c-first').value.trim();
+    const lastName = document.getElementById('c-last').value.trim();
+    const address = document.getElementById('s-address').value.trim();
+    const city = document.getElementById('s-city').value.trim();
+    const state = document.getElementById('s-state').value;
+    const zip = document.getElementById('s-zip').value.trim();
+    const card = document.getElementById('p-card').value.replace(/\s/g, '');
+    const exp = document.getElementById('p-exp').value.trim();
+    const cvv = document.getElementById('p-cvv').value.trim();
+    const nameOnCard = document.getElementById('p-name').value.trim();
+
+    if (!email || !firstName || !lastName || !address || !city || !state || !zip) {
+      showError('Please fill in all required fields.');
+      return;
+    }
+
+    if (!shippingRate) {
+      showError('Please calculate shipping before placing your order.');
+      return;
+    }
+
+    if (!card || card.length < 15 || !exp || !cvv || !nameOnCard) {
+      showError('Please enter your complete payment information.');
+      return;
+    }
+
+    btn.disabled = true;
+    btnText.textContent = 'Processing...';
+
+    try {
+      const res = await fetch(`${WORKER_URL}/api/orders/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          product_id: productData.id,
+          seller_id: productData.seller_id,
+          quantity: 1,
+          product_price: parseFloat(productData.price),
+          shipping_cost: shippingRate.cost,
+          total: parseFloat(productData.price) + shippingRate.cost,
+          customer: { email, first_name: firstName, last_name: lastName, phone: document.getElementById('c-phone').value.trim() },
+          shipping_address: { address1: address, address2: document.getElementById('s-address2').value.trim(), city, state, zip, country: 'US' },
+          ship_from_zip: sellerZip,
+          carrier: 'UPS',
+          service: 'Ground'
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        document.getElementById('checkout-wrap').style.display = 'none';
+        const successEl = document.getElementById('success-state');
+        successEl.style.display = 'block';
+        document.getElementById('success-order-id').textContent = `Order #${data.order_id}`;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        showError(data.error || 'Order failed. Please try again.');
+        btn.disabled = false;
+        btnText.textContent = `Place Order — $${(parseFloat(productData?.price || 0) + shippingRate.cost).toFixed(2)}`;
+      }
+    } catch(err) {
+      showError('Network error. Please try again.');
+      btn.disabled = false;
+      btnText.textContent = `Place Order — $${(parseFloat(productData?.price || 0) + shippingRate.cost).toFixed(2)}`;
+    }
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('checkout-error');
+    el.textContent = msg;
+    el.style.display = 'block';
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function formatCard(input) {
+    let val = input.value.replace(/\D/g, '').substring(0, 16);
+    input.value = val.replace(/(.{4})/g, '$1 ').trim();
+  }
+
+  function formatExpiry(input) {
+    let val = input.value.replace(/\D/g, '').substring(0, 4);
+    if (val.length >= 2) val = val.substring(0, 2) + '/' + val.substring(2);
+    input.value = val;
+  }
+
+  function escHtml(str) {
+    return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+</script>
+
+</body>
+</html>
