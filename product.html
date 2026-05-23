@@ -932,47 +932,11 @@
     if (buyLink) {
       // Affiliate product - direct link
       btnBuy.href = buyLink;
-    } else if (p.square_item_id) {
-      // Square product - show shipping calc and create checkout on click
-      document.getElementById('shipping-calc').style.display = 'block';
-      document.getElementById('quantity-wrap').style.display = 'block';
-      btnBuy.href = '#';
-      btnBuy.addEventListener('click', async (e) => {
-        e.preventDefault();
-        const zip = document.getElementById('ship-zip').value.trim();
-        if (!zip || zip.length !== 5) {
-          showToast('Please enter your ZIP code first to calculate shipping.');
-          document.getElementById('ship-zip').focus();
-          return;
-        }
-        const span = btnBuy.querySelector('span');
-        span.textContent = 'Processing...';
-        btnBuy.style.pointerEvents = 'none';
-        try {
-          const res = await fetch(`${WORKER_URL}/api/checkout/square`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              square_item_id: p.square_item_id,
-              title: p.title,
-              quantity: parseInt(document.getElementById('item-qty').value) || 1,
-              shipping: window._shippingRate || null
-            })
-          });
-          const data = await res.json();
-          if (data.checkoutUrl) {
-            window.location.href = data.checkoutUrl;
-          } else {
-            span.textContent = 'Buy Now';
-            btnBuy.style.pointerEvents = 'auto';
-            showToast('Checkout error. Please try again.');
-          }
-        } catch(err) {
-          span.textContent = 'Buy Now';
-          btnBuy.style.pointerEvents = 'auto';
-          showToast('Network error. Please try again.');
-        }
-      });
+    } else if (p.source === 'seller' || p.source === 'square' || p.type === 'direct') {
+      // Direct/seller product - go to checkout page
+      btnBuy.href = `/checkout.html?id=${encodeURIComponent(p.id)}`;
+      btnBuy.target = '_self';
+      btnBuy.removeAttribute('rel');
     } else {
       btnBuy.href = '#';
       btnBuy.style.display = 'none';
