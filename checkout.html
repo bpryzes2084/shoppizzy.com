@@ -598,12 +598,14 @@
       productData = data.product;
       renderSummary(productData);
 
-      // Get seller's ship-from ZIP
-      if (productData.seller_id) {
+      // Get ship-from ZIP — from product data or seller profile
+      if (productData.ship_from_zip) {
+        sellerZip = productData.ship_from_zip;
+      } else if (productData.seller_id) {
         try {
           const sellerRes = await fetch(`${WORKER_URL}/api/sellers/${productData.seller_id}/info`);
           const sellerData = await sellerRes.json();
-          if (sellerData.ship_from_zip) sellerZip = sellerData.ship_from_zip;
+          if (sellerData.seller?.ship_from_zip) sellerZip = sellerData.seller.ship_from_zip;
         } catch(e) {}
       }
     } catch(e) {
