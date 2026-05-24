@@ -927,7 +927,8 @@
     }
 
     // Buy Now button
-    const buyLink = p.buyUrl || p.affiliate_link || '';
+    const buyLink = (p.source === 'seller' || p.source === 'square' || p.type === 'direct')
+      ? '' : (p.buyUrl || p.affiliate_link || '');
     const btnBuy = document.getElementById('btn-buy');
     if (buyLink) {
       // Affiliate product - direct link
