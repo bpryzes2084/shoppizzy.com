@@ -825,20 +825,25 @@
           <label class="form-label" for="p_category">Category <span>*</span></label>
           <select id="p_category">
             <option value="">Select category</option>
-            <option value="cat_electronics">Electronics</option>
-            <option value="cat_home_garden">Home &amp; Garden</option>
+            <option value="cat_art">Art &amp; Collectibles</option>
+            <option value="cat_automotive">Automotive</option>
+            <option value="cat_baby">Baby &amp; Kids</option>
+            <option value="cat_bath_beauty">Bath &amp; Beauty</option>
+            <option value="cat_books">Books &amp; Media</option>
             <option value="cat_clothing">Clothing &amp; Apparel</option>
-            <option value="cat_beauty">Beauty &amp; Personal Care</option>
+            <option value="cat_craft">Craft Supplies &amp; Tools</option>
+            <option value="cat_electronics">Electronics</option>
+            <option value="cat_food">Food &amp; Grocery</option>
+            <option value="cat_health">Health &amp; Household</option>
+            <option value="cat_home_garden">Home &amp; Garden</option>
+            <option value="cat_jewelry">Jewelry &amp; Accessories</option>
+            <option value="cat_office">Office &amp; School</option>
+            <option value="cat_paper_party">Paper &amp; Party Supplies</option>
+            <option value="cat_pets">Pet Supplies</option>
             <option value="cat_sports">Sports &amp; Outdoors</option>
             <option value="cat_toys">Toys &amp; Games</option>
-            <option value="cat_books">Books &amp; Media</option>
-            <option value="cat_food">Food &amp; Grocery</option>
-            <option value="cat_automotive">Automotive</option>
-            <option value="cat_health">Health &amp; Household</option>
-            <option value="cat_pets">Pet Supplies</option>
-            <option value="cat_office">Office &amp; School</option>
-            <option value="cat_jewelry">Jewelry &amp; Watches</option>
-            <option value="cat_baby">Baby &amp; Kids</option>
+            <option value="cat_vintage">Vintage</option>
+            <option value="cat_wedding">Wedding &amp; Party</option>
             <option value="cat_other">Other</option>
           </select>
         </div>
@@ -869,8 +874,26 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="p_weight">Weight (grams)</label>
-          <input type="number" id="p_weight" placeholder="227" min="0" value="227">
+          <label class="form-label" for="p_weight">Weight (lbs) <span>*</span></label>
+          <input type="number" id="p_weight" placeholder="0.5" min="0" step="0.1" value="0.5">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Package Dimensions (inches) <span>*</span></label>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+            <div>
+              <label style="font-size:0.65rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px;">Length</label>
+              <input type="number" id="p_length" placeholder="12" min="0.1" step="0.1" value="6">
+            </div>
+            <div>
+              <label style="font-size:0.65rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px;">Width</label>
+              <input type="number" id="p_width" placeholder="6" min="0.1" step="0.1" value="6">
+            </div>
+            <div>
+              <label style="font-size:0.65rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px;">Height</label>
+              <input type="number" id="p_height" placeholder="4" min="0.1" step="0.1" value="4">
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
@@ -961,11 +984,13 @@
         <div style="margin-bottom:16px;">
           <div style="font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--charcoal);margin-bottom:8px;">Category Codes</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:0.75rem;color:var(--muted);">
-            <span>cat_electronics</span><span>cat_home_garden</span><span>cat_clothing</span>
-            <span>cat_beauty</span><span>cat_sports</span><span>cat_toys</span>
-            <span>cat_books</span><span>cat_food</span><span>cat_automotive</span>
-            <span>cat_health</span><span>cat_pets</span><span>cat_office</span>
-            <span>cat_jewelry</span><span>cat_baby</span><span>cat_other</span>
+            <span>cat_art</span><span>cat_automotive</span><span>cat_baby</span>
+            <span>cat_bath_beauty</span><span>cat_books</span><span>cat_clothing</span>
+            <span>cat_craft</span><span>cat_electronics</span><span>cat_food</span>
+            <span>cat_health</span><span>cat_home_garden</span><span>cat_jewelry</span>
+            <span>cat_office</span><span>cat_paper_party</span><span>cat_pets</span>
+            <span>cat_sports</span><span>cat_toys</span><span>cat_vintage</span>
+            <span>cat_wedding</span><span>cat_other</span><span></span>
           </div>
         </div>
         <button onclick="downloadTemplate()" class="btn-primary" style="padding:14px 32px;">
@@ -1300,6 +1325,7 @@
     const imageUrlsRaw = document.getElementById('p_image_urls').value.trim();
     const imageUrls = imageUrlsRaw ? imageUrlsRaw.split(',').map(u => u.trim()).filter(Boolean) : [];
 
+    const weightLbs = parseFloat(document.getElementById('p_weight').value) || 0.5;
     const payload = {
       seller_id: sellerId,
       title,
@@ -1310,7 +1336,11 @@
       low_stock_threshold: parseInt(document.getElementById('p_low_stock').value) || 5,
       sku: document.getElementById('p_sku').value.trim(),
       item_condition: condition,
-      weight_grams: parseInt(document.getElementById('p_weight').value) || 227,
+      weight_grams: Math.round(weightLbs * 453.592),
+      weight_lbs: weightLbs,
+      length_in: parseFloat(document.getElementById('p_length').value) || 6,
+      width_in: parseFloat(document.getElementById('p_width').value) || 6,
+      height_in: parseFloat(document.getElementById('p_height').value) || 4,
       square_item_id: document.getElementById('p_square_id').value.trim(),
       image_urls: JSON.stringify(imageUrls)
     };
@@ -1346,7 +1376,10 @@
     document.getElementById('p_category').value = '';
     document.getElementById('p_condition').value = 'new';
     document.getElementById('p_low_stock').value = '5';
-    document.getElementById('p_weight').value = '227';
+    document.getElementById('p_weight').value = '0.5';
+    document.getElementById('p_length').value = '6';
+    document.getElementById('p_width').value = '6';
+    document.getElementById('p_height').value = '4';
     document.getElementById('image-preview-grid').innerHTML = '';
     uploadedImageUrls = [];
     document.getElementById('upload-progress').style.display = 'none';
@@ -1491,7 +1524,7 @@
   const CSV_HEADERS = ['title','description','price','category','condition','stock_quantity','weight_lbs','sku','image_urls'];
   const REQUIRED_HEADERS = ['title','description','price','category','condition','stock_quantity','weight_lbs'];
   const VALID_CONDITIONS = ['new','like_new','used','refurbished'];
-  const VALID_CATEGORIES = ['cat_electronics','cat_home_garden','cat_clothing','cat_beauty','cat_sports','cat_toys','cat_books','cat_food','cat_automotive','cat_health','cat_pets','cat_office','cat_jewelry','cat_baby','cat_other'];
+  const VALID_CATEGORIES = ['cat_art','cat_automotive','cat_baby','cat_bath_beauty','cat_books','cat_clothing','cat_craft','cat_electronics','cat_food','cat_health','cat_home_garden','cat_jewelry','cat_office','cat_paper_party','cat_pets','cat_sports','cat_toys','cat_vintage','cat_wedding','cat_other'];
 
   let csvData = [];
 
