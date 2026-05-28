@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shoppizzy — Curated Luxury Shopping</title>
-  <meta name="description" content="Discover curated luxury and everyday essentials from the world's finest merchants.">
+  <title>Shoppizzy — Shop Millions of Products</title>
+  <meta name="description" content="Shop millions of products from top brands and independent sellers. Electronics, fashion, home goods, beauty and more.">
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V1ZKKFFZL"></script>
   <script>
@@ -17,663 +17,148 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --black: #000000;
-      --charcoal: #2b2b2b;
-      --cream: #f8f7f4;
-      --white: #ffffff;
-      --gold: #c5a572;
-      --gold-light: #d4b88a;
-      --text: #333333;
-      --muted: #888888;
-      --border: #e5e5e5;
+      --black: #000000; --charcoal: #2b2b2b; --cream: #f8f7f4; --white: #ffffff;
+      --gold: #c5a572; --gold-light: #d4b88a; --text: #333333; --muted: #888888; --border: #e5e5e5;
     }
-
-    body {
-      font-family: 'Lato', sans-serif;
-      background: var(--white);
-      color: var(--text);
-      line-height: 1.7;
-      font-weight: 300;
-      letter-spacing: 0.3px;
-    }
-
-    header {
-      background: rgba(255,255,255,0.98);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
-
-    .header-main {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--black);
-      text-decoration: none;
-      letter-spacing: 2px;
-      cursor: pointer;
-    }
-
+    body { font-family: 'Lato', sans-serif; background: var(--white); color: var(--text); line-height: 1.7; font-weight: 300; letter-spacing: 0.3px; }
+    header { background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+    .header-main { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: 2px; cursor: pointer; }
     .header-nav { display: flex; gap: 40px; align-items: center; }
-
-    .header-nav a {
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.875rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-weight: 400;
-      transition: color 0.3s;
-      position: relative;
-    }
-
+    .header-nav a { color: var(--text); text-decoration: none; font-size: 0.875rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; transition: color 0.3s; position: relative; }
     .header-nav a:hover { color: var(--gold); }
-
-    .header-nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 1px;
-      background: var(--gold);
-      transition: width 0.3s;
-    }
-
+    .header-nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
     .header-nav a:hover::after { width: 100%; }
-
-    .header-nav a.nav-sell {
-      background: var(--black);
-      color: var(--white);
-      padding: 8px 20px;
-      letter-spacing: 1.5px;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .header-nav a.nav-sell:hover { background: var(--gold); color: var(--black); }
-    .header-nav a.nav-sell::after { display: none; }
-
-    /* SEARCH */
     .search-container { padding: 0 24px; }
-
-    .search-box {
-      background: var(--white);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      display: flex;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
-
-    #search-input {
-      flex: 1;
-      border: none;
-      padding: 20px 24px;
-      font-size: 0.95rem;
-      font-family: 'Lato', sans-serif;
-      font-weight: 300;
-      letter-spacing: 0.5px;
-      outline: none;
-    }
-
+    .search-box { background: var(--white); border: 1px solid var(--border); overflow: hidden; display: flex; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    #search-input { flex: 1; border: none; padding: 20px 24px; font-size: 0.95rem; font-family: 'Lato', sans-serif; font-weight: 300; letter-spacing: 0.5px; outline: none; }
     #search-input::placeholder { color: var(--muted); font-style: italic; }
-
-    .search-btn {
-      background: var(--black);
-      border: none;
-      padding: 20px 40px;
-      color: var(--white);
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.3s;
-      font-weight: 400;
-    }
-
+    .search-btn { background: var(--black); border: none; padding: 20px 40px; color: var(--white); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.3s; font-weight: 400; }
     .search-btn:hover { background: var(--charcoal); }
-
-    .product-count {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 0.9rem;
-      color: var(--muted);
-      letter-spacing: 0.5px;
-    }
-
+    .product-count { text-align: center; margin-top: 16px; font-size: 0.9rem; color: var(--muted); letter-spacing: 0.5px; }
     .product-count .count-number { color: var(--gold); font-weight: 400; }
-
-    /* HOMEPAGE LAYOUT WITH SIDEBAR */
-    .homepage-layout {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 40px;
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 40px;
-      align-items: start;
-    }
-
-    /* MERCHANT SIDEBAR */
-    .merchant-sidebar {
-      position: sticky;
-      top: 90px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      margin-bottom: 40px;
-    }
-
-    .sidebar-title {
-      background: var(--black);
-      color: var(--white);
-      padding: 14px 18px;
-      font-size: 0.68rem;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      font-weight: 400;
-    }
-
-    .sidebar-section-label {
-      padding: 10px 18px 6px;
-      font-size: 0.62rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      background: var(--cream);
-    }
-
-    .sidebar-section-label:first-of-type { border-top: none; }
-
-    .merchant-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 18px;
-      cursor: pointer;
-      border-bottom: 1px solid var(--border);
-      transition: all 0.2s;
-      color: var(--text);
-      text-decoration: none;
-    }
-
+    .homepage-layout { max-width: 1400px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
+    .merchant-sidebar { position: sticky; top: 90px; background: var(--white); border: 1px solid var(--border); margin-bottom: 40px; }
+    .sidebar-title { background: var(--black); color: var(--white); padding: 14px 18px; font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 400; }
+    .merchant-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; cursor: pointer; border-bottom: 1px solid var(--border); transition: all 0.2s; color: var(--text); text-decoration: none; }
     .merchant-item:last-child { border-bottom: none; }
-
-    .merchant-item:hover {
-      background: var(--cream);
-      padding-left: 22px;
-      color: var(--black);
-    }
-
+    .merchant-item:hover { background: var(--cream); padding-left: 22px; color: var(--black); }
     .merchant-item.featured { background: var(--cream); }
     .merchant-item.featured:hover { background: #f0ece4; padding-left: 22px; }
-
     .merchant-name-wrap { display: flex; align-items: center; gap: 6px; }
-
-    .merchant-star { color: var(--gold); font-size: 0.55rem; flex-shrink: 0; }
-
-    .merchant-name {
-      font-size: 0.82rem;
-      font-weight: 400;
-      letter-spacing: 0.2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 140px;
-    }
-
-    .merchant-arrow { font-size: 0.7rem; color: var(--muted); transition: color 0.2s, transform 0.2s; }
-    .merchant-item:hover .merchant-arrow { color: var(--gold); transform: translateX(3px); }
-
-    .sidebar-loading { padding: 20px 18px; font-size: 0.78rem; color: var(--muted); text-align: center; }
-
-    .sidebar-spinner {
-      width: 18px; height: 18px;
-      border: 2px solid var(--border);
-      border-top-color: var(--gold);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 8px;
-    }
-
-    .sidebar-search { padding: 10px 14px; border-bottom: 1px solid var(--border); }
-
-    .sidebar-search input {
-      width: 100%;
-      border: 1px solid var(--border);
-      padding: 7px 11px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 300;
-      outline: none;
-      background: var(--cream);
-      color: var(--text);
-    }
-
-    .sidebar-search input:focus { border-color: var(--gold); }
-
-    .dynamic-merchant-list { max-height: 300px; overflow-y: auto; }
-    .dynamic-merchant-list::-webkit-scrollbar { width: 3px; }
-    .dynamic-merchant-list::-webkit-scrollbar-thumb { background: var(--border); }
-
-    /* CATEGORIES SECTION */
+    .merchant-star { color: var(--gold); font-size: 0.85rem; flex-shrink: 0; }
+    .merchant-name { font-size: 0.82rem; font-weight: 400; letter-spacing: 0.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
     .categories-section { margin-bottom: 60px; }
     .section-header { text-align: center; margin-bottom: 40px; }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 500;
-      color: var(--black);
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-    }
-
+    .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 500; color: var(--black); letter-spacing: 1px; margin-bottom: 12px; }
     .section-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--muted); font-weight: 300; }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-
-    .category-card {
-      background: var(--white);
-      padding: 40px 16px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .category-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--cream);
-      transform: scaleY(0);
-      transform-origin: bottom;
-      transition: transform 0.3s;
-      z-index: 0;
-    }
-
+    .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .category-card { background: var(--white); padding: 40px 16px; text-align: center; cursor: pointer; transition: all 0.3s; border: none; position: relative; overflow: hidden; }
+    .category-card::before { content: ''; position: absolute; inset: 0; background: var(--cream); transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s; z-index: 0; }
     .category-card:hover::before { transform: scaleY(1); }
     .category-card > * { position: relative; z-index: 1; }
-
     .cat-icon { font-size: 1.8rem; margin-bottom: 12px; display: block; }
-
-    .cat-name {
-      font-size: 0.78rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--text);
-      font-weight: 400;
-      margin-bottom: 6px;
-    }
-
+    .cat-name { font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 400; margin-bottom: 6px; }
     .cat-count { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.5px; font-weight: 400; }
-    .cat-count-loading { font-size: 0.68rem; color: var(--muted); }
-
-    /* SELLER BANNER */
-    .seller-banner {
-      background: var(--black);
-      color: var(--white);
-      padding: 48px 32px;
-      text-align: center;
-      margin: 0 0 60px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .seller-banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(197,165,114,0.04) 40px, rgba(197,165,114,0.04) 80px);
-    }
-
+    .seller-banner { background: var(--black); color: var(--white); padding: 48px 32px; text-align: center; margin: 0 0 60px; position: relative; overflow: hidden; }
+    .seller-banner::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(197,165,114,0.04) 40px, rgba(197,165,114,0.04) 80px); }
     .seller-banner-content { position: relative; z-index: 1; }
-
-    .seller-banner h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 500;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
-
+    .seller-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 500; letter-spacing: 2px; margin-bottom: 8px; }
     .seller-banner p { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
-
     .seller-banner-perks { display: flex; justify-content: center; gap: 32px; margin-bottom: 24px; flex-wrap: wrap; }
-
     .seller-banner-perk { font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
     .seller-banner-perk::before { content: '✦  '; }
-
-    .btn-sell {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--black);
-      text-decoration: none;
-      padding: 12px 40px;
-      font-size: 0.78rem;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      font-weight: 700;
-      transition: all 0.3s;
-    }
-
+    .btn-sell { display: inline-block; background: var(--gold); color: var(--black); text-decoration: none; padding: 12px 40px; font-size: 0.78rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; transition: all 0.3s; }
     .btn-sell:hover { background: var(--white); }
-
-    /* PRODUCT GRID */
     .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 32px; }
-
-    .product-card {
-      background: var(--white);
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s;
-      height: 100%;
-    }
-
+    .product-card { background: var(--white); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: all 0.3s; height: 100%; }
     .product-card:hover { transform: translateY(-5px); }
-
-    .product-img-wrap {
-      width: 100%;
-      height: 300px;
-      position: relative;
-      background: var(--cream);
-      overflow: hidden;
-      margin-bottom: 16px;
-      flex-shrink: 0;
-    }
-
+    .product-img-wrap { width: 100%; height: 300px; position: relative; background: var(--cream); overflow: hidden; margin-bottom: 16px; flex-shrink: 0; }
     .product-img-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
     .product-card:hover .product-img-wrap img { transform: scale(1.05); }
-
     .product-img-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--muted); }
-
-    .source-badge {
-      position: absolute;
-      top: 12px; left: 12px;
-      background: var(--white);
-      color: var(--black);
-      font-size: 0.62rem;
-      font-weight: 400;
-      letter-spacing: 1.5px;
-      padding: 5px 12px;
-      text-transform: uppercase;
-    }
-
-    .sale-badge {
-      position: absolute;
-      top: 12px; right: 12px;
-      background: var(--gold);
-      color: var(--white);
-      font-size: 0.62rem;
-      font-weight: 400;
-      letter-spacing: 1.5px;
-      padding: 5px 12px;
-      text-transform: uppercase;
-    }
-
+    .source-badge { position: absolute; top: 12px; left: 12px; background: var(--white); color: var(--black); font-size: 0.62rem; font-weight: 400; letter-spacing: 1.5px; padding: 5px 12px; text-transform: uppercase; }
+    .sale-badge { position: absolute; top: 12px; right: 12px; background: var(--gold); color: var(--white); font-size: 0.62rem; font-weight: 400; letter-spacing: 1.5px; padding: 5px 12px; text-transform: uppercase; }
     .product-info { padding: 0 4px; display: flex; flex-direction: column; flex: 1; }
-
     .product-merchant { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; font-weight: 400; }
-
-    .product-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-weight: 400;
-      color: var(--black);
-      line-height: 1.4;
-      margin-bottom: 10px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      height: 3em;
-      flex-shrink: 0;
-    }
-
+    .product-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 400; color: var(--black); line-height: 1.4; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 3em; flex-shrink: 0; }
     .product-price { display: flex; align-items: baseline; gap: 10px; margin-top: auto; }
     .price-sale { font-size: 1.05rem; color: var(--gold); font-weight: 400; }
     .price-regular { font-size: 1.05rem; color: var(--black); font-weight: 400; }
     .price-was { font-size: 0.85rem; color: var(--muted); text-decoration: line-through; }
-
-    /* RESULTS SECTION */
     #results-section { display: none; max-width: 1400px; margin: 40px auto 100px; padding: 0 40px; }
     #results-section.active { display: block; }
-
     .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-
     .results-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--black); }
-
-    .results-controls { display: flex; gap: 16px; }
-
     .sort-select { border: 1px solid var(--border); padding: 10px 16px; font-family: 'Lato', sans-serif; font-size: 0.85rem; background: var(--white); cursor: pointer; outline: none; font-weight: 300; }
-
-    /* PAGINATION */
     .pagination-container { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border); }
     .pagination-info { text-align: center; color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
     .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
-
-    .page-btn {
-      min-width: 44px; height: 44px;
-      border: 1px solid var(--border);
-      background: var(--white);
-      color: var(--text);
-      font-family: 'Lato', sans-serif;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 16px;
-      font-weight: 300;
-    }
-
+    .page-btn { min-width: 44px; height: 44px; border: 1px solid var(--border); background: var(--white); color: var(--text); font-family: 'Lato', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; padding: 0 16px; font-weight: 300; }
     .page-btn:hover:not(.active):not(:disabled) { background: var(--cream); border-color: var(--gold); }
     .page-btn.active { background: var(--black); color: var(--white); border-color: var(--black); font-weight: 400; }
     .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
     .page-ellipsis { color: var(--muted); padding: 0 8px; }
-
-    /* FOOTER */
     footer { background: var(--black); color: rgba(255,255,255,0.7); padding: 80px 40px 40px; margin-top: 120px; }
-
     .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; margin-bottom: 60px; }
-
     .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); margin-bottom: 20px; font-weight: 500; letter-spacing: 1px; }
-
     .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; margin-bottom: 12px; transition: color 0.3s; }
     .footer-col a:hover { color: var(--gold); }
-
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; text-align: center; font-size: 0.75rem; letter-spacing: 1px; max-width: 1400px; margin: 0 auto; }
-
-    /* LOADING/EMPTY */
     .loading-state, .empty-state { text-align: center; padding: 80px 40px; color: var(--muted); }
-
     .loading-spinner { width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: var(--black); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
-
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* CHAT WIDGET */
     .chat-widget-container { position: fixed; bottom: 24px; right: 24px; z-index: 10000; }
-
-    .chat-button {
-      width: 64px; height: 64px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%);
-      border: 2px solid var(--gold);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
-    }
-
-    .chat-button:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(197,165,114,0.4); }
+    .chat-button { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%); border: 2px solid var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: all 0.3s ease; }
+    .chat-button:hover { transform: scale(1.1); }
     .chat-button svg { width: 28px; height: 28px; fill: var(--gold); }
-
-    .chat-window {
-      position: fixed;
-      bottom: 100px; right: 24px;
-      width: 400px;
-      max-width: calc(100vw - 48px);
-      height: 600px;
-      max-height: calc(100vh - 140px);
-      background: var(--white);
-      border-radius: 12px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .chat-window.open { display: flex; animation: slideUp 0.3s ease; }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .chat-header {
-      background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%);
-      color: var(--white);
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 2px solid var(--gold);
-    }
-
+    .chat-window { position: fixed; bottom: 100px; right: 24px; width: 400px; max-width: calc(100vw - 48px); height: 600px; max-height: calc(100vh - 140px); background: var(--white); border-radius: 12px; box-shadow: 0 8px 40px rgba(0,0,0,0.2); display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border); }
+    .chat-window.open { display: flex; }
+    .chat-header { background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%); color: var(--white); padding: 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--gold); }
     .chat-header-content { display: flex; align-items: center; gap: 12px; }
-
     .chat-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-
-    .chat-header-text h3 { font-size: 16px; font-weight: 600; margin: 0; letter-spacing: 0.5px; }
+    .chat-header-text h3 { font-size: 16px; font-weight: 600; margin: 0; }
     .chat-header-text p { font-size: 12px; margin: 2px 0 0 0; color: var(--gold); }
-
-    .chat-close { width: 32px; height: 32px; border: none; background: rgba(255,255,255,0.1); color: var(--white); border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
-    .chat-close:hover { background: rgba(255,255,255,0.2); }
-
+    .chat-close { width: 32px; height: 32px; border: none; background: rgba(255,255,255,0.1); color: var(--white); border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; }
     .chat-messages { flex: 1; overflow-y: auto; padding: 20px; background: var(--cream); display: flex; flex-direction: column; gap: 16px; }
-
-    .message { display: flex; gap: 10px; animation: fadeIn 0.3s ease; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    .message { display: flex; gap: 10px; }
     .message.user { flex-direction: row-reverse; }
-
     .message-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
     .message.assistant .message-avatar { background: var(--gold); color: var(--black); }
     .message.user .message-avatar { background: var(--black); color: var(--white); }
-
     .message-content { max-width: 75%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.6; }
     .message.assistant .message-content { background: var(--white); color: var(--text); border: 1px solid var(--border); }
     .message.user .message-content { background: var(--black); color: var(--white); }
-
     .product-cards-chat { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
-
     .product-card-chat { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; gap: 12px; text-decoration: none; color: inherit; transition: all 0.3s; }
-    .product-card-chat:hover { border-color: var(--gold); transform: translateY(-2px); }
-
+    .product-card-chat:hover { border-color: var(--gold); }
     .product-card-chat-image { width: 80px; height: 80px; border-radius: 6px; background: var(--cream); flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .product-card-chat-image img { width: 100%; height: 100%; object-fit: cover; }
     .product-card-chat-placeholder { font-size: 32px; color: var(--muted); }
     .product-card-chat-info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
     .product-card-chat-merchant { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-
     .product-card-chat-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .product-card-chat-price { font-size: 14px; font-weight: 600; color: var(--gold); margin-top: auto; }
-
     .typing-indicator { display: flex; gap: 4px; padding: 12px 16px; background: var(--white); border-radius: 12px; width: fit-content; border: 1px solid var(--border); }
-
     .typing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); animation: typing 1.4s infinite; }
     .typing-dot:nth-child(2) { animation-delay: 0.2s; }
     .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes typing {
-      0%, 60%, 100% { transform: translateY(0); }
-      30% { transform: translateY(-10px); }
-    }
-
+    @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-10px); } }
     .chat-input-container { padding: 16px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 12px; }
-
     .chat-input { flex: 1; border: 1px solid var(--border); border-radius: 24px; padding: 12px 20px; font-size: 14px; font-family: inherit; outline: none; transition: all 0.3s; }
-    .chat-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197,165,114,0.1); }
-
+    .chat-input:focus { border-color: var(--gold); }
     .chat-send { width: 44px; height: 44px; border: none; border-radius: 50%; background: var(--black); color: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; flex-shrink: 0; }
-    .chat-send:hover:not(:disabled) { background: var(--gold); color: var(--black); transform: scale(1.1); }
+    .chat-send:hover:not(:disabled) { background: var(--gold); color: var(--black); }
     .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
     .chat-send svg { width: 20px; height: 20px; fill: currentColor; }
-
     .quick-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-
     .quick-action-btn { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 6px 14px; font-size: 12px; cursor: pointer; transition: all 0.3s; }
     .quick-action-btn:hover { background: var(--cream); border-color: var(--gold); color: var(--gold); }
-
-    .chat-messages::-webkit-scrollbar { width: 6px; }
-    .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-    /* MOBILE */
-    @media (max-width: 900px) {
-      .homepage-layout { grid-template-columns: 1fr; }
-      .merchant-sidebar { position: static; display: none; }
-    }
-
-    @media (max-width: 768px) {
-      .header-main { padding: 16px 20px; }
-      .header-nav { display: none; }
-      .homepage-layout { padding: 0 20px; }
-      .category-grid { grid-template-columns: repeat(2, 1fr); }
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
-      .search-container { padding: 0 16px !important; margin: 30px auto 50px !important; }
-      .search-box { width: 100%; }
-      #search-input { padding: 16px 16px !important; font-size: 0.9rem; }
-      .search-btn { padding: 16px 20px !important; font-size: 0.75rem; white-space: nowrap; }
-      .product-img-wrap { height: 180px !important; }
-      .product-card-chat-image { width: 70px !important; height: 70px !important; }
-      .product-title { font-size: 0.95rem !important; }
-      .chat-window { bottom: 0; right: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; max-height: 100vh; border-radius: 0; }
-      .chat-widget-container { bottom: 16px; right: 16px; }
-      .chat-button { width: 56px; height: 56px; }
-    }
-
-    @media (max-width: 480px) {
-      #search-input { padding: 14px 12px !important; font-size: 0.85rem; }
-      .search-btn { padding: 14px 16px !important; font-size: 0.7rem; }
-      .product-img-wrap { height: 160px !important; }
-      .product-grid { grid-template-columns: 1fr !important; gap: 16px; }
-      .footer-inner { grid-template-columns: 1fr; }
-    }
-
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .category-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
+    @media (max-width: 900px) { .homepage-layout { grid-template-columns: 1fr; } .merchant-sidebar { position: static; display: none; } }
+    @media (max-width: 768px) { .header-main { padding: 16px 20px; } .header-nav { display: none; } .homepage-layout { padding: 0 20px; } .category-grid { grid-template-columns: repeat(2, 1fr); } .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; } .search-container { padding: 0 16px !important; margin: 30px auto 50px !important; } #search-input { padding: 16px !important; } .search-btn { padding: 16px 20px !important; } .product-img-wrap { height: 180px !important; } .chat-window { bottom: 0; right: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; max-height: 100vh; border-radius: 0; } }
+    @media (max-width: 480px) { .product-grid { grid-template-columns: 1fr !important; gap: 16px; } .footer-inner { grid-template-columns: 1fr; } }
+    @media (min-width: 769px) and (max-width: 1024px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
   </style>
 </head>
 <body>
@@ -683,96 +168,66 @@
     <div class="logo" onclick="showHome()">SHOPPIZZY</div>
     <nav class="header-nav">
       <a href="#categories">Categories</a>
-      <a href="/about.html">About</a>
       <a href="/account.html">My Account</a>
-      <a href="/seller/login">Seller Login</a>
-      <a href="/seller/register" class="nav-sell">Sell With Us</a>
     </nav>
   </div>
 </header>
 
-<div class="search-container" style="max-width: 800px; margin: 40px auto 40px; position: static; z-index: auto;">
+<!-- HERO BANNER -->
+<div style="background:var(--black);color:var(--white);padding:80px 40px;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(197,165,114,0.04) 40px,rgba(197,165,114,0.04) 80px);pointer-events:none;"></div>
+  <div style="position:relative;z-index:1;max-width:700px;margin:0 auto;">
+    <p style="font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:400;">&#10022; Welcome to Shoppizzy</p>
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:500;letter-spacing:2px;margin-bottom:16px;line-height:1.2;">Shop Millions of <em style="color:var(--gold);font-style:italic;">Products</em></h1>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:rgba(255,255,255,0.65);margin-bottom:40px;line-height:1.7;">From top brands and independent sellers &#8212; electronics, fashion, home goods, beauty and more.</p>
+    <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;">
+      <div style="text-align:center;"><div style="font-size:1.8rem;margin-bottom:6px;">&#128717;</div><div style="font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);">Millions of Products</div></div>
+      <div style="text-align:center;"><div style="font-size:1.8rem;margin-bottom:6px;">&#128666;</div><div style="font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);">UPS Tracked Shipping</div></div>
+      <div style="text-align:center;"><div style="font-size:1.8rem;margin-bottom:6px;">&#127873;</div><div style="font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);">Free Item with Membership</div></div>
+      <div style="text-align:center;"><div style="font-size:1.8rem;margin-bottom:6px;">&#128274;</div><div style="font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);">Secure Checkout</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-container" style="max-width:800px;margin:40px auto 40px;position:static;z-index:auto;">
   <div class="search-box">
     <input type="text" id="search-input" placeholder="Search for products..." autocomplete="off">
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
-  <!-- ── COUNTS ── -->
-  <div class="product-count" id="product-count">
-    <span class="count-number">—</span> products available
-  </div>
-  <div class="product-count" id="seller-count" style="margin-top:6px;">
-    <span class="count-number" id="seller-item-count">—</span> items available from our sellers
-  </div>
+  <div class="product-count" id="product-count"><span class="count-number">&#8212;</span> products available</div>
+  <div class="product-count" id="seller-count" style="margin-top:6px;"><span class="count-number" id="seller-item-count">&#8212;</span> items available from our sellers</div>
 </div>
 
-<!-- HERO SECTION -->
+<!-- HERO SECTION (categories + banner) -->
 <div id="hero-section">
   <div class="homepage-layout">
 
-    <!-- LEFT: CATEGORY SIDEBAR -->
+    <!-- SIDEBAR -->
     <aside class="merchant-sidebar">
       <div class="sidebar-title">Shop from Sellers</div>
-
-      <div class="merchant-item featured" onclick="searchCategory('Art Collectibles')">
-        <div class="merchant-name-wrap"><span class="merchant-star">🎨</span><span class="merchant-name">Art & Collectibles</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Automotive')">
-        <div class="merchant-name-wrap"><span class="merchant-star">🚗</span><span class="merchant-name">Automotive</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Baby Kids')">
-        <div class="merchant-name-wrap"><span class="merchant-star">👶</span><span class="merchant-name">Baby & Kids</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Bath Beauty')">
-        <div class="merchant-name-wrap"><span class="merchant-star">🛁</span><span class="merchant-name">Bath & Beauty</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Books Media')">
-        <div class="merchant-name-wrap"><span class="merchant-star">📚</span><span class="merchant-name">Books & Media</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Clothing Apparel')">
-        <div class="merchant-name-wrap"><span class="merchant-star">👔</span><span class="merchant-name">Clothing & Apparel</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Craft Supplies')">
-        <div class="merchant-name-wrap"><span class="merchant-star">✂️</span><span class="merchant-name">Craft Supplies & Tools</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Electronics')">
-        <div class="merchant-name-wrap"><span class="merchant-star">🔌</span><span class="merchant-name">Electronics</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Food Grocery')">
-        <div class="merchant-name-wrap"><span class="merchant-star">🛒</span><span class="merchant-name">Food & Grocery</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Health Household')">
-        <div class="merchant-name-wrap"><span class="merchant-star">💊</span><span class="merchant-name">Health & Household</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Home Garden')">
-        <div class="merchant-name-wrap"><span class="merchant-star">🏠</span><span class="merchant-name">Home & Garden</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Jewelry Accessories')">
-        <div class="merchant-name-wrap"><span class="merchant-star">💍</span><span class="merchant-name">Jewelry & Accessories</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Office School')">
-        <div class="merchant-name-wrap"><span class="merchant-star">📎</span><span class="merchant-name">Office & School</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Paper Party')">
-        <div class="merchant-name-wrap"><span class="merchant-star">🎉</span><span class="merchant-name">Paper & Party Supplies</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Pet Supplies')">
-        <div class="merchant-name-wrap"><span class="merchant-star">🐾</span><span class="merchant-name">Pet Supplies</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Sports Outdoors')">
-        <div class="merchant-name-wrap"><span class="merchant-star">⚽</span><span class="merchant-name">Sports & Outdoors</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Toys Games')">
-        <div class="merchant-name-wrap"><span class="merchant-star">🧸</span><span class="merchant-name">Toys & Games</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Vintage')">
-        <div class="merchant-name-wrap"><span class="merchant-star">🏺</span><span class="merchant-name">Vintage</span></div>
-      </div>
-      <div class="merchant-item featured" onclick="searchCategory('Wedding Party')">
-        <div class="merchant-name-wrap"><span class="merchant-star">💒</span><span class="merchant-name">Wedding & Party</span></div>
-      </div>
+      <div class="merchant-item featured" onclick="searchCategory('Art Collectibles')"><div class="merchant-name-wrap"><span class="merchant-star">&#127912;</span><span class="merchant-name">Art &amp; Collectibles</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Automotive')"><div class="merchant-name-wrap"><span class="merchant-star">&#128663;</span><span class="merchant-name">Automotive</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Baby Kids')"><div class="merchant-name-wrap"><span class="merchant-star">&#128118;</span><span class="merchant-name">Baby &amp; Kids</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Bath Beauty')"><div class="merchant-name-wrap"><span class="merchant-star">&#128705;</span><span class="merchant-name">Bath &amp; Beauty</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Books Media')"><div class="merchant-name-wrap"><span class="merchant-star">&#128218;</span><span class="merchant-name">Books &amp; Media</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Clothing Apparel')"><div class="merchant-name-wrap"><span class="merchant-star">&#128084;</span><span class="merchant-name">Clothing &amp; Apparel</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Craft Supplies')"><div class="merchant-name-wrap"><span class="merchant-star">&#9986;&#65039;</span><span class="merchant-name">Craft Supplies &amp; Tools</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Electronics')"><div class="merchant-name-wrap"><span class="merchant-star">&#128268;</span><span class="merchant-name">Electronics</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Food Grocery')"><div class="merchant-name-wrap"><span class="merchant-star">&#128722;</span><span class="merchant-name">Food &amp; Grocery</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Health Household')"><div class="merchant-name-wrap"><span class="merchant-star">&#128138;</span><span class="merchant-name">Health &amp; Household</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Home Garden')"><div class="merchant-name-wrap"><span class="merchant-star">&#127968;</span><span class="merchant-name">Home &amp; Garden</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Jewelry Accessories')"><div class="merchant-name-wrap"><span class="merchant-star">&#128141;</span><span class="merchant-name">Jewelry &amp; Accessories</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Office School')"><div class="merchant-name-wrap"><span class="merchant-star">&#128206;</span><span class="merchant-name">Office &amp; School</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Paper Party')"><div class="merchant-name-wrap"><span class="merchant-star">&#127881;</span><span class="merchant-name">Paper &amp; Party Supplies</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Pet Supplies')"><div class="merchant-name-wrap"><span class="merchant-star">&#128062;</span><span class="merchant-name">Pet Supplies</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Sports Outdoors')"><div class="merchant-name-wrap"><span class="merchant-star">&#9917;</span><span class="merchant-name">Sports &amp; Outdoors</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Toys Games')"><div class="merchant-name-wrap"><span class="merchant-star">&#129528;</span><span class="merchant-name">Toys &amp; Games</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Vintage')"><div class="merchant-name-wrap"><span class="merchant-star">&#127994;</span><span class="merchant-name">Vintage</span></div></div>
+      <div class="merchant-item featured" onclick="searchCategory('Wedding Party')"><div class="merchant-name-wrap"><span class="merchant-star">&#128146;</span><span class="merchant-name">Wedding &amp; Party</span></div></div>
     </aside>
 
-    <!-- RIGHT: CATEGORIES + BANNER -->
+    <!-- RIGHT -->
     <div class="homepage-right">
       <div class="categories-section" id="categories">
         <div class="section-header">
@@ -780,53 +235,53 @@
           <p class="section-subtitle">Millions of products from top merchant brands</p>
         </div>
         <div class="category-grid">
-          <div class="category-card" onclick="searchCategory('Apparel')"><span class="cat-icon">👔</span><div class="cat-name">Apparel</div><div class="cat-count" data-category="Apparel">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Arts & Crafts')"><span class="cat-icon">✂️</span><div class="cat-name">Arts & Crafts</div><div class="cat-count" data-category="Arts & Crafts">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Auto')"><span class="cat-icon">🚗</span><div class="cat-name">Auto</div><div class="cat-count" data-category="Auto">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Baby')"><span class="cat-icon">👶</span><div class="cat-name">Baby</div><div class="cat-count" data-category="Baby">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Bedding & Bath')"><span class="cat-icon">🛁</span><div class="cat-name">Bedding & Bath</div><div class="cat-count" data-category="Bedding & Bath">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Belts & Accessories')"><span class="cat-icon">👔</span><div class="cat-name">Belts & Accessories</div><div class="cat-count" data-category="Belts & Accessories">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Books & Media')"><span class="cat-icon">📚</span><div class="cat-name">Books & Media</div><div class="cat-count" data-category="Books & Media">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Camping & Hiking')"><span class="cat-icon">⛺</span><div class="cat-name">Camping & Hiking</div><div class="cat-count" data-category="Camping & Hiking">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Cell Phones')"><span class="cat-icon">📱</span><div class="cat-name">Cell Phones</div><div class="cat-count" data-category="Cell Phones">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Computer Accessories')"><span class="cat-icon">🖱️</span><div class="cat-name">Computer Accessories</div><div class="cat-count" data-category="Computer Accessories">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Computers')"><span class="cat-icon">💻</span><div class="cat-name">Computers</div><div class="cat-count" data-category="Computers">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Desks & Chairs')"><span class="cat-icon">🪑</span><div class="cat-name">Desks & Chairs</div><div class="cat-count" data-category="Desks & Chairs">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Electronics')"><span class="cat-icon">🔌</span><div class="cat-name">Electronics</div><div class="cat-count" data-category="Electronics">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Fitness')"><span class="cat-icon">💪</span><div class="cat-name">Fitness</div><div class="cat-count" data-category="Fitness">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Food & Beverage')"><span class="cat-icon">🍽️</span><div class="cat-name">Food & Beverage</div><div class="cat-count" data-category="Food & Beverage">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Footwear')"><span class="cat-icon">👟</span><div class="cat-name">Footwear</div><div class="cat-count" data-category="Footwear">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Furniture')"><span class="cat-icon">🛋️</span><div class="cat-name">Furniture</div><div class="cat-count" data-category="Furniture">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Gaming')"><span class="cat-icon">🎮</span><div class="cat-name">Gaming</div><div class="cat-count" data-category="Gaming">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Garden & Outdoor')"><span class="cat-icon">🌱</span><div class="cat-name">Garden & Outdoor</div><div class="cat-count" data-category="Garden & Outdoor">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Handbags & Wallets')"><span class="cat-icon">👜</span><div class="cat-name">Handbags & Wallets</div><div class="cat-count" data-category="Handbags & Wallets">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Hats & Scarves')"><span class="cat-icon">🧢</span><div class="cat-name">Hats & Scarves</div><div class="cat-count" data-category="Hats & Scarves">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Health & Beauty')"><span class="cat-icon">💄</span><div class="cat-name">Health & Beauty</div><div class="cat-count" data-category="Health & Beauty">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Home Decor')"><span class="cat-icon">🖼️</span><div class="cat-name">Home Decor</div><div class="cat-count" data-category="Home Decor">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Home Theatre')"><span class="cat-icon">🎬</span><div class="cat-name">Home Theatre</div><div class="cat-count" data-category="Home Theatre">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Jewelry & Watches')"><span class="cat-icon">⌚</span><div class="cat-name">Jewelry & Watches</div><div class="cat-count" data-category="Jewelry & Watches">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Kitchen & Dining')"><span class="cat-icon">🍴</span><div class="cat-name">Kitchen & Dining</div><div class="cat-count" data-category="Kitchen & Dining">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Lighting')"><span class="cat-icon">💡</span><div class="cat-name">Lighting</div><div class="cat-count" data-category="Lighting">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Luggage & Travel Bags')"><span class="cat-icon">🧳</span><div class="cat-name">Luggage & Travel Bags</div><div class="cat-count" data-category="Luggage & Travel Bags">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Massage & Spa')"><span class="cat-icon">💆</span><div class="cat-name">Massage & Spa</div><div class="cat-count" data-category="Massage & Spa">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Musical Instruments')"><span class="cat-icon">🎸</span><div class="cat-name">Musical Instruments</div><div class="cat-count" data-category="Musical Instruments">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Office Supplies')"><span class="cat-icon">📝</span><div class="cat-name">Office Supplies</div><div class="cat-count" data-category="Office Supplies">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Outdoor & Patio')"><span class="cat-icon">🌿</span><div class="cat-name">Outdoor & Patio</div><div class="cat-count" data-category="Outdoor & Patio">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Pets')"><span class="cat-icon">🐾</span><div class="cat-name">Pets</div><div class="cat-count" data-category="Pets">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Photography')"><span class="cat-icon">📷</span><div class="cat-name">Photography</div><div class="cat-count" data-category="Photography">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Printers & Scanners')"><span class="cat-icon">🖨️</span><div class="cat-name">Printers & Scanners</div><div class="cat-count" data-category="Printers & Scanners">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('School Supplies')"><span class="cat-icon">🎒</span><div class="cat-name">School Supplies</div><div class="cat-count" data-category="School Supplies">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Smart Home')"><span class="cat-icon">🏡</span><div class="cat-name">Smart Home</div><div class="cat-count" data-category="Smart Home">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Sporting Goods')"><span class="cat-icon">⚽</span><div class="cat-name">Sporting Goods</div><div class="cat-count" data-category="Sporting Goods">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Storage & Organization')"><span class="cat-icon">📦</span><div class="cat-name">Storage & Organization</div><div class="cat-count" data-category="Storage & Organization">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Sunglasses')"><span class="cat-icon">🕶️</span><div class="cat-name">Sunglasses</div><div class="cat-count" data-category="Sunglasses">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Tools')"><span class="cat-icon">🔧</span><div class="cat-name">Tools</div><div class="cat-count" data-category="Tools">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Toys')"><span class="cat-icon">🧸</span><div class="cat-name">Toys</div><div class="cat-count" data-category="Toys">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Travel')"><span class="cat-icon">✈️</span><div class="cat-name">Travel</div><div class="cat-count" data-category="Travel">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Vitamins & Supplements')"><span class="cat-icon">💊</span><div class="cat-name">Vitamins & Supplements</div><div class="cat-count" data-category="Vitamins & Supplements">Shop Now</div></div>
-          <div class="category-card" onclick="searchCategory('Yoga & Meditation')"><span class="cat-icon">🧘</span><div class="cat-name">Yoga & Meditation</div><div class="cat-count" data-category="Yoga & Meditation">Shop Now</div></div>
-          <div class="category-card" onclick="document.getElementById('grocery-section').scrollIntoView({behavior:'smooth'})"><span class="cat-icon">🛒</span><div class="cat-name">Grocery</div><div class="cat-count">Shop Now</div></div>
-        </div>
+          <div class="category-card" onclick="searchCategory('Apparel')"><span class="cat-icon">&#128084;</span><div class="cat-name">Apparel</div><div class="cat-count" data-category="Apparel">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Arts & Crafts')"><span class="cat-icon">&#9986;&#65039;</span><div class="cat-name">Arts &amp; Crafts</div><div class="cat-count" data-category="Arts & Crafts">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Auto')"><span class="cat-icon">&#128663;</span><div class="cat-name">Auto</div><div class="cat-count" data-category="Auto">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Baby')"><span class="cat-icon">&#128118;</span><div class="cat-name">Baby</div><div class="cat-count" data-category="Baby">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Bedding & Bath')"><span class="cat-icon">&#128705;</span><div class="cat-name">Bedding &amp; Bath</div><div class="cat-count" data-category="Bedding & Bath">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Belts & Accessories')"><span class="cat-icon">&#128084;</span><div class="cat-name">Belts &amp; Accessories</div><div class="cat-count" data-category="Belts & Accessories">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Books & Media')"><span class="cat-icon">&#128218;</span><div class="cat-name">Books &amp; Media</div><div class="cat-count" data-category="Books & Media">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Camping & Hiking')"><span class="cat-icon">&#9978;</span><div class="cat-name">Camping &amp; Hiking</div><div class="cat-count" data-category="Camping & Hiking">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Cell Phones')"><span class="cat-icon">&#128241;</span><div class="cat-name">Cell Phones</div><div class="cat-count" data-category="Cell Phones">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Computer Accessories')"><span class="cat-icon">&#128433;&#65039;</span><div class="cat-name">Computer Accessories</div><div class="cat-count" data-category="Computer Accessories">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Computers')"><span class="cat-icon">&#128187;</span><div class="cat-name">Computers</div><div class="cat-count" data-category="Computers">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Desks & Chairs')"><span class="cat-icon">&#129681;</span><div class="cat-name">Desks &amp; Chairs</div><div class="cat-count" data-category="Desks & Chairs">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Electronics')"><span class="cat-icon">&#128268;</span><div class="cat-name">Electronics</div><div class="cat-count" data-category="Electronics">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Fitness')"><span class="cat-icon">&#128170;</span><div class="cat-name">Fitness</div><div class="cat-count" data-category="Fitness">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Food & Beverage')"><span class="cat-icon">&#127829;</span><div class="cat-name">Food &amp; Beverage</div><div class="cat-count" data-category="Food & Beverage">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Footwear')"><span class="cat-icon">&#128095;</span><div class="cat-name">Footwear</div><div class="cat-count" data-category="Footwear">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Furniture')"><span class="cat-icon">&#128715;</span><div class="cat-name">Furniture</div><div class="cat-count" data-category="Furniture">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Gaming')"><span class="cat-icon">&#127918;</span><div class="cat-name">Gaming</div><div class="cat-count" data-category="Gaming">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Garden & Outdoor')"><span class="cat-icon">&#127807;</span><div class="cat-name">Garden &amp; Outdoor</div><div class="cat-count" data-category="Garden & Outdoor">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Handbags & Wallets')"><span class="cat-icon">&#128092;</span><div class="cat-name">Handbags &amp; Wallets</div><div class="cat-count" data-category="Handbags & Wallets">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Hats & Scarves')"><span class="cat-icon">&#129922;</span><div class="cat-name">Hats &amp; Scarves</div><div class="cat-count" data-category="Hats & Scarves">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Health & Beauty')"><span class="cat-icon">&#128138;</span><div class="cat-name">Health &amp; Beauty</div><div class="cat-count" data-category="Health & Beauty">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Home Decor')"><span class="cat-icon">&#128444;&#65039;</span><div class="cat-name">Home Decor</div><div class="cat-count" data-category="Home Decor">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Home Theatre')"><span class="cat-icon">&#127916;</span><div class="cat-name">Home Theatre</div><div class="cat-count" data-category="Home Theatre">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Jewelry & Watches')"><span class="cat-icon">&#8987;</span><div class="cat-name">Jewelry &amp; Watches</div><div class="cat-count" data-category="Jewelry & Watches">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Kitchen & Dining')"><span class="cat-icon">&#127860;</span><div class="cat-name">Kitchen &amp; Dining</div><div class="cat-count" data-category="Kitchen & Dining">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Lighting')"><span class="cat-icon">&#128161;</span><div class="cat-name">Lighting</div><div class="cat-count" data-category="Lighting">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Luggage & Travel Bags')"><span class="cat-icon">&#129523;</span><div class="cat-name">Luggage &amp; Travel Bags</div><div class="cat-count" data-category="Luggage & Travel Bags">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Massage & Spa')"><span class="cat-icon">&#128134;</span><div class="cat-name">Massage &amp; Spa</div><div class="cat-count" data-category="Massage & Spa">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Musical Instruments')"><span class="cat-icon">&#127928;</span><div class="cat-name">Musical Instruments</div><div class="cat-count" data-category="Musical Instruments">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Office Supplies')"><span class="cat-icon">&#128221;</span><div class="cat-name">Office Supplies</div><div class="cat-count" data-category="Office Supplies">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Outdoor & Patio')"><span class="cat-icon">&#127807;</span><div class="cat-name">Outdoor &amp; Patio</div><div class="cat-count" data-category="Outdoor & Patio">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Pets')"><span class="cat-icon">&#128062;</span><div class="cat-name">Pets</div><div class="cat-count" data-category="Pets">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Photography')"><span class="cat-icon">&#128247;</span><div class="cat-name">Photography</div><div class="cat-count" data-category="Photography">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Printers & Scanners')"><span class="cat-icon">&#128424;&#65039;</span><div class="cat-name">Printers &amp; Scanners</div><div class="cat-count" data-category="Printers & Scanners">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('School Supplies')"><span class="cat-icon">&#127890;</span><div class="cat-name">School Supplies</div><div class="cat-count" data-category="School Supplies">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Smart Home')"><span class="cat-icon">&#127969;</span><div class="cat-name">Smart Home</div><div class="cat-count" data-category="Smart Home">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Sporting Goods')"><span class="cat-icon">&#9917;</span><div class="cat-name">Sporting Goods</div><div class="cat-count" data-category="Sporting Goods">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Storage & Organization')"><span class="cat-icon">&#128230;</span><div class="cat-name">Storage &amp; Organization</div><div class="cat-count" data-category="Storage & Organization">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Sunglasses')"><span class="cat-icon">&#128374;&#65039;</span><div class="cat-name">Sunglasses</div><div class="cat-count" data-category="Sunglasses">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Tools')"><span class="cat-icon">&#128295;</span><div class="cat-name">Tools</div><div class="cat-count" data-category="Tools">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Toys')"><span class="cat-icon">&#129528;</span><div class="cat-name">Toys</div><div class="cat-count" data-category="Toys">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Travel')"><span class="cat-icon">&#9992;&#65039;</span><div class="cat-name">Travel</div><div class="cat-count" data-category="Travel">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Vitamins & Supplements')"><span class="cat-icon">&#128138;</span><div class="cat-name">Vitamins &amp; Supplements</div><div class="cat-count" data-category="Vitamins & Supplements">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Yoga & Meditation')"><span class="cat-icon">&#129496;</span><div class="cat-name">Yoga &amp; Meditation</div><div class="cat-count" data-category="Yoga & Meditation">Shop Now</div></div>
+          <div class="category-card" onclick="doGrocerySearch()"><span class="cat-icon">&#128722;</span><div class="cat-name">Grocery</div><div class="cat-count">Shop Now</div></div>
+        </div>        </div>
       </div>
 
       <!-- MEMBERSHIP BANNER -->
@@ -840,14 +295,14 @@
             <span class="seller-banner-perk">Free Paper Towels for New Members</span>
             <span class="seller-banner-perk">UPS Tracked Shipping</span>
           </div>
-          <a href="/account.html" class="btn-sell">Join Now — $20/yr</a>
-          <p style="margin-top:16px;font-size:0.78rem;color:rgba(255,255,255,0.6);letter-spacing:0.5px;">Sellers: List unlimited products free. Pay only when you sell — 80/20 split.</p>
+          <a href="/account.html" class="btn-sell">Join Now &#8212; $20/yr</a>
+          <p style="margin-top:16px;font-size:0.78rem;color:rgba(255,255,255,0.6);letter-spacing:0.5px;">Sellers: List unlimited products free. Pay only when you sell &#8212; 80/20 split.</p>
         </div>
       </div>
 
-    </div><!-- end homepage-right -->
-  </div><!-- end homepage-layout -->
-</div><!-- end hero-section -->
+    </div>
+  </div>
+</div>
 
 <!-- RESULTS SECTION -->
 <div id="results-section">
@@ -867,40 +322,40 @@
   </div>
 </div>
 
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-col">
       <h4>Shoppizzy</h4>
-      <p style="font-size:0.85rem;line-height:1.8;">Curated luxury and everyday essentials from the world's finest merchants.</p>
+      <p style="font-size:0.85rem;line-height:1.8;">Shop millions of products from top brands and independent sellers.</p>
     </div>
     <div class="footer-col">
       <h4>Explore</h4>
-      <a href="#categories">Shop by Category</a>
+      <a href="#categories">Browse by Department</a>
       <a href="/account.html">My Account</a>
+      <a href="/faq.html">FAQ</a>
       <a href="/about.html">About Us</a>
     </div>
     <div class="footer-col">
-      <h4>Membership</h4>
-      <a href="/account.html">Join — $20/yr</a>
-      <a href="/account.html">My Account</a>
-      <a href="/seller/register">Sell With Us</a>
+      <h4>Sell on Shoppizzy</h4>
+      <a href="/seller/register">Become a Seller</a>
       <a href="/seller/login">Seller Login</a>
+      <a href="/faq.html">Seller FAQ</a>
+      <h4 style="margin-top:20px;">Membership</h4>
+      <a href="/account.html">Join &#8212; $20/yr</a>
+      <a href="/account.html">My Account</a>
     </div>
     <div class="footer-col">
       <h4>Legal</h4>
       <a href="/terms-of-service.html">Terms of Service</a>
       <a href="/privacy-policy.html">Privacy Policy</a>
-      <a href="https://wa.me/YOUR_WHATSAPP_NUMBER" target="_blank">Contact Us</a>
+      <a href="/about.html">About Us</a>
     </div>
   </div>
-  <div class="footer-bottom">© 2026 Shoppizzy — BSM Enterpryzes. All Rights Reserved.</div>
+  <div class="footer-bottom">&#169; 2026 Shoppizzy &#8212; BSM Enterpryzes. All Rights Reserved.</div>
 </footer>
 
-
-
-<!-- SHOPPING ASSISTANT WIDGET -->
+<!-- CHAT WIDGET -->
 <div class="chat-widget-container">
   <div class="chat-button" id="chatButton">
     <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
@@ -908,20 +363,15 @@
   <div class="chat-window" id="chatWindow">
     <div class="chat-header">
       <div class="chat-header-content">
-        <div class="chat-avatar">🤖</div>
-        <div class="chat-header-text">
-          <h3>Shopping Assistant</h3>
-          <p>AI-Powered Product Search</p>
-        </div>
+        <div class="chat-avatar">&#129302;</div>
+        <div class="chat-header-text"><h3>Shopping Assistant</h3><p>AI-Powered Product Search</p></div>
       </div>
-      <button class="chat-close" id="chatClose">×</button>
+      <button class="chat-close" id="chatClose">&#215;</button>
     </div>
     <div class="chat-messages" id="chatMessages"></div>
     <div class="chat-input-container">
       <input type="text" class="chat-input" id="chatInput" placeholder="What are you looking for?" autocomplete="off"/>
-      <button class="chat-send" id="chatSend">
-        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-      </button>
+      <button class="chat-send" id="chatSend"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
     </div>
   </div>
 </div>
@@ -931,138 +381,87 @@
   const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
   const MAX_PRODUCTS_TO_SHOW = 5;
   let isOpen = false;
-
   const chatButton = document.getElementById('chatButton');
   const chatWindow = document.getElementById('chatWindow');
   const chatClose = document.getElementById('chatClose');
   const chatMessages = document.getElementById('chatMessages');
   const chatInput = document.getElementById('chatInput');
   const chatSend = document.getElementById('chatSend');
-
   chatButton.addEventListener('click', toggleChat);
   chatClose.addEventListener('click', toggleChat);
   chatSend.addEventListener('click', sendChatMessage);
   chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
-
   setTimeout(() => {
     addChatMessage('assistant', "Hi! I'm your AI shopping assistant. What are you looking for today?");
     showQuickActions(['Wireless Headphones', 'Gaming Laptops', 'Running Shoes', 'Smart Watches']);
   }, 1000);
-
-  function toggleChat() {
-    isOpen = !isOpen;
-    chatWindow.classList.toggle('open', isOpen);
-    if (typeof gtag !== 'undefined') gtag('event', isOpen ? 'chat_opened' : 'chat_closed', { 'event_category': 'AI Assistant' });
-    if (isOpen) chatInput.focus();
-  }
-
+  function toggleChat() { isOpen = !isOpen; chatWindow.classList.toggle('open', isOpen); if (isOpen) chatInput.focus(); }
   function addChatMessage(sender, content, products = []) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${sender}`;
-    const avatar = document.createElement('div');
-    avatar.className = 'message-avatar';
-    avatar.textContent = sender === 'assistant' ? '🤖' : '👤';
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'message-content';
-    contentDiv.textContent = content;
-    messageDiv.appendChild(avatar);
-    messageDiv.appendChild(contentDiv);
-    chatMessages.appendChild(messageDiv);
+    const messageDiv = document.createElement('div'); messageDiv.className = `message ${sender}`;
+    const avatar = document.createElement('div'); avatar.className = 'message-avatar'; avatar.textContent = sender === 'assistant' ? '🤖' : '👤';
+    const contentDiv = document.createElement('div'); contentDiv.className = 'message-content'; contentDiv.textContent = content;
+    messageDiv.appendChild(avatar); messageDiv.appendChild(contentDiv); chatMessages.appendChild(messageDiv);
     if (products && products.length > 0) {
-      const container = document.createElement('div');
-      container.className = 'product-cards-chat';
-      products.forEach(p => container.appendChild(createChatCard(p)));
-      contentDiv.appendChild(container);
+      const container = document.createElement('div'); container.className = 'product-cards-chat';
+      products.forEach(p => container.appendChild(createChatCard(p))); contentDiv.appendChild(container);
     }
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
-
   function createChatCard(product) {
-    const card = document.createElement('a');
-    card.className = 'product-card-chat';
-    card.href = product.buyUrl || product.affiliate_link || '#';
-    card.target = '_blank';
-    card.rel = 'noopener noreferrer';
-    const imageDiv = document.createElement('div');
-    imageDiv.className = 'product-card-chat-image';
+    const card = document.createElement('a'); card.className = 'product-card-chat';
+    card.href = product.buyUrl || product.affiliate_link || '#'; card.target = '_blank'; card.rel = 'noopener noreferrer';
+    const imageDiv = document.createElement('div'); imageDiv.className = 'product-card-chat-image';
     if (product.imageUrl) { const img = document.createElement('img'); img.src = product.imageUrl; img.alt = product.title; imageDiv.appendChild(img); }
     else { const ph = document.createElement('div'); ph.className = 'product-card-chat-placeholder'; ph.textContent = '✦'; imageDiv.appendChild(ph); }
-    const infoDiv = document.createElement('div');
-    infoDiv.className = 'product-card-chat-info';
+    const infoDiv = document.createElement('div'); infoDiv.className = 'product-card-chat-info';
     const merchant = document.createElement('div'); merchant.className = 'product-card-chat-merchant'; merchant.textContent = product.advertiserName || product.merchant_name || 'Merchant';
     const title = document.createElement('div'); title.className = 'product-card-chat-title'; title.textContent = product.title;
     const price = document.createElement('div'); price.className = 'product-card-chat-price';
-    const pv = product.salePrice || product.price;
-    price.textContent = pv ? `$${parseFloat(pv).toFixed(2)}` : 'See Price';
+    const pv = product.salePrice || product.price; price.textContent = pv ? `$${parseFloat(pv).toFixed(2)}` : 'See Price';
     infoDiv.appendChild(merchant); infoDiv.appendChild(title); infoDiv.appendChild(price);
-    card.appendChild(imageDiv); card.appendChild(infoDiv);
-    return card;
+    card.appendChild(imageDiv); card.appendChild(infoDiv); return card;
   }
-
   function showTyping() {
     const d = document.createElement('div'); d.className = 'message assistant'; d.id = 'typing-indicator';
     const a = document.createElement('div'); a.className = 'message-avatar'; a.textContent = '🤖';
     const i = document.createElement('div'); i.className = 'typing-indicator';
     i.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-    d.appendChild(a); d.appendChild(i); chatMessages.appendChild(d);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    d.appendChild(a); d.appendChild(i); chatMessages.appendChild(d); chatMessages.scrollTop = chatMessages.scrollHeight;
   }
-
   function hideTyping() { const t = document.getElementById('typing-indicator'); if (t) t.remove(); }
-
   function showQuickActions(actions) {
     const qd = document.createElement('div'); qd.className = 'quick-actions';
     actions.forEach(action => {
       const btn = document.createElement('button'); btn.className = 'quick-action-btn'; btn.textContent = action;
-      btn.onclick = () => { chatInput.value = action; sendChatMessage(); };
-      qd.appendChild(btn);
+      btn.onclick = () => { chatInput.value = action; sendChatMessage(); }; qd.appendChild(btn);
     });
     const last = chatMessages.lastElementChild;
     if (last && last.querySelector('.message-content')) last.querySelector('.message-content').appendChild(qd);
   }
-
   async function sendChatMessage() {
-    const message = chatInput.value.trim();
-    if (!message) return;
-    if (typeof gtag !== 'undefined') gtag('event', 'ai_chat_search', { 'search_term': message, 'event_category': 'AI Assistant' });
-    addChatMessage('user', message);
-    chatInput.value = '';
-    chatSend.disabled = true;
-    showTyping();
+    const message = chatInput.value.trim(); if (!message) return;
+    addChatMessage('user', message); chatInput.value = ''; chatSend.disabled = true; showTyping();
     const params = extractParams(message);
     try {
-      const products = await searchProducts(params);
-      hideTyping();
-      if (!products.length) {
-        addChatMessage('assistant', `I couldn't find any ${params.keyword}. Try something else!`);
-        showQuickActions(['Electronics', 'Apparel', 'Footwear', 'Home & Kitchen']);
-      } else {
-        addChatMessage('assistant', `I found ${products.length} ${params.keyword}${params.maxPrice ? ` under $${params.maxPrice}` : ''}:`, products.slice(0, MAX_PRODUCTS_TO_SHOW));
-        if (products.length > MAX_PRODUCTS_TO_SHOW) setTimeout(() => addChatMessage('assistant', `Want to see more? I found ${products.length} total results!`), 500);
-      }
+      const products = await searchProducts(params); hideTyping();
+      if (!products.length) { addChatMessage('assistant', `I couldn't find any ${params.keyword}. Try something else!`); showQuickActions(['Electronics', 'Apparel', 'Footwear', 'Home & Kitchen']); }
+      else { addChatMessage('assistant', `I found ${products.length} ${params.keyword}${params.maxPrice ? ` under $${params.maxPrice}` : ''}:`, products.slice(0, MAX_PRODUCTS_TO_SHOW)); }
     } catch(e) { hideTyping(); addChatMessage('assistant', 'Sorry, I had trouble searching. Please try again!'); }
-    chatSend.disabled = false;
-    chatInput.focus();
+    chatSend.disabled = false; chatInput.focus();
   }
-
   function extractParams(message) {
     const lower = message.toLowerCase();
     let maxPrice = null;
-    const pm = lower.match(/under\s+\$?(\d+)|below\s+\$?(\d+)|less than\s+\$?(\d+)|\$(\d+)\s+or less|max\s+\$?(\d+)/);
+    const pm = lower.match(/under\s+\$?(\d+)|below\s+\$?(\d+)|\$(\d+)\s+or less/);
     if (pm) maxPrice = parseInt(pm.find(m => m && !isNaN(m)));
-    let minPrice = null;
-    const mm = lower.match(/over\s+\$?(\d+)|above\s+\$?(\d+)|more than\s+\$?(\d+)|min\s+\$?(\d+)/);
-    if (mm) minPrice = parseInt(mm.find(m => m && !isNaN(m)));
-    let keyword = message.replace(/under\s+\$?\d+/gi,'').replace(/below\s+\$?\d+/gi,'').replace(/less than\s+\$?\d+/gi,'').replace(/\$\d+\s+or less/gi,'').replace(/over\s+\$?\d+/gi,'').replace(/above\s+\$?\d+/gi,'').replace(/more than\s+\$?\d+/gi,'').replace(/max\s+\$?\d+/gi,'').replace(/budget\s+\$?\d+/gi,'').trim();
-    return { keyword, maxPrice, minPrice };
+    let keyword = message.replace(/under\s+\$?\d+/gi,'').replace(/below\s+\$?\d+/gi,'').replace(/\$\d+\s+or less/gi,'').trim();
+    return { keyword, maxPrice };
   }
-
   async function searchProducts(params) {
     const res = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(params.keyword || 'products')}&limit=20`);
     const data = await res.json();
     let products = data.products || [];
     if (params.maxPrice) products = products.filter(p => { const pr = parseFloat(p.salePrice || p.price || 0); return pr > 0 && pr <= params.maxPrice; });
-    if (params.minPrice) products = products.filter(p => parseFloat(p.salePrice || p.price || 0) >= params.minPrice);
     return products;
   }
 })();
@@ -1070,7 +469,7 @@
 
 <div class="cf-turnstile" data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" data-callback="onTurnstileSuccess" data-theme="light" data-size="invisible"></div>
 <script>
-  function onTurnstileSuccess(token) { console.log('Turnstile verification successful'); }
+  function onTurnstileSuccess(token) {}
   window.addEventListener('load', function() {
     if (window.turnstile) window.turnstile.render('.cf-turnstile', { sitekey: '0x4AAAAAACrT9alWCXq-IbVd', callback: onTurnstileSuccess, theme: 'light', size: 'invisible' });
   });
@@ -1082,17 +481,15 @@
   let currentQuery = '';
   let currentTotal = 0;
   let allProducts = [];
-  let dynamicMerchants = [];
   const LIMIT = 40;
 
   document.getElementById('search-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') doSearch(1);
   });
+
   loadProductCount();
   loadCategoryCounts();
-  loadDynamicMerchants();;
 
-  // ── UPDATED: loads merchant count + both seller counts separately ──
   async function loadProductCount() {
     try {
       const res = await fetch(`${WORKER_URL}/api/stats`);
@@ -1109,65 +506,11 @@
         const sellerData = await sellerRes.json();
         document.getElementById('seller-item-count').textContent = (sellerData.activeProducts || 0).toLocaleString();
       }
-    } catch(e) {
-      document.getElementById('seller-item-count').textContent = '0';
-    }
-  }
-
-  async function loadDynamicMerchants() {
-    try {
-      const res = await fetch(`${WORKER_URL}/api/products?q=clothing&limit=100`);
-      const data = await res.json();
-      const products = data.products || [];
-      const counts = {};
-      products.forEach(p => {
-        const name = p.advertiserName || p.merchant_name || '';
-        if (name) counts[name] = (counts[name] || 0) + 1;
-      });
-      const featured = ['Nike','Adidas','Walmart','Best Buy','Target','Sephora','Home Depot','Samsung','Under Armour',"Macy's"];
-      dynamicMerchants = Object.entries(counts)
-        .filter(([name]) => !featured.some(f => name.toLowerCase().includes(f.toLowerCase())))
-        .sort((a, b) => a[0].localeCompare(b[0]))
-        .map(([name, count]) => ({ name, count }));
-      renderDynamicMerchants(dynamicMerchants);
-    } catch(e) {
-      document.getElementById('dynamic-merchant-list').innerHTML =
-        '<div class="sidebar-loading">Unable to load merchants</div>';
-    }
-  }
-
-  function renderDynamicMerchants(merchants) {
-    const list = document.getElementById('dynamic-merchant-list');
-    if (!merchants.length) {
-      list.innerHTML = '<div class="sidebar-loading">No additional merchants</div>';
-      return;
-    }
-    list.innerHTML = merchants.map(m => `
-      <div class="merchant-item" onclick="searchMerchant('${m.name.replace(/'/g,"\\'")}')">
-        <div class="merchant-name-wrap">
-          <span class="merchant-name">${escHtml(m.name)}</span>
-        </div>
-        <span class="merchant-arrow">›</span>
-      </div>
-    `).join('');
-  }
-
-  function filterDynamicMerchants(query) {
-    const filtered = query
-      ? dynamicMerchants.filter(m => m.name.toLowerCase().includes(query.toLowerCase()))
-      : dynamicMerchants;
-    renderDynamicMerchants(filtered);
-  }
-
-  function searchMerchant(name) {
-    document.getElementById('search-input').value = name;
-    doSearch(1);
+    } catch(e) { document.getElementById('seller-item-count').textContent = '0'; }
   }
 
   function loadCategoryCounts() {
-    document.querySelectorAll('.cat-count').forEach(el => {
-      el.textContent = 'Shop Now';
-    });
+    document.querySelectorAll('.cat-count').forEach(el => { el.textContent = 'Shop Now'; });
   }
 
   function searchCategory(cat) {
@@ -1175,6 +518,11 @@
     doSearch(1, { sourceFilter: 'seller' });
   }
   window.searchCategory = searchCategory;
+
+  function doGrocerySearch() {
+    document.getElementById('search-input').value = 'grocery';
+    doSearch(1);
+  }
 
   function showHome() {
     document.getElementById('hero-section').style.display = 'block';
@@ -1185,24 +533,13 @@
   async function doSearch(page = 1, options = {}) {
     const query = document.getElementById('search-input').value.trim();
     if (!query) return;
-
     const sortVal = document.getElementById('sort-select').value;
     const [sortBy, sortOrder] = sortVal.split('-');
-
-    currentQuery = query;
-    currentPage = page;
-
+    currentQuery = query; currentPage = page;
     document.getElementById('hero-section').style.display = 'none';
     document.getElementById('results-section').classList.add('active');
-
-    document.getElementById('product-grid').innerHTML = `
-      <div class="loading-state" style="grid-column:1/-1">
-        <div class="loading-spinner"></div>
-        <p>Searching our collection...</p>
-      </div>`;
-
+    document.getElementById('product-grid').innerHTML = `<div class="loading-state" style="grid-column:1/-1"><div class="loading-spinner"></div><p>Searching our collection...</p></div>`;
     document.getElementById('results-title').innerHTML = `Results for "${escHtml(query)}"`;
-
     try {
       const params = new URLSearchParams({ q: query, limit: LIMIT, page, sortBy, sortOrder });
       if (options.sourceFilter) params.set('source', options.sourceFilter);
@@ -1212,8 +549,7 @@
       currentTotal = data.totalCount || 0;
       renderResults(allProducts, query, currentTotal);
     } catch(err) {
-      document.getElementById('product-grid').innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1"><p>Unable to load results</p></div>`;
+      document.getElementById('product-grid').innerHTML = `<div class="empty-state" style="grid-column:1/-1"><p>Unable to load results</p></div>`;
     }
   }
 
@@ -1235,35 +571,25 @@
     document.getElementById('pagination-container').style.display = 'block';
     const start = (currentPage - 1) * LIMIT + 1;
     const end = Math.min(currentPage * LIMIT, total);
-    document.getElementById('pagination-info').textContent =
-      `Showing ${start.toLocaleString()}-${end.toLocaleString()} of ${total.toLocaleString()} results`;
+    document.getElementById('pagination-info').textContent = `Showing ${start.toLocaleString()}-${end.toLocaleString()} of ${total.toLocaleString()} results`;
     const paginationEl = document.getElementById('pagination');
-    let html = `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
+    let html = `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&#8592; Prev</button>`;
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, currentPage + 2);
     if (startPage > 1) { html += `<button class="page-btn" onclick="goToPage(1)">1</button>`; if (startPage > 2) html += `<span class="page-ellipsis">...</span>`; }
     for (let i = startPage; i <= endPage; i++) html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
     if (endPage < totalPages) { if (endPage < totalPages - 1) html += `<span class="page-ellipsis">...</span>`; html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`; }
-    html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>`;
+    html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &#8594;</button>`;
     paginationEl.innerHTML = html;
   }
 
   function goToPage(page) { if (page < 1 || !currentQuery) return; doSearch(page); }
 
   function buildProductUrl(p) {
-    if (p.type === 'direct' || p.source === 'square') {
+    if (p.source === 'seller' || p.source === 'square' || p.type === 'direct') {
       return `/product.html?id=${encodeURIComponent(p.id)}`;
     }
-    const params = new URLSearchParams({
-      id: p.id,
-      title: p.title || '',
-      buy: p.buyUrl || p.affiliate_link || '',
-      price: p.price || '',
-      img: p.imageUrl || '',
-      desc: (p.description || '').substring(0, 200),
-      brand: p.brand || '',
-      cat: p.category || '',
-    });
+    const params = new URLSearchParams({ id: p.id, title: p.title || '', buy: p.buyUrl || p.affiliate_link || '', price: p.price || '', img: p.imageUrl || '', desc: (p.description || '').substring(0, 200), brand: p.brand || '', cat: p.category || '' });
     if (p.salePrice) params.set('sale', p.salePrice);
     return `/product.html?${params.toString()}`;
   }
@@ -1274,26 +600,22 @@
     const priceStr = price && parseFloat(price) > 0 ? `$${parseFloat(price).toFixed(2)}` : 'See Price';
     const wasStr = hasSale && p.price && parseFloat(p.price) > 0 ? `$${parseFloat(p.price).toFixed(2)}` : '';
     const imgHtml = p.imageUrl ? `<img src="${p.imageUrl}" alt="${escHtml(p.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : '';
-    const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>✦</div>`;
+    const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>&#10022;</div>`;
     const productLink = buildProductUrl(p);
-    const linkTarget = '_self';
-    const linkRel = '';
-    const merchantName = (p.source === 'square' || p.type === 'direct') ? 'Shoppizzy' : (p.advertiserName || p.merchant_name || 'Merchant');
-    return `
-      <a class="product-card" href="${productLink}" target="${linkTarget}" ${linkRel ? `rel="${linkRel}"` : ''}>
-        <div class="product-img-wrap">
-          ${imgHtml}${placeholderHtml}
-          <div class="source-badge">${escHtml(merchantName)}</div>
-          ${hasSale ? '<div class="sale-badge">Sale</div>' : ''}
-        </div>
-        <div class="product-info">
-          <div class="product-merchant">${escHtml(merchantName)}</div>
-          <div class="product-title">${escHtml(p.title)}</div>
-          <div class="product-price">
-            ${hasSale && wasStr ? `<span class="price-sale">${priceStr}</span><span class="price-was">${wasStr}</span>` : `<span class="price-regular">${priceStr}</span>`}
-          </div>
-        </div>
-      </a>`;
+    const merchantName = (p.source === 'square' || p.source === 'seller' || p.type === 'direct') ? 'Shoppizzy' : (p.advertiserName || p.merchant_name || 'Merchant');
+    return `<a class="product-card" href="${productLink}" target="_self">
+      <div class="product-img-wrap">${imgHtml}${placeholderHtml}<div class="source-badge">${escHtml(merchantName)}</div>${hasSale ? '<div class="sale-badge">Sale</div>' : ''}</div>
+      <div class="product-info">
+        <div class="product-merchant">${escHtml(merchantName)}</div>
+        <div class="product-title">${escHtml(p.title)}</div>
+        <div class="product-price">${hasSale && wasStr ? `<span class="price-sale">${priceStr}</span><span class="price-was">${wasStr}</span>` : `<span class="price-regular">${priceStr}</span>`}</div>
+      </div>
+    </a>`;
+  }
+
+  function searchMerchant(name) {
+    document.getElementById('search-input').value = name;
+    doSearch(1);
   }
 
   function escHtml(str) {
@@ -1302,7 +624,6 @@
     const decoded = temp.textContent || temp.innerText || '';
     return decoded.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
-
 </script>
 </body>
 </html>
