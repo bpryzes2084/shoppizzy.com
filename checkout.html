@@ -387,6 +387,128 @@
 
     .btn-continue:hover { background: var(--gold); color: var(--black); }
 
+    /* ── PROMO PICKER ── */
+    .promo-picker-section {
+      background: var(--white);
+      border: 2px solid var(--gold);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .promo-picker-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .promo-picker-subtitle {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .promo-grid::-webkit-scrollbar { width: 4px; }
+    .promo-grid::-webkit-scrollbar-thumb { background: var(--border); }
+
+    .promo-item-card {
+      border: 2px solid var(--border);
+      padding: 12px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--cream);
+      position: relative;
+    }
+
+    .promo-item-card:hover { border-color: var(--gold); background: #faf8f4; }
+
+    .promo-item-card.selected {
+      border-color: var(--black);
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .promo-item-card.selected .promo-item-name { color: var(--white); }
+    .promo-item-card.selected .promo-item-weight { color: var(--gold); }
+
+    .promo-item-icon { font-size: 1.6rem; margin-bottom: 6px; display: block; }
+
+    .promo-item-name {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1.3;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .promo-item-weight { font-size: 0.65rem; color: var(--muted); }
+
+    .promo-selected-badge {
+      position: absolute;
+      top: 6px; right: 6px;
+      width: 16px; height: 16px;
+      background: var(--gold);
+      color: var(--black);
+      border-radius: 50%;
+      font-size: 0.55rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .promo-item-card.selected .promo-selected-badge { display: flex; }
+
+    .promo-filter-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .promo-filter-btn {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Lato', sans-serif;
+      text-transform: capitalize;
+    }
+
+    .promo-filter-btn.active, .promo-filter-btn:hover {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--white);
+    }
+
+    .promo-selected-summary {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+      font-size: 0.82rem;
+      display: none;
+    }
+
     /* ── MOBILE ── */
     @media (max-width: 900px) {
       .checkout-wrap { grid-template-columns: 1fr; padding: 24px 20px; gap: 32px; }
@@ -487,6 +609,20 @@
       </div>
     </div>
 
+    <!-- FREE PROMO ITEM PICKER -->
+    <div class="form-section" id="promo-section" style="display:none;">
+      <span class="form-section-label">&#10022; Your Free Member Item</span>
+      <div class="promo-picker-section">
+        <div class="promo-picker-title">Choose Your Complimentary Item</div>
+        <div class="promo-picker-subtitle">As a Shoppizzy member, pick one free item to include with every order.</div>
+        <div class="promo-filter-row" id="promo-filter-row"></div>
+        <div class="promo-grid" id="promo-grid">
+          <div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--muted);font-size:0.85rem;">Loading items...</div>
+        </div>
+        <div class="promo-selected-summary" id="promo-selected-summary"></div>
+      </div>
+    </div>
+
     <!-- SHIPPING RATE -->
     <div class="form-section">
       <span class="form-section-label">Shipping Rate</span>
@@ -527,7 +663,7 @@
     </div>
 
     <button class="btn-order" id="order-btn" onclick="placeOrder()" disabled>
-      <span id="order-btn-text">Calculate Shipping to Continue</span>
+      <span id="order-btn-text">Select a Free Item &amp; Calculate Shipping</span>
     </button>
 
     <p style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:16px;line-height:1.6;">
@@ -550,6 +686,24 @@
         <div class="summary-item-meta" id="summary-meta"></div>
       </div>
       <div class="summary-item-price" id="summary-price">—</div>
+    </div>
+
+    <!-- FREE WATER BOTTLE (members only) -->
+    <div class="summary-line" id="water-bottle-row" style="display:none;background:#f8fdf9;padding:10px 0;border-bottom:1px solid var(--border);">
+      <span class="label" style="display:flex;align-items:center;gap:8px;">
+        <span>&#128167;</span>
+        <span>Free Water Bottle <span style="font-size:0.68rem;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-left:4px;">Member Benefit</span></span>
+      </span>
+      <span class="value" style="color:var(--success);font-weight:400;">FREE</span>
+    </div>
+
+    <!-- FREE PAPER TOWELS (new members only) -->
+    <div class="summary-line" id="paper-towel-row" style="display:none;background:#f8fdf9;padding:10px 0;border-bottom:1px solid var(--border);">
+      <span class="label" style="display:flex;align-items:center;gap:8px;">
+        <span>&#129510;</span>
+        <span>Free Paper Towel Roll <span style="font-size:0.68rem;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-left:4px;">Welcome Gift</span></span>
+      </span>
+      <span class="value" style="color:var(--success);font-weight:400;">FREE</span>
     </div>
 
     <div class="summary-line">
@@ -585,6 +739,8 @@
   let shippingRate = null;
   let sellerZip = '80019'; // default, will be overridden by seller's zip
 
+  let isMember = false;
+
   window.addEventListener('load', async () => {
     const params = new URLSearchParams(window.location.search);
     const productId = params.get('id');
@@ -611,7 +767,47 @@
     } catch(e) {
       window.location.href = '/';
     }
+
+    // Check membership — only members get free item + water bottle
+    await checkMembership();
   });
+
+  async function checkMembership() {
+    const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
+    if (!token) { showNonMemberUI(); return; }
+    try {
+      const res = await fetch(`${WORKER_URL}/api/auth/me`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.membership?.status === 'active') {
+        isMember = true;
+        showMemberUI(data.pendingGifts || []);
+        loadPromoItems();
+      } else {
+        showNonMemberUI();
+      }
+    } catch(e) {
+      showNonMemberUI();
+    }
+  }
+
+  function showMemberUI(pendingGifts = []) {
+    document.getElementById('water-bottle-row').style.display = 'flex';
+    document.getElementById('promo-section').style.display = 'block';
+    // Show paper towels only if there's a pending welcome gift
+    const hasPaperTowelGift = pendingGifts.some(g => g.gift_sku === 'GIFT-PAPERTOWEL-001');
+    if (hasPaperTowelGift) {
+      document.getElementById('paper-towel-row').style.display = 'flex';
+    }
+  }
+
+  function showNonMemberUI() {
+    document.getElementById('water-bottle-row').style.display = 'none';
+    document.getElementById('promo-section').style.display = 'none';
+    isMember = false;
+    selectedPromoItem = null;
+  };
 
   function renderSummary(p) {
     const price = parseFloat(p.price || 0);
@@ -703,8 +899,7 @@
     btn.disabled = false;
     btn.textContent = 'Calculate';
     updateTotal();
-    orderBtn.disabled = false;
-    orderBtnText.textContent = `Place Order — $${(parseFloat(productData?.price || 0) + shippingRate.cost).toFixed(2)}`;
+    updateOrderButton();
   }
 
   async function placeOrder() {
@@ -737,6 +932,12 @@
       return;
     }
 
+    if (isMember && !selectedPromoItem) {
+      showError('Please select your free complimentary item before placing your order.');
+      document.getElementById('promo-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
     if (!card || card.length < 15 || !exp || !cvv || !nameOnCard) {
       showError('Please enter your complete payment information.');
       return;
@@ -756,6 +957,9 @@
           product_price: parseFloat(productData.price),
           shipping_cost: shippingRate.cost,
           total: parseFloat(productData.price) + shippingRate.cost,
+          promo_item_sku: selectedPromoItem?.sku || null,
+          promo_item_name: selectedPromoItem?.name || null,
+          include_paper_towels: document.getElementById('paper-towel-row').style.display !== 'none',
           customer: { email, first_name: firstName, last_name: lastName, phone: document.getElementById('c-phone').value.trim() },
           shipping_address: { address1: address, address2: document.getElementById('s-address2').value.trim(), city, state, zip, country: 'US' },
           ship_from_zip: sellerZip,
@@ -805,6 +1009,104 @@
   function escHtml(str) {
     return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
+
+  // ── PROMO ITEM PICKER ──────────────────────────────────────────────────────
+  let allPromoItems = [];
+  let selectedPromoItem = null;
+  let activeCategory = 'all';
+
+  const PROMO_CATEGORY_ICONS = {
+    accessories: '👜', beauty: '💄', food: '🍯', garden: '🌱',
+    health: '💊', home: '🏠', kitchen: '🍴', office: '📎',
+    tech: '🔌', all: '✦'
+  };
+
+  async function loadPromoItems() {
+    // Only show for logged-in members
+    const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
+    if (!token) return; // non-members skip
+
+    try {
+      const res = await fetch(`${WORKER_URL}/api/promo-items`);
+      const data = await res.json();
+      if (!data.success || !data.items?.length) return;
+
+      allPromoItems = data.items;
+      document.getElementById('promo-section').style.display = 'block';
+      renderPromoFilters();
+      renderPromoGrid(allPromoItems);
+    } catch(e) {}
+  }
+
+  function renderPromoFilters() {
+    const categories = ['all', ...new Set(allPromoItems.map(i => i.category).filter(Boolean))].sort((a, b) => a === 'all' ? -1 : a.localeCompare(b));
+    const row = document.getElementById('promo-filter-row');
+    row.innerHTML = categories.map(cat => `
+      <button class="promo-filter-btn ${cat === 'all' ? 'active' : ''}" onclick="filterPromo('${cat}', this)">
+        ${PROMO_CATEGORY_ICONS[cat] || '✦'} ${cat}
+      </button>
+    `).join('');
+  }
+
+  function filterPromo(category, btn) {
+    activeCategory = category;
+    document.querySelectorAll('.promo-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filtered = category === 'all' ? allPromoItems : allPromoItems.filter(i => i.category === category);
+    renderPromoGrid(filtered);
+  }
+
+  function renderPromoGrid(items) {
+    const grid = document.getElementById('promo-grid');
+    if (!items.length) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--muted);font-size:0.85rem;">No items in this category</div>';
+      return;
+    }
+    grid.innerHTML = items.map(item => `
+      <div class="promo-item-card ${selectedPromoItem?.sku === item.sku ? 'selected' : ''}"
+           onclick="selectPromoItem(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+        <div class="promo-selected-badge">&#10003;</div>
+        <span class="promo-item-icon">${PROMO_CATEGORY_ICONS[item.category] || '✦'}</span>
+        <div class="promo-item-name">${escHtml(item.name)}</div>
+        <div class="promo-item-weight">${item.weight_lbs} lbs</div>
+      </div>
+    `).join('');
+  }
+
+  function selectPromoItem(item) {
+    selectedPromoItem = item;
+    renderPromoGrid(activeCategory === 'all' ? allPromoItems : allPromoItems.filter(i => i.category === activeCategory));
+
+    const summary = document.getElementById('promo-selected-summary');
+    summary.style.display = 'block';
+    summary.innerHTML = `<strong>Selected:</strong> ${escHtml(item.name)} <span style="color:var(--gold);margin-left:8px;">FREE</span>`;
+
+    updateOrderButton();
+  }
+
+  function updateOrderButton() {
+    const btn = document.getElementById('order-btn');
+    const btnText = document.getElementById('order-btn-text');
+
+    const needsPromo = isMember && !selectedPromoItem;
+
+    if (needsPromo && !shippingRate) {
+      btn.disabled = true;
+      btnText.textContent = 'Select a Free Item & Calculate Shipping';
+    } else if (needsPromo) {
+      btn.disabled = true;
+      btnText.textContent = 'Select Your Free Item to Continue';
+    } else if (!shippingRate) {
+      btn.disabled = true;
+      btnText.textContent = 'Calculate Shipping to Continue';
+    } else {
+      btn.disabled = false;
+      const total = parseFloat(productData?.price || 0) + shippingRate.cost;
+      btnText.textContent = `Place Order — $${total.toFixed(2)}`;
+    }
+  }
+
+
 </script>
 
 </body>
