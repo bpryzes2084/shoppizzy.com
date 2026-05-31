@@ -674,6 +674,7 @@
 
   function showHome() {
     document.getElementById('hero-section').style.display = 'block';
+    document.getElementById('new-arrivals-section').style.display = 'block';
     document.getElementById('results-section').classList.remove('active');
     document.getElementById('search-input').value = '';
   }
@@ -685,6 +686,7 @@
     const [sortBy, sortOrder] = sortVal.split('-');
     currentQuery = query; currentPage = page;
     document.getElementById('hero-section').style.display = 'none';
+    document.getElementById('new-arrivals-section').style.display = 'none';
     document.getElementById('results-section').classList.add('active');
     document.getElementById('product-grid').innerHTML = `<div class="loading-state" style="grid-column:1/-1"><div class="loading-spinner"></div><p>Searching our collection...</p></div>`;
     document.getElementById('results-title').innerHTML = `Results for "${escHtml(query)}"`;
