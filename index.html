@@ -155,7 +155,6 @@
     .quick-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
     .quick-action-btn { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 6px 14px; font-size: 12px; cursor: pointer; transition: all 0.3s; }
     .quick-action-btn:hover { background: var(--cream); border-color: var(--gold); color: var(--gold); }
-    /* ── NEW ARRIVALS ── */
     /* ── SHOP BY BRAND ── */
     .brand-section { margin-bottom: 60px; }
 
@@ -418,23 +417,6 @@
   </div>
 </div>
 
-<!-- NEW ARRIVALS -->
-<div style="max-width:1400px;margin:60px auto;padding:0 40px;" id="new-arrivals-section">
-  <div class="new-arrivals-header">
-    <div>
-      <div class="new-badge">&#10022; Just In</div>
-      <h2 class="new-arrivals-title">New Arrivals</h2>
-    </div>
-    <span class="new-arrivals-subtitle">Latest products from our merchants</span>
-  </div>
-  <div id="new-arrivals-grid" class="product-grid">
-    <div class="loading-state" style="grid-column:1/-1">
-      <div class="loading-spinner"></div>
-      <p>Loading new arrivals...</p>
-    </div>
-  </div>
-</div>
-
 <!-- RESULTS SECTION -->
 <div id="results-section">
   <div class="results-header">
@@ -619,24 +601,7 @@
   });
 
   loadProductCount();
-  loadNewArrivals();
   loadCategoryCounts();
-
-  async function loadNewArrivals() {
-    try {
-      const res = await fetch(`${WORKER_URL}/api/new-arrivals?limit=12`);
-      const data = await res.json();
-      const grid = document.getElementById('new-arrivals-grid');
-      if (!data.success || !data.products?.length) {
-        grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><p>Check back soon for new arrivals</p></div>';
-        return;
-      }
-      grid.innerHTML = data.products.map(p => renderCard(p)).join('');
-    } catch(e) {
-      document.getElementById('new-arrivals-grid').innerHTML = '';
-      document.getElementById('new-arrivals-section').style.display = 'none';
-    }
-  }
 
   async function loadProductCount() {
     try {
@@ -674,7 +639,6 @@
 
   function showHome() {
     document.getElementById('hero-section').style.display = 'block';
-    document.getElementById('new-arrivals-section').style.display = 'block';
     document.getElementById('results-section').classList.remove('active');
     document.getElementById('search-input').value = '';
   }
@@ -686,7 +650,6 @@
     const [sortBy, sortOrder] = sortVal.split('-');
     currentQuery = query; currentPage = page;
     document.getElementById('hero-section').style.display = 'none';
-    document.getElementById('new-arrivals-section').style.display = 'none';
     document.getElementById('results-section').classList.add('active');
     document.getElementById('product-grid').innerHTML = `<div class="loading-state" style="grid-column:1/-1"><div class="loading-spinner"></div><p>Searching our collection...</p></div>`;
     document.getElementById('results-title').innerHTML = `Results for "${escHtml(query)}"`;
