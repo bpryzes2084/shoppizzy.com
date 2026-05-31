@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews — Shoppizzy</title>
+  <meta name="description" content="See what shoppers and members are saying about Shoppizzy — the marketplace with free member perks, real UPS shipping, and independent sellers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000000;
+      --charcoal: #2b2b2b;
+      --cream: #f8f7f4;
+      --white: #ffffff;
+      --gold: #c5a572;
+      --gold-light: #d4b88a;
+      --text: #333333;
+      --muted: #888888;
+      --border: #e5e5e5;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: rgba(255,255,255,0.98);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .header-nav { display: flex; gap: 40px; align-items: center; }
+
+    .header-nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 400;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .header-nav a:hover { color: var(--gold); }
+    .header-nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
+    .header-nav a:hover::after { width: 100%; }
+    .header-nav a.active { color: var(--gold); }
+    .header-nav a.active::after { width: 100%; }
+
+    /* ── HERO ── */
+    .reviews-hero {
+      background: var(--black);
+      color: var(--white);
+      padding: 80px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reviews-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(197,165,114,0.04) 40px, rgba(197,165,114,0.04) 80px);
+    }
+
+    .reviews-hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+
+    .reviews-hero-label {
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .reviews-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .reviews-hero p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 40px;
+    }
+
+    .stats-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: var(--black);
+      display: block;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .star-display {
+      color: var(--gold);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .reviews-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    /* ── FEATURED REVIEW ── */
+    .featured-review {
+      background: var(--black);
+      color: var(--white);
+      padding: 60px;
+      margin-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-review::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 20rem;
+      color: rgba(197,165,114,0.08);
+      position: absolute;
+      top: -60px;
+      left: 20px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .featured-label {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .featured-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--white);
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .featured-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .author-avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--black);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: 0.5px;
+    }
+
+    .author-meta {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .featured-stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 4px; }
+
+    /* ── REVIEWS GRID ── */
+    .section-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 40px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--black);
+      letter-spacing: 0.5px;
+    }
+
+    .section-count {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .review-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 32px;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .review-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+
+    .review-stars {
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .review-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .review-avatar {
+      width: 36px;
+      height: 36px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .review-author-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: 0.5px;
+    }
+
+    .review-author-detail {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: 0.3px;
+    }
+
+    .review-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .review-badge.member {
+      background: #fdf8f0;
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── PERKS SECTION ── */
+    .perks-section {
+      background: var(--cream);
+      padding: 60px;
+      margin-bottom: 80px;
+      border: 1px solid var(--border);
+    }
+
+    .perks-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--black);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .perks-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .perk-item {
+      text-align: center;
+      padding: 24px 16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+    }
+
+    .perk-icon { font-size: 1.8rem; margin-bottom: 12px; display: block; }
+
+    .perk-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .perk-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--black);
+      color: var(--white);
+      padding: 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 80px;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(197,165,114,0.04) 40px, rgba(197,165,114,0.04) 80px);
+    }
+
+    .cta-inner { position: relative; z-index: 1; }
+
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .cta-section p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 28px;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      text-decoration: none;
+      padding: 14px 40px;
+      font-size: 0.78rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: all 0.3s;
+      margin: 0 8px;
+    }
+
+    .btn-cta:hover { background: var(--white); }
+
+    .btn-cta-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--white);
+      text-decoration: none;
+      padding: 14px 40px;
+      font-size: 0.78rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 400;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.3s;
+      margin: 0 8px;
+    }
+
+    .btn-cta-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--black); color: rgba(255,255,255,0.7); padding: 80px 40px 40px; }
+    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; margin-bottom: 60px; }
+    .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); margin-bottom: 20px; font-weight: 500; letter-spacing: 1px; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; margin-bottom: 12px; transition: color 0.3s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; text-align: center; font-size: 0.75rem; letter-spacing: 1px; max-width: 1400px; margin: 0 auto; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .reviews-grid { grid-template-columns: 1fr 1fr; }
+      .perks-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-inner { gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .header-main { padding: 16px 20px; }
+      .header-nav { display: none; }
+      .reviews-hero { padding: 60px 24px; }
+      .reviews-main { padding: 48px 20px; }
+      .featured-review { padding: 40px 24px; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .perks-grid { grid-template-columns: repeat(2, 1fr); }
+      .perks-section { padding: 40px 24px; }
+      .cta-section { padding: 48px 24px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .stats-bar { padding: 24px 20px; }
+      .stats-inner { gap: 32px; }
+    }
+
+    @media (max-width: 480px) {
+      .perks-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .btn-cta, .btn-cta-outline { display: block; margin: 8px auto; max-width: 280px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-main">
+    <a class="logo" href="/">SHOPPIZZY</a>
+    <nav class="header-nav">
+      <a href="/#categories">Categories</a>
+      <a href="/reviews.html" class="active">Reviews</a>
+      <a href="/account.html">My Account</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="reviews-hero">
+  <div class="reviews-hero-inner">
+    <p class="reviews-hero-label">&#10022; Customer Reviews</p>
+    <h1>What Shoppers Are Saying</h1>
+    <p>Real experiences from Shoppizzy members and shoppers across the country.</p>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="star-display">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span class="stat-number">4.9</span>
+      <span class="stat-label">Average Rating</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">100%</span>
+      <span class="stat-label">UPS Tracked Orders</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">$20</span>
+      <span class="stat-label">Annual Membership</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">50+</span>
+      <span class="stat-label">Free Items to Choose From</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="reviews-main">
+
+  <!-- FEATURED REVIEW -->
+  <div class="featured-review">
+    <span class="featured-label">&#10022; Featured Review</span>
+    <div class="featured-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <p class="featured-text">"I was skeptical at first but Shoppizzy completely changed how I shop online. The $20 membership pays for itself after just one order — I got a free item, a bottle of water, and paper towels on my first order. The UPS tracking is real and accurate. I can't believe I was paying Amazon fees all this time."</p>
+    <div class="featured-author">
+      <div class="author-avatar">M</div>
+      <div>
+        <div class="featured-stars" style="font-size:0.75rem;margin-bottom:2px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="author-name">Marcus T.</div>
+        <div class="author-meta">Verified Member &nbsp;&#183;&nbsp; Aurora, CO</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEWS GRID -->
+  <div class="section-header-row">
+    <h2 class="section-heading">Shopper Reviews</h2>
+    <span class="section-count">Verified Purchases</span>
+  </div>
+
+  <div class="reviews-grid">
+
+    <div class="review-card">
+      <div class="review-badge member">Member</div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"The free item picker at checkout is genius. I chose the Lay's chips and got my water bottle too. Shipping was fast and the UPS tracking worked perfectly."</p>
+      <div class="review-author">
+        <div class="review-avatar">J</div>
+        <div>
+          <div class="review-author-name">Jennifer R.</div>
+          <div class="review-author-detail">Member since 2026 &nbsp;&#183;&nbsp; Denver, CO</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge member">Member</div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"Finally a marketplace that treats sellers fairly. I listed my items in minutes using the CSV upload and had my first sale within a week. The 80/20 split is the best I've seen anywhere."</p>
+      <div class="review-author">
+        <div class="review-avatar">D</div>
+        <div>
+          <div class="review-author-name">David K.</div>
+          <div class="review-author-detail">Seller &nbsp;&#183;&nbsp; Chicago, IL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">Shopper</div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"Love that the shipping is calculated based on where the seller actually is. I ordered something from a seller in Florida and the rate was spot on. No surprises at checkout."</p>
+      <div class="review-author">
+        <div class="review-avatar">A</div>
+        <div>
+          <div class="review-author-name">Amanda S.</div>
+          <div class="review-author-detail">Verified Shopper &nbsp;&#183;&nbsp; Seattle, WA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge member">Member</div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"The paper towels on my first order was such a nice touch. It felt like Shoppizzy actually cares about the customer experience. Will definitely be renewing my membership."</p>
+      <div class="review-author">
+        <div class="review-avatar">T</div>
+        <div>
+          <div class="review-author-name">Tanya M.</div>
+          <div class="review-author-detail">Member since 2026 &nbsp;&#183;&nbsp; Houston, TX</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">Shopper</div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"I found a vintage item from an independent seller that I couldn't find anywhere else. The product page had all the details I needed and checkout was straightforward."</p>
+      <div class="review-author">
+        <div class="review-avatar">R</div>
+        <div>
+          <div class="review-author-name">Robert L.</div>
+          <div class="review-author-detail">Verified Shopper &nbsp;&#183;&nbsp; Nashville, TN</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge member">Member</div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"$20 a year is nothing for what you get. Free item every order, real UPS shipping, and access to millions of products. Signed my whole family up."</p>
+      <div class="review-author">
+        <div class="review-avatar">C</div>
+        <div>
+          <div class="review-author-name">Christine B.</div>
+          <div class="review-author-detail">Member since 2026 &nbsp;&#183;&nbsp; Phoenix, AZ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">Shopper</div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+      <p class="review-text">"Good selection of products from different merchants. The search is fast and results are relevant. Looking forward to seeing more sellers join the platform."</p>
+      <div class="review-author">
+        <div class="review-avatar">K</div>
+        <div>
+          <div class="review-author-name">Kevin O.</div>
+          <div class="review-author-detail">Verified Shopper &nbsp;&#183;&nbsp; Atlanta, GA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge member">Member</div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"As a small business owner I've tried every marketplace. Shoppizzy is the only one that doesn't nickel and dime you. No listing fees, fair commission, and real customer support."</p>
+      <div class="review-author">
+        <div class="review-avatar">S</div>
+        <div>
+          <div class="review-author-name">Sandra P.</div>
+          <div class="review-author-detail">Seller &amp; Member &nbsp;&#183;&nbsp; Miami, FL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-badge">Shopper</div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"Ordered electronics and the shipping rate was calculated perfectly from the seller's location to mine. Arrived in 4 days exactly as the UPS estimate said."</p>
+      <div class="review-author">
+        <div class="review-avatar">B</div>
+        <div>
+          <div class="review-author-name">Brian W.</div>
+          <div class="review-author-detail">Verified Shopper &nbsp;&#183;&nbsp; Portland, OR</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MEMBERSHIP PERKS -->
+  <div class="perks-section">
+    <div class="perks-title">Why Members Love Shoppizzy</div>
+    <p class="perks-subtitle">Everything included with your $20/yr membership</p>
+    <div class="perks-grid">
+      <div class="perk-item">
+        <span class="perk-icon">&#127873;</span>
+        <div class="perk-name">Free Item Every Order</div>
+        <div class="perk-desc">Choose one free item from 50+ options every time you shop</div>
+      </div>
+      <div class="perk-item">
+        <span class="perk-icon">&#128167;</span>
+        <div class="perk-name">Free Water Bottle</div>
+        <div class="perk-desc">A complimentary water bottle included with every order</div>
+      </div>
+      <div class="perk-item">
+        <span class="perk-icon">&#129510;</span>
+        <div class="perk-name">Welcome Gift</div>
+        <div class="perk-desc">Free paper towel roll included with your very first order</div>
+      </div>
+      <div class="perk-item">
+        <span class="perk-icon">&#128666;</span>
+        <div class="perk-name">UPS Tracked Shipping</div>
+        <div class="perk-desc">Real-time UPS Ground rates with full tracking on every order</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-inner">
+      <h2>Ready to Start Saving?</h2>
+      <p>Join thousands of shoppers who get more with every order.</p>
+      <a href="/account.html" class="btn-cta">Join Now &#8212; $20/yr</a>
+      <a href="/" class="btn-cta-outline">Browse Products</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Shoppizzy</h4>
+      <p style="font-size:0.85rem;line-height:1.8;">Shop millions of products from top brands and independent sellers.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="/#categories">Browse by Department</a>
+      <a href="/account.html">My Account</a>
+      <a href="/reviews.html">Reviews</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Sell on Shoppizzy</h4>
+      <a href="/seller/register">Become a Seller</a>
+      <a href="/seller/login">Seller Login</a>
+      <a href="/faq.html">Seller FAQ</a>
+      <h4 style="margin-top:20px;">Membership</h4>
+      <a href="/account.html">Join &#8212; $20/yr</a>
+      <a href="/account.html">My Account</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/about.html">About Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">&#169; 2026 Shoppizzy &#8212; BSM Enterpryzes. All Rights Reserved.</div>
+</footer>
+
+</body>
+</html>
