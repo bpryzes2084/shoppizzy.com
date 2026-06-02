@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Shoppizzy</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off: #f9f8f6;
+      --border: #e8e6e1;
+      --text: #1a1916;
+      --muted: #6b6860;
+      --accent: #2a2a2a;
+      --tag-bg: #f0ede8;
+      --tag-text: #4a4740;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    nav a.back {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    nav a.back:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 48px 56px;
+      max-width: 760px;
+    }
+    .hero-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      padding: 0 48px 40px;
+    }
+    .tab {
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 400;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .tab:hover { border-color: var(--accent); color: var(--text); }
+    .tab.active { background: var(--text); color: #fff; border-color: var(--text); }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px 100px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 0 64px;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      padding-top: 4px;
+    }
+    .sidebar-section {
+      margin-bottom: 32px;
+    }
+    .sidebar-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .sidebar-link {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 5px 0;
+      transition: color 0.15s;
+      cursor: pointer;
+    }
+    .sidebar-link:hover, .sidebar-link.active { color: var(--text); }
+    .sidebar-link.active { font-weight: 500; }
+
+    /* ── FAQ SECTIONS ── */
+    .faq-section { display: none; }
+    .faq-section.visible { display: block; }
+
+    .section-block {
+      margin-bottom: 56px;
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+
+    /* ── ACCORDION ── */
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 22px 0;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text);
+      list-style: none;
+      transition: color 0.15s;
+      user-select: none;
+    }
+    .faq-question:hover { color: #444; }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      position: relative;
+    }
+    .faq-icon::before,
+    .faq-icon::after {
+      content: '';
+      position: absolute;
+      background: var(--muted);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .faq-icon::before { width: 10px; height: 1.5px; top: 8px; left: 4px; }
+    .faq-icon::after  { width: 1.5px; height: 10px; top: 4px; left: 8px; }
+
+    .faq-item.open .faq-icon::after { transform: rotate(90deg); opacity: 0; }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-answer-inner {
+      padding-bottom: 22px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .faq-answer-inner a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .faq-item.open .faq-answer { max-height: 400px; }
+
+    /* ── CONTACT STRIP ── */
+    .contact-strip {
+      margin-top: 48px;
+      padding: 32px 36px;
+      background: var(--off);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .contact-strip p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .contact-strip strong { color: var(--text); font-weight: 500; }
+    .contact-btn {
+      display: inline-block;
+      padding: 10px 24px;
+      background: var(--text);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      border-radius: 100px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .contact-btn:hover { opacity: 0.8; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      nav, .hero, .tabs { padding-left: 24px; padding-right: 24px; }
+      main { padding: 0 24px 80px; grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Shoppizzy</a>
+  <a class="back" href="/">← Back to shop</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Help Center</div>
+  <h1>Frequently asked questions</h1>
+  <p>Everything you need to know about shopping and selling on Shoppizzy.</p>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('shoppers', this)">Shoppers</button>
+  
+</div>
+
+<main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <!-- populated by JS -->
+  </aside>
+
+  <!-- SHOPPERS -->
+  <div class="faq-section visible" id="section-shoppers">
+
+    <div class="section-block" data-group="Orders & Shipping">
+      <div class="section-title">Orders &amp; Shipping</div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          How do I place an order?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Browse products, click through to the product listing, and complete your purchase directly with the seller or retailer. Shoppizzy connects you with sellers who ship straight to your door — no middleman holding your order.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          Who ships my order?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Each seller ships their own orders directly to you. Shoppizzy does not warehouse or fulfill products. Shipping times and carriers vary by seller and are listed on each product page.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          How long does shipping take?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Shipping times depend on the individual seller and your location. Each listing includes estimated delivery times. If you have questions about a specific order, contact the seller directly.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          Can I track my order?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. Once your order ships, the seller will provide tracking information. Check your email for shipping confirmation or contact the seller if you haven't received tracking details.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block" data-group="Returns & Refunds">
+      <div class="section-title">Returns &amp; Refunds</div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          What is the return policy?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Return policies are set by each individual seller and vary by listing. Check the product page for the seller's return policy before purchasing. If you have an issue with your order, reach out to the seller first.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          What if I receive a damaged or wrong item?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Contact the seller directly as soon as possible with photos of the item. Most sellers will arrange a replacement or refund. If you're unable to resolve the issue with the seller, contact us at <a href="mailto:support@shoppizzy.com">support@shoppizzy.com</a>.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block" data-group="Payments">
+      <div class="section-title">Payments</div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          What payment methods are accepted?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Accepted payment methods depend on the seller. Most sellers accept major credit and debit cards. Some listings may also support PayPal. Payment options are shown at checkout.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          Is my payment information secure?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. Payments are processed through secure, encrypted payment gateways. Shoppizzy does not store your credit card information.</div></div>
+      </div>
+    </div>
+
+    <div class="contact-strip">
+      <p><strong>Still have questions?</strong><br>Our support team is happy to help.</p>
+      <a class="contact-btn" href="mailto:support@shoppizzy.com">Contact support</a>
+    </div>
+
+  </div>
+
+  <!-- SELLERS -->
+  <div class="faq-section" id="section-sellers">
+
+    <div class="section-block" data-group="Getting Started">
+      <div class="section-title">Getting Started</div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          How do I become a seller on Shoppizzy?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Register for a seller account at <a href="/seller/register">shoppizzy.com/seller/register</a>. Fill in your shop details, contact information, and PayPal email for payouts. Your application will be reviewed and you'll hear back within 1–2 business days.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          Is there a fee to sign up or list products?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">No. Signing up and listing products on Shoppizzy is completely free. There are no monthly fees, no listing fees, and no storage fees — ever. List unlimited products and pay nothing until you make a sale.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          Does Shoppizzy store or warehouse my inventory?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">No. Unlike Amazon FBA, Shoppizzy does not hold or warehouse your inventory. You store your own products and ship them directly to buyers when an order comes in. This means zero storage fees and full control over your stock.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block" data-group="Fees & Payouts">
+      <div class="section-title">Fees &amp; Payouts</div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          Is there a limit on how many products I can list?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">No limit — ever. List as many products as you want for free. Whether you have 1 item or 10,000, Shoppizzy lets you list them all at no cost. You only pay when you make a sale.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          How does Shoppizzy make money?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Shoppizzy charges a simple 10% commission on each completed sale. There are no hidden fees, no subscription charges, and no storage costs. You keep 90% of every sale.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          Are there any storage fees?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">No. Shoppizzy never charges storage fees. You hold your own inventory, so there is nothing to store on our end.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          How and when do I get paid?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Payouts are sent to your PayPal account. You'll need to provide your PayPal email when registering. Payout schedules and details are confirmed during the onboarding process.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          What is the full breakdown of seller fees?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          It's simple:<br><br>
+          • Listing fee: <strong>$0</strong><br>
+          • Monthly fee: <strong>$0</strong><br>
+          • Storage fee: <strong>$0</strong><br>
+          • Commission per sale: <strong>10%</strong><br><br>
+          That's it.
+        </div></div>
+      </div>
+    </div>
+
+    <div class="section-block" data-group="Orders & Fulfillment">
+      <div class="section-title">Orders &amp; Fulfillment</div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          How do I fulfill an order?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">When a customer places an order, you ship it directly to them from your location. You choose your own carriers and packaging. You are responsible for timely fulfillment and providing tracking information to the buyer.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          Who handles returns?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">You set your own return policy and handle returns directly with buyers. Make sure your return policy is clearly stated on your product listings to avoid disputes.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          Can I sell in any product category?
+          <span class="faq-icon"></span>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Most product categories are welcome. Prohibited items include counterfeit goods, hazardous materials, and anything that violates applicable laws. If you're unsure whether your products are eligible, contact us before listing.</div></div>
+      </div>
+    </div>
+
+    <div class="contact-strip">
+      <p><strong>Ready to start selling?</strong><br>Set up your shop in minutes.</p>
+      <a class="contact-btn" href="/seller/register">Create seller account</a>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+  function toggle(el) {
+    const item = el.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.faq-section').forEach(s => s.classList.remove('visible'));
+    document.getElementById('section-' + tab).classList.add('visible');
+    buildSidebar(tab);
+  }
+
+  function buildSidebar(tab) {
+    const sidebar = document.getElementById('sidebar');
+    const section = document.getElementById('section-' + tab);
+    const groups = section.querySelectorAll('.section-block');
+    let html = '';
+    groups.forEach((g, i) => {
+      const label = g.getAttribute('data-group');
+      html += `<div class="sidebar-section"><div class="sidebar-label">${label}</div>`;
+      g.querySelectorAll('.faq-question').forEach(q => {
+        const text = q.childNodes[0].textContent.trim();
+        html += `<span class="sidebar-link" onclick="scrollToQ(this, '${CSS.escape(text)}')">${text}</span>`;
+      });
+      html += '</div>';
+    });
+    sidebar.innerHTML = html;
+  }
+
+  function scrollToQ(el, text) {
+    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+    el.classList.add('active');
+    const questions = document.querySelectorAll('.faq-question');
+    for (const q of questions) {
+      if (q.childNodes[0].textContent.trim() === text) {
+        q.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const item = q.closest('.faq-item');
+        if (!item.classList.contains('open')) item.classList.add('open');
+        break;
+      }
+    }
+  }
+
+  buildSidebar('shoppers');
+</script>
+</body>
+</html>
