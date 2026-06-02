@@ -196,8 +196,8 @@
     <input type="text" id="search-input" placeholder="Search for products..." autocomplete="off">
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
-  <div class="product-count" id="product-count"><span class="count-number">&#8212;</span> products available</div>
-  <div class="product-count" id="seller-count" style="margin-top:6px;"><span class="count-number" id="seller-item-count">&#8212;</span> items available from our sellers</div>
+  <div class="product-count" id="product-count"><span class="count-number">&#8212;</span> products available from merchants</div>
+  <div class="product-count" id="seller-count" style="margin-top:6px;"><span class="count-number" id="seller-item-count">&#8212;</span> items available from sellers</div>
 </div>
 
 <!-- HERO SECTION (categories + banner) -->
@@ -206,7 +206,7 @@
 
     <!-- SIDEBAR -->
     <aside class="merchant-sidebar">
-      <div class="sidebar-title">Available items from Sellers</div>
+      <div class="sidebar-title"> Items from Sellers</div>
       <div class="merchant-item featured" onclick="searchCategory('Art Collectibles')"><div class="merchant-name-wrap"><span class="merchant-star">&#127912;</span><span class="merchant-name">Art &amp; Collectibles</span></div></div>
       <div class="merchant-item featured" onclick="searchCategory('Automotive')"><div class="merchant-name-wrap"><span class="merchant-star">&#128663;</span><span class="merchant-name">Automotive</span></div></div>
       <div class="merchant-item featured" onclick="searchCategory('Baby Kids')"><div class="merchant-name-wrap"><span class="merchant-star">&#128118;</span><span class="merchant-name">Baby &amp; Kids</span></div></div>
@@ -233,7 +233,7 @@
       <div class="categories-section" id="categories">
         <div class="section-header">
           <h2 class="section-title">Browse by Department</h2>
-          <p class="section-subtitle">Millions of products from top merchant brands</p>
+          <p class="section-subtitle">Millions of products from top merchants</p>
         </div>
         <div class="category-grid">
           <div class="category-card" onclick="searchCategory('clothing shirts')"><span class="cat-icon">&#128084;</span><div class="cat-name">Apparel</div><div class="cat-count" data-category="Apparel">Shop Now</div></div>
