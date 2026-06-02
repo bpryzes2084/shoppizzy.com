@@ -540,8 +540,8 @@
 
   function searchCategory(cat) {
     const categoryValue = CATEGORY_MAP[cat] || null;
-    document.getElementById('search-input').value = cat;
-    doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue });
+    document.getElementById('search-input').value = categoryValue ? '' : cat;
+    doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue, categoryLabel: cat });
   }
   window.searchCategory = searchCategory;
 
@@ -558,14 +558,14 @@
 
   async function doSearch(page = 1, options = {}) {
     const query = document.getElementById('search-input').value.trim();
-    if (!query) return;
+    if (!query && !options.categoryFilter) return;
     const sortVal = document.getElementById('sort-select').value;
     const [sortBy, sortOrder] = sortVal.split('-');
     currentQuery = query; currentPage = page;
     document.getElementById('hero-section').style.display = 'none';
     document.getElementById('results-section').classList.add('active');
     document.getElementById('product-grid').innerHTML = `<div class="loading-state" style="grid-column:1/-1"><div class="loading-spinner"></div><p>Searching our collection...</p></div>`;
-    document.getElementById('results-title').innerHTML = `Results for "${escHtml(query)}"`;
+    document.getElementById('results-title').innerHTML = options.categoryLabel ? `${escHtml(options.categoryLabel)}` : `Results for "${escHtml(query)}"`;
     try {
       const params = new URLSearchParams({ q: query, limit: LIMIT, page, sortBy, sortOrder });
       if (options.sourceFilter) params.set('source', options.sourceFilter);
