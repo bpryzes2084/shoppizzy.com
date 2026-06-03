@@ -40,6 +40,16 @@
     .product-count .count-number { color: var(--gold); font-weight: 400; }
     .homepage-layout { max-width: 1400px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
     .merchant-sidebar { position: sticky; top: 90px; background: var(--white); border: 1px solid var(--border); margin-bottom: 40px; }
+  .sidebar-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 14px 12px 4px;
+    margin-top: 6px;
+  }
+
     .sidebar-title { background: var(--black); color: var(--white); padding: 14px 18px; font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 400; }
     .merchant-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; cursor: pointer; border-bottom: 1px solid var(--border); transition: all 0.2s; color: var(--text); text-decoration: none; }
     .merchant-item:last-child { border-bottom: none; }
@@ -206,12 +216,49 @@
 
     <!-- SIDEBAR -->
     <aside class="merchant-sidebar">
-      <div class="sidebar-title">GrowceryWorld</div>
-      <div class="merchant-item featured" onclick="searchCategory('Grocery')"><div class="merchant-name-wrap"><span class="merchant-star">&#128722;</span><span class="merchant-name">Grocery</span></div></div>
-      <div class="merchant-item featured" onclick="searchCategory('Health Household')"><div class="merchant-name-wrap"><span class="merchant-star">&#128138;</span><span class="merchant-name">Health &amp; Household</span></div></div>
-      <div class="merchant-item featured" onclick="searchCategory('Baby Kids')"><div class="merchant-name-wrap"><span class="merchant-star">&#128118;</span><span class="merchant-name">Baby &amp; Kids</span></div></div>
-      <div class="merchant-item featured" onclick="searchCategory('Pet Supplies')"><div class="merchant-name-wrap"><span class="merchant-star">&#128062;</span><span class="merchant-name">Pet Supplies</span></div></div>
-      <div class="merchant-item featured" onclick="searchCategory('Home Garden')"><div class="merchant-name-wrap"><span class="merchant-star">&#127968;</span><span class="merchant-name">Home &amp; Garden</span></div></div>
+      <div class="sidebar-title">Store Aisles</div>
+
+      <div class="sidebar-section-label">🛒 Grocery</div>
+      <div class="merchant-item" onclick="searchCategory('Grocery','cat_grocery')"><span class="merchant-name">All Grocery</span></div>
+      <div class="merchant-item" onclick="searchCategory('Snacks','cat_grocery','sub_snacks')"><span class="merchant-name">Snacks</span></div>
+      <div class="merchant-item" onclick="searchCategory('Snack Bars','cat_grocery','sub_snack_bars')"><span class="merchant-name">Snack Bars</span></div>
+      <div class="merchant-item" onclick="searchCategory('Beverages','cat_grocery','sub_beverages')"><span class="merchant-name">Beverages</span></div>
+      <div class="merchant-item" onclick="searchCategory('Tea & Coffee','cat_grocery','sub_tea_coffee')"><span class="merchant-name">Tea &amp; Coffee</span></div>
+      <div class="merchant-item" onclick="searchCategory('Candy','cat_grocery','sub_candy')"><span class="merchant-name">Candy</span></div>
+      <div class="merchant-item" onclick="searchCategory('Soups','cat_grocery','sub_soups')"><span class="merchant-name">Soups</span></div>
+      <div class="merchant-item" onclick="searchCategory('Condiments','cat_grocery','sub_condiments')"><span class="merchant-name">Condiments &amp; Sauces</span></div>
+      <div class="merchant-item" onclick="searchCategory('Pantry','cat_grocery','sub_pantry')"><span class="merchant-name">Pantry Staples</span></div>
+      <div class="merchant-item" onclick="searchCategory('Spreads','cat_grocery','sub_spreads')"><span class="merchant-name">Spreads &amp; Honey</span></div>
+      <div class="merchant-item" onclick="searchCategory('Breakfast','cat_grocery','sub_breakfast')"><span class="merchant-name">Breakfast &amp; Cereal</span></div>
+      <div class="merchant-item" onclick="searchCategory('Specialty','cat_grocery','sub_specialty')"><span class="merchant-name">Organic &amp; Specialty</span></div>
+
+      <div class="sidebar-section-label">💊 Health &amp; Household</div>
+      <div class="merchant-item" onclick="searchCategory('Health Household','cat_health_household')"><span class="merchant-name">All Health &amp; Household</span></div>
+      <div class="merchant-item" onclick="searchCategory('Vitamins','cat_health_household','sub_vitamins')"><span class="merchant-name">Vitamins &amp; Supplements</span></div>
+      <div class="merchant-item" onclick="searchCategory('Skin Care','cat_health_household','sub_skin_care')"><span class="merchant-name">Skin Care</span></div>
+      <div class="merchant-item" onclick="searchCategory('Hair Care','cat_health_household','sub_hair_care')"><span class="merchant-name">Hair Care</span></div>
+      <div class="merchant-item" onclick="searchCategory('Personal Care','cat_health_household','sub_personal_care')"><span class="merchant-name">Personal Care</span></div>
+      <div class="merchant-item" onclick="searchCategory('Medicine','cat_health_household','sub_medicine')"><span class="merchant-name">Medicine &amp; Remedies</span></div>
+      <div class="merchant-item" onclick="searchCategory('Cleaning','cat_health_household','sub_cleaning')"><span class="merchant-name">Cleaning Supplies</span></div>
+      <div class="merchant-item" onclick="searchCategory('Paper Goods','cat_health_household','sub_paper_goods')"><span class="merchant-name">Paper Goods</span></div>
+
+      <div class="sidebar-section-label">🐾 Pet Supplies</div>
+      <div class="merchant-item" onclick="searchCategory('Pet Supplies','cat_pets')"><span class="merchant-name">All Pet Supplies</span></div>
+      <div class="merchant-item" onclick="searchCategory('Dog','cat_pets','sub_dog')"><span class="merchant-name">Dog</span></div>
+      <div class="merchant-item" onclick="searchCategory('Cat','cat_pets','sub_cat')"><span class="merchant-name">Cat</span></div>
+
+      <div class="sidebar-section-label">👶 Baby &amp; Kids</div>
+      <div class="merchant-item" onclick="searchCategory('Baby Kids','cat_baby')"><span class="merchant-name">All Baby &amp; Kids</span></div>
+      <div class="merchant-item" onclick="searchCategory('Baby Food','cat_baby','sub_baby_food')"><span class="merchant-name">Baby Food</span></div>
+      <div class="merchant-item" onclick="searchCategory('Diapers','cat_baby','sub_diapers')"><span class="merchant-name">Diapers &amp; Wipes</span></div>
+
+      <div class="sidebar-section-label">🏡 Home &amp; Garden</div>
+      <div class="merchant-item" onclick="searchCategory('Home Garden','cat_home_garden')"><span class="merchant-name">All Home &amp; Garden</span></div>
+      <div class="merchant-item" onclick="searchCategory('Home Fragrance','cat_home_garden','sub_home_fragrance')"><span class="merchant-name">Home Fragrance</span></div>
+      <div class="merchant-item" onclick="searchCategory('Kitchen Supplies','cat_home_garden','sub_kitchen_supplies')"><span class="merchant-name">Kitchen Supplies</span></div>
+
+      <div class="sidebar-section-label">🏷️ General Merchandise</div>
+      <div class="merchant-item" onclick="searchCategory('General Merchandise','cat_general')"><span class="merchant-name">General Merchandise</span></div>
     </aside>
 
     <!-- RIGHT -->
@@ -524,10 +571,9 @@
     'Wedding Party': 'cat_wedding',
   };
 
-  function searchCategory(cat) {
-    const categoryValue = CATEGORY_MAP[cat] || null;
-    document.getElementById('search-input').value = categoryValue ? '' : cat;
-    doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue, categoryLabel: cat });
+  function searchCategory(label, categoryValue, subcategoryValue) {
+    document.getElementById('search-input').value = '';
+    doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue || null, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
   }
   window.searchCategory = searchCategory;
 
@@ -556,6 +602,7 @@
       const params = new URLSearchParams({ q: query, limit: LIMIT, page, sortBy, sortOrder });
       if (options.sourceFilter) params.set('source', options.sourceFilter);
       if (options.categoryFilter) params.set('category', options.categoryFilter);
+      if (options.subcategoryFilter) params.set('subcategory', options.subcategoryFilter);
       const res = await fetch(`${WORKER_URL}/api/products?${params}`);
       const data = await res.json();
       allProducts = data.products || [];
