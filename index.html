@@ -24,7 +24,7 @@
     body { font-family: 'Lato', sans-serif; background: var(--white); color: var(--text); line-height: 1.7; font-weight: 300; letter-spacing: 0.3px; }
     header { background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
     .header-main { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: 2px; cursor: pointer; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: 2px; cursor: pointer; display: none; }
     .header-nav { display: flex; gap: 40px; align-items: center; }
     .header-nav a { color: var(--text); text-decoration: none; font-size: 0.875rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; transition: color 0.3s; position: relative; }
     .header-nav a:hover { color: var(--gold); }
@@ -169,7 +169,142 @@
     @media (max-width: 768px) { .header-main { padding: 16px 20px; } .header-nav { display: none; } .homepage-layout { padding: 0 20px; } .category-grid { grid-template-columns: repeat(2, 1fr); } .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; } .search-container { padding: 0 16px !important; margin: 30px auto 50px !important; } #search-input { padding: 16px !important; } .search-btn { padding: 16px 20px !important; } .product-img-wrap { height: 180px !important; } .chat-window { bottom: 0; right: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; max-height: 100vh; border-radius: 0; } }
     @media (max-width: 480px) { .product-grid { grid-template-columns: 1fr !important; gap: 16px; } .footer-inner { grid-template-columns: 1fr; } }
     @media (min-width: 769px) and (max-width: 1024px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
-  </style>
+  
+  /* ── TOP PROMO BANNER ─────────────────────────────────────── */
+  .promo-banner {
+    background: #c5a572;
+    color: #000;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .promo-banner-link {
+    color: #000;
+    text-decoration: underline;
+    font-weight: 700;
+  }
+  .promo-banner-link:hover { color: #333; }
+
+  /* ── SCROLLING TICKER ─────────────────────────────────────── */
+  .ticker-banner {
+    background: #000;
+    color: #c5a572;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 8px 0;
+    border-top: 1px solid #222;
+  }
+  .ticker-track {
+    display: inline-block;
+    animation: ticker-scroll 60s linear infinite;
+  }
+  .ticker-track:hover { animation-play-state: paused; }
+  .ticker-item {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    padding: 0 8px;
+  }
+  .ticker-sep {
+    font-size: 8px;
+    color: #555;
+    padding: 0 4px;
+  }
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .promo-banner-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #000;
+    margin-bottom: 4px;
+  }
+  .promo-banner { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 12px; }
+
+  /* ── MOBILE RESPONSIVE ───────────────────────────────────────── */
+  @media (max-width: 768px) {
+
+    /* Nav */
+    .header-main { padding: 12px 16px; }
+    .header-nav { display: none; }
+
+    /* Promo banner */
+    .promo-banner {
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 16px;
+      text-align: center;
+    }
+    .promo-banner-logo { font-size: 1.1rem; letter-spacing: 3px; }
+    .promo-banner-text { font-size: 11px; }
+
+    /* Ticker */
+    .ticker-banner { padding: 6px 0; }
+    .ticker-item { font-size: 11px; }
+
+    /* Layout — stack sidebar below content on mobile */
+    .homepage-layout {
+      grid-template-columns: 1fr;
+      padding: 0 12px;
+      gap: 16px;
+    }
+
+    /* Sidebar — horizontal scrolling pill menu on mobile */
+    .merchant-sidebar {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 8px;
+      padding: 10px 4px;
+      position: static;
+      max-height: none;
+      border: none;
+      background: transparent;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .merchant-sidebar::-webkit-scrollbar { display: none; }
+    .sidebar-title { display: none; }
+    .sidebar-section-label { display: none; }
+    .merchant-item {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: #f0f0f0;
+      font-size: 12px;
+      border: 1px solid #e0e0e0;
+    }
+    .merchant-item:hover { background: #000; color: #fff; }
+
+    /* Product grid */
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .product-card { padding: 10px; }
+    .product-title { font-size: 12px; }
+    .product-price { font-size: 14px; }
+
+    /* Search bar */
+    .search-bar-container { padding: 12px 16px; }
+    .search-input { font-size: 14px; padding: 10px 14px; }
+
+    /* Footer */
+    .footer-inner { grid-template-columns: 1fr; gap: 20px; }
+    .footer { padding: 30px 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .product-grid { grid-template-columns: 1fr; gap: 12px; }
+    .promo-banner-logo { font-size: 1rem; }
+    .promo-banner-text { font-size: 10px; }
+  }
+</style>
 </head>
 <body>
 
@@ -184,11 +319,47 @@
   </div>
 </header>
 
+<!-- SCROLLING TICKER BANNER -->
+<div class="ticker-banner">
+  <div class="ticker-track">
+    <span class="ticker-item">🚀 Shoppizzy.com officially begins expansion into seller marketplace services in 2027.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">🏪 Businesses, independent sellers, brands, and online stores will have the opportunity to list products directly on the platform.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">🎯 The goal is simple: build a marketplace focused on sellers, customers, transparency, and growth.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">📦 13+ million products available now — with major expansion planned through Black Friday 2026 and beyond.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">📝 Seller registration updates coming soon at Shoppizzy.com.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">🚀 Shoppizzy.com officially begins expansion into seller marketplace services in 2027.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">🏪 Businesses, independent sellers, brands, and online stores will have the opportunity to list products directly on the platform.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">🎯 The goal is simple: build a marketplace focused on sellers, customers, transparency, and growth.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">📦 13+ million products available now — with major expansion planned through Black Friday 2026 and beyond.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">📝 Seller registration updates coming soon at Shoppizzy.com.</span>
+    <span class="ticker-sep">&#9679;</span>
+  </div>
+</div>
+
+<!-- TOP PROMO BANNER -->
+<div class="promo-banner">
+  <div class="promo-banner-logo">SHOPPIZZY</div>
+  <span class="promo-banner-text">🎁 Unlock Free Items With Every Order &mdash; <a href="/account.html" class="promo-banner-link">Join for $20/yr</a></span>
+</div>
+
+
+  </div>
+</header>
+
 <!-- HERO BANNER -->
 <div style="background:var(--black);color:var(--white);padding:20px 40px;text-align:center;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(197,165,114,0.04) 40px,rgba(197,165,114,0.04) 80px);pointer-events:none;"></div>
   <div style="position:relative;z-index:1;max-width:700px;margin:0 auto;">
-    <p style="font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:400;">&#10022; Welcome to Shoppizzy</p>
+    <p style="font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:400;">&#10022; Click it. Bag it. Shoppizzy it.</p>
     <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:500;letter-spacing:2px;margin-bottom:16px;line-height:1.2;">Shop Millions of <em style="color:var(--gold);font-style:italic;">Products</em></h1>
     <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,0.65);margin-bottom:16px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">From top brands and independent sellers &#8212; electronics, fashion, home goods, beauty and more.</p>
     <div style="display:flex;justify-content:center;gap:16px;flex-wrap:nowrap;width:100%;">
@@ -222,12 +393,7 @@
       <div class="merchant-item" onclick="searchCategory('Apparel','cat_apparel')"><span class="merchant-name">Apparel</span></div>
 
       <div class="sidebar-section-label">👶 Baby &amp; Kids</div>
-      <div class="merchant-item" onclick="searchCategory('Baby Kids','cat_baby')"><span class="merchant-name">All Baby &amp; Kids</span></div>
-      <div class="merchant-item" onclick="searchCategory('Baby Food','cat_baby','sub_baby_food')"><span class="merchant-name">Baby Food</span></div>
-      <div class="merchant-item" onclick="searchCategory('Diapers','cat_baby','sub_diapers')"><span class="merchant-name">Diapers &amp; Wipes</span></div>
-
-      <div class="sidebar-section-label">🥤 Beverages</div>
-      <div class="merchant-item" onclick="searchCategory('Beverages','cat_beverages')"><span class="merchant-name">Beverages</span></div>
+      <div class="merchant-item" onclick="searchCategory('Baby Kids','cat_baby')"><span class="merchant-name">Baby &amp; Kids</span></div>
 
       <div class="sidebar-section-label">📚 Books</div>
       <div class="merchant-item" onclick="searchCategory('Books','cat_books')"><span class="merchant-name">Books</span></div>
@@ -340,23 +506,7 @@
         </div>        </div>
       </div>
 
-      <!-- MEMBERSHIP BANNER -->
-      <div class="seller-banner">
-        <div class="seller-banner-content">
-          <h2>Unlock Free Items With Every Order</h2>
-          <p>Join Shoppizzy for just $20/yr and get a free item added to every order you place.</p>
-          <div class="seller-banner-perks">
-            <span class="seller-banner-perk">Free Item Every Order</span>
-            <span class="seller-banner-perk">Free Bottle of Water</span>
-            <span class="seller-banner-perk">Free Paper Towels for New Members</span>
-            <span class="seller-banner-perk">UPS Tracked Shipping</span>
           </div>
-          <a href="/account.html" class="btn-sell">Join Now &#8212; $20/yr</a>
-          <p style="margin-top:16px;font-size:0.78rem;color:rgba(255,255,255,0.6);letter-spacing:0.5px;">Sellers: List unlimited products free. Pay only when you sell &#8212; 80/20 split.</p>
-        </div>
-      </div>
-
-    </div>
   </div>
 </div>
 
