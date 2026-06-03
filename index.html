@@ -389,20 +389,8 @@
     <aside class="merchant-sidebar">
       <div class="sidebar-title">Store Aisles</div>
 
-      <div class="sidebar-section-label">👗 Apparel</div>
-      <div class="merchant-item" onclick="searchCategory('Apparel','cat_apparel')"><span class="merchant-name">Apparel</span></div>
-
       <div class="sidebar-section-label">👶 Baby &amp; Kids</div>
       <div class="merchant-item" onclick="searchCategory('Baby Kids','cat_baby')"><span class="merchant-name">Baby &amp; Kids</span></div>
-
-      <div class="sidebar-section-label">📚 Books</div>
-      <div class="merchant-item" onclick="searchCategory('Books','cat_books')"><span class="merchant-name">Books</span></div>
-
-      <div class="sidebar-section-label">💻 Electronics</div>
-      <div class="merchant-item" onclick="searchCategory('Electronics','cat_electronics')"><span class="merchant-name">Electronics</span></div>
-
-      <div class="sidebar-section-label">🌸 Fragrances</div>
-      <div class="merchant-item" onclick="searchCategory('Fragrances','cat_fragrances')"><span class="merchant-name">Fragrances</span></div>
 
       <div class="sidebar-section-label">🏷️ General Merchandise</div>
       <div class="merchant-item" onclick="searchCategory('General Merchandise','cat_general')"><span class="merchant-name">General Merchandise</span></div>
@@ -440,12 +428,6 @@
       <div class="merchant-item" onclick="searchCategory('Pet Supplies','cat_pets')"><span class="merchant-name">All Pet Supplies</span></div>
       <div class="merchant-item" onclick="searchCategory('Cat','cat_pets','sub_cat')"><span class="merchant-name">Cat</span></div>
       <div class="merchant-item" onclick="searchCategory('Dog','cat_pets','sub_dog')"><span class="merchant-name">Dog</span></div>
-
-      <div class="sidebar-section-label">⚽ Sporting Goods</div>
-      <div class="merchant-item" onclick="searchCategory('Sporting Goods','cat_sporting_goods')"><span class="merchant-name">Sporting Goods</span></div>
-
-      <div class="sidebar-section-label">🧸 Toys</div>
-      <div class="merchant-item" onclick="searchCategory('Toys','cat_toys')"><span class="merchant-name">Toys</span></div>
 
     </aside>
 
@@ -525,6 +507,10 @@
   <div class="pagination-container" id="pagination-container" style="display:none;">
     <div class="pagination-info" id="pagination-info"></div>
     <div class="pagination" id="pagination"></div>
+  </div>
+  <div id="load-more-container" style="display:none;text-align:center;margin:32px 0 48px;">
+    <button id="load-more-btn" onclick="loadMore()" style="background:#000;color:#fff;border:none;padding:14px 48px;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Cormorant Garamond',serif;">Load More</button>
+    <p id="load-more-info" style="margin-top:12px;font-size:12px;color:#888;letter-spacing:1px;"></p>
   </div>
 </div>
 
@@ -664,7 +650,7 @@
     return { keyword, maxPrice };
   }
   async function searchProducts(params) {
-    const res = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(params.keyword || 'products')}&limit=100`);
+    const res = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(params.keyword || 'products')}&limit=20`);
     const data = await res.json();
     let products = data.products || [];
     if (params.maxPrice) products = products.filter(p => { const pr = parseFloat(p.salePrice || p.price || 0); return pr > 0 && pr <= params.maxPrice; });
@@ -688,6 +674,10 @@
   let currentTotal = 0;
   let allProducts = [];
   const LIMIT = 40;
+  // Use higher limit for category/subcategory browsing
+  function getLimit(options = {}) {
+    return (options.categoryFilter || options.subcategoryFilter) ? 100 : LIMIT;
+  }
 
   document.getElementById('search-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') doSearch(1);
@@ -766,12 +756,16 @@
     const sortVal = document.getElementById('sort-select').value;
     const [sortBy, sortOrder] = sortVal.split('-');
     currentQuery = query; currentPage = page;
+    // Store current options for Load More
+    window._lastSearchOptions = options;
     document.getElementById('hero-section').style.display = 'none';
     document.getElementById('results-section').classList.add('active');
     document.getElementById('product-grid').innerHTML = `<div class="loading-state" style="grid-column:1/-1"><div class="loading-spinner"></div><p>Searching our collection...</p></div>`;
     document.getElementById('results-title').innerHTML = options.categoryLabel ? `${escHtml(options.categoryLabel)}` : `Results for "${escHtml(query)}"`;
+    // Hide load more on fresh search
+    document.getElementById('load-more-container').style.display = 'none';
     try {
-      const params = new URLSearchParams({ q: query, limit: LIMIT, page, sortBy, sortOrder });
+      const params = new URLSearchParams({ q: query, limit: getLimit(options), page, sortBy, sortOrder });
       if (options.sourceFilter) params.set('source', options.sourceFilter);
       if (options.categoryFilter) params.set('category', options.categoryFilter);
       if (options.subcategoryFilter) params.set('subcategory', options.subcategoryFilter);
@@ -779,9 +773,53 @@
       const data = await res.json();
       allProducts = data.products || [];
       currentTotal = data.totalCount || 0;
+      window._loadedCount = allProducts.length;
       renderResults(allProducts, query, currentTotal);
+      // Show Load More if more items available
+      updateLoadMore(options);
     } catch(err) {
       document.getElementById('product-grid').innerHTML = `<div class="empty-state" style="grid-column:1/-1"><p>Unable to load results</p></div>`;
+    }
+  }
+
+  async function loadMore() {
+    const options = window._lastSearchOptions || {};
+    const query = document.getElementById('search-input').value.trim();
+    const sortVal = document.getElementById('sort-select').value;
+    const [sortBy, sortOrder] = sortVal.split('-');
+    const btn = document.getElementById('load-more-btn');
+    btn.textContent = 'Loading...';
+    btn.disabled = true;
+    try {
+      const nextPage = Math.floor((window._loadedCount || 0) / getLimit(options)) + 1;
+      const params = new URLSearchParams({ q: query, limit: getLimit(options), page: nextPage, sortBy, sortOrder });
+      if (options.sourceFilter) params.set('source', options.sourceFilter);
+      if (options.categoryFilter) params.set('category', options.categoryFilter);
+      if (options.subcategoryFilter) params.set('subcategory', options.subcategoryFilter);
+      const res = await fetch(`${WORKER_URL}/api/products?${params}`);
+      const data = await res.json();
+      const newProducts = data.products || [];
+      allProducts = [...allProducts, ...newProducts];
+      window._loadedCount = allProducts.length;
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML += newProducts.map(p => renderCard(p)).join('');
+      updateLoadMore(options);
+    } catch(err) {}
+    btn.textContent = 'Load More';
+    btn.disabled = false;
+  }
+
+  function updateLoadMore(options) {
+    const container = document.getElementById('load-more-container');
+    const info = document.getElementById('load-more-info');
+    const loaded = window._loadedCount || 0;
+    const limit = getLimit(options);
+    // Show Load More if we got a full page (meaning there may be more)
+    if (loaded > 0 && loaded % limit === 0) {
+      container.style.display = 'block';
+      info.textContent = `Showing ${loaded} items`;
+    } else {
+      container.style.display = 'none';
     }
   }
 
