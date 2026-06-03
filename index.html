@@ -776,7 +776,7 @@
       window._loadedCount = allProducts.length;
       renderResults(allProducts, query, currentTotal);
       // Show Load More if more items available
-      updateLoadMore(options);
+      updateLoadMore(options, allProducts.length);
     } catch(err) {
       document.getElementById('product-grid').innerHTML = `<div class="empty-state" style="grid-column:1/-1"><p>Unable to load results</p></div>`;
     }
@@ -803,19 +803,19 @@
       window._loadedCount = allProducts.length;
       const grid = document.getElementById('product-grid');
       grid.innerHTML += newProducts.map(p => renderCard(p)).join('');
-      updateLoadMore(options);
+      updateLoadMore(options, newProducts.length);
     } catch(err) {}
     btn.textContent = 'Load More';
     btn.disabled = false;
   }
 
-  function updateLoadMore(options) {
+  function updateLoadMore(options, returnedCount) {
     const container = document.getElementById('load-more-container');
     const info = document.getElementById('load-more-info');
     const loaded = window._loadedCount || 0;
     const limit = getLimit(options);
-    // Show Load More if we got a full page (meaning there may be more)
-    if (loaded > 0 && loaded % limit === 0) {
+    // Show Load More if the last batch returned a full page
+    if (returnedCount >= limit) {
       container.style.display = 'block';
       info.textContent = `Showing ${loaded} items`;
     } else {
