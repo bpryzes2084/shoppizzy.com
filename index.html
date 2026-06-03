@@ -664,7 +664,7 @@
     return { keyword, maxPrice };
   }
   async function searchProducts(params) {
-    const res = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(params.keyword || 'products')}&limit=20`);
+    const res = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(params.keyword || 'products')}&limit=100`);
     const data = await res.json();
     let products = data.products || [];
     if (params.maxPrice) products = products.filter(p => { const pr = parseFloat(p.salePrice || p.price || 0); return pr > 0 && pr <= params.maxPrice; });
