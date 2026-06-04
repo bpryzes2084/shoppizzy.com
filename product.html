@@ -875,6 +875,27 @@
     const displayPrice = hasSale ? parseFloat(p.salePrice) : parseFloat(p.price || 0);
     document.getElementById('p-price').textContent = displayPrice > 0 ? `$${displayPrice.toFixed(2)}` : 'See Price';
 
+    // Wholesale / case note for GrowceryWorld items
+    const isGrowcery = p.merchant_name === 'GrowceryWorld' || p.advertiserName === 'GrowceryWorld';
+    const unitCount = p.unit_count && p.unit_count > 1 ? p.unit_count : 1;
+    let wholesaleNote = document.getElementById('p-wholesale-note');
+    if (!wholesaleNote) {
+      wholesaleNote = document.createElement('div');
+      wholesaleNote.id = 'p-wholesale-note';
+      wholesaleNote.style.cssText = 'margin-top:8px;margin-bottom:8px;font-size:13px;color:#c5a572;font-weight:600;letter-spacing:1px;';
+      document.getElementById('p-price').parentNode.appendChild(wholesaleNote);
+    }
+    if (isGrowcery && unitCount > 1) {
+      const unitPrice = (displayPrice / unitCount).toFixed(2);
+      wholesaleNote.innerHTML = `&#128230; Sold as a case of ${unitCount} &mdash; <strong>$${unitPrice}/unit</strong> &mdash; Wholesale Price`;
+      wholesaleNote.style.display = 'block';
+    } else if (isGrowcery) {
+      wholesaleNote.innerHTML = `&#128230; Wholesale Price`;
+      wholesaleNote.style.display = 'block';
+    } else {
+      wholesaleNote.style.display = 'none';
+    }
+
     if (hasSale && p.price) {
       const wasEl = document.getElementById('p-was');
       wasEl.textContent = `$${parseFloat(p.price).toFixed(2)}`;
