@@ -875,7 +875,9 @@
     const productLink = buildProductUrl(p);
     const merchantName = (p.source === 'square' || p.source === 'seller' || p.type === 'direct') ? (p.merchant_name || 'Shoppizzy') : (p.advertiserName || p.merchant_name || 'Merchant');
     const isWholesale = p.advertiserName === 'GrowceryWorld' || p.merchant_name === 'GrowceryWorld';
-    const wholesaleLabel = isWholesale ? `<div class="wholesale-badge">Wholesale Price</div>` : '';
+    const unitCount = p.unit_count && p.unit_count > 1 ? p.unit_count : 1;
+    const unitPrice = isWholesale && unitCount > 1 ? (parseFloat(price) / unitCount).toFixed(2) : null;
+    const wholesaleLabel = isWholesale ? `<div class="wholesale-badge">${unitCount > 1 ? `$${unitPrice}/ea · ${unitCount} units` : 'Wholesale Price'}</div>` : '';
     return `<a class="product-card" href="${productLink}" target="_self">
       <div class="product-img-wrap">${imgHtml}${placeholderHtml}<div class="source-badge">${escHtml(merchantName)}</div>${hasSale ? '<div class="sale-badge">Sale</div>' : ''}${wholesaleLabel}</div>
       <div class="product-info">
