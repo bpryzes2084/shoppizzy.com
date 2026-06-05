@@ -740,11 +740,12 @@
     'Wedding Party': 'cat_wedding',
   };
 
-  function searchCategory(label, categoryValue, subcategoryValue) {
-    document.getElementById('search-input').value = categoryValue ? '' : label;
+function searchCategory(label, categoryValue, subcategoryValue) {
     if (categoryValue) {
-      doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue || null, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
+      document.getElementById('search-input').value = '';
+      doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
     } else {
+      document.getElementById('search-input').value = label;
       doSearch(1, { categoryLabel: label });
     }
   }
