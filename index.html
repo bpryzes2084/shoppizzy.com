@@ -741,8 +741,12 @@
   };
 
   function searchCategory(label, categoryValue, subcategoryValue) {
-    document.getElementById('search-input').value = '';
-    doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue || null, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
+    document.getElementById('search-input').value = categoryValue ? '' : label;
+    if (categoryValue) {
+      doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue || null, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
+    } else {
+      doSearch(1, { categoryLabel: label });
+    }
   }
   window.searchCategory = searchCategory;
 
@@ -759,7 +763,7 @@
 
   async function doSearch(page = 1, options = {}) {
     const query = document.getElementById('search-input').value.trim();
-    if (!query && !options.categoryFilter) return;
+    if (!query && !options.categoryFilter && !options.subcategoryFilter) return;
     const sortVal = document.getElementById('sort-select').value;
     const [sortBy, sortOrder] = sortVal.split('-');
     currentQuery = query; currentPage = page;
