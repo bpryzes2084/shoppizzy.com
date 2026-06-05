@@ -379,7 +379,7 @@
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
   <div class="product-count" id="product-count"><span class="count-number">&#8212;</span> products available</div>
-  <div class="product-count" id="seller-count" style="margin-top:6px;"><span class="count-number" id="seller-item-count">&#8212;</span> items Direct shipped from GrowceryWorld</div>
+  <div class="product-count" id="seller-count" style="margin-top:6px;"><span class="count-number" id="seller-item-count">&#8212;</span> items ship direct from GrowceryWorld</div>
 </div>
 
 <!-- HERO SECTION (categories + banner) -->
@@ -703,10 +703,8 @@
 
   async function loadProductCount() {
     try {
-      const res = await fetch(`${WORKER_URL}/api/stats`);
-      if (!res.ok) throw new Error();
-      const data = await res.json();
-      const total = (data.cj || 0) + (data.rakuten || 0) + (data.impact || 0);
+      document.getElementById('product-count').innerHTML = `<span class="count-number">13,000,000+</span> products available`;
+      return; 0);
       document.getElementById('product-count').innerHTML = `<span class="count-number">${total.toLocaleString()}</span> products available`;
     } catch(e) {
       document.getElementById('product-count').innerHTML = `<span class="count-number">Millions</span> of products available`;
