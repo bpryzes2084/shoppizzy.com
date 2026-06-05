@@ -702,12 +702,7 @@
   loadCategoryCounts();
 
   async function loadProductCount() {
-    try {
-      document.getElementById('product-count').innerHTML = `<span class="count-number">13,000,000+</span> products available`;
-      return;
-    } catch(e) {
-      document.getElementById('product-count').innerHTML = `<span class="count-number">Millions</span> of products available`;
-    }
+    document.getElementById('product-count').innerHTML = `<span class="count-number">13,000,000+</span> products available`;
     try {
       const sellerRes = await fetch(`${WORKER_URL}/api/seller-stats`);
       if (sellerRes.ok) {
