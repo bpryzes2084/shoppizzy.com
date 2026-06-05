@@ -704,8 +704,7 @@
   async function loadProductCount() {
     try {
       document.getElementById('product-count').innerHTML = `<span class="count-number">13,000,000+</span> products available`;
-      return; 0);
-      document.getElementById('product-count').innerHTML = `<span class="count-number">${total.toLocaleString()}</span> products available`;
+      return;
     } catch(e) {
       document.getElementById('product-count').innerHTML = `<span class="count-number">Millions</span> of products available`;
     }
