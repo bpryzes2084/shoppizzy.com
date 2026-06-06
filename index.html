@@ -702,7 +702,18 @@
   loadCategoryCounts();
 
   async function loadProductCount() {
-    document.getElementById('product-count').innerHTML = `<span class="count-number">13,000,000+</span> products available`;
+    try {
+      const pcRes = await fetch(`${WORKER_URL}/api/product-count`);
+      if (pcRes.ok) {
+        const pcData = await pcRes.json();
+        const count = pcData.count || 0;
+        document.getElementById('product-count').innerHTML = `<span class="count-number">${count.toLocaleString()}</span> products available`;
+      } else {
+        document.getElementById('product-count').innerHTML = `<span class="count-number">13,000,000+</span> products available`;
+      }
+    } catch(e) {
+      document.getElementById('product-count').innerHTML = `<span class="count-number">13,000,000+</span> products available`;
+    }
     try {
       const sellerRes = await fetch(`${WORKER_URL}/api/seller-stats`);
       if (sellerRes.ok) {
@@ -740,7 +751,7 @@
     'Wedding Party': 'cat_wedding',
   };
 
-function searchCategory(label, categoryValue, subcategoryValue) {
+  function searchCategory(label, categoryValue, subcategoryValue) {
     if (categoryValue) {
       document.getElementById('search-input').value = '';
       doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
