@@ -461,14 +461,16 @@
       const res = await fetch(targetUrl);
       const data = await res.json();
       loadingEl.style.display = 'none';
-
-      if (data.products && data.products.length > 0) {
+if (data.products && data.products.length > 0) {
         data.products.forEach(prod => {
+          // Fallback check: uses whatever image column name exists in your schema
+          const productImage = prod.image_url || prod.image || prod.img || prod.thumbnail || 'https://via.placeholder.com/220';
+          
           const card = document.createElement('div');
           card.className = 'product-card';
           card.innerHTML = `
             <div class="product-img-wrap">
-              <img src="${prod.image_url || 'https://via.placeholder.com/220'}" alt="${prod.title}">
+              <img src="${productImage}" alt="${prod.title || 'Product Image'}" onerror="this.src='https://via.placeholder.com/220'">
             </div>
             <div class="product-info">
               <span class="product-merchant">${prod.merchant || 'Marketplace Vendor'}</span>
