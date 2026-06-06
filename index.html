@@ -788,7 +788,7 @@
     'Wedding Party': 'cat_wedding',
   };
 
-  function searchCategory(label, categoryValue, subcategoryValue) {
+  window.searchCategory = function(label, categoryValue, subcategoryValue) {
     if (categoryValue) {
       document.getElementById('search-input').value = '';
       doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
@@ -807,7 +807,7 @@
     doSearch(1);
   }
 
-  function showHome() {
+  window.showHome = function() {
     document.getElementById('hero-section').style.display = 'block';
     document.getElementById('results-section').classList.remove('active');
     document.getElementById('search-input').value = '';
@@ -845,7 +845,7 @@
     }
   }
 
-  async function loadMore() {
+  async window.loadMore = function() {
     const options = window._lastSearchOptions || {};
     const query = document.getElementById('search-input').value.trim();
     const sortVal = document.getElementById('sort-select').value;
