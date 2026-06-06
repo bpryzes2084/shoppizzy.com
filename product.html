@@ -668,7 +668,7 @@
         </div>
         <div class="meta-row">
           <span class="meta-key">Shipping</span>
-          <span class="meta-val">Ships via UPS with tracking</span>
+          <span class="meta-val" id="p-shipping">Ships via UPS with tracking</span>
         </div>
         <div class="meta-row">
           <span class="meta-key">Returns</span>
@@ -875,6 +875,16 @@
     const displayPrice = hasSale ? parseFloat(p.salePrice) : parseFloat(p.price || 0);
     document.getElementById('p-price').textContent = displayPrice > 0 ? `$${displayPrice.toFixed(2)}` : 'See Price';
 
+    // Set shipping text based on product source
+    const shippingEl = document.getElementById('p-shipping');
+    if (shippingEl) {
+      if (p.source === 'seller' || p.merchant_name === 'GrowceryWorld') {
+        shippingEl.textContent = 'Ships via UPS with tracking';
+      } else {
+        shippingEl.textContent = `Ships directly from ${p.merchant_name || p.advertiserName || 'merchant'}`;
+      }
+    }
+
     // Wholesale / case note for GrowceryWorld items
     const isGrowcery = p.merchant_name === 'GrowceryWorld' || p.advertiserName === 'GrowceryWorld';
     const unitCount = p.unit_count && p.unit_count > 1 ? p.unit_count : 1;
@@ -1059,7 +1069,7 @@
     resultEl.textContent = 'Getting UPS Ground rate...';
     resultEl.style.color = 'var(--muted)';
     const weight = window._currentProduct?.weight_grams || 227;
-    // Set fallback immediately so Buy Now works even if Shippo is slow
+    // Set fallback immediately so Buy Now works even if UPS rate is slow
     window._shippingRate = { cost: 9.99, zip };
     try {
       const controller = new AbortController();
