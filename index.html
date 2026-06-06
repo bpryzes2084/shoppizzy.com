@@ -813,7 +813,7 @@
     document.getElementById('search-input').value = '';
   }
 
-  async function doSearch(page = 1, options = {}) {
+  window.doSearch = async function(page = 1, options = {}) {
     const query = document.getElementById('search-input').value.trim();
     if (!query && !options.categoryFilter && !options.subcategoryFilter) return;
     const sortVal = document.getElementById('sort-select').value;
