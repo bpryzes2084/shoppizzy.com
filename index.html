@@ -39,24 +39,12 @@
     .product-count { text-align: center; margin-top: 16px; font-size: 0.9rem; color: var(--muted); letter-spacing: 0.5px; }
     .product-count .count-number { color: var(--gold); font-weight: 400; }
     .homepage-layout { max-width: 1400px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
-    .merchant-sidebar { position: sticky; top: 90px; background: var(--white); border: 1px solid var(--border); margin-bottom: 40px; }
-    .sidebar-section-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #888;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 14px 12px 4px;
-      margin-top: 6px;
-    }
+    .merchant-sidebar { position: sticky; top: 90px; background: var(--white); border: 1px solid var(--border); margin-bottom: 40px; max-height: calc(100vh - 110px); overflow-y: auto; }
+    .sidebar-section-label { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 1.5px; text-transform: uppercase; padding: 14px 12px 4px; margin-top: 6px; }
     .sidebar-title { background: var(--black); color: var(--white); padding: 14px 18px; font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 400; }
     .merchant-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; cursor: pointer; border-bottom: 1px solid var(--border); transition: all 0.2s; color: var(--text); text-decoration: none; }
     .merchant-item:last-child { border-bottom: none; }
     .merchant-item:hover { background: var(--cream); padding-left: 22px; color: var(--black); }
-    .merchant-item.featured { background: var(--cream); }
-    .merchant-item.featured:hover { background: #f0ece4; padding-left: 22px; }
-    .merchant-name-wrap { display: flex; align-items: center; gap: 6px; }
-    .merchant-star { color: var(--gold); font-size: 0.85rem; flex-shrink: 0; }
     .merchant-name { font-size: 0.82rem; font-weight: 400; letter-spacing: 0.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
     .categories-section { margin-bottom: 60px; }
     .section-header { text-align: center; margin-bottom: 40px; }
@@ -71,15 +59,6 @@
     .cat-name { font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 400; margin-bottom: 6px; }
     .cat-count { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.5px; font-weight: 400; }
     .seller-banner { background: var(--black); color: var(--white); padding: 48px 32px; text-align: center; margin: 0 0 60px; position: relative; overflow: hidden; }
-    .seller-banner::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(197,165,114,0.04) 40px, rgba(197,165,114,0.04) 80px); }
-    .seller-banner-content { position: relative; z-index: 1; }
-    .seller-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 500; letter-spacing: 2px; margin-bottom: 8px; }
-    .seller-banner p { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
-    .seller-banner-perks { display: flex; justify-content: center; gap: 32px; margin-bottom: 24px; flex-wrap: wrap; }
-    .seller-banner-perk { font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
-    .seller-banner-perk::before { content: '✦  '; }
-    .btn-sell { display: inline-block; background: var(--gold); color: var(--black); text-decoration: none; padding: 12px 40px; font-size: 0.78rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; transition: all 0.3s; }
-    .btn-sell:hover { background: var(--white); }
     .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; }
     .product-card { background: var(--white); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: all 0.3s; height: 100%; }
     .product-card:hover { transform: translateY(-5px); }
@@ -87,12 +66,10 @@
     .product-img-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 8px; transition: transform 0.5s; background: var(--white); }
     .product-card:hover .product-img-wrap img { transform: scale(1.05); }
     .product-img-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--muted); }
-    .source-badge { position: absolute; top: 12px; left: 12px; background: var(--white); color: var(--black); font-size: 0.62rem; font-weight: 400; letter-spacing: 1.5px; padding: 5px 12px; text-transform: uppercase; }
     .sale-badge { position: absolute; top: 12px; right: 12px; background: var(--gold); color: var(--white); font-size: 0.62rem; font-weight: 400; letter-spacing: 1.5px; padding: 5px 12px; text-transform: uppercase; }
     .wholesale-badge { position: absolute; bottom: 8px; left: 8px; background: #000; color: #c5a572; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 7px; }
     .product-source { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
     .product-info { padding: 0 4px; display: flex; flex-direction: column; flex: 1; }
-    .product-merchant { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; font-weight: 400; }
     .product-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 400; color: var(--black); line-height: 1.4; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 3em; flex-shrink: 0; }
     .product-price { display: flex; align-items: baseline; gap: 10px; margin-top: auto; }
     .price-sale { font-size: 1.05rem; color: var(--gold); font-weight: 400; }
@@ -110,7 +87,6 @@
     .page-btn:hover:not(.active):not(:disabled) { background: var(--cream); border-color: var(--gold); }
     .page-btn.active { background: var(--black); color: var(--white); border-color: var(--black); font-weight: 400; }
     .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-    .page-ellipsis { color: var(--muted); padding: 0 8px; }
     footer { background: var(--black); color: rgba(255,255,255,0.7); padding: 80px 40px 40px; margin-top: 120px; }
     .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; margin-bottom: 60px; }
     .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); margin-bottom: 20px; font-weight: 500; letter-spacing: 1px; }
@@ -120,7 +96,62 @@
     .loading-state, .empty-state { text-align: center; padding: 80px 40px; color: var(--muted); }
     .loading-spinner { width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: var(--black); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    @media (max-width: 900px) { .homepage-layout { grid-template-columns: 1fr; } .merchant-sidebar { position: static; display: none; } }
+    .chat-widget-container { position: fixed; bottom: 24px; right: 24px; z-index: 10000; }
+    .chat-button { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%); border: 2px solid var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: all 0.3s ease; }
+    .chat-button:hover { transform: scale(1.1); }
+    .chat-button svg { width: 28px; height: 28px; fill: var(--gold); }
+    .chat-window { position: fixed; bottom: 100px; right: 24px; width: 400px; max-width: calc(100vw - 48px); height: 600px; max-height: calc(100vh - 140px); background: var(--white); border-radius: 12px; box-shadow: 0 8px 40px rgba(0,0,0,0.2); display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border); }
+    .chat-window.open { display: flex; }
+    .chat-header { background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%); color: var(--white); padding: 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--gold); }
+    .chat-header-content { display: flex; align-items: center; gap: 12px; }
+    .chat-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .chat-header-text h3 { font-size: 16px; font-weight: 600; margin: 0; }
+    .chat-header-text p { font-size: 12px; margin: 2px 0 0 0; color: var(--gold); }
+    .chat-close { width: 32px; height: 32px; border: none; background: rgba(255,255,255,0.1); color: var(--white); border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 20px; background: var(--cream); display: flex; flex-direction: column; gap: 16px; }
+    .message { display: flex; gap: 10px; }
+    .message.user { flex-direction: row-reverse; }
+    .message-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+    .message.assistant .message-avatar { background: var(--gold); color: var(--black); }
+    .message.user .message-avatar { background: var(--black); color: var(--white); }
+    .message-content { max-width: 75%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.6; }
+    .message.assistant .message-content { background: var(--white); color: var(--text); border: 1px solid var(--border); }
+    .message.user .message-content { background: var(--black); color: var(--white); }
+    .product-cards-chat { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+    .product-card-chat { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; gap: 12px; text-decoration: none; color: inherit; transition: all 0.3s; }
+    .product-card-chat:hover { border-color: var(--gold); }
+    .product-card-chat-image { width: 80px; height: 80px; border-radius: 6px; background: var(--cream); flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .product-card-chat-image img { width: 100%; height: 100%; object-fit: cover; }
+    .product-card-chat-placeholder { font-size: 32px; color: var(--muted); }
+    .product-card-chat-info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .product-card-chat-merchant { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .product-card-chat-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .product-card-chat-price { font-size: 14px; font-weight: 600; color: var(--gold); margin-top: auto; }
+    .typing-indicator { display: flex; gap: 4px; padding: 12px 16px; background: var(--white); border-radius: 12px; width: fit-content; border: 1px solid var(--border); }
+    .typing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); animation: typing 1.4s infinite; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-10px); } }
+    .chat-input-container { padding: 16px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 12px; }
+    .chat-input { flex: 1; border: 1px solid var(--border); border-radius: 24px; padding: 12px 20px; font-size: 14px; font-family: inherit; outline: none; transition: all 0.3s; }
+    .chat-input:focus { border-color: var(--gold); }
+    .chat-send { width: 44px; height: 44px; border: none; border-radius: 50%; background: var(--black); color: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; flex-shrink: 0; }
+    .chat-send:hover:not(:disabled) { background: var(--gold); color: var(--black); }
+    .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+    .chat-send svg { width: 20px; height: 20px; fill: currentColor; }
+    .quick-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .quick-action-btn { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 6px 14px; font-size: 12px; cursor: pointer; transition: all 0.3s; }
+    .quick-action-btn:hover { background: var(--cream); border-color: var(--gold); color: var(--gold); }
+    .promo-banner { background: #c5a572; color: #000; text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; width: 100%; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 12px; }
+    .promo-banner-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: 4px; color: #000; }
+    .promo-banner-link { color: #000; text-decoration: underline; font-weight: 700; }
+    .ticker-banner { background: #000; color: #c5a572; overflow: hidden; white-space: nowrap; padding: 8px 0; border-top: 1px solid #222; }
+    .ticker-track { display: inline-block; animation: ticker-scroll 60s linear infinite; }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item { font-size: 12px; letter-spacing: 0.5px; padding: 0 8px; }
+    .ticker-sep { font-size: 8px; color: #555; padding: 0 4px; }
+    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @media (max-width: 900px) { .homepage-layout { grid-template-columns: 1fr; } }
     @media (max-width: 768px) {
       .header-main { padding: 16px 20px; }
       .header-nav { display: none; }
@@ -133,6 +164,7 @@
       #search-input { padding: 14px 16px !important; font-size: 16px !important; width: 100%; border-bottom: 1px solid var(--border); }
       .search-btn { padding: 14px 20px !important; width: 100%; text-align: center; border-radius: 0; }
       .product-img-wrap { height: 160px !important; }
+      .chat-window { bottom: 0; right: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; max-height: 100vh; border-radius: 0; }
       .promo-banner { flex-direction: column; gap: 4px; padding: 8px 12px; }
       .promo-banner-logo { font-size: 1.1rem; }
       .ticker-item { font-size: 11px; }
@@ -141,141 +173,16 @@
       .sidebar-title { display: none; }
       .sidebar-section-label { display: none; }
       .merchant-item { flex: 0 0 auto; white-space: nowrap; padding: 6px 14px; border-radius: 20px; background: #f0f0f0; font-size: 12px; border: 1px solid #e0e0e0; }
-      .about-hero { padding: 40px 16px; }
-      .about-content { padding: 40px 16px; }
-      .stats-strip { padding: 30px 16px; }
-      .about-cta { padding: 40px 16px; }
-      .results-section { padding: 0 12px; }
       .results-header { flex-direction: column; gap: 12px; align-items: flex-start; }
       .product-title { font-size: 12px; }
-      .product-price { font-size: 14px; }
     }
     @media (max-width: 480px) {
       .product-grid { grid-template-columns: 1fr !important; gap: 12px; }
       .footer-inner { grid-template-columns: 1fr; }
-      .category-grid { grid-template-columns: repeat(2, 1fr); }
       #search-input { font-size: 16px !important; }
     }
     @media (min-width: 769px) and (max-width: 1024px) {
       .category-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    
-    /* ── TOP PROMO BANNER ─────────────────────────────────────── */
-    .promo-banner {
-      background: #c5a572;
-      color: #000;
-      text-align: center;
-      padding: 10px 20px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .promo-banner-link {
-      color: #000;
-      text-decoration: underline;
-      font-weight: 700;
-    }
-    .promo-banner-link:hover { color: #333; }
-
-    /* ── SCROLLING TICKER ─────────────────────────────────────── */
-    .ticker-banner {
-      background: #000;
-      color: #c5a572;
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 8px 0;
-      border-top: 1px solid #222;
-    }
-    .ticker-track {
-      display: inline-block;
-      animation: ticker-scroll 60s linear infinite;
-    }
-    .ticker-track:hover { animation-play-state: paused; }
-    .ticker-item {
-      font-size: 12px;
-      letter-spacing: 0.5px;
-      padding: 0 8px;
-    }
-    .ticker-sep {
-      font-size: 8px;
-      color: #555;
-      padding: 0 4px;
-    }
-    @keyframes ticker-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .promo-banner-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: 4px;
-      color: #000;
-      margin-bottom: 4px;
-    }
-    .promo-banner { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 12px; }
-
-    /* ── MOBILE RESPONSIVE ───────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .header-main { padding: 12px 16px; }
-      .header-nav { display: none; }
-      .promo-banner {
-        flex-direction: column;
-        gap: 4px;
-        padding: 10px 16px;
-        text-align: center;
-      }
-      .promo-banner-logo { font-size: 1.1rem; letter-spacing: 3px; }
-      .promo-banner-text { font-size: 11px; }
-      .ticker-banner { padding: 6px 0; }
-      .ticker-item { font-size: 11px; }
-      .homepage-layout {
-        grid-template-columns: 1fr;
-        padding: 0 12px;
-        gap: 16px;
-      }
-      .merchant-sidebar {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        gap: 8px;
-        padding: 10px 4px;
-        position: static;
-        max-height: none;
-        border: none;
-        background: transparent;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-      .merchant-sidebar::-webkit-scrollbar { display: none; }
-      .sidebar-title { display: none; }
-      .sidebar-section-label { display: none; }
-      .merchant-item {
-        flex: 0 0 auto;
-        white-space: nowrap;
-        padding: 6px 14px;
-        border-radius: 20px;
-        background: #f0f0f0;
-        font-size: 12px;
-        border: 1px solid #e0e0e0;
-      }
-      .merchant-item:hover { background: #000; color: #fff; }
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .product-card { padding: 10px; }
-      .product-title { font-size: 12px; }
-      .product-price { font-size: 14px; }
-      .search-bar-container { padding: 12px 16px; }
-      .search-input { font-size: 14px; padding: 10px 14px; }
-      .footer-inner { grid-template-columns: 1fr; gap: 20px; }
-      .footer { padding: 30px 16px; }
-    }
-    @media (max-width: 480px) {
-      .product-grid { grid-template-columns: 1fr; gap: 12px; }
-      .promo-banner-logo { font-size: 1rem; }
-      .promo-banner-text { font-size: 10px; }
     }
   </style>
 </head>
@@ -294,32 +201,32 @@
 
 <div class="ticker-banner">
   <div class="ticker-track">
-    <span class="ticker-item">🚀 Shoppizzy.com officially begins expansion into seller marketplace services in 2027.</span>
+    <span class="ticker-item">&#128640; Shoppizzy.com officially begins expansion into seller marketplace services in 2027.</span>
     <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">🏪 Businesses, independent sellers, brands, and online stores will have the opportunity to list products directly on the platform.</span>
+    <span class="ticker-item">&#127978; Businesses, independent sellers, brands, and online stores will have the opportunity to list products directly on the platform.</span>
     <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">🎯 The goal is simple: build a marketplace focused on sellers, customers, transparency, and growth.</span>
+    <span class="ticker-item">&#127919; The goal is simple: build a marketplace focused on sellers, customers, transparency, and growth.</span>
     <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">📦 13+ million products available now — with major expansion planned through Black Friday 2026 and beyond.</span>
+    <span class="ticker-item">&#128230; 13+ million products available now — with major expansion planned through Black Friday 2026 and beyond.</span>
     <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">📝 Seller registration updates coming soon at Shoppizzy.com.</span>
+    <span class="ticker-item">&#128221; Seller registration updates coming soon at Shoppizzy.com.</span>
     <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">🚀 Shoppizzy.com officially begins expansion into seller marketplace services in 2027.</span>
+    <span class="ticker-item">&#128640; Shoppizzy.com officially begins expansion into seller marketplace services in 2027.</span>
     <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">🏪 Businesses, independent sellers, brands, and online stores will have the opportunity to list products directly on the platform.</span>
+    <span class="ticker-item">&#127978; Businesses, independent sellers, brands, and online stores will have the opportunity to list products directly on the platform.</span>
     <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">🎯 The goal is simple: build a marketplace focused on sellers, customers, transparency, and growth.</span>
+    <span class="ticker-item">&#127919; The goal is simple: build a marketplace focused on sellers, customers, transparency, and growth.</span>
     <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">📦 13+ million products available now — with major expansion planned through Black Friday 2026 and beyond.</span>
+    <span class="ticker-item">&#128230; 13+ million products available now — with major expansion planned through Black Friday 2026 and beyond.</span>
     <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">📝 Seller registration updates coming soon at Shoppizzy.com.</span>
+    <span class="ticker-item">&#128221; Seller registration updates coming soon at Shoppizzy.com.</span>
     <span class="ticker-sep">&#9679;</span>
   </div>
 </div>
 
 <div class="promo-banner">
   <div class="promo-banner-logo">SHOPPIZZY</div>
-  <span class="promo-banner-text">🎁 Unlock Free Items With Every Order &mdash; <a href="/account.html" class="promo-banner-link">Join for $20/yr</a></span>
+  <span class="promo-banner-text">&#127873; Unlock Free Items With Every Order &mdash; <a href="/account.html" class="promo-banner-link">Join for $20/yr</a></span>
 </div>
 
 <div style="background:var(--black);color:var(--white);padding:12px 24px;text-align:center;position:relative;overflow:hidden;">
@@ -342,172 +249,506 @@
     <input type="text" id="search-input" placeholder="Search for products..." autocomplete="off">
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
-  <div class="product-count" id="product-count"><span class="count-number" id="total-available-count">—</span> products available</div>
-  <div class="product-count" id="seller-count" style="margin-top:6px;"><span class="count-number" id="seller-item-count">—</span> items live in seller network</div>
+  <div class="product-count" id="product-count"><span class="count-number">&#8212;</span> products available</div>
+  <div class="product-count" id="seller-count" style="margin-top:6px;"><span class="count-number" id="seller-item-count">&#8212;</span> items ship direct from GrowceryWorld</div>
 </div>
 
 <div id="hero-section">
   <div class="homepage-layout">
-
     <aside class="merchant-sidebar">
       <div class="sidebar-title">Store Aisles</div>
 
-      <div class="sidebar-section-label">👶 Baby &amp; Kids</div>
+      <div class="sidebar-section-label">&#128118; Baby &amp; Kids</div>
       <div class="merchant-item" onclick="searchCategory('Baby Kids','cat_baby')"><span class="merchant-name">Baby &amp; Kids</span></div>
 
-      <div class="sidebar-section-label">📚 Books</div>
+      <div class="sidebar-section-label">&#128218; Books</div>
       <div class="merchant-item" onclick="searchCategory('Books','cat_books')"><span class="merchant-name">Books</span></div>
 
-      <div class="sidebar-section-label">💻 Electronics</div>
+      <div class="sidebar-section-label">&#128187; Electronics</div>
       <div class="merchant-item" onclick="searchCategory('Electronics','cat_electronics')"><span class="merchant-name">Electronics</span></div>
 
-      <div class="sidebar-section-label">🌸 Fragrances</div>
+      <div class="sidebar-section-label">&#127800; Fragrances</div>
       <div class="merchant-item" onclick="searchCategory('Fragrances','cat_fragrances')"><span class="merchant-name">Fragrances</span></div>
 
-      <div class="sidebar-section-label">🏷️ General Merchandise</div>
+      <div class="sidebar-section-label">&#127991; General Merchandise</div>
       <div class="merchant-item" onclick="searchCategory('General Merchandise','cat_general')"><span class="merchant-name">General Merchandise</span></div>
 
-      <div class="sidebar-section-label">🧸 Toys</div>
+      <div class="sidebar-section-label">&#129528; Toys</div>
       <div class="merchant-item" onclick="searchCategory('Toys','cat_toys')"><span class="merchant-name">Toys</span></div>
 
-      <div class="sidebar-section-label">🛒 Grocery</div>
+      <div class="sidebar-section-label">&#128722; Grocery</div>
       <div class="merchant-item" onclick="searchCategory('Grocery','cat_grocery')"><span class="merchant-name">All Grocery</span></div>
       <div class="merchant-item" onclick="searchCategory('Breakfast','cat_grocery','sub_breakfast')"><span class="merchant-name">Breakfast &amp; Cereal</span></div>
       <div class="merchant-item" onclick="searchCategory('Beverages','cat_grocery','sub_beverages')"><span class="merchant-name">Beverages</span></div>
       <div class="merchant-item" onclick="searchCategory('Candy','cat_grocery','sub_candy')"><span class="merchant-name">Candy</span></div>
-      <div class="merchant-item" onclick="searchCategory('Condiments','cat_grocery','sub_condiments')"><span class="merchant-name">Condiments</span></div>
+      <div class="merchant-item" onclick="searchCategory('Condiments','cat_grocery','sub_condiments')"><span class="merchant-name">Condiments &amp; Sauces</span></div>
+      <div class="merchant-item" onclick="searchCategory('Pantry','cat_grocery','sub_pantry')"><span class="merchant-name">Pantry Staples</span></div>
+      <div class="merchant-item" onclick="searchCategory('Snack Bars','cat_grocery','sub_snack_bars')"><span class="merchant-name">Snack Bars</span></div>
+      <div class="merchant-item" onclick="searchCategory('Snacks','cat_grocery','sub_snacks')"><span class="merchant-name">Snacks</span></div>
+      <div class="merchant-item" onclick="searchCategory('Soups','cat_grocery','sub_soups')"><span class="merchant-name">Soups</span></div>
+      <div class="merchant-item" onclick="searchCategory('Specialty','cat_grocery','sub_specialty')"><span class="merchant-name">Organic &amp; Specialty</span></div>
+      <div class="merchant-item" onclick="searchCategory('Spreads','cat_grocery','sub_spreads')"><span class="merchant-name">Spreads &amp; Honey</span></div>
+      <div class="merchant-item" onclick="searchCategory('Tea','cat_grocery','sub_tea')"><span class="merchant-name">Tea</span></div>
+      <div class="merchant-item" onclick="searchCategory('Coffee','cat_grocery','sub_coffee')"><span class="merchant-name">Coffee</span></div>
+
+      <div class="sidebar-section-label">&#128138; Health &amp; Household</div>
+      <div class="merchant-item" onclick="searchCategory('Health Household','cat_health_household')"><span class="merchant-name">All Health &amp; Household</span></div>
+      <div class="merchant-item" onclick="searchCategory('Cleaning','cat_health_household','sub_cleaning')"><span class="merchant-name">Cleaning Supplies</span></div>
+      <div class="merchant-item" onclick="searchCategory('Hair Care','cat_health_household','sub_hair_care')"><span class="merchant-name">Hair Care</span></div>
+      <div class="merchant-item" onclick="searchCategory('Medicine','cat_health_household','sub_medicine')"><span class="merchant-name">Medicine &amp; Remedies</span></div>
+      <div class="merchant-item" onclick="searchCategory('Paper Goods','cat_health_household','sub_paper_goods')"><span class="merchant-name">Paper Goods</span></div>
+      <div class="merchant-item" onclick="searchCategory('Personal Care','cat_health_household','sub_personal_care')"><span class="merchant-name">Personal Care</span></div>
+      <div class="merchant-item" onclick="searchCategory('Feminine Care','cat_health_household','sub_feminine_care')"><span class="merchant-name">Feminine Care</span></div>
+      <div class="merchant-item" onclick="searchCategory('Skin Care','cat_health_household','sub_skin_care')"><span class="merchant-name">Skin Care</span></div>
+      <div class="merchant-item" onclick="searchCategory('Vitamins','cat_health_household','sub_vitamins')"><span class="merchant-name">Vitamins &amp; Supplements</span></div>
+
+      <div class="sidebar-section-label">&#127968; Home &amp; Garden</div>
+      <div class="merchant-item" onclick="searchCategory('Home Garden','cat_home_garden')"><span class="merchant-name">All Home &amp; Garden</span></div>
+      <div class="merchant-item" onclick="searchCategory('Home Fragrance','cat_home_garden','sub_home_fragrance')"><span class="merchant-name">Home Fragrance</span></div>
+      <div class="merchant-item" onclick="searchCategory('Kitchen Supplies','cat_home_garden','sub_kitchen_supplies')"><span class="merchant-name">Kitchen Supplies</span></div>
+
+      <div class="sidebar-section-label">&#128062; Pet Supplies</div>
+      <div class="merchant-item" onclick="searchCategory('Pet Supplies','cat_pets')"><span class="merchant-name">All Pet Supplies</span></div>
+      <div class="merchant-item" onclick="searchCategory('Cat','cat_pets','sub_cat')"><span class="merchant-name">Cat</span></div>
+      <div class="merchant-item" onclick="searchCategory('Dog','cat_pets','sub_dog')"><span class="merchant-name">Dog</span></div>
     </aside>
 
-    <main class="categories-section" id="categories">
-      <div class="section-header">
-        <h2 class="section-title">Curated Collections</h2>
-        <p class="section-subtitle">Exquisite design meets premium global sourcing</p>
+    <div class="homepage-right">
+      <div class="categories-section" id="categories">
+        <div class="section-header">
+          <h2 class="section-title">Browse by Department</h2>
+          <p class="section-subtitle">Millions of products from top merchant brands</p>
+        </div>
+        <div class="category-grid">
+          <div class="category-card" onclick="searchCategory('clothing shirts')"><span class="cat-icon">&#128084;</span><div class="cat-name">Apparel</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('art supplies craft')"><span class="cat-icon">&#9986;&#65039;</span><div class="cat-name">Arts &amp; Crafts</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('eastwood automotive car restoration paint')"><span class="cat-icon">&#128663;</span><div class="cat-name">Auto</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('baby products infant')"><span class="cat-icon">&#128118;</span><div class="cat-name">Baby</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('bedding sheets bath towels')"><span class="cat-icon">&#128705;</span><div class="cat-name">Bedding &amp; Bath</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('belts fashion accessories')"><span class="cat-icon">&#128084;</span><div class="cat-name">Belts &amp; Accessories</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('books novels media')"><span class="cat-icon">&#128218;</span><div class="cat-name">Books &amp; Media</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('camping hiking outdoor gear')"><span class="cat-icon">&#9978;</span><div class="cat-name">Camping &amp; Hiking</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('cell phones smartphones')"><span class="cat-icon">&#128241;</span><div class="cat-name">Cell Phones</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('computer accessories keyboard mouse')"><span class="cat-icon">&#128433;&#65039;</span><div class="cat-name">Computer Accessories</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('laptop computer desktop')"><span class="cat-icon">&#128187;</span><div class="cat-name">Computers</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('desk office chair furniture')"><span class="cat-icon">&#129681;</span><div class="cat-name">Desks &amp; Chairs</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('Electronics')"><span class="cat-icon">&#128268;</span><div class="cat-name">Electronics</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('fitness workout exercise')"><span class="cat-icon">&#128170;</span><div class="cat-name">Fitness</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('food snacks beverages')"><span class="cat-icon">&#127829;</span><div class="cat-name">Food &amp; Beverage</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('shoes sneakers boots footwear')"><span class="cat-icon">&#128095;</span><div class="cat-name">Footwear</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('furniture home decor')"><span class="cat-icon">&#128715;</span><div class="cat-name">Furniture</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('gaming video games console')"><span class="cat-icon">&#127918;</span><div class="cat-name">Gaming</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('garden outdoor plants')"><span class="cat-icon">&#127807;</span><div class="cat-name">Garden &amp; Outdoor</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('handbags purses wallets')"><span class="cat-icon">&#128092;</span><div class="cat-name">Handbags &amp; Wallets</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('hats caps scarves')"><span class="cat-icon">&#129922;</span><div class="cat-name">Hats &amp; Scarves</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('health beauty skincare')"><span class="cat-icon">&#128138;</span><div class="cat-name">Health &amp; Beauty</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('home decor wall art')"><span class="cat-icon">&#128444;&#65039;</span><div class="cat-name">Home Decor</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('home theater tv speakers')"><span class="cat-icon">&#127916;</span><div class="cat-name">Home Theatre</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('jewelry watches necklace')"><span class="cat-icon">&#8987;</span><div class="cat-name">Jewelry &amp; Watches</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('kitchen cookware dining')"><span class="cat-icon">&#127860;</span><div class="cat-name">Kitchen &amp; Dining</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('lighting lamps led')"><span class="cat-icon">&#128161;</span><div class="cat-name">Lighting</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('luggage travel bags suitcase')"><span class="cat-icon">&#129523;</span><div class="cat-name">Luggage &amp; Travel Bags</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('massage spa relaxation')"><span class="cat-icon">&#128134;</span><div class="cat-name">Massage &amp; Spa</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('musical instruments guitar piano')"><span class="cat-icon">&#127928;</span><div class="cat-name">Musical Instruments</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('office supplies stationery')"><span class="cat-icon">&#128221;</span><div class="cat-name">Office Supplies</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('outdoor patio furniture')"><span class="cat-icon">&#127807;</span><div class="cat-name">Outdoor &amp; Patio</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('pet supplies dog cat')"><span class="cat-icon">&#128062;</span><div class="cat-name">Pets</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('camera photography accessories')"><span class="cat-icon">&#128247;</span><div class="cat-name">Photography</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('printer scanner ink')"><span class="cat-icon">&#128424;&#65039;</span><div class="cat-name">Printers &amp; Scanners</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('school supplies backpack')"><span class="cat-icon">&#127890;</span><div class="cat-name">School Supplies</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('smart home devices alexa')"><span class="cat-icon">&#127969;</span><div class="cat-name">Smart Home</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('sporting goods sports equipment')"><span class="cat-icon">&#9917;</span><div class="cat-name">Sporting Goods</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('storage organization containers')"><span class="cat-icon">&#128230;</span><div class="cat-name">Storage &amp; Organization</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('sunglasses eyewear')"><span class="cat-icon">&#128374;&#65039;</span><div class="cat-name">Sunglasses</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('eastwood welding auto body tools')"><span class="cat-icon">&#128295;</span><div class="cat-name">Tools</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('toys kids games')"><span class="cat-icon">&#129528;</span><div class="cat-name">Toys</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('travel accessories luggage')"><span class="cat-icon">&#9992;&#65039;</span><div class="cat-name">Travel</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('vitamins supplements health')"><span class="cat-icon">&#128138;</span><div class="cat-name">Vitamins &amp; Supplements</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="searchCategory('yoga meditation wellness')"><span class="cat-icon">&#129496;</span><div class="cat-name">Yoga &amp; Meditation</div><div class="cat-count">Shop Now</div></div>
+          <div class="category-card" onclick="doGrocerySearch()"><span class="cat-icon">&#128722;</span><div class="cat-name">Grocery</div><div class="cat-count">Shop Now</div></div>
+        </div>
       </div>
-      <div class="category-grid">
-        <div class="category-card" onclick="searchCategory('Electronics', 'cat_electronics')">
-          <span class="cat-icon">💻</span>
-          <h3 class="cat-name">Electronics</h3>
-        </div>
-        <div class="category-card" onclick="searchCategory('Grocery', 'cat_grocery')">
-          <span class="cat-icon">🛒</span>
-          <h3 class="cat-name">Grocery</h3>
-        </div>
-        <div class="category-card" onclick="searchCategory('Books', 'cat_books')">
-          <span class="cat-icon">📚</span>
-          <h3 class="cat-name">Books</h3>
-        </div>
-        <div class="category-card" onclick="searchCategory('Baby Kids', 'cat_baby')">
-          <span class="cat-icon">👶</span>
-          <h3 class="cat-name">Baby &amp; Kids</h3>
-        </div>
-      </div>
-    </main>
-
+    </div>
   </div>
 </div>
 
-<section id="results-section">
+<div id="results-section">
   <div class="results-header">
-    <h2 class="results-title">Search Results</h2>
+    <h2 class="results-title" id="results-title">Results</h2>
+    <div class="results-controls">
+      <select class="sort-select" id="sort-select" onchange="doSearch(1)">
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+      </select>
+    </div>
   </div>
-  <div class="loading-state" id="loading-indicator" style="display: none;">
-    <div class="loading-spinner"></div>
-    <p>Searching collections database...</p>
+  <div id="product-grid" class="product-grid"></div>
+  <div class="pagination-container" id="pagination-container" style="display:none;">
+    <div class="pagination-info" id="pagination-info"></div>
+    <div class="pagination" id="pagination"></div>
   </div>
-  <div class="product-grid" id="products-target-grid"></div>
-</section>
+  <div id="load-more-container" style="display:none;text-align:center;margin:32px 0 48px;">
+    <button id="load-more-btn" onclick="loadMore()" style="background:#000;color:#fff;border:none;padding:14px 48px;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Cormorant Garamond',serif;">Load More</button>
+    <p id="load-more-info" style="margin-top:12px;font-size:12px;color:#888;letter-spacing:1px;"></p>
+  </div>
+</div>
 
 <footer>
   <div class="footer-inner">
     <div class="footer-col">
       <h4>Shoppizzy</h4>
-      <a href="#categories">Collections</a>
+      <p style="font-size:0.85rem;line-height:1.8;">Shop millions of products from top brands and independent sellers.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="#categories">Browse by Department</a>
+      <a href="/account.html">My Account</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>GrowceryWorld</h4>
+      <h4 style="margin-top:20px;">Membership</h4>
+      <a href="/account.html">Join &#8212; $20/yr</a>
+      <a href="/account.html">My Account</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/about.html">About Us</a>
     </div>
   </div>
-  <div class="footer-bottom">
-    <p>&copy; 2026 Shoppizzy. All rights reserved.</p>
-  </div>
+  <div class="footer-bottom">&#169; 2026 Shoppizzy &#8212; BSM Enterpryzes. All Rights Reserved.</div>
 </footer>
 
+<div class="chat-widget-container">
+  <div class="chat-button" id="chatButton">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+  </div>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-header-content">
+        <div class="chat-avatar">&#129302;</div>
+        <div class="chat-header-text"><h3>Shopping Assistant</h3><p>AI-Powered Product Search</p></div>
+      </div>
+      <button class="chat-close" id="chatClose">&#215;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-container">
+      <input type="text" class="chat-input" id="chatInput" placeholder="What are you looking for?" autocomplete="off"/>
+      <button class="chat-send" id="chatSend"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<div class="cf-turnstile" data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" data-callback="onTurnstileSuccess" data-theme="light" data-size="normal"></div>
+
 <script>
+  // ── HELPERS ──────────────────────────────────────────────────
+  function escHtml(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── CONSTANTS ─────────────────────────────────────────────────
+  const WORKER_URL = 'https://shoppizzy.com';
+  const LIMIT = 40;
+
+  // ── STATE ─────────────────────────────────────────────────────
+  let currentPage = 1;
+  let currentQuery = '';
+  let currentTotal = 0;
+  let allProducts = [];
+
+  function getLimit(options) {
+    return (options && (options.categoryFilter || options.subcategoryFilter)) ? 100 : LIMIT;
+  }
+
+  // ── INIT ──────────────────────────────────────────────────────
+  document.getElementById('search-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doSearch(1);
+  });
+
+  loadProductCount();
+
+  // ── PRODUCT COUNT ─────────────────────────────────────────────
+  async function loadProductCount() {
+    try {
+      var pcRes = await fetch(WORKER_URL + '/api/product-count');
+      if (pcRes.ok) {
+        var pcData = await pcRes.json();
+        var count = pcData.count || 0;
+        document.getElementById('product-count').innerHTML = '<span class="count-number">' + count.toLocaleString() + '</span> products available';
+      } else {
+        document.getElementById('product-count').innerHTML = '<span class="count-number">13,000,000+</span> products available';
+      }
+    } catch(e) {
+      document.getElementById('product-count').innerHTML = '<span class="count-number">13,000,000+</span> products available';
+    }
+    try {
+      var sellerRes = await fetch(WORKER_URL + '/api/seller-stats');
+      if (sellerRes.ok) {
+        var sellerData = await sellerRes.json();
+        document.getElementById('seller-item-count').textContent = (sellerData.activeProducts || 0).toLocaleString();
+      }
+    } catch(e) {
+      document.getElementById('seller-item-count').textContent = '0';
+    }
+  }
+
+  // ── SEARCH CATEGORY ───────────────────────────────────────────
+  function searchCategory(label, categoryValue, subcategoryValue) {
+    if (categoryValue) {
+      document.getElementById('search-input').value = '';
+      doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
+    } else {
+      document.getElementById('search-input').value = label;
+      doSearch(1, { categoryLabel: label });
+    }
+  }
+
+  function doGrocerySearch() {
+    document.getElementById('search-input').value = 'grocery';
+    doSearch(1);
+  }
+
   function showHome() {
-    document.getElementById('results-section').classList.remove('active');
     document.getElementById('hero-section').style.display = 'block';
+    document.getElementById('results-section').classList.remove('active');
     document.getElementById('search-input').value = '';
   }
 
-  function searchCategory(label, catKey, subKey = '') {
-    document.getElementById('search-input').value = label;
-    doSearch(catKey, subKey);
-  }
-
-  async function doSearch(category = '', subcategory = '') {
-    const query = document.getElementById('search-input').value.trim();
-    const heroEl = document.getElementById('hero-section');
-    const resultsEl = document.getElementById('results-section');
-    const gridEl = document.getElementById('products-target-grid');
-    const loadingEl = document.getElementById('loading-indicator');
-
-    heroEl.style.display = 'none';
-    resultsEl.classList.add('active');
-    gridEl.innerHTML = '';
-    loadingEl.style.display = 'block';
-
+  // ── MAIN SEARCH ───────────────────────────────────────────────
+  async function doSearch(page, options) {
+    page = page || 1;
+    options = options || {};
+    var query = document.getElementById('search-input').value.trim();
+    if (!query && !options.categoryFilter && !options.subcategoryFilter) return;
+    var sortVal = document.getElementById('sort-select').value;
+    var sortParts = sortVal.split('-');
+    var sortBy = sortParts[0];
+    var sortOrder = sortParts[1];
+    currentQuery = query;
+    currentPage = page;
+    window._lastSearchOptions = options;
+    document.getElementById('hero-section').style.display = 'none';
+    document.getElementById('results-section').classList.add('active');
+    document.getElementById('product-grid').innerHTML = '<div class="loading-state" style="grid-column:1/-1"><div class="loading-spinner"></div><p>Searching our collection...</p></div>';
+    document.getElementById('results-title').innerHTML = options.categoryLabel ? escHtml(options.categoryLabel) : 'Results for &ldquo;' + escHtml(query) + '&rdquo;';
+    document.getElementById('load-more-container').style.display = 'none';
     try {
-      let targetUrl = `/api/products?q=${encodeURIComponent(query)}`;
-      if(category) targetUrl += `&category=${category}`;
-      if(subcategory) targetUrl += `&subcategory=${subcategory}`;
-
-      const res = await fetch(targetUrl);
-      const data = await res.json();
-      loadingEl.style.display = 'none';
-if (data.products && data.products.length > 0) {
-        data.products.forEach(prod => {
-          // Fallback check: uses whatever image column name exists in your schema
-          const productImage = prod.image_url || prod.image || prod.img || prod.thumbnail || 'https://via.placeholder.com/220';
-          
-          const card = document.createElement('div');
-          card.className = 'product-card';
-          card.innerHTML = `
-            <div class="product-img-wrap">
-              <img src="${productImage}" alt="${prod.title || 'Product Image'}" onerror="this.src='https://via.placeholder.com/220'">
-            </div>
-            <div class="product-info">
-              <span class="product-merchant">${prod.merchant || 'Marketplace Vendor'}</span>
-              <h4 class="product-title">${prod.title}</h4>
-              <div class="product-price">
-                <span class="price-regular">$${prod.price || '0.00'}</span>
-              </div>
-            </div>
-          `;
-          gridEl.appendChild(card);
-        });
-      } else {
-        gridEl.innerHTML = '<div class="empty-state"><p>No items found matching your description.</p></div>';
-      }
-    } catch (err) {
-      loadingEl.style.display = 'none';
-      gridEl.innerHTML = '<div class="empty-state"><p>System error during catalog retrieval. Please retry shortly.</p></div>';
+      var params = new URLSearchParams({ q: query, limit: getLimit(options), page: page, sortBy: sortBy, sortOrder: sortOrder });
+      if (options.sourceFilter) params.set('source', options.sourceFilter);
+      if (options.categoryFilter) params.set('category', options.categoryFilter);
+      if (options.subcategoryFilter) params.set('subcategory', options.subcategoryFilter);
+      var res = await fetch(WORKER_URL + '/api/products?' + params.toString());
+      var data = await res.json();
+      allProducts = data.products || [];
+      currentTotal = data.totalCount || 0;
+      window._loadedCount = allProducts.length;
+      renderResults(allProducts, query, currentTotal);
+      updateLoadMore(options, allProducts.length);
+    } catch(err) {
+      document.getElementById('product-grid').innerHTML = '<div class="empty-state" style="grid-column:1/-1"><p>Unable to load results</p></div>';
     }
   }
 
-  async function loadMarketplaceStats() {
+  // ── LOAD MORE ─────────────────────────────────────────────────
+  async function loadMore() {
+    var options = window._lastSearchOptions || {};
+    var query = document.getElementById('search-input').value.trim();
+    var sortVal = document.getElementById('sort-select').value;
+    var sortParts = sortVal.split('-');
+    var btn = document.getElementById('load-more-btn');
+    btn.textContent = 'Loading...';
+    btn.disabled = true;
     try {
-      const resCount = await fetch('/api/product-count');
-      const dataCount = await resCount.json();
-      if(dataCount.count) {
-        document.getElementById('total-available-count').innerText = dataCount.count.toLocaleString();
-      }
-    } catch(e) {
-      console.log("Stats layout placeholder fallbacks active.");
+      var nextPage = Math.floor((window._loadedCount || 0) / getLimit(options)) + 1;
+      var params = new URLSearchParams({ q: query, limit: getLimit(options), page: nextPage, sortBy: sortParts[0], sortOrder: sortParts[1] });
+      if (options.sourceFilter) params.set('source', options.sourceFilter);
+      if (options.categoryFilter) params.set('category', options.categoryFilter);
+      if (options.subcategoryFilter) params.set('subcategory', options.subcategoryFilter);
+      var res = await fetch(WORKER_URL + '/api/products?' + params.toString());
+      var data = await res.json();
+      var newProducts = data.products || [];
+      allProducts = allProducts.concat(newProducts);
+      window._loadedCount = allProducts.length;
+      var grid = document.getElementById('product-grid');
+      grid.innerHTML += newProducts.map(function(p) { return renderCard(p); }).join('');
+      updateLoadMore(options, newProducts.length);
+    } catch(err) {}
+    btn.textContent = 'Load More';
+    btn.disabled = false;
+  }
+
+  function updateLoadMore(options, returnedCount) {
+    var container = document.getElementById('load-more-container');
+    var info = document.getElementById('load-more-info');
+    var loaded = window._loadedCount || 0;
+    var limit = getLimit(options);
+    if (returnedCount >= limit) {
+      container.style.display = 'block';
+      info.textContent = 'Showing ' + loaded + ' items';
+    } else {
+      container.style.display = 'none';
     }
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    loadMarketplaceStats();
-    document.getElementById('search-input').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') doSearch();
+  // ── RENDER ────────────────────────────────────────────────────
+  function renderResults(products, query, total) {
+    var grid = document.getElementById('product-grid');
+    if (!products.length) {
+      grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><p>No products found</p></div>';
+      document.getElementById('pagination-container').style.display = 'none';
+      return;
+    }
+    grid.innerHTML = products.map(function(p) { return renderCard(p); }).join('');
+    renderPagination(total);
+    document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderPagination(total) {
+    var totalPages = Math.ceil(total / LIMIT);
+    if (totalPages <= 1) { document.getElementById('pagination-container').style.display = 'none'; return; }
+    document.getElementById('pagination-container').style.display = 'block';
+    var start = (currentPage - 1) * LIMIT + 1;
+    var end = Math.min(currentPage * LIMIT, total);
+    document.getElementById('pagination-info').textContent = 'Showing ' + start.toLocaleString() + '-' + end.toLocaleString() + ' of ' + total.toLocaleString() + ' results';
+    var paginationEl = document.getElementById('pagination');
+    var html = '<button class="page-btn" onclick="goToPage(' + (currentPage - 1) + ')" ' + (currentPage === 1 ? 'disabled' : '') + '>&#8592; Prev</button>';
+    var startPage = Math.max(1, currentPage - 2);
+    var endPage = Math.min(totalPages, currentPage + 2);
+    if (startPage > 1) { html += '<button class="page-btn" onclick="goToPage(1)">1</button>'; if (startPage > 2) html += '<span class="page-ellipsis">...</span>'; }
+    for (var i = startPage; i <= endPage; i++) html += '<button class="page-btn ' + (i === currentPage ? 'active' : '') + '" onclick="goToPage(' + i + ')">' + i + '</button>';
+    if (endPage < totalPages) { if (endPage < totalPages - 1) html += '<span class="page-ellipsis">...</span>'; html += '<button class="page-btn" onclick="goToPage(' + totalPages + ')">' + totalPages + '</button>'; }
+    html += '<button class="page-btn" onclick="goToPage(' + (currentPage + 1) + ')" ' + (currentPage === totalPages ? 'disabled' : '') + '>Next &#8594;</button>';
+    paginationEl.innerHTML = html;
+  }
+
+  function goToPage(page) { if (page < 1 || !currentQuery) return; doSearch(page); }
+
+  function buildProductUrl(p) {
+    if (p.source === 'seller' || p.source === 'square' || p.type === 'direct') {
+      return '/product.html?id=' + encodeURIComponent(p.id);
+    }
+    var params = new URLSearchParams({ id: p.id, title: p.title || '', buy: p.buyUrl || p.affiliate_link || '', price: p.price || '', img: p.imageUrl || '', desc: (p.description || '').substring(0, 200), brand: p.brand || '', cat: p.category || '' });
+    if (p.salePrice) params.set('sale', p.salePrice);
+    return '/product.html?' + params.toString();
+  }
+
+  function renderCard(p) {
+    var hasSale = p.salePrice && p.salePrice !== '' && parseFloat(p.salePrice) > 0;
+    var price = hasSale ? p.salePrice : p.price;
+    var priceStr = price && parseFloat(price) > 0 ? '$' + parseFloat(price).toFixed(2) : 'See Price';
+    var wasStr = hasSale && p.price && parseFloat(p.price) > 0 ? '$' + parseFloat(p.price).toFixed(2) : '';
+    var imgHtml = p.imageUrl ? '<img src="' + escHtml(p.imageUrl) + '" alt="' + escHtml(p.title) + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' : '';
+    var placeholderHtml = '<div class="product-img-placeholder" ' + (p.imageUrl ? 'style="display:none"' : '') + '>&#10022;</div>';
+    var productLink = buildProductUrl(p);
+    var isGrowcery = p.advertiserName === 'GrowceryWorld' || p.merchant_name === 'GrowceryWorld';
+    var isSquare = p.source === 'square';
+    var unitCount = p.unit_count && p.unit_count > 1 ? p.unit_count : 1;
+    var unitPrice = isGrowcery && unitCount > 1 ? (parseFloat(price) / unitCount).toFixed(2) : null;
+    var badge = '';
+    if (hasSale) badge = '<div class="sale-badge">Sale</div>';
+    else if (isGrowcery && unitCount > 1) badge = '<div class="wholesale-badge">$' + unitPrice + '/ea</div>';
+    var sourceLabel = (!isGrowcery && !isSquare) ? '<div class="product-source">' + escHtml(p.advertiserName || p.merchant_name || '') + '</div>' : '';
+    return '<a class="product-card" href="' + productLink + '" target="_self">' +
+      '<div class="product-img-wrap">' + imgHtml + placeholderHtml + badge + '</div>' +
+      '<div class="product-info">' + sourceLabel +
+      '<div class="product-title">' + escHtml(p.title) + '</div>' +
+      '<div class="product-price">' + (hasSale && wasStr ? '<span class="price-sale">' + priceStr + '</span><span class="price-was">' + wasStr + '</span>' : '<span class="price-regular">' + priceStr + '</span>') + '</div>' +
+      '</div></a>';
+  }
+
+  // ── CHAT WIDGET ───────────────────────────────────────────────
+  var isOpen = false;
+  var chatButton = document.getElementById('chatButton');
+  var chatWindow = document.getElementById('chatWindow');
+  var chatClose = document.getElementById('chatClose');
+  var chatMessages = document.getElementById('chatMessages');
+  var chatInput = document.getElementById('chatInput');
+  var chatSend = document.getElementById('chatSend');
+  chatButton.addEventListener('click', toggleChat);
+  chatClose.addEventListener('click', toggleChat);
+  chatSend.addEventListener('click', sendChatMessage);
+  chatInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') sendChatMessage(); });
+  setTimeout(function() {
+    addChatMessage('assistant', "Hi! I'm your AI shopping assistant. What are you looking for today?");
+    showQuickActions(['Wireless Headphones', 'Gaming Laptops', 'Running Shoes', 'Smart Watches']);
+  }, 1000);
+  function toggleChat() { isOpen = !isOpen; chatWindow.classList.toggle('open', isOpen); if (isOpen) chatInput.focus(); }
+  function addChatMessage(sender, content, products) {
+    var messageDiv = document.createElement('div'); messageDiv.className = 'message ' + sender;
+    var avatar = document.createElement('div'); avatar.className = 'message-avatar'; avatar.textContent = sender === 'assistant' ? '🤖' : '👤';
+    var contentDiv = document.createElement('div'); contentDiv.className = 'message-content'; contentDiv.textContent = content;
+    messageDiv.appendChild(avatar); messageDiv.appendChild(contentDiv); chatMessages.appendChild(messageDiv);
+    if (products && products.length > 0) {
+      var container = document.createElement('div'); container.className = 'product-cards-chat';
+      products.forEach(function(p) { container.appendChild(createChatCard(p)); }); contentDiv.appendChild(container);
+    }
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  function createChatCard(product) {
+    var card = document.createElement('a'); card.className = 'product-card-chat';
+    card.href = product.buyUrl || product.affiliate_link || '#'; card.target = '_blank'; card.rel = 'noopener noreferrer';
+    var imageDiv = document.createElement('div'); imageDiv.className = 'product-card-chat-image';
+    if (product.imageUrl) { var img = document.createElement('img'); img.src = product.imageUrl; img.alt = product.title; imageDiv.appendChild(img); }
+    else { var ph = document.createElement('div'); ph.className = 'product-card-chat-placeholder'; ph.textContent = '✦'; imageDiv.appendChild(ph); }
+    var infoDiv = document.createElement('div'); infoDiv.className = 'product-card-chat-info';
+    var merchant = document.createElement('div'); merchant.className = 'product-card-chat-merchant'; merchant.textContent = product.advertiserName || product.merchant_name || 'Merchant';
+    var title = document.createElement('div'); title.className = 'product-card-chat-title'; title.textContent = product.title;
+    var price = document.createElement('div'); price.className = 'product-card-chat-price';
+    var pv = product.salePrice || product.price; price.textContent = pv ? '$' + parseFloat(pv).toFixed(2) : 'See Price';
+    infoDiv.appendChild(merchant); infoDiv.appendChild(title); infoDiv.appendChild(price);
+    card.appendChild(imageDiv); card.appendChild(infoDiv); return card;
+  }
+  function showTyping() {
+    var d = document.createElement('div'); d.className = 'message assistant'; d.id = 'typing-indicator';
+    var a = document.createElement('div'); a.className = 'message-avatar'; a.textContent = '🤖';
+    var i = document.createElement('div'); i.className = 'typing-indicator';
+    i.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    d.appendChild(a); d.appendChild(i); chatMessages.appendChild(d); chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  function hideTyping() { var t = document.getElementById('typing-indicator'); if (t) t.remove(); }
+  function showQuickActions(actions) {
+    var qd = document.createElement('div'); qd.className = 'quick-actions';
+    actions.forEach(function(action) {
+      var btn = document.createElement('button'); btn.className = 'quick-action-btn'; btn.textContent = action;
+      btn.onclick = function() { chatInput.value = action; sendChatMessage(); }; qd.appendChild(btn);
     });
+    var last = chatMessages.lastElementChild;
+    if (last && last.querySelector('.message-content')) last.querySelector('.message-content').appendChild(qd);
+  }
+  async function sendChatMessage() {
+    var message = chatInput.value.trim(); if (!message) return;
+    addChatMessage('user', message); chatInput.value = ''; chatSend.disabled = true; showTyping();
+    var params = extractParams(message);
+    try {
+      var products = await searchProducts(params); hideTyping();
+      if (!products.length) { addChatMessage('assistant', "I couldn't find any " + params.keyword + ". Try something else!"); showQuickActions(['Electronics', 'Apparel', 'Footwear', 'Home & Kitchen']); }
+      else { addChatMessage('assistant', 'I found ' + products.length + ' ' + params.keyword + (params.maxPrice ? ' under $' + params.maxPrice : '') + ':', products.slice(0, 5)); }
+    } catch(e) { hideTyping(); addChatMessage('assistant', 'Sorry, I had trouble searching. Please try again!'); }
+    chatSend.disabled = false; chatInput.focus();
+  }
+  function extractParams(message) {
+    var lower = message.toLowerCase();
+    var maxPrice = null;
+    var pm = lower.match(/under\s+\$?(\d+)|below\s+\$?(\d+)|\$(\d+)\s+or less/);
+    if (pm) maxPrice = parseInt(pm.filter(function(m) { return m && !isNaN(m); })[0]);
+    var keyword = message.replace(/under\s+\$?\d+/gi,'').replace(/below\s+\$?\d+/gi,'').replace(/\$\d+\s+or less/gi,'').trim();
+    return { keyword: keyword, maxPrice: maxPrice };
+  }
+  async function searchProducts(params) {
+    var res = await fetch(WORKER_URL + '/api/products?q=' + encodeURIComponent(params.keyword || 'products') + '&limit=20');
+    var data = await res.json();
+    var products = data.products || [];
+    if (params.maxPrice) products = products.filter(function(p) { var pr = parseFloat(p.salePrice || p.price || 0); return pr > 0 && pr <= params.maxPrice; });
+    return products;
+  }
+
+  function onTurnstileSuccess(token) {}
+  window.addEventListener('load', function() {
+    if (window.turnstile) window.turnstile.render('.cf-turnstile', { sitekey: '0x4AAAAAACrT9alWCXq-IbVd', callback: onTurnstileSuccess, theme: 'light', size: 'normal' });
   });
 </script>
 
