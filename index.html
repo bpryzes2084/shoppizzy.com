@@ -91,6 +91,7 @@
     .source-badge { position: absolute; top: 12px; left: 12px; background: var(--white); color: var(--black); font-size: 0.62rem; font-weight: 400; letter-spacing: 1.5px; padding: 5px 12px; text-transform: uppercase; }
     .sale-badge { position: absolute; top: 12px; right: 12px; background: var(--gold); color: var(--white); font-size: 0.62rem; font-weight: 400; letter-spacing: 1.5px; padding: 5px 12px; text-transform: uppercase; }
   .wholesale-badge { position: absolute; bottom: 8px; left: 8px; background: #000; color: #c5a572; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 7px; }
+  .product-source { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
     .product-info { padding: 0 4px; display: flex; flex-direction: column; flex: 1; }
     .product-merchant { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; font-weight: 400; }
     .product-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 400; color: var(--black); line-height: 1.4; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 3em; flex-shrink: 0; }
@@ -931,32 +932,25 @@
     const imgHtml = p.imageUrl ? `<img src="${p.imageUrl}" alt="${escHtml(p.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : '';
     const placeholderHtml = `<div class="product-img-placeholder" ${p.imageUrl ? 'style="display:none"' : ''}>&#10022;</div>`;
     const productLink = buildProductUrl(p);
-    const merchantName = (p.source === 'square' || p.source === 'seller' || p.type === 'direct') ? (p.merchant_name || 'Shoppizzy') : (p.advertiserName || p.merchant_name || 'Merchant');
-    const isWholesale = p.advertiserName === 'GrowceryWorld' || p.merchant_name === 'GrowceryWorld';
+    const isGrowcery = p.advertiserName === 'GrowceryWorld' || p.merchant_name === 'GrowceryWorld';
+    const isSquare = p.source === 'square';
     const unitCount = p.unit_count && p.unit_count > 1 ? p.unit_count : 1;
-    const unitPrice = isWholesale && unitCount > 1 ? (parseFloat(price) / unitCount).toFixed(2) : null;
-    const wholesaleLabel = isWholesale ? `<div class="wholesale-badge">${unitCount > 1 ? `$${unitPrice}/ea · ${unitCount} units` : 'Wholesale Price'}</div>` : '';
+    const unitPrice = isGrowcery && unitCount > 1 ? (parseFloat(price) / unitCount).toFixed(2) : null;
+
+    // Single clean badge
+    let badge = '';
+    if (hasSale) badge = '<div class="sale-badge">Sale</div>';
+    else if (isGrowcery && unitCount > 1) badge = `<div class="wholesale-badge">$${unitPrice}/ea</div>`;
+
+    // Source label only for affiliate items
+    const sourceLabel = (!isGrowcery && !isSquare) ? `<div class="product-source">${escHtml(p.advertiserName || p.merchant_name || '')}</div>` : '';
+
     return `<a class="product-card" href="${productLink}" target="_self">
-      <div class="product-img-wrap">${imgHtml}${placeholderHtml}<div class="source-badge">${escHtml(merchantName)}</div>${hasSale ? '<div class="sale-badge">Sale</div>' : ''}${wholesaleLabel}</div>
+      <div class="product-img-wrap">${imgHtml}${placeholderHtml}${badge}</div>
       <div class="product-info">
-        <div class="product-merchant">${escHtml(merchantName)}</div>
+        ${sourceLabel}
         <div class="product-title">${escHtml(p.title)}</div>
         <div class="product-price">${hasSale && wasStr ? `<span class="price-sale">${priceStr}</span><span class="price-was">${wasStr}</span>` : `<span class="price-regular">${priceStr}</span>`}</div>
       </div>
     </a>`;
   }
-
-  function searchMerchant(name) {
-    document.getElementById('search-input').value = name;
-    doSearch(1);
-  }
-
-  function escHtml(str) {
-    const temp = document.createElement('div');
-    temp.innerHTML = String(str || '');
-    const decoded = temp.textContent || temp.innerText || '';
-    return decoded.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  }
-</script>
-</body>
-</html>
