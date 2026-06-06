@@ -490,13 +490,6 @@
           <h2 class="section-title">Browse by Department</h2>
           <p class="section-subtitle">Millions of products from top merchant brands</p>
         </div>
-<script>
-  // Stub functions — replaced by full definitions when main script loads
-  function searchCategory(a,b,c){ window._pendingCategory=[a,b,c]; if(window._searchCategoryReady) window.searchCategory(a,b,c); }
-  function doSearch(a,b){ window._pendingSearch=[a,b]; if(window._doSearchReady) window.doSearch(a,b); }
-  function showHome(){ if(window._showHomeReady) window.showHome(); }
-  function loadMore(){ if(window._loadMoreReady) window.loadMore(); }
-</script>
         <div class="category-grid">
           <div class="category-card" onclick="searchCategory('clothing shirts')"><span class="cat-icon">&#128084;</span><div class="cat-name">Apparel</div><div class="cat-count" data-category="Apparel">Shop Now</div></div>
           <div class="category-card" onclick="searchCategory('art supplies craft')"><span class="cat-icon">&#9986;&#65039;</span><div class="cat-name">Arts &amp; Crafts</div><div class="cat-count" data-category="Arts & Crafts">Shop Now</div></div>
@@ -628,7 +621,6 @@
 </div>
 
 <script>
-(function() {
   const WORKER_URL = 'https://shoppizzy.com';
   const MAX_PRODUCTS_TO_SHOW = 5;
   let isOpen = false;
@@ -715,7 +707,7 @@
     if (params.maxPrice) products = products.filter(p => { const pr = parseFloat(p.salePrice || p.price || 0); return pr > 0 && pr <= params.maxPrice; });
     return products;
   }
-})();
+
 </script>
 
 <div class="cf-turnstile" data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" data-callback="onTurnstileSuccess" data-theme="light" data-size="invisible"></div>
