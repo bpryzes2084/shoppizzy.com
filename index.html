@@ -490,6 +490,13 @@
           <h2 class="section-title">Browse by Department</h2>
           <p class="section-subtitle">Millions of products from top merchant brands</p>
         </div>
+<script>
+  // Stub functions — replaced by full definitions when main script loads
+  function searchCategory(a,b,c){ window._pendingCategory=[a,b,c]; if(window._searchCategoryReady) window.searchCategory(a,b,c); }
+  function doSearch(a,b){ window._pendingSearch=[a,b]; if(window._doSearchReady) window.doSearch(a,b); }
+  function showHome(){ if(window._showHomeReady) window.showHome(); }
+  function loadMore(){ if(window._loadMoreReady) window.loadMore(); }
+</script>
         <div class="category-grid">
           <div class="category-card" onclick="searchCategory('clothing shirts')"><span class="cat-icon">&#128084;</span><div class="cat-name">Apparel</div><div class="cat-count" data-category="Apparel">Shop Now</div></div>
           <div class="category-card" onclick="searchCategory('art supplies craft')"><span class="cat-icon">&#9986;&#65039;</span><div class="cat-name">Arts &amp; Crafts</div><div class="cat-count" data-category="Arts & Crafts">Shop Now</div></div>
@@ -796,7 +803,14 @@
       document.getElementById('search-input').value = label;
       doSearch(1, { categoryLabel: label });
     }
-  }
+  };
+  window._searchCategoryReady = true;
+  window._doSearchReady = true;
+  window._showHomeReady = true;
+  window._loadMoreReady = true;
+  // Process any pending calls that happened before script loaded
+  if (window._pendingCategory) { const [a,b,c] = window._pendingCategory; window._pendingCategory=null; window.searchCategory(a,b,c); }
+  if (window._pendingSearch) { const [a,b] = window._pendingSearch; window._pendingSearch=null; window.doSearch(a,b); }
   window.searchCategory = searchCategory;
   window.doSearch = doSearch;
   window.loadMore = loadMore;
