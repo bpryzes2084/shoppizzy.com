@@ -506,6 +506,12 @@
       doSearch(1, { categoryLabel: label });
     }
   }
+  window.searchCategory = searchCategory;
+  window.doSearch = doSearch;
+  window.showHome = showHome;
+  window.loadMore = loadMore;
+  window.doGrocerySearch = doGrocerySearch;
+  window.goToPage = goToPage;
 
   function doGrocerySearch() {
     document.getElementById('search-input').value = 'grocery';
@@ -676,6 +682,9 @@
     addChatMessage('assistant', "Hi! I'm your AI shopping assistant. What are you looking for today?");
     showQuickActions(['Wireless Headphones', 'Gaming Laptops', 'Running Shoes', 'Smart Watches']);
   }, 1000);
+  // ── CLOUDFLARE AI CHAT ────────────────────────────────────────
+  var chatHistory = [];
+
   function toggleChat() { isOpen = !isOpen; chatWindow.classList.toggle('open', isOpen); if (isOpen) chatInput.focus(); }
   function addChatMessage(sender, content, products) {
     var messageDiv = document.createElement('div'); messageDiv.className = 'message ' + sender;
@@ -720,16 +729,35 @@
     if (last && last.querySelector('.message-content')) last.querySelector('.message-content').appendChild(qd);
   }
   async function sendChatMessage() {
-    var message = chatInput.value.trim(); if (!message) return;
-    addChatMessage('user', message); chatInput.value = ''; chatSend.disabled = true; showTyping();
-    var params = extractParams(message);
+    var message = chatInput.value.trim();
+    if (!message) return;
+    addChatMessage('user', message);
+    chatInput.value = '';
+    chatSend.disabled = true;
+    showTyping();
+    chatHistory.push({ role: 'user', content: message });
     try {
-      var products = await searchProducts(params); hideTyping();
-      if (!products.length) { addChatMessage('assistant', "I couldn't find any " + params.keyword + ". Try something else!"); showQuickActions(['Electronics', 'Apparel', 'Footwear', 'Home & Kitchen']); }
-      else { addChatMessage('assistant', 'I found ' + products.length + ' ' + params.keyword + (params.maxPrice ? ' under $' + params.maxPrice : '') + ':', products.slice(0, 5)); }
-    } catch(e) { hideTyping(); addChatMessage('assistant', 'Sorry, I had trouble searching. Please try again!'); }
-    chatSend.disabled = false; chatInput.focus();
+      var res = await fetch(WORKER_URL + '/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: message, history: chatHistory.slice(-6) })
+      });
+      var data = await res.json();
+      hideTyping();
+      var reply = data.reply || "I'm here to help! What are you looking for?";
+      var products = data.products || [];
+      addChatMessage('assistant', reply, products);
+      chatHistory.push({ role: 'assistant', content: reply });
+      // Keep history manageable
+      if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+    } catch(e) {
+      hideTyping();
+      addChatMessage('assistant', 'Sorry, I had trouble connecting. Please try again!');
+    }
+    chatSend.disabled = false;
+    chatInput.focus();
   }
+
   function extractParams(message) {
     var lower = message.toLowerCase();
     var maxPrice = null;
@@ -738,14 +766,8 @@
     var keyword = message.replace(/under\s+\$?\d+/gi,'').replace(/below\s+\$?\d+/gi,'').replace(/\$\d+\s+or less/gi,'').trim();
     return { keyword: keyword, maxPrice: maxPrice };
   }
-  async function searchProducts(params) {
-    var res = await fetch(WORKER_URL + '/api/products?q=' + encodeURIComponent(params.keyword || 'products') + '&limit=20');
-    var data = await res.json();
-    var products = data.products || [];
-    if (params.maxPrice) products = products.filter(function(p) { var pr = parseFloat(p.salePrice || p.price || 0); return pr > 0 && pr <= params.maxPrice; });
-    return products;
-  }
 
+  
   function onTurnstileSuccess(token) {}
   window.addEventListener('load', function() {
     if (window.turnstile) window.turnstile.render('.cf-turnstile', { sitekey: '0x4AAAAAACrT9alWCXq-IbVd', callback: onTurnstileSuccess, theme: 'light', size: 'normal' });
