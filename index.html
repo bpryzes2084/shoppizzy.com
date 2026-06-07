@@ -539,7 +539,7 @@
     window._lastSearchOptions = options;
     document.getElementById('hero-section').style.display = 'none';
     document.getElementById('results-section').classList.add('active');
-    document.getElementById('product-grid').innerHTML = '<div class="loading-state" style="grid-column:1/-1"><div class="loading-spinner"></div><p>Searching our collection...</p></div>';
+    document.getElementById('product-grid').innerHTML = '<div class="loading-state" style="grid-column:1/-1"><div class="loading-spinner"></div><p>Searching millions of products...</p></div>';
     document.getElementById('results-title').innerHTML = options.categoryLabel ? escHtml(options.categoryLabel) : 'Results for &ldquo;' + escHtml(query) + '&rdquo;';
     document.getElementById('load-more-container').style.display = 'none';
     try {
