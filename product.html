@@ -800,7 +800,7 @@
 <div id="toast" style="position:fixed;bottom:30px;right:30px;background:var(--black);color:var(--white);padding:16px 28px;font-size:0.85rem;z-index:9999;transform:translateY(80px);opacity:0;transition:all 0.4s;border-left:3px solid var(--gold);"></div>
 
 <script>
-  const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
+  const WORKER_URL = 'https://shoppizzy.com';
 
   window.addEventListener('load', async () => {
     const params = new URLSearchParams(window.location.search);
@@ -864,7 +864,7 @@
     // Seller name
     const sellerEl = document.getElementById('p-seller');
     if (sellerEl) {
-      sellerEl.textContent = (p.source === 'square' || p.type === 'direct') ? 'Shoppizzy' : (p.advertiserName || p.merchant_name || 'Shoppizzy');
+      sellerEl.textContent = (p.source === 'square' || p.source === 'seller' || p.type === 'direct') ? 'GrowceryWorld' : (p.advertiserName || p.merchant_name || 'Shoppizzy');
     }
 
     // Title
@@ -878,7 +878,7 @@
     // Set shipping text based on product source
     const shippingEl = document.getElementById('p-shipping');
     if (shippingEl) {
-      if (p.source === 'seller' || p.merchant_name === 'GrowceryWorld') {
+      if (p.source === 'seller' || p.source === 'square' || p.merchant_name === 'GrowceryWorld') {
         shippingEl.textContent = 'Ships via UPS with tracking';
       } else {
         shippingEl.textContent = `Ships directly from ${p.merchant_name || p.advertiserName || 'merchant'}`;
@@ -1011,7 +1011,7 @@
         return `
           <a class="related-card" href="${productUrl}">
             <div class="related-img">${imgHtml}</div>
-            <div class="related-seller">${(p.source === 'square' || p.type === 'direct') ? 'Shoppizzy' : (p.advertiserName || p.merchant_name || 'Shoppizzy')}</div>
+            <div class="related-seller">${(p.source === 'square' || p.source === 'seller' || p.type === 'direct') ? 'GrowceryWorld' : (p.advertiserName || p.merchant_name || 'Shoppizzy')}</div>
             <div class="related-name">${escHtml(p.title)}</div>
             <div class="related-price">${priceStr}</div>
           </a>`;
