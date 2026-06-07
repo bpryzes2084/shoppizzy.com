@@ -814,27 +814,27 @@
     }
 
     // If we have all data in URL params (passed from search results)
-    const title = params.get('title');
+    const title = (() => { try { return params.get('title') ? decodeURIComponent(params.get('title')) : ''; } catch(e) { return params.get('title') || ''; } })();
     const price = params.get('price');
     const salePrice = params.get('sale');
-    const image = params.get('img');
-    const description = params.get('desc');
-    const brand = params.get('brand');
-    const category = params.get('cat');
+    const image = (() => { try { return params.get('img') ? decodeURIComponent(params.get('img')) : ''; } catch(e) { return params.get('img') || ''; } })();
+    const description = (() => { try { return params.get('desc') ? decodeURIComponent(params.get('desc')) : ''; } catch(e) { return params.get('desc') || ''; } })();
+    const brand = (() => { try { return params.get('brand') ? decodeURIComponent(params.get('brand')) : ''; } catch(e) { return params.get('brand') || ''; } })();
+    const category = (() => { try { return params.get('cat') ? decodeURIComponent(params.get('cat')) : ''; } catch(e) { return params.get('cat') || ''; } })();
 
     if (title && buyUrl) {
       // Render directly from URL params
       renderProduct({
         id: productId || 'ext',
-        title: decodeURIComponent(title),
-        buyUrl: decodeURIComponent(buyUrl),
-        affiliate_link: decodeURIComponent(buyUrl),
+        title: title,
+        buyUrl: buyUrl,
+        affiliate_link: buyUrl,
         price: parseFloat(price || 0),
         salePrice: salePrice ? parseFloat(salePrice) : '',
-        imageUrl: image ? decodeURIComponent(image) : '',
-        description: description ? decodeURIComponent(description) : '',
-        brand: brand ? decodeURIComponent(brand) : '',
-        category: category ? decodeURIComponent(category) : 'Products',
+        imageUrl: image,
+        description: description,
+        brand: brand,
+        category: category || 'Products',
       });
       loadRelated(category ? decodeURIComponent(category) : 'products', productId);
       return;
