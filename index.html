@@ -498,14 +498,14 @@
 
   // ── SEARCH CATEGORY ───────────────────────────────────────────
   function searchCategory(label, categoryValue, subcategoryValue) {
-    if (categoryValue) {
-      document.getElementById('search-input').value = '';
-      doSearch(1, { sourceFilter: 'seller', categoryFilter: categoryValue, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
-    } else {
-      document.getElementById('search-input').value = label;
-      doSearch(1, { categoryLabel: label });
-    }
+  if (categoryValue) {
+    document.getElementById('search-input').value = label;
+    doSearch(1, { categoryFilter: categoryValue, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
+  } else {
+    document.getElementById('search-input').value = label;
+    doSearch(1, { categoryLabel: label });
   }
+}
   window.searchCategory = searchCategory;
   window.doSearch = doSearch;
   window.showHome = showHome;
