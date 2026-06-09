@@ -38,27 +38,25 @@
     .search-btn:hover { background: var(--charcoal); }
     .product-count { text-align: center; margin-top: 16px; font-size: 0.9rem; color: var(--muted); letter-spacing: 0.5px; }
     .product-count .count-number { color: var(--gold); font-weight: 400; }
-    .homepage-layout { max-width: 1400px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
+    .homepage-layout { max-width: 1400px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: start; }
     .merchant-sidebar { position: sticky; top: 90px; background: var(--white); border: 1px solid var(--border); margin-bottom: 40px; max-height: calc(100vh - 110px); overflow-y: auto; }
-    .sidebar-section-label { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 1.5px; text-transform: uppercase; padding: 14px 12px 4px; margin-top: 6px; }
-    .sidebar-title { background: var(--black); color: var(--white); padding: 14px 18px; font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 400; }
-    .merchant-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; cursor: pointer; border-bottom: 1px solid var(--border); transition: all 0.2s; color: var(--text); text-decoration: none; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; color: #888; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 12px 4px; margin-top: 4px; }
+    .sidebar-title { background: var(--black); color: var(--white); padding: 12px 18px; font-size: 0.65rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 400; }
+    .merchant-item { display: flex; align-items: center; padding: 8px 18px; cursor: pointer; border-bottom: 1px solid var(--border); transition: all 0.2s; color: var(--text); text-decoration: none; }
     .merchant-item:last-child { border-bottom: none; }
     .merchant-item:hover { background: var(--cream); padding-left: 22px; color: var(--black); }
-    .merchant-name { font-size: 0.82rem; font-weight: 400; letter-spacing: 0.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
-    .categories-section { margin-bottom: 60px; }
-    .section-header { text-align: center; margin-bottom: 40px; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 500; color: var(--black); letter-spacing: 1px; margin-bottom: 12px; }
-    .section-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--muted); font-weight: 300; }
+    .merchant-name { font-size: 0.78rem; font-weight: 400; letter-spacing: 0.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .section-header { text-align: center; margin-bottom: 32px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--black); letter-spacing: 1px; margin-bottom: 8px; }
+    .section-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--muted); font-weight: 300; }
     .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .category-card { background: var(--white); padding: 40px 16px; text-align: center; cursor: pointer; transition: all 0.3s; border: none; position: relative; overflow: hidden; }
+    .category-card { background: var(--white); padding: 32px 16px; text-align: center; cursor: pointer; transition: all 0.3s; border: none; position: relative; overflow: hidden; display: block; }
     .category-card::before { content: ''; position: absolute; inset: 0; background: var(--cream); transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s; z-index: 0; }
     .category-card:hover::before { transform: scaleY(1); }
     .category-card > * { position: relative; z-index: 1; }
-    .cat-icon { font-size: 1.8rem; margin-bottom: 12px; display: block; }
-    .cat-name { font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 400; margin-bottom: 6px; }
-    .cat-count { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.5px; font-weight: 400; }
-    .seller-banner { background: var(--black); color: var(--white); padding: 48px 32px; text-align: center; margin: 0 0 60px; position: relative; overflow: hidden; }
+    .cat-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+    .cat-name { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 400; margin-bottom: 4px; }
+    .cat-count { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.5px; font-weight: 400; }
     .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; }
     .product-card { background: var(--white); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: all 0.3s; height: 100%; }
     .product-card:hover { transform: translateY(-5px); }
@@ -151,6 +149,7 @@
     .ticker-item { font-size: 12px; letter-spacing: 0.5px; padding: 0 8px; }
     .ticker-sep { font-size: 8px; color: #555; padding: 0 4px; }
     @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .turnstile-wrap { display: flex; justify-content: center; padding: 20px 0; }
     @media (max-width: 900px) { .homepage-layout { grid-template-columns: 1fr; } }
     @media (max-width: 768px) {
       .header-main { padding: 16px 20px; }
@@ -181,9 +180,6 @@
       .footer-inner { grid-template-columns: 1fr; }
       #search-input { font-size: 16px !important; }
     }
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .category-grid { grid-template-columns: repeat(3, 1fr); }
-    }
   </style>
 </head>
 <body>
@@ -192,7 +188,6 @@
   <div class="header-main">
     <div class="logo" onclick="showHome()">SHOPPIZZY</div>
     <nav class="header-nav">
-      <a href="#categories">Categories</a>
       <a href="/reviews.html">Reviews</a>
       <a href="/account.html">My Account</a>
     </nav>
@@ -255,26 +250,10 @@
 
 <div id="hero-section">
   <div class="homepage-layout">
+
+    <!-- SIDEBAR -->
     <aside class="merchant-sidebar">
       <div class="sidebar-title">Store Aisles</div>
-
-      <div class="sidebar-section-label">&#128118; Baby &amp; Kids</div>
-      <div class="merchant-item" onclick="searchCategory('Baby Kids','cat_baby')"><span class="merchant-name">Baby &amp; Kids</span></div>
-
-      <div class="sidebar-section-label">&#128218; Books</div>
-      <div class="merchant-item" onclick="searchCategory('Books','cat_books')"><span class="merchant-name">Books</span></div>
-
-      <div class="sidebar-section-label">&#128187; Electronics</div>
-      <div class="merchant-item" onclick="searchCategory('Electronics','cat_electronics')"><span class="merchant-name">Electronics</span></div>
-
-      <div class="sidebar-section-label">&#127800; Fragrances</div>
-      <div class="merchant-item" onclick="searchCategory('Fragrances','cat_fragrances')"><span class="merchant-name">Fragrances</span></div>
-
-      <div class="sidebar-section-label">&#127991; General Merchandise</div>
-      <div class="merchant-item" onclick="searchCategory('General Merchandise','cat_general')"><span class="merchant-name">General Merchandise</span></div>
-
-      <div class="sidebar-section-label">&#129528; Toys</div>
-      <div class="merchant-item" onclick="searchCategory('Toys','cat_toys')"><span class="merchant-name">Toys</span></div>
 
       <div class="sidebar-section-label">&#128722; Grocery</div>
       <div class="merchant-item" onclick="searchCategory('Grocery','cat_grocery')"><span class="merchant-name">All Grocery</span></div>
@@ -312,38 +291,51 @@
       <div class="merchant-item" onclick="searchCategory('Cat','cat_pets','sub_cat')"><span class="merchant-name">Cat</span></div>
       <div class="merchant-item" onclick="searchCategory('Dog','cat_pets','sub_dog')"><span class="merchant-name">Dog</span></div>
     </aside>
-<div class="categories-section" style="margin-bottom:40px;">
-  <div class="section-header">
-    <h2 class="section-title">Featured Partners</h2>
-    <p class="section-subtitle">Shop directly from our trusted merchant partners</p>
-  </div>
-  <div class="category-grid" style="grid-template-columns:repeat(4,1fr);">
-    <a class="category-card" href="https://www.dpbolvw.net/click-101321407-16942205" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-      <span class="cat-icon">&#127800;</span>
-      <div class="cat-name">FragranceShop</div>
-      <div class="cat-count">Perfume &amp; Cologne</div>
-    </a>
-    <a class="category-card" href="https://www.anrdoezrs.net/click-101321407-15566558" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-      <span class="cat-icon">&#128218;</span>
-      <div class="cat-name">2nd &amp; Charles</div>
-      <div class="cat-count">Books, Music &amp; Games</div>
-    </a>
-    <a class="category-card" href="https://www.kqzyfj.com/click-101321407-17224012" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-      <span class="cat-icon">&#127918;</span>
-      <div class="cat-name">945 Industries</div>
-      <div class="cat-count">Shop Now</div>
-    </a>
-    <a class="category-card" href="https://www.tkqlhce.com/click-101321407-15260968" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-      <span class="cat-icon">&#8987;</span>
-      <div class="cat-name">Amazfit</div>
-      <div class="cat-count">Smartwatches &amp; Fitness</div>
-    </a>
-  </div>
-</div>
-           
+
+    <!-- MAIN CONTENT -->
+    <div class="homepage-right" style="position:relative;z-index:1;">
+
+      <!-- FEATURED PARTNERS -->
+      <div style="margin-bottom:48px;">
+        <div class="section-header">
+          <h2 class="section-title">Featured Partners</h2>
+          <p class="section-subtitle">Shop directly from our trusted merchant partners</p>
+        </div>
+        <div class="category-grid" style="grid-template-columns:repeat(4,1fr);">
+          <a class="category-card" href="https://www.dpbolvw.net/click-101321407-16942205" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+            <span class="cat-icon">&#127800;</span>
+            <div class="cat-name">FragranceShop</div>
+            <div class="cat-count">Perfume &amp; Cologne</div>
+          </a>
+          <a class="category-card" href="https://www.anrdoezrs.net/click-101321407-15566558" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+            <span class="cat-icon">&#128218;</span>
+            <div class="cat-name">2nd &amp; Charles</div>
+            <div class="cat-count">Books, Music &amp; Games</div>
+          </a>
+          <a class="category-card" href="https://www.kqzyfj.com/click-101321407-17224012" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+            <span class="cat-icon">&#127918;</span>
+            <div class="cat-name">945 Industries</div>
+            <div class="cat-count">Shop Now</div>
+          </a>
+          <a class="category-card" href="https://www.tkqlhce.com/click-101321407-15260968" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+            <span class="cat-icon">&#8987;</span>
+            <div class="cat-name">Amazfit</div>
+            <div class="cat-count">Smartwatches &amp; Fitness</div>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- end homepage-right -->
+  </div><!-- end homepage-layout -->
+</div><!-- end hero-section -->
+
+<!-- RESULTS -->
 <div id="results-section">
   <div class="results-header">
-    <h2 class="results-title" id="results-title">Results</h2>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <button onclick="showHome()" style="background:none;border:none;cursor:pointer;font-size:0.8rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:0;display:flex;align-items:center;gap:6px;">&#8592; Home</button>
+      <h2 class="results-title" id="results-title">Results</h2>
+    </div>
     <div class="results-controls">
       <select class="sort-select" id="sort-select" onchange="doSearch(1)">
         <option value="price-asc">Price: Low to High</option>
@@ -370,7 +362,6 @@
     </div>
     <div class="footer-col">
       <h4>Explore</h4>
-      <a href="#categories">Browse by Department</a>
       <a href="/account.html">My Account</a>
       <a href="/faq.html">FAQ</a>
       <a href="/about.html">About Us</a>
@@ -411,19 +402,18 @@
   </div>
 </div>
 
-<div class="cf-turnstile" data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" data-callback="onTurnstileSuccess" data-theme="light" data-size="normal"></div>
+<div class="turnstile-wrap">
+  <div class="cf-turnstile" data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" data-callback="onTurnstileSuccess" data-theme="light" data-size="normal"></div>
+</div>
 
 <script>
-  // ── HELPERS ──────────────────────────────────────────────────
   function escHtml(str) {
     return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
-  // ── CONSTANTS ─────────────────────────────────────────────────
   const WORKER_URL = 'https://shoppizzy.com';
   const LIMIT = 40;
 
-  // ── STATE ─────────────────────────────────────────────────────
   let currentPage = 1;
   let currentQuery = '';
   let currentTotal = 0;
@@ -433,14 +423,12 @@
     return (options && (options.categoryFilter || options.subcategoryFilter)) ? 100 : LIMIT;
   }
 
-  // ── INIT ──────────────────────────────────────────────────────
   document.getElementById('search-input').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') doSearch(1);
   });
 
   loadProductCount();
 
-  // ── PRODUCT COUNT ─────────────────────────────────────────────
   async function loadProductCount() {
     try {
       var pcRes = await fetch(WORKER_URL + '/api/product-count');
@@ -465,27 +453,21 @@
     }
   }
 
-  // ── SEARCH CATEGORY ───────────────────────────────────────────
   function searchCategory(label, categoryValue, subcategoryValue) {
-  if (categoryValue) {
-    document.getElementById('search-input').value = label;
-    doSearch(1, { categoryFilter: categoryValue, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
-  } else {
-    document.getElementById('search-input').value = label;
-    doSearch(1, { categoryLabel: label });
+    if (categoryValue) {
+      document.getElementById('search-input').value = label;
+      doSearch(1, { categoryFilter: categoryValue, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
+    } else {
+      document.getElementById('search-input').value = label;
+      doSearch(1, { categoryLabel: label });
+    }
   }
-}
+
   window.searchCategory = searchCategory;
   window.doSearch = doSearch;
   window.showHome = showHome;
   window.loadMore = loadMore;
-  window.doGrocerySearch = doGrocerySearch;
   window.goToPage = goToPage;
-
-  function doGrocerySearch() {
-    document.getElementById('search-input').value = 'grocery';
-    doSearch(1);
-  }
 
   function showHome() {
     document.getElementById('hero-section').style.display = 'block';
@@ -493,7 +475,6 @@
     document.getElementById('search-input').value = '';
   }
 
-  // ── MAIN SEARCH ───────────────────────────────────────────────
   async function doSearch(page, options) {
     page = page || 1;
     options = options || {};
@@ -528,7 +509,6 @@
     }
   }
 
-  // ── LOAD MORE ─────────────────────────────────────────────────
   async function loadMore() {
     var options = window._lastSearchOptions || {};
     var query = document.getElementById('search-input').value.trim();
@@ -569,7 +549,6 @@
     }
   }
 
-  // ── RENDER ────────────────────────────────────────────────────
   function renderResults(products, query, total) {
     var grid = document.getElementById('product-grid');
     if (!products.length) {
@@ -635,7 +614,7 @@
       '</div></a>';
   }
 
-  // ── CHAT WIDGET ───────────────────────────────────────────────
+  // CHAT WIDGET
   var isOpen = false;
   var chatButton = document.getElementById('chatButton');
   var chatWindow = document.getElementById('chatWindow');
@@ -651,10 +630,11 @@
     addChatMessage('assistant', "Hi! I'm your AI shopping assistant. What are you looking for today?");
     showQuickActions(['Wireless Headphones', 'Gaming Laptops', 'Running Shoes', 'Smart Watches']);
   }, 1000);
-  // ── CLOUDFLARE AI CHAT ────────────────────────────────────────
+
   var chatHistory = [];
 
   function toggleChat() { isOpen = !isOpen; chatWindow.classList.toggle('open', isOpen); if (isOpen) chatInput.focus(); }
+
   function addChatMessage(sender, content, products) {
     var messageDiv = document.createElement('div'); messageDiv.className = 'message ' + sender;
     var avatar = document.createElement('div'); avatar.className = 'message-avatar'; avatar.textContent = sender === 'assistant' ? '🤖' : '👤';
@@ -666,6 +646,7 @@
     }
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
+
   function createChatCard(product) {
     var card = document.createElement('a'); card.className = 'product-card-chat';
     card.href = product.buyUrl || product.affiliate_link || '#'; card.target = '_blank'; card.rel = 'noopener noreferrer';
@@ -680,6 +661,7 @@
     infoDiv.appendChild(merchant); infoDiv.appendChild(title); infoDiv.appendChild(price);
     card.appendChild(imageDiv); card.appendChild(infoDiv); return card;
   }
+
   function showTyping() {
     var d = document.createElement('div'); d.className = 'message assistant'; d.id = 'typing-indicator';
     var a = document.createElement('div'); a.className = 'message-avatar'; a.textContent = '🤖';
@@ -687,7 +669,9 @@
     i.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
     d.appendChild(a); d.appendChild(i); chatMessages.appendChild(d); chatMessages.scrollTop = chatMessages.scrollHeight;
   }
+
   function hideTyping() { var t = document.getElementById('typing-indicator'); if (t) t.remove(); }
+
   function showQuickActions(actions) {
     var qd = document.createElement('div'); qd.className = 'quick-actions';
     actions.forEach(function(action) {
@@ -697,6 +681,7 @@
     var last = chatMessages.lastElementChild;
     if (last && last.querySelector('.message-content')) last.querySelector('.message-content').appendChild(qd);
   }
+
   async function sendChatMessage() {
     var message = chatInput.value.trim();
     if (!message) return;
@@ -717,7 +702,6 @@
       var products = data.products || [];
       addChatMessage('assistant', reply, products);
       chatHistory.push({ role: 'assistant', content: reply });
-      // Keep history manageable
       if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
     } catch(e) {
       hideTyping();
@@ -727,16 +711,6 @@
     chatInput.focus();
   }
 
-  function extractParams(message) {
-    var lower = message.toLowerCase();
-    var maxPrice = null;
-    var pm = lower.match(/under\s+\$?(\d+)|below\s+\$?(\d+)|\$(\d+)\s+or less/);
-    if (pm) maxPrice = parseInt(pm.filter(function(m) { return m && !isNaN(m); })[0]);
-    var keyword = message.replace(/under\s+\$?\d+/gi,'').replace(/below\s+\$?\d+/gi,'').replace(/\$\d+\s+or less/gi,'').trim();
-    return { keyword: keyword, maxPrice: maxPrice };
-  }
-
-  
   function onTurnstileSuccess(token) {}
   window.addEventListener('load', function() {
     if (window.turnstile) window.turnstile.render('.cf-turnstile', { sitekey: '0x4AAAAAACrT9alWCXq-IbVd', callback: onTurnstileSuccess, theme: 'light', size: 'normal' });
