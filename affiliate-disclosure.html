@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affiliate Disclosure — Shoppizzy</title>
+  <meta name="description" content="Shoppizzy affiliate disclosure. We earn commissions from purchases made through links on our site.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000; --charcoal: #2b2b2b; --cream: #f8f7f4; --white: #ffffff;
+      --gold: #c5a572; --text: #333333; --muted: #888888; --border: #e5e5e5;
+    }
+    body { font-family: 'Lato', sans-serif; background: var(--white); color: var(--text); line-height: 1.7; font-weight: 300; }
+    header { background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+    .header-main { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: 2px; }
+    .header-nav { display: flex; gap: 40px; align-items: center; }
+    .header-nav a { color: var(--text); text-decoration: none; font-size: 0.875rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; transition: color 0.3s; }
+    .header-nav a:hover { color: var(--gold); }
+    .page-hero { background: var(--black); color: var(--white); padding: 80px 40px; text-align: center; }
+    .page-hero-eyebrow { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .page-hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; letter-spacing: 1px; }
+    .content-wrap { max-width: 800px; margin: 80px auto; padding: 0 40px 120px; }
+    .last-updated { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 60px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .section { margin-bottom: 56px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 500; color: var(--black); margin-bottom: 16px; letter-spacing: 0.3px; }
+    .section p { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--text); line-height: 1.9; margin-bottom: 16px; }
+    .section p:last-child { margin-bottom: 0; }
+    .section ul { list-style: none; margin-top: 16px; }
+    .section ul li { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--text); line-height: 1.9; padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; }
+    .section ul li:last-child { border-bottom: none; }
+    .section ul li::before { content: '✦'; color: var(--gold); font-size: 0.5rem; margin-top: 10px; flex-shrink: 0; }
+    .highlight-box { background: var(--cream); border-left: 3px solid var(--gold); padding: 28px 32px; margin: 32px 0; }
+    .highlight-box p { font-family: 'Lato', sans-serif; font-size: 0.9rem; color: var(--charcoal); line-height: 1.8; font-weight: 300; margin: 0; }
+    .contact-box { border: 1px solid var(--border); padding: 32px; margin-top: 60px; text-align: center; }
+    .contact-box h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 12px; color: var(--black); }
+    .contact-box p { font-size: 0.875rem; color: var(--muted); margin-bottom: 20px; }
+    .contact-box a { display: inline-block; background: var(--black); color: var(--white); padding: 12px 32px; text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; transition: background 0.3s; }
+    .contact-box a:hover { background: var(--gold); color: var(--black); }
+    footer { background: var(--black); color: rgba(255,255,255,0.7); padding: 60px 40px 40px; }
+    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; margin-bottom: 60px; }
+    .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); margin-bottom: 20px; font-weight: 500; letter-spacing: 1px; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; margin-bottom: 12px; transition: color 0.3s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; text-align: center; font-size: 0.75rem; letter-spacing: 1px; max-width: 1400px; margin: 0 auto; }
+    @media (max-width: 768px) {
+      .header-main { padding: 16px 20px; }
+      .header-nav { display: none; }
+      .content-wrap { padding: 0 20px 80px; margin: 40px auto; }
+      .page-hero { padding: 60px 20px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-main">
+    <a class="logo" href="/">SHOPPIZZY</a>
+    <nav class="header-nav">
+      <a href="/">Shop</a>
+      <a href="/account.html">My Account</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <p class="page-hero-eyebrow">Legal &amp; Transparency</p>
+  <h1 class="page-hero-title">Affiliate Disclosure</h1>
+</div>
+
+<div class="content-wrap">
+  <div class="last-updated">Last Updated: June 2026</div>
+
+  <div class="highlight-box">
+    <p><strong>Plain English Summary:</strong> Shoppizzy earns a small commission when you click a product link and make a purchase. This costs you nothing extra. Our editorial decisions are not influenced by these commissions — we surface products based on search relevance, not who pays us the most.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">What Is an Affiliate Relationship?</h2>
+    <p>Shoppizzy.com is a product search engine that aggregates listings from thousands of merchants across the internet. Many of the product links on our site are affiliate links — meaning if you click a link and complete a purchase on the merchant's website, Shoppizzy may receive a small commission from that sale.</p>
+    <p>This commission is paid by the merchant, not by you. You pay the exact same price you would pay if you went directly to the merchant's website.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Our Affiliate Partners</h2>
+    <p>We participate in affiliate programs operated by the following networks and merchants, among others:</p>
+    <ul>
+      <li>Commission Junction (CJ Affiliate) — a product advertising network connecting publishers with thousands of merchant partners</li>
+      <li>Rakuten Advertising — a global affiliate marketing network</li>
+      <li>Impact.com — a partnership management platform</li>
+      <li>Individual merchant programs including FragranceShop, 2nd &amp; Charles, Amazfit, and others listed on our site</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">FTC Compliance</h2>
+    <p>This disclosure is made in accordance with the Federal Trade Commission's guidelines on endorsements and testimonials (16 CFR Part 255), which require clear disclosure of material connections between publishers and the products or services they recommend or link to.</p>
+    <p>Shoppizzy is committed to transparency. Wherever affiliate links appear on our site, this disclosure applies. We do not require a separate disclosure label on every individual product link — this page serves as our site-wide disclosure in compliance with FTC guidelines.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">How Affiliate Commissions Affect Our Search Results</h2>
+    <p>Our product search engine surfaces results based on keyword relevance, product data quality, and merchant feed availability — not commission rates. We do not accept payment from merchants to rank their products higher in search results.</p>
+    <p>Some affiliate programs do pay higher commissions than others. However, commission rates do not influence which products appear in search results or how they are ranked. Results are determined algorithmically based on your search query.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">GrowceryWorld &amp; Square Products</h2>
+    <p>Some products listed on Shoppizzy ship directly from GrowceryWorld, our wholesale grocery partner, and are processed through Square's payment platform. These are direct-sale products, not affiliate links. Purchases of these products go directly to the merchant and are subject to separate terms of sale.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Prices &amp; Availability</h2>
+    <p>Product prices and availability are provided by merchant feeds and are updated regularly. Shoppizzy does not guarantee the accuracy of prices at the time of purchase. Always confirm the final price on the merchant's checkout page before completing a transaction.</p>
+    <p>Shoppizzy is not responsible for price discrepancies, out-of-stock items, or changes in product availability that occur after a product listing is indexed on our site.</p>
+  </div>
+
+  <div class="contact-box">
+    <h3>Questions About This Disclosure?</h3>
+    <p>If you have questions about our affiliate relationships or how our site works, we're happy to help.</p>
+    <a href="mailto:hello@shoppizzy.com">Contact Us</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Shoppizzy</h4>
+      <p style="font-size:0.85rem;line-height:1.8;">Shop millions of products from top brands and independent sellers.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="/">Shop</a>
+      <a href="/account.html">My Account</a>
+      <a href="/about.html">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>GrowceryWorld</h4>
+      <h4 style="margin-top:20px;">Membership</h4>
+      <a href="/account.html">Join &mdash; $20/yr</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/affiliate-disclosure.html">Affiliate Disclosure</a>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 Shoppizzy &mdash; BSM Enterpryzes. All Rights Reserved.</div>
+</footer>
+
+</body>
+</html>
