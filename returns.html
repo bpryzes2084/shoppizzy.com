@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Returns &amp; Refunds — Shoppizzy</title>
+  <meta name="description" content="Shoppizzy return policy. 30-day returns on GrowceryWorld and Square products. Affiliate product returns handled by the merchant.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000; --charcoal: #2b2b2b; --cream: #f8f7f4; --white: #ffffff;
+      --gold: #c5a572; --text: #333333; --muted: #888888; --border: #e5e5e5;
+      --success: #27ae60;
+    }
+    body { font-family: 'Lato', sans-serif; background: var(--white); color: var(--text); line-height: 1.7; font-weight: 300; }
+    header { background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+    .header-main { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: 2px; }
+    .header-nav { display: flex; gap: 40px; align-items: center; }
+    .header-nav a { color: var(--text); text-decoration: none; font-size: 0.875rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; transition: color 0.3s; }
+    .header-nav a:hover { color: var(--gold); }
+    .page-hero { background: var(--black); color: var(--white); padding: 80px 40px; text-align: center; }
+    .page-hero-eyebrow { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .page-hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; letter-spacing: 1px; }
+    .content-wrap { max-width: 800px; margin: 80px auto; padding: 0 40px 120px; }
+    .last-updated { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 60px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .highlight-box { background: var(--cream); border-left: 3px solid var(--gold); padding: 28px 32px; margin: 32px 0; }
+    .highlight-box p { font-family: 'Lato', sans-serif; font-size: 0.9rem; color: var(--charcoal); line-height: 1.8; font-weight: 300; margin: 0; }
+    .highlight-box p + p { margin-top: 10px; }
+    .section { margin-bottom: 56px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 500; color: var(--black); margin-bottom: 16px; letter-spacing: 0.3px; }
+    .section p { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--text); line-height: 1.9; margin-bottom: 16px; }
+    .section p:last-child { margin-bottom: 0; }
+    .policy-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.875rem; }
+    .policy-table th { background: var(--black); color: var(--white); padding: 12px 16px; text-align: left; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 400; }
+    .policy-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; line-height: 1.6; }
+    .policy-table tr:last-child td { border-bottom: none; }
+    .policy-table tr:nth-child(even) td { background: var(--cream); }
+    .badge-yes { color: var(--success); font-weight: 700; }
+    .badge-no { color: var(--muted); }
+    .steps-list { list-style: none; counter-reset: steps; margin: 20px 0; }
+    .steps-list li { counter-increment: steps; display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before { content: counter(steps); min-width: 32px; height: 32px; background: var(--black); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+    .steps-list li div { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; line-height: 1.7; padding-top: 4px; }
+    .steps-list li strong { font-family: 'Lato', sans-serif; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 4px; color: var(--black); }
+    .contact-box { border: 1px solid var(--border); padding: 32px; margin-top: 60px; text-align: center; }
+    .contact-box h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 12px; color: var(--black); }
+    .contact-box p { font-size: 0.875rem; color: var(--muted); margin-bottom: 20px; }
+    .contact-box a { display: inline-block; background: var(--black); color: var(--white); padding: 12px 32px; text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; transition: background 0.3s; }
+    .contact-box a:hover { background: var(--gold); color: var(--black); }
+    footer { background: var(--black); color: rgba(255,255,255,0.7); padding: 60px 40px 40px; }
+    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; margin-bottom: 60px; }
+    .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); margin-bottom: 20px; font-weight: 500; letter-spacing: 1px; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; margin-bottom: 12px; transition: color 0.3s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; text-align: center; font-size: 0.75rem; letter-spacing: 1px; max-width: 1400px; margin: 0 auto; }
+    @media (max-width: 768px) {
+      .header-main { padding: 16px 20px; }
+      .header-nav { display: none; }
+      .content-wrap { padding: 0 20px 80px; margin: 40px auto; }
+      .page-hero { padding: 60px 20px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .policy-table { font-size: 0.78rem; }
+      .policy-table th, .policy-table td { padding: 10px 12px; }
+    }
+    @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-main">
+    <a class="logo" href="/">SHOPPIZZY</a>
+    <nav class="header-nav">
+      <a href="/">Shop</a>
+      <a href="/account.html">My Account</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <p class="page-hero-eyebrow">Customer Service</p>
+  <h1 class="page-hero-title">Returns &amp; Refunds</h1>
+</div>
+
+<div class="content-wrap">
+  <div class="last-updated">Last Updated: June 2026</div>
+
+  <div class="highlight-box">
+    <p><strong>Quick Summary:</strong> GrowceryWorld and Square products purchased directly through Shoppizzy are eligible for a 30-day return from the date of delivery. Items must be unused and in original packaging. Affiliate products purchased through merchant links are subject to that merchant's own return policy.</p>
+  </div>
+
+  <!-- RETURN POLICY TABLE -->
+  <div class="section">
+    <h2 class="section-title">Return Policy at a Glance</h2>
+    <table class="policy-table">
+      <thead>
+        <tr>
+          <th>Product Type</th>
+          <th>Return Window</th>
+          <th>Condition Required</th>
+          <th>Refund Method</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>GrowceryWorld Products</strong></td>
+          <td>30 days from delivery</td>
+          <td>Unopened, original packaging</td>
+          <td>Original payment method</td>
+        </tr>
+        <tr>
+          <td><strong>Square / Direct Products</strong></td>
+          <td>30 days from delivery</td>
+          <td>Unused, original packaging</td>
+          <td>Original payment method</td>
+        </tr>
+        <tr>
+          <td><strong>Affiliate Products</strong><br><small style="color:var(--muted);">(CJ, Rakuten, Impact links)</small></td>
+          <td>Merchant's policy applies</td>
+          <td>Per merchant policy</td>
+          <td>Per merchant policy</td>
+        </tr>
+        <tr>
+          <td><strong>Damaged / Incorrect Items</strong></td>
+          <td>14 days from delivery</td>
+          <td>Photo documentation required</td>
+          <td>Full refund or replacement</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DIRECT PRODUCTS -->
+  <div class="section">
+    <h2 class="section-title">Returning a GrowceryWorld or Direct Product</h2>
+    <p>Products that ship directly from GrowceryWorld or our Square catalog are fulfilled by Shoppizzy and are eligible for our 30-day return policy.</p>
+
+    <ol class="steps-list">
+      <li>
+        <div>
+          <strong>Contact Us</strong>
+          Email hello@shoppizzy.com with your order number and reason for return. We'll respond within 1–2 business days with a return authorization.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Pack Your Item</strong>
+          Repack the item securely in its original packaging. Include a note with your order number inside the box.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Ship It Back</strong>
+          Ship to the address provided in your return authorization. We recommend using a tracked shipping service. Return shipping costs are the responsibility of the customer unless the item was damaged or incorrect.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Receive Your Refund</strong>
+          Once we receive and inspect the item, your refund will be processed within 5–7 business days to your original payment method.
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- AFFILIATE PRODUCTS -->
+  <div class="section">
+    <h2 class="section-title">Returning an Affiliate Product</h2>
+    <p>When you click a product link on Shoppizzy and purchase from a merchant website such as FragranceShop, Newegg, Famous Footwear, or any other partner, that transaction is between you and the merchant directly.</p>
+    <p>Returns for these purchases must be initiated through the merchant's own return process. Shoppizzy is not able to process refunds for purchases made on third-party merchant websites.</p>
+    <p>If you need help locating a merchant's return policy, contact us and we'll do our best to point you in the right direction.</p>
+  </div>
+
+  <!-- NON-RETURNABLE -->
+  <div class="section">
+    <h2 class="section-title">Non-Returnable Items</h2>
+    <p>The following items are not eligible for return:</p>
+    <table class="policy-table">
+      <thead>
+        <tr><th>Item Type</th><th>Reason</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Opened food or beverage products</td><td>Health and safety</td></tr>
+        <tr><td>Personal care items once opened</td><td>Hygiene</td></tr>
+        <tr><td>Feminine care products</td><td>Hygiene</td></tr>
+        <tr><td>Items returned after 30 days</td><td>Outside return window</td></tr>
+        <tr><td>Items without original packaging</td><td>Condition requirement</td></tr>
+        <tr><td>Digital products or downloads</td><td>Non-returnable by nature</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DAMAGED ITEMS -->
+  <div class="section">
+    <h2 class="section-title">Damaged or Incorrect Items</h2>
+    <p>If your order arrives damaged or you received the wrong item, contact us within 14 days of delivery at hello@shoppizzy.com. Please include:</p>
+    <div class="highlight-box">
+      <p>&#10022; &nbsp;Your order number</p>
+      <p>&#10022; &nbsp;A clear photo of the damaged item or incorrect product</p>
+      <p>&#10022; &nbsp;A brief description of the issue</p>
+    </div>
+    <p>We will arrange a full refund or replacement at no cost to you, including return shipping.</p>
+  </div>
+
+  <!-- REFUND TIMELINE -->
+  <div class="section">
+    <h2 class="section-title">Refund Timeline</h2>
+    <table class="policy-table">
+      <thead>
+        <tr><th>Stage</th><th>Timeframe</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Return authorization issued</td><td>1–2 business days after request</td></tr>
+        <tr><td>Item received and inspected</td><td>2–3 business days after delivery to us</td></tr>
+        <tr><td>Refund processed</td><td>1–2 business days after inspection</td></tr>
+        <tr><td>Refund appears on statement</td><td>3–5 business days (varies by bank)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="contact-box">
+    <h3>Need Help With a Return?</h3>
+    <p>Our team is here 7 days a week to help with your return or refund.</p>
+    <a href="mailto:hello@shoppizzy.com">Email Us</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Shoppizzy</h4>
+      <p style="font-size:0.85rem;line-height:1.8;">Shop millions of products from top brands and independent sellers.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="/">Shop</a>
+      <a href="/account.html">My Account</a>
+      <a href="/about.html">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>GrowceryWorld</h4>
+      <h4 style="margin-top:20px;">Membership</h4>
+      <a href="/account.html">Join &mdash; $20/yr</a>
+      <a href="/account.html">My Account</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/affiliate-disclosure.html">Affiliate Disclosure</a>
+      <a href="/returns.html">Returns &amp; Refunds</a>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 Shoppizzy &mdash; BSM Enterpryzes. All Rights Reserved.</div>
+</footer>
+
+</body>
+</html>
