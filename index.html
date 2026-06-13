@@ -6,7 +6,6 @@
   <title>Shoppizzy — Shop Millions of Products</title>
   <meta name="description" content="Shop millions of products from top brands and independent sellers. Electronics, fashion, home goods, beauty and more.">
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
- 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
@@ -32,14 +31,7 @@
     .search-btn:hover { background: var(--charcoal); }
     .product-count { text-align: center; margin-top: 16px; font-size: 0.9rem; color: var(--muted); letter-spacing: 0.5px; }
     .product-count .count-number { color: var(--gold); font-weight: 400; }
-    .homepage-layout { max-width: 1400px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: start; }
-    .merchant-sidebar { position: sticky; top: 90px; background: var(--white); border: 1px solid var(--border); margin-bottom: 40px; max-height: calc(100vh - 110px); overflow-y: auto; }
-    .sidebar-section-label { font-size: 10px; font-weight: 700; color: #888; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 12px 4px; margin-top: 4px; }
-    .sidebar-title { background: var(--black); color: var(--white); padding: 12px 18px; font-size: 0.65rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 400; }
-    .merchant-item { display: flex; align-items: center; padding: 8px 18px; cursor: pointer; border-bottom: 1px solid var(--border); transition: all 0.2s; color: var(--text); text-decoration: none; }
-    .merchant-item:last-child { border-bottom: none; }
-    .merchant-item:hover { background: var(--cream); padding-left: 22px; color: var(--black); }
-    .merchant-name { font-size: 0.78rem; font-weight: 400; letter-spacing: 0.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .homepage-layout { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
     .section-header { text-align: center; margin-bottom: 32px; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--black); letter-spacing: 1px; margin-bottom: 8px; }
     .section-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--muted); font-weight: 300; }
@@ -144,7 +136,6 @@
     .ticker-sep { font-size: 8px; color: #555; padding: 0 4px; }
     @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     .turnstile-wrap { display: flex; justify-content: center; padding: 20px 0; }
-    @media (max-width: 900px) { .homepage-layout { grid-template-columns: 1fr; } }
     @media (max-width: 768px) {
       .header-main { padding: 16px 20px; }
       .header-nav { display: none; }
@@ -161,11 +152,6 @@
       .promo-banner { flex-direction: column; gap: 4px; padding: 8px 12px; }
       .promo-banner-logo { font-size: 1.1rem; }
       .ticker-item { font-size: 11px; }
-      .merchant-sidebar { display: flex; flex-direction: row; flex-wrap: nowrap; overflow-x: auto; gap: 8px; padding: 10px 4px; position: static; max-height: none; border: none; background: transparent; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-      .merchant-sidebar::-webkit-scrollbar { display: none; }
-      .sidebar-title { display: none; }
-      .sidebar-section-label { display: none; }
-      .merchant-item { flex: 0 0 auto; white-space: nowrap; padding: 6px 14px; border-radius: 20px; background: #f0f0f0; font-size: 12px; border: 1px solid #e0e0e0; }
       .results-header { flex-direction: column; gap: 12px; align-items: flex-start; }
       .product-title { font-size: 12px; }
     }
@@ -187,6 +173,31 @@
     </nav>
   </div>
 </header>
+
+<div class="ticker-banner">
+  <div class="ticker-track">
+    <span class="ticker-item">&#128717; Search millions of products from top brands — all in one place.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">&#128666; UPS tracked shipping on every GrowceryWorld order.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">&#127873; Shoppizzy Members get a free item with every order — <a href="/account.html" style="color:#c5a572;">Join for $20/yr</a></span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">&#128138; Shop health, grocery, fragrance, electronics, footwear and more.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">&#128274; Secure checkout — shop with confidence on Shoppizzy.com</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">&#128717; Search millions of products from top brands — all in one place.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">&#128666; UPS tracked shipping on every GrowceryWorld order.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">&#127873; Shoppizzy Members get a free item with every order — <a href="/account.html" style="color:#c5a572;">Join for $20/yr</a></span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">&#128138; Shop health, grocery, fragrance, electronics, footwear and more.</span>
+    <span class="ticker-sep">&#9679;</span>
+    <span class="ticker-item">&#128274; Secure checkout — shop with confidence on Shoppizzy.com</span>
+    <span class="ticker-sep">&#9679;</span>
+  </div>
+</div>
 
 <div class="promo-banner">
   <div class="promo-banner-logo">SHOPPIZZY</div>
@@ -219,84 +230,37 @@
 
 <div id="hero-section">
   <div class="homepage-layout">
-
-    <!-- SIDEBAR -->
-    <aside class="merchant-sidebar">
-      <div class="sidebar-title">Store Aisles</div>
-
-      <div class="sidebar-section-label">&#128722; Grocery</div>
-      <div class="merchant-item" onclick="searchCategory('Grocery','cat_grocery')"><span class="merchant-name">All Grocery</span></div>
-      <div class="merchant-item" onclick="searchCategory('Breakfast','cat_grocery','sub_breakfast')"><span class="merchant-name">Breakfast &amp; Cereal</span></div>
-      <div class="merchant-item" onclick="searchCategory('Beverages','cat_grocery','sub_beverages')"><span class="merchant-name">Beverages</span></div>
-      <div class="merchant-item" onclick="searchCategory('Candy','cat_grocery','sub_candy')"><span class="merchant-name">Candy</span></div>
-      <div class="merchant-item" onclick="searchCategory('Condiments','cat_grocery','sub_condiments')"><span class="merchant-name">Condiments &amp; Sauces</span></div>
-      <div class="merchant-item" onclick="searchCategory('Pantry','cat_grocery','sub_pantry')"><span class="merchant-name">Pantry Staples</span></div>
-      <div class="merchant-item" onclick="searchCategory('Snack Bars','cat_grocery','sub_snack_bars')"><span class="merchant-name">Snack Bars</span></div>
-      <div class="merchant-item" onclick="searchCategory('Snacks','cat_grocery','sub_snacks')"><span class="merchant-name">Snacks</span></div>
-      <div class="merchant-item" onclick="searchCategory('Soups','cat_grocery','sub_soups')"><span class="merchant-name">Soups</span></div>
-      <div class="merchant-item" onclick="searchCategory('Specialty','cat_grocery','sub_specialty')"><span class="merchant-name">Organic &amp; Specialty</span></div>
-      <div class="merchant-item" onclick="searchCategory('Spreads','cat_grocery','sub_spreads')"><span class="merchant-name">Spreads &amp; Honey</span></div>
-      <div class="merchant-item" onclick="searchCategory('Tea','cat_grocery','sub_tea')"><span class="merchant-name">Tea</span></div>
-      <div class="merchant-item" onclick="searchCategory('Coffee','cat_grocery','sub_coffee')"><span class="merchant-name">Coffee</span></div>
-
-      <div class="sidebar-section-label">&#128138; Health &amp; Household</div>
-      <div class="merchant-item" onclick="searchCategory('Health Household','cat_health_household')"><span class="merchant-name">All Health &amp; Household</span></div>
-      <div class="merchant-item" onclick="searchCategory('Cleaning','cat_health_household','sub_cleaning')"><span class="merchant-name">Cleaning Supplies</span></div>
-      <div class="merchant-item" onclick="searchCategory('Hair Care','cat_health_household','sub_hair_care')"><span class="merchant-name">Hair Care</span></div>
-      <div class="merchant-item" onclick="searchCategory('Medicine','cat_health_household','sub_medicine')"><span class="merchant-name">Medicine &amp; Remedies</span></div>
-      <div class="merchant-item" onclick="searchCategory('Paper Goods','cat_health_household','sub_paper_goods')"><span class="merchant-name">Paper Goods</span></div>
-      <div class="merchant-item" onclick="searchCategory('Personal Care','cat_health_household','sub_personal_care')"><span class="merchant-name">Personal Care</span></div>
-      <div class="merchant-item" onclick="searchCategory('Feminine Care','cat_health_household','sub_feminine_care')"><span class="merchant-name">Feminine Care</span></div>
-      <div class="merchant-item" onclick="searchCategory('Skin Care','cat_health_household','sub_skin_care')"><span class="merchant-name">Skin Care</span></div>
-      <div class="merchant-item" onclick="searchCategory('Vitamins','cat_health_household','sub_vitamins')"><span class="merchant-name">Vitamins &amp; Supplements</span></div>
-
-      <div class="sidebar-section-label">&#127968; Home &amp; Garden</div>
-      <div class="merchant-item" onclick="searchCategory('Home Garden','cat_home_garden')"><span class="merchant-name">All Home &amp; Garden</span></div>
-      <div class="merchant-item" onclick="searchCategory('Home Fragrance','cat_home_garden','sub_home_fragrance')"><span class="merchant-name">Home Fragrance</span></div>
-      <div class="merchant-item" onclick="searchCategory('Kitchen Supplies','cat_home_garden','sub_kitchen_supplies')"><span class="merchant-name">Kitchen Supplies</span></div>
-
-      <div class="sidebar-section-label">&#128062; Pet Supplies</div>
-      <div class="merchant-item" onclick="searchCategory('Pet Supplies','cat_pets')"><span class="merchant-name">All Pet Supplies</span></div>
-      <div class="merchant-item" onclick="searchCategory('Cat','cat_pets','sub_cat')"><span class="merchant-name">Cat</span></div>
-      <div class="merchant-item" onclick="searchCategory('Dog','cat_pets','sub_dog')"><span class="merchant-name">Dog</span></div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <div class="homepage-right" style="position:relative;z-index:1;">
-
-      <!-- FEATURED PARTNERS -->
-      <div style="margin-bottom:48px;">
-        <div class="section-header">
-          <h2 class="section-title">Featured Partners</h2>
-          <p class="section-subtitle">Shop directly from our trusted merchant partners</p>
-        </div>
-        <div class="category-grid" style="grid-template-columns:repeat(4,1fr);">
-          <a class="category-card" href="https://www.dpbolvw.net/click-101321407-16942205" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-            <span class="cat-icon">&#127800;</span>
-            <div class="cat-name">FragranceShop</div>
-            <div class="cat-count">Perfume &amp; Cologne</div>
-          </a>
-          <a class="category-card" href="https://www.anrdoezrs.net/click-101321407-15566558" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-            <span class="cat-icon">&#128218;</span>
-            <div class="cat-name">2nd &amp; Charles</div>
-            <div class="cat-count">Books, Music &amp; Games</div>
-          </a>
-          <a class="category-card" href="https://www.kqzyfj.com/click-101321407-17224012" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-            <span class="cat-icon">&#127918;</span>
-            <div class="cat-name">945 Industries</div>
-            <div class="cat-count">Shop Now</div>
-          </a>
-          <a class="category-card" href="https://www.tkqlhce.com/click-101321407-15260968" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-            <span class="cat-icon">&#8987;</span>
-            <div class="cat-name">Amazfit</div>
-            <div class="cat-count">Smartwatches &amp; Fitness</div>
-          </a>
-        </div>
+    <!-- FEATURED PARTNERS -->
+    <div style="margin-bottom:48px;">
+      <div class="section-header">
+        <h2 class="section-title">Featured Partners</h2>
+        <p class="section-subtitle">Shop directly from our trusted merchant partners</p>
       </div>
-
-    </div><!-- end homepage-right -->
-  </div><!-- end homepage-layout -->
-</div><!-- end hero-section -->
+      <div class="category-grid" style="grid-template-columns:repeat(4,1fr);">
+        <a class="category-card" href="https://www.dpbolvw.net/click-101321407-16942205" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+          <span class="cat-icon">&#127800;</span>
+          <div class="cat-name">FragranceShop</div>
+          <div class="cat-count">Perfume &amp; Cologne</div>
+        </a>
+        <a class="category-card" href="https://www.anrdoezrs.net/click-101321407-15566558" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+          <span class="cat-icon">&#128218;</span>
+          <div class="cat-name">2nd &amp; Charles</div>
+          <div class="cat-count">Books, Music &amp; Games</div>
+        </a>
+        <a class="category-card" href="https://www.kqzyfj.com/click-101321407-17224012" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+          <span class="cat-icon">&#127918;</span>
+          <div class="cat-name">945 Industries</div>
+          <div class="cat-count">Shop Now</div>
+        </a>
+        <a class="category-card" href="https://www.tkqlhce.com/click-101321407-15260968" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+          <span class="cat-icon">&#8987;</span>
+          <div class="cat-name">Amazfit</div>
+          <div class="cat-count">Smartwatches &amp; Fitness</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- RESULTS -->
 <div id="results-section">
@@ -424,17 +388,6 @@
     }
   }
 
-  function searchCategory(label, categoryValue, subcategoryValue) {
-    if (categoryValue) {
-      document.getElementById('search-input').value = label;
-      doSearch(1, { categoryFilter: categoryValue, subcategoryFilter: subcategoryValue || null, categoryLabel: label });
-    } else {
-      document.getElementById('search-input').value = label;
-      doSearch(1, { categoryLabel: label });
-    }
-  }
-
-  window.searchCategory = searchCategory;
   window.doSearch = doSearch;
   window.showHome = showHome;
   window.loadMore = loadMore;
