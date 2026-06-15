@@ -1086,10 +1086,27 @@
       }
     }
 
+    // Stock status (Square/direct products only)
+    const isOutOfStock = isDirect && p.status === 'out_of_stock';
+    if (isOutOfStock) {
+      const stockEl = document.getElementById('p-stock');
+      stockEl.textContent = 'Out of Stock';
+      stockEl.classList.remove('in-stock');
+      stockEl.classList.add('out-stock');
+    }
+
     // Buy Now button
     const buyLink = isDirect ? '' : (p.buyUrl || p.affiliate_link || '');
     const btnBuy = document.getElementById('btn-buy');
-    if (buyLink) {
+    if (isOutOfStock) {
+      btnBuy.textContent = '';
+      btnBuy.innerHTML = '<span>Out of Stock</span>';
+      btnBuy.href = '#';
+      btnBuy.style.pointerEvents = 'none';
+      btnBuy.style.opacity = '0.5';
+      btnBuy.removeAttribute('target');
+      btnBuy.removeAttribute('rel');
+    } else if (buyLink) {
       btnBuy.href = buyLink;
       // Show affiliate disclosure notice
       document.getElementById('affiliate-notice').style.display = 'block';
