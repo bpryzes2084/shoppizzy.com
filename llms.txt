@@ -1,0 +1,30 @@
+# Shoppizzy
+
+> Shoppizzy is a product search engine aggregating millions of products from affiliate merchant partners, plus direct inventory shipped by Shoppizzy itself (GrowceryWorld grocery products and Square catalog items).
+
+Shoppizzy helps shoppers search, compare, and discover products across thousands of merchants in one place. Some products are fulfilled directly by Shoppizzy; others link out to the merchant's own site for purchase.
+
+## Key Resources
+
+- Product search API: https://shoppizzy.com/api/products?q={query} — returns JSON with title, price, sale price, availability, image, merchant, and product URL for each result.
+- Google Shopping product feed (direct inventory only, machine-readable XML): https://shoppizzy.com/api/google-feed
+- Individual product pages (https://shoppizzy.com/product.html) include JSON-LD Product schema with price, priceValidUntil, availability, condition, brand, shipping details, and return policy.
+- Sitemap: https://shoppizzy.com/sitemap.xml
+
+## Product Types
+
+- **Direct products** (GrowceryWorld, Square): fulfilled and shipped by Shoppizzy via UPS. Eligible for Shoppizzy's 30-day return policy. These are the only products included in the Google Shopping feed.
+- **Affiliate products** (CJ, Rakuten, Impact networks): link to third-party merchant websites for purchase. Returns and fulfillment are handled by that merchant, not Shoppizzy.
+
+## Policies
+
+- Returns & Refunds: https://shoppizzy.com/returns.html
+- Affiliate Disclosure: https://shoppizzy.com/affiliate-disclosure.html
+- Privacy Policy: https://shoppizzy.com/privacy-policy.html
+- Terms of Service: https://shoppizzy.com/terms-of-service.html
+
+## Notes for Agents
+
+- Prices and availability for direct products update daily via automated inventory sync at 11:00 PM UTC.
+- For price comparison or "where to buy" queries, the product search API and Google Shopping feed are the most efficient structured data sources — prefer these over crawling individual product pages at scale.
+- Shoppizzy is a search/discovery platform, not the seller of record for affiliate products.
