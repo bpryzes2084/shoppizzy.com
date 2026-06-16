@@ -196,6 +196,50 @@
       gap: 10px;
     }
 
+    /* ── PAYMENT METHOD TABS ── */
+    .payment-method-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .payment-method-tab {
+      flex: 1;
+      text-align: center;
+      padding: 16px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--white);
+      transition: all 0.2s;
+      border-right: 1px solid var(--border);
+    }
+
+    .payment-method-tab:last-child { border-right: none; }
+
+    .payment-method-tab.active {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .payment-method-panel { display: none; }
+    .payment-method-panel.active { display: block; }
+
+    #paypal-button-container {
+      min-height: 55px;
+      padding: 8px 0;
+    }
+
+    .paypal-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
     /* ── PLACE ORDER BUTTON ── */
     .btn-order {
       width: 100%;
@@ -643,23 +687,39 @@
       <div class="payment-note">
         🔒 Payments are processed securely. Your card details are never stored on our servers.
       </div>
-      <div class="form-grid">
-        <div class="form-group form-full">
-          <label class="form-label" for="p-card">Card Number</label>
-          <input type="text" id="p-card" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
+
+      <!-- PAYMENT METHOD TABS -->
+      <div class="payment-method-tabs">
+        <div class="payment-method-tab active" id="tab-card" onclick="selectPaymentMethod('card')">Card</div>
+        <div class="payment-method-tab" id="tab-paypal" onclick="selectPaymentMethod('paypal')">PayPal</div>
+      </div>
+
+      <!-- CARD PANEL -->
+      <div class="payment-method-panel active" id="panel-card">
+        <div class="form-grid">
+          <div class="form-group form-full">
+            <label class="form-label" for="p-card">Card Number</label>
+            <input type="text" id="p-card" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p-exp">Expiry Date</label>
+            <input type="text" id="p-exp" class="form-input" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p-cvv">CVV</label>
+            <input type="text" id="p-cvv" class="form-input" placeholder="123" maxlength="4">
+          </div>
+          <div class="form-group form-full">
+            <label class="form-label" for="p-name">Name on Card</label>
+            <input type="text" id="p-name" class="form-input" placeholder="As it appears on your card">
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="p-exp">Expiry Date</label>
-          <input type="text" id="p-exp" class="form-input" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="p-cvv">CVV</label>
-          <input type="text" id="p-cvv" class="form-input" placeholder="123" maxlength="4">
-        </div>
-        <div class="form-group form-full">
-          <label class="form-label" for="p-name">Name on Card</label>
-          <input type="text" id="p-name" class="form-input" placeholder="As it appears on your card">
-        </div>
+      </div>
+
+      <!-- PAYPAL PANEL -->
+      <div class="payment-method-panel" id="panel-paypal">
+        <div id="paypal-button-container"></div>
+        <p class="paypal-note">You'll be redirected to PayPal to complete your purchase securely. Venmo is also available through PayPal for eligible accounts.</p>
       </div>
     </div>
 
@@ -734,6 +794,7 @@
 
 </div>
 
+<script src="https://www.paypal.com/sdk/js?client-id=AVdoF0eF8NXzcO8peTxdRz-QvT7kk5KGcRPu1ElPd8A_Vl7IlW8STfXubUZHjB4Sv4giYppk6DB3CsRr&currency=USD&enable-funding=venmo"></script>
 <script>
   const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
   let productData = null;
@@ -741,6 +802,8 @@
   let sellerZip = '80019'; // default, will be overridden by seller's zip
 
   let isMember = false;
+  let paymentMethod = 'card';
+  let paypalButtonsRendered = false;
 
   window.addEventListener('load', async () => {
     const params = new URLSearchParams(window.location.search);
@@ -838,12 +901,153 @@
     }
   }
 
+  // ── PAYMENT METHOD SELECTOR ────────────────────────────────────────────────
+  function selectPaymentMethod(method) {
+    paymentMethod = method;
+    document.getElementById('tab-card').classList.toggle('active', method === 'card');
+    document.getElementById('tab-paypal').classList.toggle('active', method === 'paypal');
+    document.getElementById('panel-card').classList.toggle('active', method === 'card');
+    document.getElementById('panel-paypal').classList.toggle('active', method === 'paypal');
+
+    if (method === 'paypal') {
+      document.getElementById('order-btn').style.display = 'none';
+      renderPayPalButtons();
+    } else {
+      document.getElementById('order-btn').style.display = 'block';
+    }
+    updateOrderButton();
+  }
+
+  function renderPayPalButtons() {
+    if (paypalButtonsRendered || typeof paypal === 'undefined') return;
+    paypalButtonsRendered = true;
+
+    paypal.Buttons({
+      style: { layout: 'vertical', color: 'black', shape: 'rect', label: 'paypal' },
+
+      onClick: function() {
+        // Validate required fields before letting PayPal popup open
+        return validateCheckoutFields();
+      },
+
+      createOrder: function() {
+        return fetch(`${WORKER_URL}/api/checkout/paypal/create`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            product_price: parseFloat(productData.price || 0),
+            shipping_cost: shippingRate ? shippingRate.cost : 0,
+            title: productData.title
+          })
+        }).then(res => res.json()).then(data => {
+          if (!data.orderId) throw new Error(data.error || 'Failed to start PayPal checkout');
+          return data.orderId;
+        }).catch(err => {
+          showError(err.message || 'Could not start PayPal checkout.');
+          throw err;
+        });
+      },
+
+      onApprove: function(data) {
+        return fetch(`${WORKER_URL}/api/checkout/paypal/capture`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ orderId: data.orderID })
+        }).then(res => res.json()).then(captureData => {
+          if (!captureData.success) throw new Error(captureData.error || 'Payment could not be completed.');
+          return finalizeOrder('paypal', captureData.order_id);
+        }).catch(err => {
+          showError(err.message || 'PayPal payment failed. Please try again.');
+        });
+      },
+
+      onCancel: function() {
+        showError('PayPal checkout was cancelled.');
+      },
+
+      onError: function(err) {
+        showError('A PayPal error occurred. Please try again or use a card instead.');
+      }
+
+    }).render('#paypal-button-container');
+  }
+
+  function validateCheckoutFields() {
+    const email = document.getElementById('c-email').value.trim();
+    const firstName = document.getElementById('c-first').value.trim();
+    const lastName = document.getElementById('c-last').value.trim();
+    const address = document.getElementById('s-address').value.trim();
+    const city = document.getElementById('s-city').value.trim();
+    const state = document.getElementById('s-state').value;
+    const zip = document.getElementById('s-zip').value.trim();
+
+    if (!email || !firstName || !lastName || !address || !city || !state || !zip) {
+      showError('Please fill in all required fields before continuing with PayPal.');
+      return false;
+    }
+    if (!shippingRate) {
+      showError('Please calculate shipping before placing your order.');
+      return false;
+    }
+    if (isMember && !selectedPromoItem) {
+      showError('Please select your free complimentary item before placing your order.');
+      document.getElementById('promo-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return false;
+    }
+    return true;
+  }
+
+  async function finalizeOrder(method, paymentOrderId) {
+    try {
+      const res = await fetch(`${WORKER_URL}/api/orders/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(buildOrderPayload(method, paymentOrderId))
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        showSuccess(data.order_id || paymentOrderId);
+      } else {
+        showError(data.error || 'Order could not be recorded, but your payment was completed. Please contact inquiry@shoppizzy.com with your PayPal order ID: ' + paymentOrderId);
+      }
+    } catch(err) {
+      showError('Your payment was completed, but we could not record the order automatically. Please contact inquiry@shoppizzy.com with your PayPal order ID: ' + paymentOrderId);
+    }
+  }
+
+  function buildOrderPayload(method, paymentOrderId) {
+    return {
+      product_id: productData.id,
+      seller_id: productData.seller_id,
+      quantity: 1,
+      product_price: parseFloat(productData.price),
+      shipping_cost: shippingRate.cost,
+      total: parseFloat(productData.price) + shippingRate.cost,
+      payment_method: method,
+      payment_reference: paymentOrderId,
+      promo_item_sku: selectedPromoItem?.sku || null,
+      promo_item_name: selectedPromoItem?.name || null,
+      include_paper_towels: document.getElementById('paper-towel-row').style.display !== 'none',
+      customer: { email: document.getElementById('c-email').value.trim(), first_name: document.getElementById('c-first').value.trim(), last_name: document.getElementById('c-last').value.trim(), phone: document.getElementById('c-phone').value.trim() },
+      shipping_address: { address1: document.getElementById('s-address').value.trim(), address2: document.getElementById('s-address2').value.trim(), city: document.getElementById('s-city').value.trim(), state: document.getElementById('s-state').value, zip: document.getElementById('s-zip').value.trim(), country: 'US' },
+      ship_from_zip: sellerZip,
+      carrier: 'UPS',
+      service: 'Ground'
+    };
+  }
+
+  function showSuccess(orderId) {
+    document.getElementById('checkout-wrap').style.display = 'none';
+    const successEl = document.getElementById('success-state');
+    successEl.style.display = 'block';
+    document.getElementById('success-order-id').textContent = `Order #${orderId}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   async function calcShipping() {
     const zip = (document.getElementById('ship-zip-calc').value || document.getElementById('s-zip').value).trim();
     const resultEl = document.getElementById('ship-result');
     const btn = document.getElementById('calc-btn');
-    const orderBtn = document.getElementById('order-btn');
-    const orderBtnText = document.getElementById('order-btn-text');
 
     if (!zip || zip.length !== 5 || !/^\d{5}$/.test(zip)) {
       resultEl.textContent = 'Please enter a valid 5-digit ZIP code.';
@@ -951,32 +1155,13 @@
       const res = await fetch(`${WORKER_URL}/api/orders/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          product_id: productData.id,
-          seller_id: productData.seller_id,
-          quantity: 1,
-          product_price: parseFloat(productData.price),
-          shipping_cost: shippingRate.cost,
-          total: parseFloat(productData.price) + shippingRate.cost,
-          promo_item_sku: selectedPromoItem?.sku || null,
-          promo_item_name: selectedPromoItem?.name || null,
-          include_paper_towels: document.getElementById('paper-towel-row').style.display !== 'none',
-          customer: { email, first_name: firstName, last_name: lastName, phone: document.getElementById('c-phone').value.trim() },
-          shipping_address: { address1: address, address2: document.getElementById('s-address2').value.trim(), city, state, zip, country: 'US' },
-          ship_from_zip: sellerZip,
-          carrier: 'UPS',
-          service: 'Ground'
-        })
+        body: JSON.stringify(buildOrderPayload('card', null))
       });
 
       const data = await res.json();
 
       if (res.ok && data.success) {
-        document.getElementById('checkout-wrap').style.display = 'none';
-        const successEl = document.getElementById('success-state');
-        successEl.style.display = 'block';
-        document.getElementById('success-order-id').textContent = `Order #${data.order_id}`;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showSuccess(data.order_id);
       } else {
         showError(data.error || 'Order failed. Please try again.');
         btn.disabled = false;
@@ -1086,6 +1271,8 @@
   }
 
   function updateOrderButton() {
+    if (paymentMethod === 'paypal') return; // PayPal button handles its own state
+
     const btn = document.getElementById('order-btn');
     const btnText = document.getElementById('order-btn-text');
 
