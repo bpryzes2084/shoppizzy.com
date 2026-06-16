@@ -134,6 +134,54 @@
       padding-right: 40px;
     }
 
+    /* ── QUANTITY STEPPER ── */
+    .qty-stepper {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--border);
+      width: fit-content;
+      background: var(--white);
+    }
+
+    .qty-btn {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: var(--white);
+      color: var(--black);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .qty-btn:hover { background: var(--cream); }
+    .qty-btn:disabled { opacity: 0.35; cursor: not-allowed; background: var(--white); }
+
+    .qty-input {
+      width: 56px;
+      height: 44px;
+      text-align: center;
+      border: none;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--text);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .qty-stock-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-left: 14px;
+    }
+
+    .qty-stock-note.warn { color: var(--error); }
+
     /* ── SHIPPING CALC ── */
     .shipping-calc {
       background: var(--white);
@@ -614,42 +662,57 @@
     <!-- SHIPPING ADDRESS -->
     <div class="form-section">
       <span class="form-section-label">Shipping Address</span>
-      <div class="form-grid">
-        <div class="form-group form-full">
-          <label class="form-label" for="s-address">Street Address</label>
-          <input type="text" id="s-address" class="form-input" placeholder="123 Main St" autocomplete="street-address">
+      <form id="address-form" onsubmit="return false;">
+        <div class="form-grid">
+          <div class="form-group form-full">
+            <label class="form-label" for="s-address">Street Address</label>
+            <mapbox-address-autofill access-token="pk.eyJ1IjoiYnByeXplczIwODQiLCJhIjoiY21xZ3ZxOWIzMDR1bzJycTdqMzU0dHRhNyJ9.2p6Hu2YUAZ4LRzhpuTmveg" country="US">
+              <input type="text" id="s-address" name="address-line1" class="form-input" placeholder="123 Main St" autocomplete="street-address">
+            </mapbox-address-autofill>
+          </div>
+          <div class="form-group form-full">
+            <label class="form-label" for="s-address2">Apt, Suite, Unit (optional)</label>
+            <input type="text" id="s-address2" name="address-line2" class="form-input" placeholder="Apt 4B" autocomplete="address-line2">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="s-city">City</label>
+            <input type="text" id="s-city" name="address-level2" class="form-input" placeholder="City" autocomplete="address-level2">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="s-state">State</label>
+            <select id="s-state" name="address-level1" class="form-input" autocomplete="address-level1">
+              <option value="">Select state</option>
+              <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+              <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+              <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+              <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+              <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+              <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+              <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+              <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+              <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+              <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+              <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+              <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+              <option>WI</option><option>WY</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="s-zip">ZIP Code</label>
+            <input type="text" id="s-zip" name="postal-code" class="form-input" placeholder="00000" maxlength="5" autocomplete="postal-code" oninput="onZipInput(this.value)">
+          </div>
         </div>
-        <div class="form-group form-full">
-          <label class="form-label" for="s-address2">Apt, Suite, Unit (optional)</label>
-          <input type="text" id="s-address2" class="form-input" placeholder="Apt 4B" autocomplete="address-line2">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="s-city">City</label>
-          <input type="text" id="s-city" class="form-input" placeholder="City" autocomplete="address-level2">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="s-state">State</label>
-          <select id="s-state" class="form-input" autocomplete="address-level1">
-            <option value="">Select state</option>
-            <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
-            <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
-            <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
-            <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
-            <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
-            <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
-            <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
-            <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
-            <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
-            <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
-            <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
-            <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
-            <option>WI</option><option>WY</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="s-zip">ZIP Code</label>
-          <input type="text" id="s-zip" class="form-input" placeholder="00000" maxlength="5" autocomplete="postal-code" oninput="onZipInput(this.value)">
-        </div>
+      </form>
+    </div>
+
+    <!-- QUANTITY -->
+    <div class="form-section">
+      <span class="form-section-label">Quantity</span>
+      <div class="qty-stepper">
+        <button class="qty-btn" id="qty-decrease" onclick="changeQuantity(-1)" aria-label="Decrease quantity">&minus;</button>
+        <input type="text" id="qty-input" class="qty-input" value="1" inputmode="numeric" oninput="onQuantityInput(this.value)">
+        <button class="qty-btn" id="qty-increase" onclick="changeQuantity(1)" aria-label="Increase quantity">+</button>
+        <span class="qty-stock-note" id="qty-stock-note"></span>
       </div>
     </div>
 
@@ -780,12 +843,14 @@
 
 </div>
 
+<script defer src="https://api.mapbox.com/search-js/v1.0.0/web.js"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=AVdoF0eF8NXzcO8peTxdRz-QvT7kk5KGcRPu1ElPd8A_Vl7IlW8STfXubUZHjB4Sv4giYppk6DB3CsRr&currency=USD&enable-funding=venmo"></script>
 <script>
   const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
   let productData = null;
   let shippingRate = null;
   let sellerZip = '80019'; // default, will be overridden by seller's zip
+  let quantity = 1;
 
   let isMember = false;
   let paymentMethod = 'card';
@@ -820,7 +885,31 @@
 
     // Check membership — only members get free item + water bottle
     await checkMembership();
+
+    setupAddressAutofill();
   });
+
+  // ── MAPBOX ADDRESS AUTOFILL ────────────────────────────────────────────────
+  function setupAddressAutofill() {
+    const addressEl = document.getElementById('s-address');
+    if (!addressEl) return;
+    // The mapbox-address-autofill custom element fires "retrieve" on the
+    // wrapping element when the customer selects a suggested address.
+    const wrapper = addressEl.closest('mapbox-address-autofill');
+    if (!wrapper) return;
+    wrapper.addEventListener('retrieve', (e) => {
+      // City/state/zip fields are auto-filled by Mapbox via the matching
+      // name attributes; just trigger our existing ZIP-based shipping calc
+      // once the form settles.
+      setTimeout(() => {
+        const zip = document.getElementById('s-zip').value.trim();
+        if (zip.length === 5) {
+          document.getElementById('ship-zip-calc').value = zip;
+          calcShipping();
+        }
+      }, 100);
+    });
+  }
 
   async function checkMembership() {
     const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
@@ -862,22 +951,68 @@
   function renderSummary(p) {
     const price = parseFloat(p.price || 0);
     document.getElementById('summary-name').textContent = p.title;
-    document.getElementById('summary-meta').textContent = `Qty: 1 · ${p.item_condition || 'New'}`;
+    document.getElementById('summary-meta').textContent = `Qty: ${quantity} · ${p.item_condition || 'New'}`;
     document.getElementById('summary-price').textContent = `$${price.toFixed(2)}`;
-    document.getElementById('summary-subtotal').textContent = `$${price.toFixed(2)}`;
-    document.getElementById('summary-total').textContent = `$${price.toFixed(2)}`;
+    document.getElementById('summary-subtotal').textContent = `$${(price * quantity).toFixed(2)}`;
+    document.getElementById('summary-total').textContent = `$${(price * quantity).toFixed(2)}`;
     if (p.imageUrl) {
       document.getElementById('summary-img').innerHTML = `<img src="${p.imageUrl}" alt="${escHtml(p.title)}">`;
     }
+    renderStockNote();
   }
 
   function updateTotal() {
     if (!productData) return;
     const price = parseFloat(productData.price || 0);
     const shipping = shippingRate ? shippingRate.cost : 0;
-    const total = price + shipping;
+    const total = (price * quantity) + shipping;
+    document.getElementById('summary-meta').textContent = `Qty: ${quantity} · ${productData.item_condition || 'New'}`;
+    document.getElementById('summary-subtotal').textContent = `$${(price * quantity).toFixed(2)}`;
     document.getElementById('summary-shipping').textContent = shippingRate ? `$${shippingRate.cost.toFixed(2)}` : '—';
     document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+  }
+
+  // ── QUANTITY STEPPER ───────────────────────────────────────────────────────
+  function getMaxQuantity() {
+    // GrowceryWorld items don't carry a per-checkout stock cap here; Square
+    // items are capped to whatever stock_quantity the sync last recorded.
+    if (productData?.stock_quantity != null) {
+      return Math.max(1, parseInt(productData.stock_quantity) || 1);
+    }
+    return 99; // reasonable ceiling when no stock data is available
+  }
+
+  function renderStockNote() {
+    const note = document.getElementById('qty-stock-note');
+    const max = getMaxQuantity();
+    if (productData?.stock_quantity != null && productData.stock_quantity <= 10) {
+      note.textContent = `Only ${productData.stock_quantity} left in stock`;
+      note.classList.add('warn');
+    } else {
+      note.textContent = '';
+      note.classList.remove('warn');
+    }
+    document.getElementById('qty-increase').disabled = quantity >= max;
+    document.getElementById('qty-decrease').disabled = quantity <= 1;
+  }
+
+  function setQuantity(newQty) {
+    const max = getMaxQuantity();
+    quantity = Math.min(max, Math.max(1, newQty || 1));
+    document.getElementById('qty-input').value = quantity;
+    renderStockNote();
+    if (productData) { renderSummary(productData); updateTotal(); }
+    // Shipping cost depends on total weight, so re-calculate if a rate was already fetched
+    if (shippingRate) { calcShipping(); }
+  }
+
+  function changeQuantity(delta) {
+    setQuantity(quantity + delta);
+  }
+
+  function onQuantityInput(val) {
+    const parsed = parseInt(val.replace(/[^0-9]/g, ''), 10);
+    if (!isNaN(parsed)) setQuantity(parsed);
   }
 
   function onZipInput(val) {
@@ -921,7 +1056,7 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            product_price: parseFloat(productData.price || 0),
+            product_price: parseFloat(productData.price || 0) * quantity,
             shipping_cost: shippingRate ? shippingRate.cost : 0,
             title: productData.title
           })
@@ -1005,10 +1140,10 @@
     return {
       product_id: productData.id,
       seller_id: productData.seller_id,
-      quantity: 1,
+      quantity: quantity,
       product_price: parseFloat(productData.price),
       shipping_cost: shippingRate.cost,
-      total: parseFloat(productData.price) + shippingRate.cost,
+      total: (parseFloat(productData.price) * quantity) + shippingRate.cost,
       payment_method: method,
       payment_reference: paymentOrderId,
       promo_item_sku: selectedPromoItem?.sku || null,
@@ -1064,7 +1199,7 @@
             shippingAddressPostalCode: zip,
             shippingAddressCountry: 'US',
             shipFromPostalCode: sellerZip,
-            items: [{ weight, quantity: 1, length_in: length, width_in: width, height_in: height }]
+            items: [{ weight, quantity: quantity, length_in: length, width_in: width, height_in: height }]
           }
         })
       });
@@ -1143,7 +1278,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           square_item_id: productData.square_item_id,
-          quantity: 1,
+          quantity: quantity,
           shipping: { cost: shippingRate.cost, zip: shippingRate.zip }
         })
       });
@@ -1164,12 +1299,12 @@
       } else {
         showError(data.error || 'Could not start checkout. Please try again.');
         btn.disabled = false;
-        btnText.textContent = `Place Order — $${(parseFloat(productData?.price || 0) + shippingRate.cost).toFixed(2)}`;
+        btnText.textContent = `Place Order — $${((parseFloat(productData?.price || 0) * quantity) + shippingRate.cost).toFixed(2)}`;
       }
     } catch(err) {
       showError('Network error. Please try again.');
       btn.disabled = false;
-      btnText.textContent = `Place Order — $${(parseFloat(productData?.price || 0) + shippingRate.cost).toFixed(2)}`;
+      btnText.textContent = `Place Order — $${((parseFloat(productData?.price || 0) * quantity) + shippingRate.cost).toFixed(2)}`;
     }
   }
 
@@ -1277,7 +1412,7 @@
       btnText.textContent = 'Calculate Shipping to Continue';
     } else {
       btn.disabled = false;
-      const total = parseFloat(productData?.price || 0) + shippingRate.cost;
+      const total = (parseFloat(productData?.price || 0) * quantity) + shippingRate.cost;
       btnText.textContent = `Place Order — $${total.toFixed(2)}`;
     }
   }
