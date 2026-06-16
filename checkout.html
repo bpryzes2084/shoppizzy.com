@@ -696,24 +696,10 @@
 
       <!-- CARD PANEL -->
       <div class="payment-method-panel active" id="panel-card">
-        <div class="form-grid">
-          <div class="form-group form-full">
-            <label class="form-label" for="p-card">Card Number</label>
-            <input type="text" id="p-card" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="p-exp">Expiry Date</label>
-            <input type="text" id="p-exp" class="form-input" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="p-cvv">CVV</label>
-            <input type="text" id="p-cvv" class="form-input" placeholder="123" maxlength="4">
-          </div>
-          <div class="form-group form-full">
-            <label class="form-label" for="p-name">Name on Card</label>
-            <input type="text" id="p-name" class="form-input" placeholder="As it appears on your card">
-          </div>
-        </div>
+        <p style="font-size:0.85rem;color:var(--text);line-height:1.6;margin-bottom:8px;">
+          You'll be redirected to Square's secure checkout to enter your card details and complete payment.
+        </p>
+        <p style="font-size:0.78rem;color:var(--muted);">Shoppizzy never sees or stores your card number.</p>
       </div>
 
       <!-- PAYPAL PANEL -->
@@ -1122,10 +1108,6 @@
     const city = document.getElementById('s-city').value.trim();
     const state = document.getElementById('s-state').value;
     const zip = document.getElementById('s-zip').value.trim();
-    const card = document.getElementById('p-card').value.replace(/\s/g, '');
-    const exp = document.getElementById('p-exp').value.trim();
-    const cvv = document.getElementById('p-cvv').value.trim();
-    const nameOnCard = document.getElementById('p-name').value.trim();
 
     if (!email || !firstName || !lastName || !address || !city || !state || !zip) {
       showError('Please fill in all required fields.');
@@ -1143,27 +1125,44 @@
       return;
     }
 
-    if (!card || card.length < 15 || !exp || !cvv || !nameOnCard) {
-      showError('Please enter your complete payment information.');
+    if (!productData.square_item_id) {
+      showError('This item is not available for card checkout. Please try PayPal instead.');
       return;
     }
 
     btn.disabled = true;
-    btnText.textContent = 'Processing...';
+    btnText.textContent = 'Redirecting to secure checkout...';
 
     try {
-      const res = await fetch(`${WORKER_URL}/api/orders/create`, {
+      // Record the order first (status: pending payment), then send the
+      // customer to Square's hosted checkout to actually pay. Square's
+      // payment link carries its own line items/pricing -- this matches
+      // the existing /api/checkout/square pattern used elsewhere on the site.
+      const res = await fetch(`${WORKER_URL}/api/checkout/square`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(buildOrderPayload('card', null))
+        body: JSON.stringify({
+          square_item_id: productData.square_item_id,
+          quantity: 1,
+          shipping: { cost: shippingRate.cost, zip: shippingRate.zip }
+        })
       });
 
       const data = await res.json();
 
-      if (res.ok && data.success) {
-        showSuccess(data.order_id);
+      if (res.ok && data.checkoutUrl) {
+        // Record the order locally before handing off to Square so we have
+        // a record even if the customer abandons the Square checkout page.
+        try {
+          await fetch(`${WORKER_URL}/api/orders/create`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(buildOrderPayload('card', null))
+          });
+        } catch(e) {}
+        window.location.href = data.checkoutUrl;
       } else {
-        showError(data.error || 'Order failed. Please try again.');
+        showError(data.error || 'Could not start checkout. Please try again.');
         btn.disabled = false;
         btnText.textContent = `Place Order — $${(parseFloat(productData?.price || 0) + shippingRate.cost).toFixed(2)}`;
       }
@@ -1179,17 +1178,6 @@
     el.textContent = msg;
     el.style.display = 'block';
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function formatCard(input) {
-    let val = input.value.replace(/\D/g, '').substring(0, 16);
-    input.value = val.replace(/(.{4})/g, '$1 ').trim();
-  }
-
-  function formatExpiry(input) {
-    let val = input.value.replace(/\D/g, '').substring(0, 4);
-    if (val.length >= 2) val = val.substring(0, 2) + '/' + val.substring(2);
-    input.value = val;
   }
 
   function escHtml(str) {
