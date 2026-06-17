@@ -624,6 +624,7 @@
   <p>Thank you for your purchase. Your order has been confirmed.</p>
   <p id="success-order-id" style="font-size:0.8rem;color:var(--muted);margin-top:8px;"></p>
   <p style="margin-top:16px;font-size:0.875rem;color:var(--text);">The seller will ship your item and provide tracking information once dispatched.</p>
+  <div id="google-customer-reviews-optin" style="margin-top:24px;"></div>
   <a href="/" class="btn-continue">Continue Shopping</a>
 </div>
 
@@ -845,6 +846,20 @@
 
 <script defer src="https://api.mapbox.com/search-js/v1.0.0/web.js"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=AVdoF0eF8NXzcO8peTxdRz-QvT7kk5KGcRPu1ElPd8A_Vl7IlW8STfXubUZHjB4Sv4giYppk6DB3CsRr&currency=USD&enable-funding=venmo"></script>
+
+<!-- GOOGLE CUSTOMER REVIEWS OPT-IN -->
+<script src="https://apis.google.com/js/platform.js?onload=renderOptIn" async defer></script>
+<script>
+  window.renderOptIn = function() {
+    window.gapi.load('surveyoptin', function() {
+      // If checkout already finished and queued data before this script
+      // loaded, render immediately using that queued data.
+      if (window._gcrOptInData) {
+        window.gapi.surveyoptin.render(window._gcrOptInData);
+      }
+    });
+  };
+</script>
 <script>
   const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
   let productData = null;
@@ -1163,6 +1178,46 @@
     successEl.style.display = 'block';
     document.getElementById('success-order-id').textContent = `Order #${orderId}`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    renderGoogleReviewsOptIn(orderId);
+  }
+
+  // ── GOOGLE CUSTOMER REVIEWS OPT-IN ─────────────────────────────────────────
+  function renderGoogleReviewsOptIn(orderId) {
+    const email = document.getElementById('c-email').value.trim();
+    if (!email || !productData) return; // required fields missing, skip silently
+
+    // Estimate delivery date: ship date (today) + carrier transit days, falling
+    // back to a reasonable 5 business day UPS Ground estimate.
+    const transitDays = shippingRate?.guaranteedDaysToDelivery || 5;
+    const estDate = new Date();
+    estDate.setDate(estDate.getDate() + transitDays);
+    const estimatedDeliveryDate = estDate.toISOString().split('T')[0]; // YYYY-MM-DD
+
+    // GTIN: GrowceryWorld product IDs are formatted "growcery-{upc}"; Square
+    // items may not have a usable GTIN, so this is included only when known.
+    const products = [];
+    if (String(productData.id).startsWith('growcery-')) {
+      const gtin = String(productData.id).replace('growcery-', '');
+      if (gtin) products.push({ gtin });
+    } else if (productData.sku) {
+      products.push({ gtin: productData.sku });
+    }
+
+    window._gcrOptInData = {
+      merchant_id: 5807164336,
+      order_id: String(orderId),
+      email: email,
+      delivery_country: "US",
+      estimated_delivery_date: estimatedDeliveryDate,
+      products: products
+    };
+
+    if (window.gapi && window.gapi.surveyoptin) {
+      window.gapi.surveyoptin.render(window._gcrOptInData);
+    }
+    // If gapi hasn't loaded yet, window.renderOptIn (registered via the
+    // platform.js onload callback below) will pick up window._gcrOptInData
+    // once it's ready.
   }
 
   async function calcShipping() {
