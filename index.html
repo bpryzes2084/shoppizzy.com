@@ -75,16 +75,6 @@
     .loading-state, .empty-state { text-align: center; padding: 80px 40px; color: var(--muted); }
     .loading-spinner { width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: var(--black); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .ticker-banner { background: var(--black); color: rgba(255,255,255,0.8); padding: 10px 0; overflow: hidden; white-space: nowrap; position: relative; }
-    .ticker-track { display: inline-block; animation: ticker 40s linear infinite; }
-    .ticker-item { font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; margin: 0 32px; }
-    .ticker-item a { color: var(--gold); text-decoration: none; }
-    .ticker-sep { color: var(--gold); margin: 0 8px; }
-    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .promo-banner { background: var(--cream); border-bottom: 1px solid var(--border); padding: 12px 40px; display: flex; align-items: center; justify-content: center; gap: 16px; }
-    .promo-banner-logo { font-family: 'Playfair Display', serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 3px; color: var(--black); }
-    .promo-banner-text { font-size: 0.8rem; color: var(--charcoal); letter-spacing: 0.5px; }
-    .promo-banner-link { color: var(--gold); text-decoration: none; font-weight: 400; }
     .results-controls { display: flex; align-items: center; gap: 16px; }
     .turnstile-wrap { position: fixed; bottom: 20px; right: 20px; z-index: 9999; opacity: 0; pointer-events: none; }
     @media (max-width: 768px) { .header-main { padding: 16px 20px; gap: 20px; } .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; } #results-section { padding: 0 20px; } }
@@ -99,35 +89,6 @@
   </div>
 </header>
 
-<div class="ticker-banner">
-  <div class="ticker-track">
-    <span class="ticker-item">&#128717; Shop direct-shipped products from trusted brands — fast UPS delivery on every order.</span>
-    <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">&#128666; UPS tracked shipping on every GrowceryWorld order.</span>
-    <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">&#127873; Shoppizzy Members get a free item with every order — <a href="/account.html" style="color:#c5a572;">Join for $20/yr</a></span>
-    <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">&#128138; Shop health, grocery, fragrance, electronics, footwear and more.</span>
-    <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">&#128274; Secure checkout — shop with confidence on Shoppizzy.com</span>
-    <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">&#128717; Shop direct-shipped products from trusted brands — fast UPS delivery on every order.</span>
-    <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">&#128666; UPS tracked shipping on every GrowceryWorld order.</span>
-    <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">&#127873; Shoppizzy Members get a free item with every order — <a href="/account.html" style="color:#c5a572;">Join for $20/yr</a></span>
-    <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">&#128138; Shop health, grocery, fragrance, electronics, footwear and more.</span>
-    <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">&#128274; Secure checkout — shop with confidence on Shoppizzy.com</span>
-    <span class="ticker-sep">&#9679;</span>
-  </div>
-</div>
-
-<div class="promo-banner">
-  <div class="promo-banner-logo">SHOPPIZZY</div>
-  <span class="promo-banner-text">&#127873; Unlock Free Items With Every Order &mdash; <a href="/account.html" class="promo-banner-link">Join for $20/yr</a></span>
-</div>
 
 <div style="background:var(--black);color:var(--white);padding:12px 24px;text-align:center;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(197,165,114,0.04) 40px,rgba(197,165,114,0.04) 80px);pointer-events:none;"></div>
