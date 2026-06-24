@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shoppizzy — Shop Millions of Products</title>
-  <meta name="description" content="Shop millions of products from top brands and independent sellers. Electronics, fashion, home goods, beauty and more.">
+  <meta name="description" content="Shop products from trusted brands, shipped direct from Shoppizzy with fast UPS delivery and easy returns.">
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
@@ -35,14 +35,6 @@
     .section-header { text-align: center; margin-bottom: 32px; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--black); letter-spacing: 1px; margin-bottom: 8px; }
     .section-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--muted); font-weight: 300; }
-    .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .category-card { background: var(--white); padding: 32px 16px; text-align: center; cursor: pointer; transition: all 0.3s; border: none; position: relative; overflow: hidden; display: block; }
-    .category-card::before { content: ''; position: absolute; inset: 0; background: var(--cream); transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s; z-index: 0; }
-    .category-card:hover::before { transform: scaleY(1); }
-    .category-card > * { position: relative; z-index: 1; }
-    .cat-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
-    .cat-name { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 400; margin-bottom: 4px; }
-    .cat-count { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.5px; font-weight: 400; }
     .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; }
     .product-card { background: var(--white); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: all 0.3s; height: 100%; }
     .product-card:hover { transform: translateY(-5px); }
@@ -83,90 +75,6 @@
     .loading-state, .empty-state { text-align: center; padding: 80px 40px; color: var(--muted); }
     .loading-spinner { width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: var(--black); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .chat-widget-container { position: fixed; bottom: 24px; right: 24px; z-index: 10000; }
-    .chat-button { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%); border: 2px solid var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: all 0.3s ease; }
-    .chat-button:hover { transform: scale(1.1); }
-    .chat-button svg { width: 28px; height: 28px; fill: var(--gold); }
-    .chat-window { position: fixed; bottom: 100px; right: 24px; width: 400px; max-width: calc(100vw - 48px); height: 600px; max-height: calc(100vh - 140px); background: var(--white); border-radius: 12px; box-shadow: 0 8px 40px rgba(0,0,0,0.2); display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border); }
-    .chat-window.open { display: flex; }
-    .chat-header { background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%); color: var(--white); padding: 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--gold); }
-    .chat-header-content { display: flex; align-items: center; gap: 12px; }
-    .chat-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-    .chat-header-text h3 { font-size: 16px; font-weight: 600; margin: 0; }
-    .chat-header-text p { font-size: 12px; margin: 2px 0 0 0; color: var(--gold); }
-    .chat-close { width: 32px; height: 32px; border: none; background: rgba(255,255,255,0.1); color: var(--white); border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; }
-    .chat-messages { flex: 1; overflow-y: auto; padding: 20px; background: var(--cream); display: flex; flex-direction: column; gap: 16px; }
-    .message { display: flex; gap: 10px; }
-    .message.user { flex-direction: row-reverse; }
-    .message-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
-    .message.assistant .message-avatar { background: var(--gold); color: var(--black); }
-    .message.user .message-avatar { background: var(--black); color: var(--white); }
-    .message-content { max-width: 75%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.6; }
-    .message.assistant .message-content { background: var(--white); color: var(--text); border: 1px solid var(--border); }
-    .message.user .message-content { background: var(--black); color: var(--white); }
-    .product-cards-chat { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
-    .product-card-chat { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; gap: 12px; text-decoration: none; color: inherit; transition: all 0.3s; }
-    .product-card-chat:hover { border-color: var(--gold); }
-    .product-card-chat-image { width: 80px; height: 80px; border-radius: 6px; background: var(--cream); flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .product-card-chat-image img { width: 100%; height: 100%; object-fit: cover; }
-    .product-card-chat-placeholder { font-size: 32px; color: var(--muted); }
-    .product-card-chat-info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-    .product-card-chat-merchant { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-    .product-card-chat-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .product-card-chat-price { font-size: 14px; font-weight: 600; color: var(--gold); margin-top: auto; }
-    .typing-indicator { display: flex; gap: 4px; padding: 12px 16px; background: var(--white); border-radius: 12px; width: fit-content; border: 1px solid var(--border); }
-    .typing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); animation: typing 1.4s infinite; }
-    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-10px); } }
-    .chat-input-container { padding: 16px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 12px; }
-    .chat-input { flex: 1; border: 1px solid var(--border); border-radius: 24px; padding: 12px 20px; font-size: 14px; font-family: inherit; outline: none; transition: all 0.3s; }
-    .chat-input:focus { border-color: var(--gold); }
-    .chat-send { width: 44px; height: 44px; border: none; border-radius: 50%; background: var(--black); color: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; flex-shrink: 0; }
-    .chat-send:hover:not(:disabled) { background: var(--gold); color: var(--black); }
-    .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
-    .chat-send svg { width: 20px; height: 20px; fill: currentColor; }
-    .quick-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-    .quick-action-btn { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 6px 14px; font-size: 12px; cursor: pointer; transition: all 0.3s; }
-    .quick-action-btn:hover { background: var(--cream); border-color: var(--gold); color: var(--gold); }
-    .promo-banner { background: #c5a572; color: #000; text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; width: 100%; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 12px; }
-    .promo-banner-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: 4px; color: #000; }
-    .promo-banner-link { color: #000; text-decoration: underline; font-weight: 700; }
-    .ticker-banner { background: #000; color: #c5a572; overflow: hidden; white-space: nowrap; padding: 8px 0; border-top: 1px solid #222; }
-    .ticker-track { display: inline-block; animation: ticker-scroll 60s linear infinite; }
-    .ticker-track:hover { animation-play-state: paused; }
-    .ticker-item { font-size: 12px; letter-spacing: 0.5px; padding: 0 8px; }
-    .ticker-sep { font-size: 8px; color: #555; padding: 0 4px; }
-    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .turnstile-wrap { display: flex; justify-content: center; padding: 20px 0; }
-    @media (max-width: 768px) {
-      .header-main { padding: 16px 20px; }
-      .header-nav { display: none; }
-      .homepage-layout { padding: 0 12px; }
-      .category-grid { grid-template-columns: repeat(2, 1fr); }
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
-      .search-container { padding: 0 12px !important; margin: 20px auto 30px !important; max-width: 100% !important; }
-      .search-box { flex-direction: column; }
-      #search-input { padding: 14px 16px !important; font-size: 16px !important; width: 100%; border-bottom: 1px solid var(--border); }
-      .search-btn { padding: 14px 20px !important; width: 100%; text-align: center; border-radius: 0; }
-      .product-img-wrap { height: 160px !important; }
-      .chat-window { bottom: 0; right: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; max-height: 100vh; border-radius: 0; }
-      .promo-banner { flex-direction: column; gap: 4px; padding: 8px 12px; }
-      .promo-banner-logo { font-size: 1.1rem; }
-      .ticker-item { font-size: 11px; }
-      .results-header { flex-direction: column; gap: 12px; align-items: flex-start; }
-      .product-title { font-size: 12px; }
-    }
-    @media (max-width: 480px) {
-      .product-grid { grid-template-columns: 1fr !important; gap: 12px; }
-      .footer-inner { grid-template-columns: 1fr; }
-      #search-input { font-size: 16px !important; }
-    }
-  </style>
-</head>
-<body>
-
 <header>
   <div class="header-main">
     <div class="logo" onclick="showHome()">SHOPPIZZY</div>
@@ -179,7 +87,7 @@
 
 <div class="ticker-banner">
   <div class="ticker-track">
-    <span class="ticker-item">&#128717; Search millions of products from top brands — all in one place.</span>
+    <span class="ticker-item">&#128717; Shop direct-shipped products from trusted brands — fast UPS delivery on every order.</span>
     <span class="ticker-sep">&#9679;</span>
     <span class="ticker-item">&#128666; UPS tracked shipping on every GrowceryWorld order.</span>
     <span class="ticker-sep">&#9679;</span>
@@ -189,7 +97,7 @@
     <span class="ticker-sep">&#9679;</span>
     <span class="ticker-item">&#128274; Secure checkout — shop with confidence on Shoppizzy.com</span>
     <span class="ticker-sep">&#9679;</span>
-    <span class="ticker-item">&#128717; Search millions of products from top brands — all in one place.</span>
+    <span class="ticker-item">&#128717; Shop direct-shipped products from trusted brands — fast UPS delivery on every order.</span>
     <span class="ticker-sep">&#9679;</span>
     <span class="ticker-item">&#128666; UPS tracked shipping on every GrowceryWorld order.</span>
     <span class="ticker-sep">&#9679;</span>
@@ -232,52 +140,6 @@
 </div>
 
 <div id="hero-section">
-  <div class="homepage-layout">
-    <!-- FEATURED PARTNERS -->
-    <div style="margin-bottom:48px;">
-      <div class="section-header">
-        <h2 class="section-title">Featured Partners</h2>
-        <p class="section-subtitle">Shop directly from our trusted merchant partners</p>
-      </div>
-      <div class="category-grid" style="grid-template-columns:repeat(4,1fr);">
-        <a class="category-card" href="https://www.anrdoezrs.net/click-101321407-15566558" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-          <span class="cat-icon">&#128218;</span>
-          <div class="cat-name">2nd &amp; Charles</div>
-          <div class="cat-count">Books, Music &amp; Games</div>
-        </a>
-        <a class="category-card" href="https://www.kqzyfj.com/click-101321407-17224012" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-          <span class="cat-icon">&#127918;</span>
-          <div class="cat-name">945 Industries</div>
-          <div class="cat-count">Shop Now</div>
-        </a>
-        <a class="category-card" href="https://www.tkqlhce.com/click-101321407-15260968" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-          <span class="cat-icon">&#8987;</span>
-          <div class="cat-name">Amazfit</div>
-          <div class="cat-count">Smartwatches &amp; Fitness</div>
-        </a>
-        <a class="category-card" href="https://www.dpbolvw.net/click-101321407-13917199" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-          <span class="cat-icon">&#128214;</span>
-          <div class="cat-name">Books-A-Million</div>
-          <div class="cat-count">Books &amp; More</div>
-        </a>
-        <a class="category-card" href="https://www.jdoqocy.com/click-101321407-16942198" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-          <span class="cat-icon">&#127800;</span>
-          <div class="cat-name">FragranceShop</div>
-          <div class="cat-count">Perfume &amp; Cologne</div>
-        </a>
-        <a class="category-card" href="https://www.jdoqocy.com/click-101321407-15583575" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-          <span class="cat-icon">&#128138;</span>
-          <div class="cat-name">Nature Made</div>
-          <div class="cat-count">Vitamins &amp; Supplements</div>
-        </a>
-        <a class="category-card" href="https://www.kqzyfj.com/click-101321407-15326635" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-          <span class="cat-icon">&#129000;</span>
-          <div class="cat-name">SelectBlinds</div>
-          <div class="cat-count">Window Treatments</div>
-        </a>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- RESULTS -->
@@ -309,7 +171,7 @@
   <div class="footer-inner">
     <div class="footer-col">
       <h4>Shoppizzy</h4>
-      <p style="font-size:0.85rem;line-height:1.8;">Shop millions of products from top brands.</p>
+      <p style="font-size:0.85rem;line-height:1.8;">Direct-shipped products with fast UPS delivery and easy returns.</p>
       <div class="footer-social">
         <a href="https://www.facebook.com/bsm.enterpryzes/" target="_blank" rel="noopener noreferrer" aria-label="Shoppizzy on Facebook" title="Facebook">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -345,7 +207,6 @@
     </div>
     <div class="footer-col">
       <h4>Legal</h4>
-      <a href="/affiliate-disclosure.html">Affiliate Disclosure</a>
       <a href="/privacy-policy.html">Privacy Policy</a>
       <a href="/returns.html">Returns &amp; Refunds</a>
       <a href="/terms-of-service.html">Terms of Service</a>
@@ -354,26 +215,6 @@
   </div>
   <div class="footer-bottom">&#169; 2026 Shoppizzy &#8212; BSM Enterpryzes. All Rights Reserved.</div>
 </footer>
-
-<div class="chat-widget-container">
-  <div class="chat-button" id="chatButton">
-    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
-  </div>
-  <div class="chat-window" id="chatWindow">
-    <div class="chat-header">
-      <div class="chat-header-content">
-        <div class="chat-avatar">&#129302;</div>
-        <div class="chat-header-text"><h3>Shopping Assistant</h3><p>AI-Powered Product Search</p></div>
-      </div>
-      <button class="chat-close" id="chatClose">&#215;</button>
-    </div>
-    <div class="chat-messages" id="chatMessages"></div>
-    <div class="chat-input-container">
-      <input type="text" class="chat-input" id="chatInput" placeholder="What are you looking for?" autocomplete="off"/>
-      <button class="chat-send" id="chatSend"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
-    </div>
-  </div>
-</div>
 
 <div class="turnstile-wrap">
   <div class="cf-turnstile" data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" data-callback="onTurnstileSuccess" data-theme="light" data-size="normal"></div>
@@ -410,10 +251,10 @@
         var count = pcData.count || 0;
         document.getElementById('product-count').innerHTML = '<span class="count-number">' + count.toLocaleString() + '</span> products available';
       } else {
-        document.getElementById('product-count').innerHTML = '<span class="count-number">13,000,000+</span> products available';
+        document.getElementById('product-count').innerHTML = '<span class="count-number">Loading...</span> products available';
       }
     } catch(e) {
-      document.getElementById('product-count').innerHTML = '<span class="count-number">13,000,000+</span> products available';
+      document.getElementById('product-count').innerHTML = '<span class="count-number">Loading...</span> products available';
     }
     try {
       var sellerRes = await fetch(WORKER_URL + '/api/seller-stats');
@@ -451,7 +292,7 @@
     window._lastSearchOptions = options;
     document.getElementById('hero-section').style.display = 'none';
     document.getElementById('results-section').classList.add('active');
-    document.getElementById('product-grid').innerHTML = '<div class="loading-state" style="grid-column:1/-1"><div class="loading-spinner"></div><p>Searching millions of products...</p></div>';
+    document.getElementById('product-grid').innerHTML = '<div class="loading-state" style="grid-column:1/-1"><div class="loading-spinner"></div><p>Searching products...</p></div>';
     document.getElementById('results-title').innerHTML = options.categoryLabel ? escHtml(options.categoryLabel) : 'Results for &ldquo;' + escHtml(query) + '&rdquo;';
     document.getElementById('load-more-container').style.display = 'none';
     try {
@@ -547,7 +388,7 @@
     if (p.source === 'seller' || p.source === 'square' || p.type === 'direct') {
       return '/product.html?id=' + encodeURIComponent(p.id);
     }
-    var params = new URLSearchParams({ id: p.id, title: p.title || '', buy: p.buyUrl || p.affiliate_link || '', price: p.price || '', img: p.imageUrl || '', desc: (p.description || '').substring(0, 200), brand: p.brand || '', cat: p.category || '' });
+    var params = new URLSearchParams({ id: p.id, title: p.title || '', buy: p.buyUrl || '', price: p.price || '', img: p.imageUrl || '', desc: (p.description || '').substring(0, 200), brand: p.brand || '', cat: p.category || '' });
     if (p.salePrice) params.set('sale', p.salePrice);
     return '/product.html?' + params.toString();
   }
@@ -576,102 +417,6 @@
       '</div></a>';
   }
 
-  // CHAT WIDGET
-  var isOpen = false;
-  var chatButton = document.getElementById('chatButton');
-  var chatWindow = document.getElementById('chatWindow');
-  var chatClose = document.getElementById('chatClose');
-  var chatMessages = document.getElementById('chatMessages');
-  var chatInput = document.getElementById('chatInput');
-  var chatSend = document.getElementById('chatSend');
-  chatButton.addEventListener('click', toggleChat);
-  chatClose.addEventListener('click', toggleChat);
-  chatSend.addEventListener('click', sendChatMessage);
-  chatInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') sendChatMessage(); });
-  setTimeout(function() {
-    addChatMessage('assistant', "Hi! I'm your AI shopping assistant. What are you looking for today?");
-    showQuickActions(['Wireless Headphones', 'Gaming Laptops', 'Running Shoes', 'Smart Watches']);
-  }, 1000);
-
-  var chatHistory = [];
-
-  function toggleChat() { isOpen = !isOpen; chatWindow.classList.toggle('open', isOpen); if (isOpen) chatInput.focus(); }
-
-  function addChatMessage(sender, content, products) {
-    var messageDiv = document.createElement('div'); messageDiv.className = 'message ' + sender;
-    var avatar = document.createElement('div'); avatar.className = 'message-avatar'; avatar.textContent = sender === 'assistant' ? '🤖' : '👤';
-    var contentDiv = document.createElement('div'); contentDiv.className = 'message-content'; contentDiv.textContent = content;
-    messageDiv.appendChild(avatar); messageDiv.appendChild(contentDiv); chatMessages.appendChild(messageDiv);
-    if (products && products.length > 0) {
-      var container = document.createElement('div'); container.className = 'product-cards-chat';
-      products.forEach(function(p) { container.appendChild(createChatCard(p)); }); contentDiv.appendChild(container);
-    }
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  function createChatCard(product) {
-    var card = document.createElement('a'); card.className = 'product-card-chat';
-    card.href = product.buyUrl || product.affiliate_link || '#'; card.target = '_blank'; card.rel = 'noopener noreferrer';
-    var imageDiv = document.createElement('div'); imageDiv.className = 'product-card-chat-image';
-    if (product.imageUrl) { var img = document.createElement('img'); img.src = product.imageUrl; img.alt = product.title; imageDiv.appendChild(img); }
-    else { var ph = document.createElement('div'); ph.className = 'product-card-chat-placeholder'; ph.textContent = '✦'; imageDiv.appendChild(ph); }
-    var infoDiv = document.createElement('div'); infoDiv.className = 'product-card-chat-info';
-    var merchant = document.createElement('div'); merchant.className = 'product-card-chat-merchant'; merchant.textContent = product.advertiserName || product.merchant_name || 'Merchant';
-    var title = document.createElement('div'); title.className = 'product-card-chat-title'; title.textContent = product.title;
-    var price = document.createElement('div'); price.className = 'product-card-chat-price';
-    var pv = product.salePrice || product.price; price.textContent = pv ? '$' + parseFloat(pv).toFixed(2) : 'See Price';
-    infoDiv.appendChild(merchant); infoDiv.appendChild(title); infoDiv.appendChild(price);
-    card.appendChild(imageDiv); card.appendChild(infoDiv); return card;
-  }
-
-  function showTyping() {
-    var d = document.createElement('div'); d.className = 'message assistant'; d.id = 'typing-indicator';
-    var a = document.createElement('div'); a.className = 'message-avatar'; a.textContent = '🤖';
-    var i = document.createElement('div'); i.className = 'typing-indicator';
-    i.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-    d.appendChild(a); d.appendChild(i); chatMessages.appendChild(d); chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  function hideTyping() { var t = document.getElementById('typing-indicator'); if (t) t.remove(); }
-
-  function showQuickActions(actions) {
-    var qd = document.createElement('div'); qd.className = 'quick-actions';
-    actions.forEach(function(action) {
-      var btn = document.createElement('button'); btn.className = 'quick-action-btn'; btn.textContent = action;
-      btn.onclick = function() { chatInput.value = action; sendChatMessage(); }; qd.appendChild(btn);
-    });
-    var last = chatMessages.lastElementChild;
-    if (last && last.querySelector('.message-content')) last.querySelector('.message-content').appendChild(qd);
-  }
-
-  async function sendChatMessage() {
-    var message = chatInput.value.trim();
-    if (!message) return;
-    addChatMessage('user', message);
-    chatInput.value = '';
-    chatSend.disabled = true;
-    showTyping();
-    chatHistory.push({ role: 'user', content: message });
-    try {
-      var res = await fetch(WORKER_URL + '/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: message, history: chatHistory.slice(-6) })
-      });
-      var data = await res.json();
-      hideTyping();
-      var reply = data.reply || "I'm here to help! What are you looking for?";
-      var products = data.products || [];
-      addChatMessage('assistant', reply, products);
-      chatHistory.push({ role: 'assistant', content: reply });
-      if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
-    } catch(e) {
-      hideTyping();
-      addChatMessage('assistant', 'Sorry, I had trouble connecting. Please try again!');
-    }
-    chatSend.disabled = false;
-    chatInput.focus();
-  }
 
   function onTurnstileSuccess(token) {}
   window.addEventListener('load', function() {
