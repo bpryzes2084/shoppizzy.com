@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shoppizzy — Shop Millions of Products</title>
+  <title>Shoppizzy — Direct-Shipped Products</title>
   <meta name="description" content="Shop products from trusted brands, shipped direct from Shoppizzy with fast UPS delivery and easy returns.">
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -75,6 +75,19 @@
     .loading-state, .empty-state { text-align: center; padding: 80px 40px; color: var(--muted); }
     .loading-spinner { width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: var(--black); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .ticker-banner { background: var(--black); color: rgba(255,255,255,0.8); padding: 10px 0; overflow: hidden; white-space: nowrap; position: relative; }
+    .ticker-track { display: inline-block; animation: ticker 40s linear infinite; }
+    .ticker-item { font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; margin: 0 32px; }
+    .ticker-item a { color: var(--gold); text-decoration: none; }
+    .ticker-sep { color: var(--gold); margin: 0 8px; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .promo-banner { background: var(--cream); border-bottom: 1px solid var(--border); padding: 12px 40px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .promo-banner-logo { font-family: 'Playfair Display', serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 3px; color: var(--black); }
+    .promo-banner-text { font-size: 0.8rem; color: var(--charcoal); letter-spacing: 0.5px; }
+    .promo-banner-link { color: var(--gold); text-decoration: none; font-weight: 400; }
+    .results-controls { display: flex; align-items: center; gap: 16px; }
+    .turnstile-wrap { position: fixed; bottom: 20px; right: 20px; z-index: 9999; opacity: 0; pointer-events: none; }
+    @media (max-width: 768px) { .header-main { padding: 16px 20px; gap: 20px; } .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; } #results-section { padding: 0 20px; } }
   </style>
 <header>
   <div class="header-main">
@@ -120,10 +133,8 @@
   <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(197,165,114,0.04) 40px,rgba(197,165,114,0.04) 80px);pointer-events:none;"></div>
   <div style="position:relative;z-index:1;max-width:900px;margin:0 auto;">
     <p style="font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:400;">&#10022; Click it. Bag it. Shoppizzy it.</p>
-    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(1.2rem,3vw,2rem);font-weight:500;letter-spacing:2px;margin-bottom:6px;line-height:1.2;">Shop Millions of <em style="color:var(--gold);font-style:italic;">Products</em></h1>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:rgba(255,255,255,0.65);margin-bottom:10px;line-height:1.4;">From top brands and independent sellers &#8212; electronics, fashion, home goods, beauty and more.</p>
-    <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;width:100%;">
-      <div style="text-align:center;"><div style="font-size:1rem;margin-bottom:2px;">&#128717;</div><div style="font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);">Millions of Products</div></div>
+    <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;width:100%;margin-top:8px;">
+      <div style="text-align:center;"><div style="font-size:1rem;margin-bottom:2px;">&#128717;</div><div style="font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);">Direct Shipped</div></div>
       <div style="text-align:center;"><div style="font-size:1rem;margin-bottom:2px;">&#128666;</div><div style="font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);">UPS Tracked Shipping</div></div>
       <div style="text-align:center;"><div style="font-size:1rem;margin-bottom:2px;">&#127873;</div><div style="font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);">Free Item with Membership</div></div>
       <div style="text-align:center;"><div style="font-size:1rem;margin-bottom:2px;">&#128274;</div><div style="font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);">Secure Checkout</div></div>
@@ -137,12 +148,11 @@
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
   <div class="product-count" id="product-count"><span class="count-number">&#8212;</span> products available</div>
-  <div class="product-count" id="seller-count" style="margin-top:6px;"><span class="count-number" id="seller-item-count">&#8212;</span> items ship direct from GrowceryWorld</div>
 </div>
 
 <div id="hero-section">
   <div style="max-width:800px;margin:0 auto;padding:56px 40px;text-align:center;">
-    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:500;color:var(--black);margin-bottom:16px;letter-spacing:0.5px;">Direct-shipped products, fast UPS delivery</h2>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:500;color:var(--black);margin-bottom:16px;letter-spacing:0.5px;white-space:nowrap;">Direct-shipped products, fast UPS delivery</h2>
     <p style="font-size:0.95rem;color:var(--muted);max-width:520px;margin:0 auto 32px;line-height:1.8;">Search our catalog of grocery essentials, household goods, and everyday products — all shipped directly from Shoppizzy with easy returns.</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
       <a href="/feminine-care.html" style="display:inline-block;background:var(--black);color:var(--white);text-decoration:none;padding:14px 28px;font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;transition:background 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='var(--black)';this.style.color='var(--white)'">Shop Feminine Care</a>
