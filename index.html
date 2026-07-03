@@ -25,10 +25,11 @@
     .header-nav a:hover::after { width: 100%; }
     .search-container { padding: 0 24px; }
     .search-box { background: var(--white); border: 1px solid var(--border); overflow: hidden; display: flex; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-    #search-input { flex: 1; border: none; padding: 20px 24px; font-size: 0.95rem; font-family: 'Lato', sans-serif; font-weight: 300; letter-spacing: 0.5px; outline: none; }
+    #search-input { flex: 1; border: none; padding: 20px 24px; font-size: 0.95rem; font-family: 'Lato', sans-serif; font-weight: 300; letter-spacing: 0.5px; outline: none; min-width: 0; }
     #search-input::placeholder { color: var(--muted); font-style: italic; }
-    .search-btn { background: var(--black); border: none; padding: 20px 40px; color: var(--white); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.3s; font-weight: 400; }
+    .search-btn { background: var(--black); border: none; padding: 20px 24px; color: var(--white); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.3s; font-weight: 400; white-space: nowrap; flex-shrink: 0; }
     .search-btn:hover { background: var(--charcoal); }
+    @media (max-width: 480px) { .search-btn { padding: 20px 16px; font-size: 0.7rem; letter-spacing: 1px; } }
     .product-count { text-align: center; margin-top: 16px; font-size: 0.9rem; color: var(--muted); letter-spacing: 0.5px; }
     .product-count .count-number { color: var(--gold); font-weight: 400; }
     .homepage-layout { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
@@ -202,6 +203,7 @@
     </div>
     <div class="footer-col">
       <h4>Explore</h4>
+      <a href="/merchants.html">Merchant Partners</a>
       <a href="/account.html">My Account</a>
       <a href="/faq.html">FAQ</a>
       <a href="/about.html">About Us</a>
