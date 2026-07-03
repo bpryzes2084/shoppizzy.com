@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Period Care for Dorm Life — Shoppizzy</title>
-  <meta name="description" content="Period care delivered to your dorm. Pads, tampons, and feminine care essentials shipped direct to college students with fast UPS delivery.">
+  <title>Feminine Care — Shoppizzy</title>
+  <meta name="description" content="Feminine care essentials from trusted brands, shipped direct with fast UPS delivery and easy returns.">
+  <meta property="og:title" content="Feminine Care Essentials — Shoppizzy">
+  <meta property="og:description" content="Feminine care essentials from trusted brands, shipped direct with fast UPS delivery and easy returns. Shop at Shoppizzy.com.">
+  <meta property="og:url" content="https://shoppizzy.com/feminine-care.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
@@ -223,15 +228,31 @@
 </header>
 
 <div class="hero">
-  <div class="hero-eyebrow">Made for Dorm Life</div>
-  <h1>Period care, delivered straight to your dorm</h1>
-  <p>No car, no awkward campus store run. Just order from your phone between classes and it shows up at your door — pads, tampons, and period essentials from trusted brands.</p>
+  <div class="hero-eyebrow">Direct to Your Dorm</div>
+  <h1>Essentials, delivered</h1>
+  <p>Pads, tampons, and period essentials from trusted brands, shipped directly to your dorm with fast UPS delivery.</p>
 </div>
 
 <div class="trust-strip">
   <div class="trust-item">Secure Checkout</div>
   <div class="trust-item">UPS Tracked Shipping</div>
   <div class="trust-item">Easy Returns</div>
+</div>
+
+<div style="background:var(--gold);color:var(--black);padding:14px 24px;text-align:center;">
+  <p style="font-size:0.82rem;letter-spacing:0.5px;font-weight:400;">
+    &#127873; Members get a free item with every order &mdash; <a href="/account.html" style="color:var(--black);text-decoration:underline;font-weight:700;">Join for $20/yr</a>
+  </p>
+</div>
+
+<div style="background:var(--white);border-bottom:1px solid var(--border);padding:20px 40px;">
+  <div style="max-width:700px;margin:0 auto;display:flex;gap:0;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+    <input type="text" id="cat-search-input" placeholder="Search all products..." autocomplete="off"
+      style="flex:1;border:1px solid var(--border);border-right:none;padding:14px 20px;font-family:'Lato',sans-serif;font-size:0.9rem;font-weight:300;outline:none;"
+      onkeydown="if(event.key==='Enter'){var q=this.value.trim();if(q)window.location='/?q='+encodeURIComponent(q);}">
+    <button onclick="var q=document.getElementById('cat-search-input').value.trim();if(q)window.location='/?q='+encodeURIComponent(q);"
+      style="background:var(--black);color:var(--white);border:none;padding:14px 24px;font-family:'Lato',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;white-space:nowrap;">Search</button>
+  </div>
 </div>
 
 <div class="products-section">
