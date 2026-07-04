@@ -4,894 +4,180 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Account — Shoppizzy</title>
-  <meta name="description" content="Join Shoppizzy. Sign in or create your account to unlock free items with every order.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --black: #000000;
-      --charcoal: #2b2b2b;
-      --cream: #f8f7f4;
-      --white: #ffffff;
-      --gold: #c5a572;
-      --gold-light: #d4b88a;
-      --text: #333333;
-      --muted: #888888;
-      --border: #e5e5e5;
-      --success: #27ae60;
-      --error: #c0392b;
+      --black: #000000; --charcoal: #2b2b2b; --cream: #f8f7f4; --white: #ffffff;
+      --gold: #c5a572; --text: #333333; --muted: #888888; --border: #e5e5e5;
+      --success: #27ae60; --error: #c0392b;
     }
-
-    body {
-      font-family: 'Lato', sans-serif;
-      background: var(--cream);
-      color: var(--text);
-      line-height: 1.7;
-      font-weight: 300;
-      min-height: 100vh;
-    }
-
-    /* ── HEADER ── */
-    header {
-      background: rgba(255,255,255,0.98);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
-
-    .header-main {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--black);
-      text-decoration: none;
-      letter-spacing: 2px;
-    }
-
-    .header-nav { display: flex; gap: 40px; align-items: center; }
-
-    .header-nav a {
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.875rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-weight: 400;
-      transition: color 0.3s;
-    }
-
-    .header-nav a:hover { color: var(--gold); }
-
-    .header-nav a.nav-sell {
-      background: var(--black);
-      color: var(--white);
-      padding: 8px 20px;
-      transition: background 0.3s;
-    }
-
-    .header-nav a.nav-sell:hover { background: var(--gold); color: var(--black); }
-
-    /* ── MAIN LAYOUT ── */
-    .page-wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 60px 40px 100px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
-    }
-
-    /* ── LEFT: MEMBERSHIP PITCH ── */
-    .pitch-side { padding-top: 8px; }
-
-    .pitch-label {
-      font-size: 0.68rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
-      font-weight: 400;
-    }
-
-    .pitch-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 500;
-      color: var(--black);
-      line-height: 1.15;
-      letter-spacing: -0.5px;
-      margin-bottom: 20px;
-    }
-
-    .pitch-title em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    .pitch-desc {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 40px;
-      max-width: 420px;
-    }
-
-    /* ── PERKS LIST ── */
-    .perks-list { margin-bottom: 40px; }
-
-    .perk-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .perk-row:first-child { border-top: 1px solid var(--border); }
-
-    .perk-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    .perk-text h4 {
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: var(--black);
-      letter-spacing: 0.3px;
-      margin-bottom: 3px;
-    }
-
-    .perk-text p {
-      font-size: 0.78rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    /* ── PRICE CARD ── */
-    .price-card {
-      background: var(--black);
-      color: var(--white);
-      padding: 28px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .price-card-left h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin-bottom: 4px;
-      color: var(--white);
-    }
-
-    .price-card-left p {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.5px;
-    }
-
-    .price-amount {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.4rem;
-      font-weight: 500;
-      color: var(--gold);
-      white-space: nowrap;
-    }
-
-    .price-amount span {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.4);
-      font-family: 'Lato', sans-serif;
-      font-weight: 300;
-    }
-
-    /* ── RIGHT: AUTH FORMS ── */
-    .auth-side { position: sticky; top: 100px; }
-
-    .auth-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      padding: 40px;
-    }
-
-    /* ── TABS ── */
-    .auth-tabs {
-      display: flex;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 32px;
-    }
-
-    .auth-tab {
-      flex: 1;
-      background: none;
-      border: none;
-      padding: 14px 0;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      cursor: pointer;
-      transition: color 0.2s;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-    }
-
-    .auth-tab.active {
-      color: var(--black);
-      border-bottom-color: var(--gold);
-    }
-
-    /* ── FORM ── */
-    .auth-form { display: none; }
-    .auth-form.active { display: block; }
-
-    .auth-form h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--black);
-      margin-bottom: 6px;
-    }
-
-    .auth-form p {
-      font-size: 0.875rem;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-
+    body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--text); font-weight: 300; line-height: 1.7; min-height: 100vh; }
+    header { background: var(--white); border-bottom: 1px solid var(--border); padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: 2px; }
+    .back-link { font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+    .back-link:hover { color: var(--gold); }
+    .page-wrap { max-width: 520px; margin: 60px auto; padding: 0 24px; }
+    .card { background: var(--white); border: 1px solid var(--border); padding: 40px; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--black); margin-bottom: 8px; }
+    .card-subtitle { font-size: 0.85rem; color: var(--muted); margin-bottom: 28px; }
+    .tab-row { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 28px; }
+    .tab { padding: 10px 20px; font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+    .tab.active { color: var(--black); border-bottom-color: var(--gold); }
     .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--charcoal); margin-bottom: 8px; }
+    .form-input { width: 100%; border: 1px solid var(--border); padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 300; color: var(--text); background: var(--white); outline: none; transition: border-color 0.3s; }
+    .form-input:focus { border-color: var(--gold); }
+    .btn-primary { width: 100%; background: var(--black); color: var(--white); border: none; padding: 16px; font-family: 'Lato', sans-serif; font-size: 0.82rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.3s; margin-top: 8px; }
+    .btn-primary:hover { background: var(--gold); color: var(--black); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary { width: 100%; background: var(--white); color: var(--black); border: 1px solid var(--border); padding: 14px; font-family: 'Lato', sans-serif; font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+    .form-error { background: #fdf0f0; border-left: 3px solid var(--error); padding: 12px 16px; font-size: 0.82rem; color: var(--error); margin-bottom: 16px; display: none; }
+    .form-success { background: #f0fdf4; border-left: 3px solid var(--success); padding: 12px 16px; font-size: 0.82rem; color: var(--success); margin-bottom: 16px; display: none; }
+    .divider { text-align: center; margin: 20px 0; font-size: 0.75rem; color: var(--muted); position: relative; }
+    .divider::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--border); }
+    .divider span { background: var(--white); padding: 0 12px; position: relative; }
 
-    .form-label {
-      display: block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--charcoal);
-      margin-bottom: 8px;
-    }
-
-    .form-input {
-      width: 100%;
-      border: 1px solid var(--border);
-      padding: 14px 16px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 300;
-      color: var(--text);
-      background: var(--white);
-      outline: none;
-      transition: border-color 0.3s;
-      border-radius: 0;
-      -webkit-appearance: none;
-    }
-
-    .form-input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(197,165,114,0.1);
-    }
-
-    .form-input::placeholder { color: var(--muted); }
-
-    .btn-submit {
-      width: 100%;
-      background: var(--black);
-      color: var(--white);
-      border: none;
-      padding: 16px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 400;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.3s;
-      margin-top: 8px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-submit::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--gold);
-      transform: translateX(-101%);
-      transition: transform 0.4s ease;
-    }
-
-    .btn-submit:hover::after { transform: translateX(0); }
-    .btn-submit span { position: relative; z-index: 1; }
-    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-submit:disabled::after { display: none; }
-
-    .form-error {
-      background: #fdf0f0;
-      border-left: 3px solid var(--error);
-      padding: 12px 16px;
-      font-size: 0.8rem;
-      color: var(--error);
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    .form-success {
-      background: #f0f8f0;
-      border-left: 3px solid var(--success);
-      padding: 12px 16px;
-      font-size: 0.8rem;
-      color: var(--success);
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    .form-divider {
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin: 20px 0;
-      position: relative;
-    }
-
-    .form-divider::before, .form-divider::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 40%;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .form-divider::before { left: 0; }
-    .form-divider::after { right: 0; }
-
-    /* ── DASHBOARD (logged in state) ── */
+    /* Dashboard */
     .dashboard { display: none; }
-    .dashboard.active { display: block; }
+    .member-badge { background: var(--black); color: var(--gold); padding: 6px 14px; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; display: inline-block; margin-bottom: 20px; }
+    .member-badge.inactive { background: var(--cream); color: var(--muted); border: 1px solid var(--border); }
+    .info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; }
+    .info-row:last-of-type { border-bottom: none; }
+    .info-label { color: var(--muted); }
+    .info-value { color: var(--black); font-weight: 400; }
+    .membership-cta { background: var(--cream); border: 1px solid var(--border); padding: 24px; margin-top: 24px; text-align: center; }
+    .membership-cta h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 8px; }
+    .membership-cta p { font-size: 0.82rem; color: var(--muted); margin-bottom: 16px; }
+    .membership-price { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--black); font-weight: 500; }
+    .membership-price span { font-family: 'Lato', sans-serif; font-size: 0.85rem; color: var(--muted); }
+    .membership-perks { list-style: none; text-align: left; margin: 16px 0; }
+    .membership-perks li { font-size: 0.82rem; padding: 6px 0; color: var(--text); }
+    .membership-perks li::before { content: '✓ '; color: var(--gold); font-weight: 700; }
+    .loading-state { text-align: center; padding: 40px; color: var(--muted); }
 
-    .dashboard-header {
-      margin-bottom: 28px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-    }
+    #paypal-membership-container { margin-top: 12px; }
 
-    .dashboard-header h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--black);
-      margin-bottom: 4px;
-    }
-
-    .dashboard-header p { font-size: 0.875rem; color: var(--muted); }
-
-    .membership-status-card {
-      padding: 24px;
-      margin-bottom: 24px;
-      border: 1px solid var(--border);
-    }
-
-    .membership-status-card.active-member {
-      background: var(--black);
-      border-color: var(--black);
-      color: var(--white);
-    }
-
-    .membership-status-card.inactive-member {
-      background: var(--cream);
-    }
-
-    .membership-status-label {
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
-      font-weight: 400;
-    }
-
-    .membership-status-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      margin-bottom: 6px;
-    }
-
-    .membership-status-desc {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 16px;
-    }
-
-    .membership-status-desc.inactive { color: var(--muted); }
-
-    .membership-expires {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.4);
-      margin-top: 8px;
-    }
-
-    .btn-upgrade {
-      display: block;
-      background: var(--gold);
-      color: var(--black);
-      text-decoration: none;
-      text-align: center;
-      padding: 14px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      transition: background 0.3s;
-    }
-
-    .btn-upgrade:hover { background: var(--white); }
-
-    .dashboard-info { margin-bottom: 20px; }
-
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.875rem;
-    }
-
-    .info-row:last-child { border-bottom: none; }
-
-    .info-key {
-      font-size: 0.68rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .info-val { color: var(--text); font-weight: 400; }
-
-    .btn-signout {
-      width: 100%;
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 12px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 16px;
-    }
-
-    .btn-signout:hover { border-color: var(--error); color: var(--error); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--black);
-      color: rgba(255,255,255,0.7);
-      padding: 60px 40px 32px;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      margin-bottom: 24px;
-    }
-
-    .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      color: var(--white);
-      letter-spacing: 2px;
-    }
-
-    .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
-
-    .footer-links a {
-      color: rgba(255,255,255,0.5);
-      text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--gold); }
-
-    .footer-bottom {
-      max-width: 1100px;
-      margin: 0 auto;
-      text-align: center;
-      font-size: 0.72rem;
-      letter-spacing: 0.5px;
-      color: rgba(255,255,255,0.3);
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 900px) {
-      .page-wrap { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px 80px; }
-      .auth-side { position: static; }
-      .header-main { padding: 16px 20px; }
-      .header-nav { display: none; }
-      .price-card { flex-direction: column; text-align: center; }
-    }
+    @media (max-width: 600px) { header { padding: 16px 20px; } .card { padding: 28px 20px; } }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="header-main">
-    <a class="logo" href="/">SHOPPIZZY</a>
-    <nav class="header-nav">
-      <a href="/#categories">Categories</a>
-      <a href="/about.html">About</a>
-      <a href="/seller/register" class="nav-sell">Sell With Us</a>
-    </nav>
-  </div>
+  <a class="logo" href="/">SHOPPIZZY</a>
+  <a class="back-link" href="/">&larr; Home</a>
 </header>
 
 <div class="page-wrap">
 
-  <!-- LEFT: PITCH -->
-  <div class="pitch-side">
-    <div class="pitch-label">✦ Shoppizzy Membership</div>
-    <h1 class="pitch-title">Shop smarter.<br><em>Get rewarded.</em></h1>
-    <p class="pitch-desc">One simple membership unlocks free items with every order — across millions of products from the world's top brands.</p>
+  <!-- AUTH FORMS -->
+  <div id="auth-section">
+    <div class="card">
+      <div class="tab-row">
+        <div class="tab active" id="tab-login" onclick="switchTab('login')">Sign In</div>
+        <div class="tab" id="tab-register" onclick="switchTab('register')">Create Account</div>
+      </div>
 
-    <div class="perks-list">
-      <div class="perk-row">
-        <div class="perk-icon">🎁</div>
-        <div class="perk-text">
-          <h4>Free Item With Every Order</h4>
-          <p>Choose from 50+ items — snacks, household goods, pantry staples — added free to every order you place.</p>
+      <!-- LOGIN -->
+      <div id="panel-login">
+        <div class="form-error" id="login-error"></div>
+        <div class="form-success" id="login-success"></div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="login-email" class="form-input" placeholder="your@email.com" autocomplete="email">
         </div>
-      </div>
-      <div class="perk-row">
-        <div class="perk-icon">🌐</div>
-        <div class="perk-text">
-          <h4>Millions of Products</h4>
-          <p>Access our full catalog of products from top merchants — electronics, apparel, home goods, and more.</p>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="••••••••" autocomplete="current-password">
         </div>
+        <button class="btn-primary" id="login-btn" onclick="doLogin()">Sign In</button>
       </div>
-      <div class="perk-row">
-        <div class="perk-icon">🚚</div>
-        <div class="perk-text">
-          <h4>UPS Tracked Shipping</h4>
-          <p>Every grocery order ships via UPS with full tracking so you always know when to expect your delivery.</p>
-        </div>
-      </div>
-      <div class="perk-row">
-        <div class="perk-icon">🧻</div>
-        <div class="perk-text">
-          <h4>Free Paper Towels for New Members</h4>
-          <p>Your first order includes a complimentary roll of paper towels — our welcome gift to you.</p>
-        </div>
-      </div>
-    </div>
 
-    <div class="price-card">
-      <div class="price-card-left">
-        <h3>Standard Membership</h3>
-        <p>Everything above, every order</p>
+      <!-- REGISTER -->
+      <div id="panel-register" style="display:none;">
+        <div class="form-error" id="register-error"></div>
+        <div class="form-success" id="register-success"></div>
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="reg-name" class="form-input" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="reg-email" class="form-input" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="reg-password" class="form-input" placeholder="Min. 6 characters" autocomplete="new-password">
+        </div>
+        <button class="btn-primary" id="register-btn" onclick="doRegister()">Create Account</button>
+        <p style="font-size:0.75rem;color:var(--muted);text-align:center;margin-top:16px;">Creating an account is free. Membership is $20/yr.</p>
       </div>
-      <div class="price-amount">$20<span>/yr</span></div>
     </div>
   </div>
 
-  <!-- RIGHT: AUTH -->
-  <div class="auth-side">
-    <div class="auth-card" id="auth-card">
-
-      <div class="auth-tabs">
-        <button class="auth-tab active" onclick="switchTab('login')">Sign In</button>
-        <button class="auth-tab" onclick="switchTab('register')">Create Account</button>
-      </div>
-
-      <!-- LOGIN FORM -->
-      <div class="auth-form active" id="form-login">
-        <h2>Welcome back</h2>
-        <p>Sign in to access your membership and free item perks.</p>
-
-        <div class="form-error" id="login-error"></div>
-        <div class="form-success" id="login-success"></div>
-
-        <div class="form-group">
-          <label class="form-label" for="login-email">Email Address</label>
-          <input type="email" id="login-email" class="form-input" placeholder="your@email.com" autocomplete="email">
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard-section">
+    <div class="card">
+      <div id="dashboard-loading" class="loading-state">Loading your account...</div>
+      <div id="dashboard-content" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+          <div>
+            <h2 class="card-title" id="dash-name">Welcome back</h2>
+            <p class="card-subtitle" id="dash-email"></p>
+          </div>
+          <button class="btn-secondary" onclick="doLogout()" style="width:auto;padding:8px 16px;font-size:0.68rem;">Sign Out</button>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="login-password">Password</label>
-          <input type="password" id="login-password" class="form-input" placeholder="Your password" autocomplete="current-password">
+        <div id="dash-member-badge"></div>
+
+        <div id="dash-info"></div>
+
+        <!-- MEMBERSHIP CTA (shown when inactive/expired) -->
+        <div class="membership-cta" id="membership-cta" style="display:none;">
+          <h3>Join Shoppizzy Membership</h3>
+          <p>Get a free item with every order, priority support, and exclusive member benefits.</p>
+          <div class="membership-price">$20 <span>/ year</span></div>
+          <ul class="membership-perks">
+            <li>Free item with every order</li>
+            <li>Access to member-only coupons</li>
+            <li>Priority customer support</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <div id="paypal-membership-container"></div>
         </div>
 
-        <button class="btn-submit" id="login-btn" onclick="doLogin()">
-          <span>Sign In</span>
-        </button>
-
-        <div class="form-divider">or</div>
-
-        <p style="text-align:center;font-size:0.8rem;color:var(--muted);">
-          New to Shoppizzy? <a href="#" onclick="switchTab('register')" style="color:var(--black);font-weight:700;">Create an account →</a>
-        </p>
-      </div>
-
-      <!-- REGISTER FORM -->
-      <div class="auth-form" id="form-register">
-        <h2>Create your account</h2>
-        <p>Free to join. Membership unlocks your free item perk for just $20/yr.</p>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.6;">&#9432; Free items are available exclusively from <strong>GrowceryWorld</strong> products. Free items are not available on orders from affiliate merchants or third-party sellers.</p>
-
-        <div class="form-error" id="register-error"></div>
-        <div class="form-success" id="register-success"></div>
-
-        <div class="form-group">
-          <label class="form-label" for="register-name">Full Name</label>
-          <input type="text" id="register-name" class="form-input" placeholder="Your name" autocomplete="name">
+        <!-- ACTIVE MEMBERSHIP PERKS -->
+        <div id="active-membership-info" style="display:none;margin-top:24px;">
+          <div style="background:var(--cream);border:1px solid var(--border);padding:20px;text-align:center;">
+            <p style="font-size:0.82rem;color:var(--text);">&#127873; Your free item is automatically added to every qualifying order.</p>
+            <p style="font-size:0.75rem;color:var(--muted);margin-top:8px;">Use coupon code <strong>MEMBER20</strong> for 20% off your next order.</p>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label class="form-label" for="register-email">Email Address</label>
-          <input type="email" id="register-email" class="form-input" placeholder="your@email.com" autocomplete="email">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="register-password">Password</label>
-          <input type="password" id="register-password" class="form-input" placeholder="At least 6 characters" autocomplete="new-password">
-        </div>
-
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAACrT9alWCXq-IbVd" data-callback="onRegisterTurnstile" data-theme="light" style="margin-bottom:16px;"></div>
-
-        <button class="btn-submit" id="register-btn" onclick="doRegister()">
-          <span>Create Account</span>
-        </button>
-
-        <div class="form-divider">or</div>
-
-        <p style="text-align:center;font-size:0.8rem;color:var(--muted);">
-          Already have an account? <a href="#" onclick="switchTab('login')" style="color:var(--black);font-weight:700;">Sign in →</a>
-        </p>
       </div>
-
-    </div>
-
-    <!-- DASHBOARD (shown when logged in) -->
-    <div class="auth-card dashboard" id="dashboard">
-
-      <div class="dashboard-header">
-        <h2>My Account</h2>
-        <p id="dashboard-email" style="color:var(--muted);font-size:0.875rem;"></p>
-      </div>
-
-      <!-- MEMBERSHIP STATUS -->
-      <div class="membership-status-card active-member" id="membership-active" style="display:none;">
-        <div class="membership-label" style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">✦ Active Member</div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white);margin-bottom:6px;">Standard Membership</div>
-        <div style="font-size:0.8rem;color:rgba(255,255,255,0.6);margin-bottom:8px;">Your free item perk is unlocked on every order.</div>
-        <div class="membership-expires" id="membership-expires"></div>
-      </div>
-
-      <div class="membership-status-card inactive-member" id="membership-inactive" style="display:none;">
-        <div class="membership-label" style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Membership</div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--black);margin-bottom:6px;">Not Active</div>
-        <div class="membership-status-desc inactive">Join for $20/yr to unlock free items with every order.</div>
-        <a href="https://square.link/u/CP70vULk" class="btn-upgrade" target="_blank">Activate Membership — $20/yr</a>
-      </div>
-
-      <!-- ACCOUNT INFO -->
-      <div class="dashboard-info" id="dashboard-info"></div>
-
-      <a href="/" style="display:block;background:var(--black);color:var(--white);text-align:center;padding:14px;text-decoration:none;font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;font-weight:400;transition:background 0.3s;margin-bottom:12px;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)';" onmouseout="this.style.background='var(--black)';this.style.color='var(--white)';">
-        Start Shopping →
-      </a>
-
-      <button class="btn-signout" onclick="doSignOut()">Sign Out</button>
-
     </div>
   </div>
 
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">SHOPPIZZY</div>
-    <div class="footer-links">
-      <a href="/">Shop</a>
-      <a href="/#grocery-section">Grocery</a>
-      
-      <a href="/terms-of-service.html">Terms</a>
-      <a href="/privacy-policy.html">Privacy</a>
-    </div>
-  </div>
-  <div class="footer-bottom">© 2026 Shoppizzy — BSM Enterpryzes. All Rights Reserved.</div>
-</footer>
-
+<script src="https://www.paypal.com/sdk/js?client-id=AVdoF0eF8NXzcO8peTxdRz-QvT7kk5KGcRPu1ElPd8A_Vl7IlW8STfXubUZHjB4Sv4giYppk6DB3CsRr&currency=USD"></script>
 <script>
   const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
-  let registerTurnstileToken = null;
+  let currentUser = null;
+  let currentMembership = null;
+  let paypalMembershipRendered = false;
 
-  function onRegisterTurnstile(token) { registerTurnstileToken = token; }
+  function getToken() { return localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token'); }
+  function setToken(t) { localStorage.setItem('auth_token', t); }
+  function clearToken() { localStorage.removeItem('auth_token'); sessionStorage.removeItem('auth_token'); }
 
-  // ── CHECK SESSION ON LOAD ──
-  window.addEventListener('load', async () => {
-    const session = JSON.parse(localStorage.getItem('shoppizzy_session') || 'null');
-    if (session?.token) {
-      await loadDashboard(session.token);
-    }
-  });
-
-  // ── TAB SWITCHER ──
   function switchTab(tab) {
-    document.querySelectorAll('.auth-tab').forEach((t, i) => {
-      t.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'register' && i === 1));
-    });
-    document.getElementById('form-login').classList.toggle('active', tab === 'login');
-    document.getElementById('form-register').classList.toggle('active', tab === 'register');
+    document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+    document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+    document.getElementById('panel-login').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('panel-register').style.display = tab === 'register' ? 'block' : 'none';
   }
-
-  // ── LOGIN ──
-  async function doLogin() {
-    const email = document.getElementById('login-email').value.trim();
-    const password = document.getElementById('login-password').value;
-    const btn = document.getElementById('login-btn');
-    const errorEl = document.getElementById('login-error');
-    const successEl = document.getElementById('login-success');
-
-    errorEl.style.display = 'none';
-    successEl.style.display = 'none';
-
-    if (!email || !password) { showError('login-error', 'Please enter your email and password.'); return; }
-
-    btn.disabled = true;
-    btn.querySelector('span').textContent = 'Signing in…';
-
-    try {
-      const res = await fetch(`${WORKER_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-
-      if (!res.ok) { showError('login-error', data.error || 'Login failed.'); return; }
-
-      localStorage.setItem('shoppizzy_session', JSON.stringify({ token: data.token, name: data.user.name, email: data.user.email }));
-      showSuccess('login-success', 'Signed in! Loading your account…');
-      setTimeout(() => loadDashboard(data.token), 800);
-    } catch { showError('login-error', 'Network error. Please try again.'); }
-    finally { btn.disabled = false; btn.querySelector('span').textContent = 'Sign In'; }
-  }
-
-  // ── REGISTER ──
-  async function doRegister() {
-    const name = document.getElementById('register-name').value.trim();
-    const email = document.getElementById('register-email').value.trim();
-    const password = document.getElementById('register-password').value;
-    const btn = document.getElementById('register-btn');
-
-    document.getElementById('register-error').style.display = 'none';
-    document.getElementById('register-success').style.display = 'none';
-
-    if (!name || !email || !password) { showError('register-error', 'Please fill in all fields.'); return; }
-    if (password.length < 6) { showError('register-error', 'Password must be at least 6 characters.'); return; }
-
-    btn.disabled = true;
-    btn.querySelector('span').textContent = 'Creating account…';
-
-    try {
-      const res = await fetch(`${WORKER_URL}/api/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, tier: 'standard', turnstile_token: registerTurnstileToken })
-      });
-      const data = await res.json();
-
-      if (!res.ok) { showError('register-error', data.error || 'Registration failed.'); return; }
-
-      localStorage.setItem('shoppizzy_session', JSON.stringify({ token: data.token, name: data.user.name, email: data.user.email }));
-      showSuccess('register-success', 'Account created! Loading your dashboard…');
-      setTimeout(() => loadDashboard(data.token), 800);
-    } catch { showError('register-error', 'Network error. Please try again.'); }
-    finally { btn.disabled = false; btn.querySelector('span').textContent = 'Create Account'; }
-  }
-
-  // ── LOAD DASHBOARD ──
-  async function loadDashboard(token) {
-    try {
-      const res = await fetch(`${WORKER_URL}/api/auth/me`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-
-      if (!res.ok) { localStorage.removeItem('shoppizzy_session'); return; }
-
-      const data = await res.json();
-      const user = data.user;
-      const membership = data.membership;
-
-      // Show dashboard, hide auth
-      document.getElementById('auth-card').style.display = 'none';
-      const dash = document.getElementById('dashboard');
-      dash.classList.add('active');
-
-      document.getElementById('dashboard-email').textContent = user.email;
-
-      // Membership status
-      const isActive = membership?.status === 'active';
-      document.getElementById('membership-active').style.display = isActive ? 'block' : 'none';
-      document.getElementById('membership-inactive').style.display = isActive ? 'none' : 'block';
-
-      if (isActive && membership.expires_at) {
-        const exp = new Date(membership.expires_at);
-        document.getElementById('membership-expires').textContent = `Renews ${exp.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
-      }
-
-      // Account info
-      document.getElementById('dashboard-info').innerHTML = `
-        <div class="info-row"><span class="info-key">Name</span><span class="info-val">${escHtml(user.name)}</span></div>
-        <div class="info-row"><span class="info-key">Email</span><span class="info-val">${escHtml(user.email)}</span></div>
-        <div class="info-row"><span class="info-key">Member Since</span><span class="info-val">${new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span></div>
-        <div class="info-row"><span class="info-key">Membership</span><span class="info-val">${isActive ? '✦ Active — Standard' : 'Not active'}</span></div>
-      `;
-
-    } catch { localStorage.removeItem('shoppizzy_session'); }
-  }
-
-  // ── SIGN OUT ──
-  async function doSignOut() {
-    const session = JSON.parse(localStorage.getItem('shoppizzy_session') || 'null');
-    if (session?.token) {
-      try {
-        await fetch(`${WORKER_URL}/api/auth/logout`, {
-          method: 'POST',
-          headers: { 'Authorization': `Bearer ${session.token}` }
-        });
-      } catch {}
-    }
-    localStorage.removeItem('shoppizzy_session');
-    document.getElementById('auth-card').style.display = 'block';
-    document.getElementById('dashboard').classList.remove('active');
-    document.getElementById('login-email').value = '';
-    document.getElementById('login-password').value = '';
-  }
-
-  // Enter key support
-  document.getElementById('login-password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-  document.getElementById('register-password').addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
 
   function showError(id, msg) {
     const el = document.getElementById(id);
@@ -905,9 +191,197 @@
     el.style.display = 'block';
   }
 
-  function escHtml(str) {
-    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  function hideMessages(...ids) { ids.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; }); }
+
+  async function doLogin() {
+    hideMessages('login-error', 'login-success');
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    if (!email || !password) { showError('login-error', 'Please enter your email and password.'); return; }
+    const btn = document.getElementById('login-btn');
+    btn.disabled = true; btn.textContent = 'Signing in...';
+    try {
+      const res = await fetch(`${WORKER_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        setToken(data.token);
+        showDashboard(data.user, data.membership);
+      } else {
+        showError('login-error', data.error || 'Sign in failed. Please try again.');
+      }
+    } catch(e) {
+      showError('login-error', 'Network error. Please try again.');
+    }
+    btn.disabled = false; btn.textContent = 'Sign In';
   }
+
+  async function doRegister() {
+    hideMessages('register-error', 'register-success');
+    const name = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value;
+    if (!name || !email || !password) { showError('register-error', 'Please fill in all fields.'); return; }
+    if (password.length < 6) { showError('register-error', 'Password must be at least 6 characters.'); return; }
+    const btn = document.getElementById('register-btn');
+    btn.disabled = true; btn.textContent = 'Creating account...';
+    try {
+      const res = await fetch(`${WORKER_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password, tier: 'standard' })
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        setToken(data.token);
+        showDashboard(data.user, data.membership);
+      } else {
+        showError('register-error', data.error || 'Registration failed. Please try again.');
+      }
+    } catch(e) {
+      showError('register-error', 'Network error. Please try again.');
+    }
+    btn.disabled = false; btn.textContent = 'Create Account';
+  }
+
+  async function doLogout() {
+    const token = getToken();
+    if (token) {
+      try {
+        await fetch(`${WORKER_URL}/api/auth/logout`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+      } catch(e) {}
+    }
+    clearToken();
+    currentUser = null;
+    currentMembership = null;
+    document.getElementById('dashboard-section').style.display = 'none';
+    document.getElementById('auth-section').style.display = 'block';
+  }
+
+  function showDashboard(user, membership) {
+    currentUser = user;
+    currentMembership = membership;
+    document.getElementById('auth-section').style.display = 'none';
+    document.getElementById('dashboard-section').style.display = 'block';
+    document.getElementById('dashboard-loading').style.display = 'none';
+    document.getElementById('dashboard-content').style.display = 'block';
+
+    document.getElementById('dash-name').textContent = `Welcome back, ${user.name.split(' ')[0]}`;
+    document.getElementById('dash-email').textContent = user.email;
+
+    const isActive = membership?.status === 'active';
+    const badgeEl = document.getElementById('dash-member-badge');
+    badgeEl.innerHTML = `<div class="member-badge ${isActive ? '' : 'inactive'}">${isActive ? '✦ Active Member' : 'Free Account'}</div>`;
+
+    // Info rows
+    const infoEl = document.getElementById('dash-info');
+    let rows = `<div class="info-row"><span class="info-label">Email</span><span class="info-value">${user.email}</span></div>`;
+    if (membership) {
+      rows += `<div class="info-row"><span class="info-label">Membership</span><span class="info-value">${membership.tier || 'Standard'}</span></div>`;
+      rows += `<div class="info-row"><span class="info-label">Status</span><span class="info-value" style="color:${isActive ? 'var(--success)' : 'var(--muted)'}">${isActive ? 'Active' : membership.status === 'expired' ? 'Expired' : 'Inactive'}</span></div>`;
+      if (membership.expires_at) {
+        rows += `<div class="info-row"><span class="info-label">Expires</span><span class="info-value">${new Date(membership.expires_at).toLocaleDateString()}</span></div>`;
+      }
+    }
+    infoEl.innerHTML = rows;
+
+    // Show membership CTA or active perks
+    if (isActive) {
+      document.getElementById('membership-cta').style.display = 'none';
+      document.getElementById('active-membership-info').style.display = 'block';
+    } else {
+      document.getElementById('membership-cta').style.display = 'block';
+      document.getElementById('active-membership-info').style.display = 'none';
+      renderMembershipPayPal();
+    }
+  }
+
+  function renderMembershipPayPal() {
+    if (paypalMembershipRendered || typeof paypal === 'undefined') return;
+    paypalMembershipRendered = true;
+
+    paypal.Buttons({
+      style: { layout: 'vertical', color: 'black', shape: 'rect', label: 'pay' },
+      createOrder: function() {
+        return fetch(`${WORKER_URL}/api/checkout/paypal/create`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ product_price: 20.00, shipping_cost: 0, title: 'Shoppizzy Membership — 1 Year' })
+        }).then(r => r.json()).then(data => {
+          if (!data.orderId) throw new Error(data.error || 'Could not start checkout');
+          return data.orderId;
+        });
+      },
+      onApprove: function(data) {
+        return fetch(`${WORKER_URL}/api/checkout/paypal/capture`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ orderId: data.orderID })
+        }).then(r => r.json()).then(async captureData => {
+          if (!captureData.success) throw new Error(captureData.error || 'Payment failed');
+          // Activate membership
+          const token = getToken();
+          if (token) {
+            try {
+              await fetch(`${WORKER_URL}/api/membership/activate`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ payment_reference: captureData.order_id, tier: 'standard' })
+              });
+              // Refresh account info
+              const meRes = await fetch(`${WORKER_URL}/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
+              const meData = await meRes.json();
+              if (meData.user) showDashboard(meData.user, meData.membership);
+            } catch(e) {}
+          }
+        });
+      },
+      onError: function() {
+        alert('Payment failed. Please try again.');
+      }
+    }).render('#paypal-membership-container');
+  }
+
+  // Enter key support
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      const loginPanel = document.getElementById('panel-login');
+      const registerPanel = document.getElementById('panel-register');
+      if (loginPanel.style.display !== 'none') doLogin();
+      else if (registerPanel.style.display !== 'none') doRegister();
+    }
+  });
+
+  // Auto-load dashboard if already logged in
+  window.addEventListener('load', async function() {
+    const token = getToken();
+    if (!token) return;
+    document.getElementById('auth-section').style.display = 'none';
+    document.getElementById('dashboard-section').style.display = 'block';
+    try {
+      const res = await fetch(`${WORKER_URL}/api/auth/me`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (res.ok && data.user) {
+        showDashboard(data.user, data.membership);
+      } else {
+        clearToken();
+        document.getElementById('auth-section').style.display = 'block';
+        document.getElementById('dashboard-section').style.display = 'none';
+      }
+    } catch(e) {
+      clearToken();
+      document.getElementById('auth-section').style.display = 'block';
+      document.getElementById('dashboard-section').style.display = 'none';
+    }
+  });
 </script>
 
 </body>
