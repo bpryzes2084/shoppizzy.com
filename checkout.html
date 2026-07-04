@@ -744,6 +744,16 @@
       </div>
     </div>
 
+    <!-- COUPON CODE -->
+    <div class="form-section">
+      <span class="form-section-label">Coupon Code</span>
+      <div style="display:flex;gap:0;">
+        <input type="text" id="coupon-input" class="form-input" placeholder="Enter coupon code" style="text-transform:uppercase;flex:1;" oninput="this.value=this.value.toUpperCase()">
+        <button onclick="applyCoupon()" style="background:var(--black);color:var(--white);border:none;padding:14px 20px;font-family:'Lato',sans-serif;font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;white-space:nowrap;">Apply</button>
+      </div>
+      <div id="coupon-result" style="margin-top:8px;font-size:0.82rem;min-height:20px;"></div>
+    </div>
+
     <!-- PAYMENT -->
     <div class="form-section">
       <span class="form-section-label">Payment</span>
@@ -852,6 +862,7 @@
   let shippingRate = null;
   let sellerZip = '80019'; // default, will be overridden by seller's zip
   let quantity = 1;
+  let appliedCoupon = null; // { code, discount_type, discount_amount, description }
 
   let isMember = false;
   let paymentMethod = 'card';
@@ -966,11 +977,61 @@
     if (!productData) return;
     const price = parseFloat(productData.price || 0);
     const shipping = shippingRate ? shippingRate.cost : 0;
-    const total = (price * quantity) + shipping;
+    const subtotal = price * quantity;
+    const discount = appliedCoupon ? appliedCoupon.discount_amount : 0;
+    const total = Math.max(0, subtotal + shipping - discount);
     document.getElementById('summary-meta').textContent = `Qty: ${quantity} · ${productData.item_condition || 'New'}`;
-    document.getElementById('summary-subtotal').textContent = `$${(price * quantity).toFixed(2)}`;
+    document.getElementById('summary-subtotal').textContent = `$${subtotal.toFixed(2)}`;
     document.getElementById('summary-shipping').textContent = shippingRate ? `$${shippingRate.cost.toFixed(2)}` : '—';
+    // Show/hide discount line
+    let discountRow = document.getElementById('summary-discount-row');
+    if (discount > 0) {
+      if (!discountRow) {
+        const totalEl = document.querySelector('.summary-total');
+        discountRow = document.createElement('div');
+        discountRow.id = 'summary-discount-row';
+        discountRow.className = 'summary-line';
+        discountRow.style.color = 'var(--success)';
+        totalEl.parentNode.insertBefore(discountRow, totalEl);
+      }
+      discountRow.innerHTML = `<span class="label">Coupon (${appliedCoupon.code})</span><span class="value" style="color:var(--success)">-$${discount.toFixed(2)}</span>`;
+    } else if (discountRow) {
+      discountRow.remove();
+    }
     document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+  }
+
+  // ── COUPON ────────────────────────────────────────────────────────────────
+  async function applyCoupon() {
+    const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+    const resultEl = document.getElementById('coupon-result');
+    if (!code) { resultEl.style.color = 'var(--error)'; resultEl.textContent = 'Please enter a coupon code.'; return; }
+    const email = document.getElementById('c-email').value.trim();
+    const orderAmount = productData ? parseFloat(productData.price || 0) * quantity : 0;
+    resultEl.style.color = 'var(--muted)'; resultEl.textContent = 'Validating...';
+    try {
+      const res = await fetch(`${WORKER_URL}/api/coupons/validate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, email: email || undefined, order_amount: orderAmount })
+      });
+      const data = await res.json();
+      if (data.valid) {
+        appliedCoupon = data;
+        resultEl.style.color = 'var(--success)';
+        resultEl.textContent = `✓ Coupon applied — $${data.discount_amount.toFixed(2)} off${data.description ? ` (${data.description})` : ''}`;
+        updateTotal();
+        updateOrderButton();
+      } else {
+        appliedCoupon = null;
+        resultEl.style.color = 'var(--error)';
+        resultEl.textContent = data.error || 'Invalid coupon code.';
+        updateTotal();
+      }
+    } catch(e) {
+      resultEl.style.color = 'var(--error)';
+      resultEl.textContent = 'Could not validate coupon. Please try again.';
+    }
   }
 
   // ── QUANTITY STEPPER ───────────────────────────────────────────────────────
@@ -1128,6 +1189,15 @@
       });
       const data = await res.json();
       if (res.ok && data.success) {
+        // Record coupon usage if one was applied
+        if (appliedCoupon) {
+          const email = document.getElementById('c-email').value.trim();
+          fetch(`${WORKER_URL}/api/coupons/apply`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: appliedCoupon.code, email, order_id: data.order_id || paymentOrderId })
+          }).catch(() => {});
+        }
         showSuccess(data.order_id || paymentOrderId);
       } else {
         showError(data.error || 'Order could not be recorded, but your payment was completed. Please contact inquiry@shoppizzy.com with your PayPal order ID: ' + paymentOrderId);
@@ -1138,13 +1208,16 @@
   }
 
   function buildOrderPayload(method, paymentOrderId) {
+    const discount = appliedCoupon ? appliedCoupon.discount_amount : 0;
     return {
       product_id: productData.id,
       seller_id: productData.seller_id,
       quantity: quantity,
       product_price: parseFloat(productData.price),
       shipping_cost: shippingRate.cost,
-      total: (parseFloat(productData.price) * quantity) + shippingRate.cost,
+      discount_amount: discount,
+      coupon_code: appliedCoupon ? appliedCoupon.code : null,
+      total: Math.max(0, (parseFloat(productData.price) * quantity) + shippingRate.cost - discount),
       payment_method: method,
       payment_reference: paymentOrderId,
       promo_item_sku: selectedPromoItem?.sku || null,
