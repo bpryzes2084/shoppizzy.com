@@ -145,7 +145,8 @@
             <li>Priority customer support</li>
             <li>Cancel anytime</li>
           </ul>
-          <div id="paypal-membership-container"></div>
+          <button class="btn-primary" onclick="joinWithSquare()" id="join-btn">Join Now — $20/yr</button>
+          <p style="font-size:0.72rem;color:var(--muted);margin-top:12px;">Secure checkout powered by Square</p>
         </div>
 
         <!-- ACTIVE MEMBERSHIP PERKS -->
@@ -161,12 +162,10 @@
 
 </div>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AVdoF0eF8NXzcO8peTxdRz-QvT7kk5KGcRPu1ElPd8A_Vl7IlW8STfXubUZHjB4Sv4giYppk6DB3CsRr&currency=USD"></script>
 <script>
   const WORKER_URL = 'https://shoppizzy-worker.benterpryzes2084.workers.dev';
   let currentUser = null;
   let currentMembership = null;
-  let paypalMembershipRendered = false;
 
   function getToken() { return localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token'); }
   function setToken(t) { localStorage.setItem('auth_token', t); }
@@ -298,54 +297,38 @@
     } else {
       document.getElementById('membership-cta').style.display = 'block';
       document.getElementById('active-membership-info').style.display = 'none';
-      renderMembershipPayPal();
     }
   }
 
-  function renderMembershipPayPal() {
-    if (paypalMembershipRendered || typeof paypal === 'undefined') return;
-    paypalMembershipRendered = true;
-
-    paypal.Buttons({
-      style: { layout: 'vertical', color: 'black', shape: 'rect', label: 'pay' },
-      createOrder: function() {
-        return fetch(`${WORKER_URL}/api/checkout/paypal/create`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ product_price: 20.00, shipping_cost: 0, title: 'Shoppizzy Membership — 1 Year' })
-        }).then(r => r.json()).then(data => {
-          if (!data.orderId) throw new Error(data.error || 'Could not start checkout');
-          return data.orderId;
-        });
-      },
-      onApprove: function(data) {
-        return fetch(`${WORKER_URL}/api/checkout/paypal/capture`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ orderId: data.orderID })
-        }).then(r => r.json()).then(async captureData => {
-          if (!captureData.success) throw new Error(captureData.error || 'Payment failed');
-          // Activate membership
-          const token = getToken();
-          if (token) {
-            try {
-              await fetch(`${WORKER_URL}/api/membership/activate`, {
-                method: 'POST',
-                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ payment_reference: captureData.order_id, tier: 'standard' })
-              });
-              // Refresh account info
-              const meRes = await fetch(`${WORKER_URL}/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
-              const meData = await meRes.json();
-              if (meData.user) showDashboard(meData.user, meData.membership);
-            } catch(e) {}
-          }
-        });
-      },
-      onError: function() {
-        alert('Payment failed. Please try again.');
+  async function joinWithSquare() {
+    const btn = document.getElementById('join-btn');
+    btn.disabled = true;
+    btn.textContent = 'Redirecting to checkout...';
+    try {
+      const res = await fetch(`${WORKER_URL}/api/checkout/square`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          square_item_id: 'VRYLNLO234XNUPACCJMCNRR2',
+          quantity: 1,
+          shipping: { cost: 0, zip: '' }
+        })
+      });
+      const data = await res.json();
+      if (data.checkoutUrl) {
+        // Store token so we can activate membership after Square redirects back
+        localStorage.setItem('pending_membership', getToken() || '');
+        window.location.href = data.checkoutUrl;
+      } else {
+        alert('Could not start checkout. Please try again.');
+        btn.disabled = false;
+        btn.textContent = 'Join Now — $20/yr';
       }
-    }).render('#paypal-membership-container');
+    } catch(e) {
+      alert('Network error. Please try again.');
+      btn.disabled = false;
+      btn.textContent = 'Join Now — $20/yr';
+    }
   }
 
   // Enter key support
@@ -360,6 +343,20 @@
 
   // Auto-load dashboard if already logged in
   window.addEventListener('load', async function() {
+    // Check if returning from Square membership checkout
+    const pendingToken = localStorage.getItem('pending_membership');
+    if (pendingToken && window.location.search.includes('transactionId') || 
+        (pendingToken && document.referrer.includes('squareup.com'))) {
+      localStorage.removeItem('pending_membership');
+      try {
+        await fetch(`${WORKER_URL}/api/membership/activate`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${pendingToken}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tier: 'standard' })
+        });
+      } catch(e) {}
+    }
+
     const token = getToken();
     if (!token) return;
     document.getElementById('auth-section').style.display = 'none';
