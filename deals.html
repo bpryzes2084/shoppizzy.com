@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deals & Promotions — Shoppizzy</title>
+  <meta name="description" content="Exclusive deals, promotions, and special offers from Shoppizzy and our merchant partners.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000; --charcoal: #2b2b2b; --cream: #f8f7f4; --white: #ffffff;
+      --gold: #c5a572; --text: #333333; --muted: #888888; --border: #e5e5e5;
+    }
+    body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--text); font-weight: 300; line-height: 1.7; }
+    header { background: var(--white); border-bottom: 1px solid var(--border); padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: 2px; }
+    .back-link { font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+    .back-link:hover { color: var(--gold); }
+    .hero { background: var(--black); color: var(--white); padding: 48px 40px; text-align: center; }
+    .hero-eyebrow { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 500; margin-bottom: 12px; }
+    .hero p { font-size: 0.95rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; }
+    .disclosure { background: var(--cream); border-bottom: 1px solid var(--border); padding: 12px 40px; text-align: center; font-size: 0.75rem; color: var(--muted); }
+    .disclosure a { color: var(--charcoal); }
+    .deals-section { max-width: 1000px; margin: 0 auto; padding: 56px 40px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; color: var(--black); margin-bottom: 8px; }
+    .section-subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 32px; }
+    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .deal-card { background: var(--white); border: 1px solid var(--border); padding: 28px; display: flex; flex-direction: column; transition: border-color 0.3s, transform 0.2s; }
+    .deal-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .deal-badge { display: inline-block; background: var(--gold); color: var(--white); font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; margin-bottom: 14px; }
+    .deal-merchant { font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .deal-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; color: var(--black); margin-bottom: 10px; }
+    .deal-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 20px; }
+    .deal-btn { display: inline-block; background: var(--black); color: var(--white); text-decoration: none; padding: 12px 24px; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; transition: background 0.3s; text-align: center; }
+    .deal-btn:hover { background: var(--gold); color: var(--black); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+    .membership-banner { background: var(--black); color: var(--white); padding: 40px; text-align: center; margin-top: 48px; }
+    .membership-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; margin-bottom: 10px; }
+    .membership-banner p { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+    .membership-banner a { display: inline-block; background: var(--gold); color: var(--black); text-decoration: none; padding: 14px 32px; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; }
+    .footer-note { text-align: center; padding: 24px 40px 56px; font-size: 0.75rem; color: var(--muted); }
+    .footer-note a { color: var(--charcoal); }
+    @media (max-width: 600px) { header, .hero, .deals-section { padding-left: 20px; padding-right: 20px; } .deals-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">SHOPPIZZY</a>
+  <a class="back-link" href="/">&larr; Home</a>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">Limited Time Offers</div>
+  <h1>Deals &amp; Promotions</h1>
+  <p>Exclusive offers from Shoppizzy and our merchant partners — updated regularly.</p>
+</div>
+
+<div class="disclosure">
+  Some offers below are from affiliate partners. Shoppizzy may earn a commission at no extra cost to you. &nbsp;<a href="/affiliate-disclosure.html">Learn more</a>
+</div>
+
+<div class="deals-section">
+
+  <h2 class="section-title">Current Deals</h2>
+  <p class="section-subtitle">Click any deal to shop — offers subject to change without notice</p>
+
+  <div class="deals-grid">
+
+    <!-- BOGO Deal -->
+    <div class="deal-card">
+      <div class="deal-badge">BOGO</div>
+      <div class="deal-merchant">Famous Footwear</div>
+      <div class="deal-title">Buy One, Get One ½ Off</div>
+      <p class="deal-desc">Take advantage of this buy one get one half off deal from our partner merchants. Limited time offer.</p>
+      <p style="font-size:0.72rem;color:var(--muted);margin-bottom:16px;">⏰ Offer expires September 7, 2026</p>
+      <a class="deal-btn" target="_blank" rel="noopener noreferrer"
+        href="https://click.linksynergy.com/fs-bin/click?id=QmaG83Z71oo&offerid=1532876.1002&type=3&subid=0">
+        Shop This Deal
+      </a>
+      <img border="0" width="1" alt="" height="1" src="https://ad.linksynergy.com/fs-bin/show?id=QmaG83Z71oo&bids=1532876.1002&type=3&subid=0">
+    </div>
+
+    <!-- Membership Deal -->
+    <div class="deal-card">
+      <div class="deal-badge">Members Only</div>
+      <div class="deal-merchant">Shoppizzy</div>
+      <div class="deal-title">20% Off Your Order</div>
+      <p class="deal-desc">Shoppizzy members get 20% off with coupon code <strong>MEMBER20</strong>. Join for just $20/yr and save on every order.</p>
+      <a class="deal-btn" href="/account.html">Get This Deal</a>
+    </div>
+
+  </div>
+
+  <hr class="divider">
+
+  <!-- Membership Banner -->
+  <div class="membership-banner">
+    <h2>Join Shoppizzy Membership</h2>
+    <p>Free item with every order + exclusive member deals. Just $20/yr.</p>
+    <a href="/account.html">Join Now — $20/yr</a>
+  </div>
+
+</div>
+
+<p class="footer-note">
+  Deals and offers are subject to change. &nbsp;|&nbsp;
+  <a href="/affiliate-disclosure.html">Affiliate Disclosure</a> &nbsp;|&nbsp;
+  <a href="/merchants.html">Merchant Partners</a> &nbsp;|&nbsp;
+  <a href="/returns.html">Returns</a>
+</p>
+
+</body>
+</html>
