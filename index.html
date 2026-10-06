@@ -86,6 +86,12 @@
     .cat-btn span { font-size: 1.1rem; flex-shrink: 0; }
     @media (max-width: 768px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } #hero-section > div { padding: 32px 20px !important; } }
     @media (max-width: 480px) { .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } .cat-btn { padding: 12px 8px; font-size: 0.65rem; min-height: 48px; } }
+    .search-tabs { display: flex; gap: 0; margin-bottom: 0; border-bottom: 2px solid var(--border); }
+    .search-tab { background: none; border: none; padding: 12px 20px; font-family: 'Lato', sans-serif; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); cursor: pointer; position: relative; font-weight: 400; transition: color 0.2s; white-space: nowrap; }
+    .search-tab:hover { color: var(--black); }
+    .search-tab.active { color: var(--black); font-weight: 400; }
+    .search-tab.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--black); }
+    @media (max-width: 480px) { .search-tab { padding: 10px 14px; font-size: 0.65rem; letter-spacing: 1px; } }
   </style>
 <header>
   <div class="header-main">
@@ -118,6 +124,7 @@
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
   <div class="product-count" id="product-count"><span class="count-number">&#8212;</span> products available</div>
+  <div style="text-align:center;margin-top:6px;font-size:0.78rem;color:var(--muted);letter-spacing:0.5px;" id="count-breakdown"></div>
 </div>
 
 <div id="hero-section">
@@ -168,6 +175,10 @@
         <option value="price-desc">Price: High to Low</option>
       </select>
     </div>
+  </div>
+  <div class="search-tabs">
+    <button class="search-tab active" id="tab-shoppizzy" onclick="switchTab('shoppizzy')">Shoppizzy Products</button>
+    <button class="search-tab" id="tab-affiliate" onclick="switchTab('affiliate')">Shop More Brands</button>
   </div>
   <div id="product-grid" class="product-grid"></div>
   <div class="pagination-container" id="pagination-container" style="display:none;">
@@ -247,6 +258,15 @@
   let currentQuery = '';
   let currentTotal = 0;
   let allProducts = [];
+  let currentTab = 'shoppizzy'; // 'shoppizzy' or 'affiliate'
+
+  function switchTab(tab) {
+    currentTab = tab;
+    document.getElementById('tab-shoppizzy').classList.toggle('active', tab === 'shoppizzy');
+    document.getElementById('tab-affiliate').classList.toggle('active', tab === 'affiliate');
+    doSearch(1);
+  }
+  window.switchTab = switchTab;
 
   function getLimit(options) {
     return (options && (options.categoryFilter || options.subcategoryFilter)) ? 100 : LIMIT;
@@ -263,8 +283,12 @@
       var pcRes = await fetch(WORKER_URL + '/api/product-count');
       if (pcRes.ok) {
         var pcData = await pcRes.json();
-        var count = pcData.count || 0;
-        document.getElementById('product-count').innerHTML = '<span class="count-number">' + count.toLocaleString() + '</span> products available';
+        var total = pcData.count || 0;
+        var square = pcData.square || 0;
+        var affiliate = pcData.affiliate || 0;
+        document.getElementById('product-count').innerHTML = '<span class="count-number">' + total.toLocaleString() + '</span> products available';
+        document.getElementById('count-breakdown').innerHTML =
+          '<span style="color:var(--gold)">' + square.toLocaleString() + '</span> Shoppizzy &nbsp;·&nbsp; <span style="color:var(--gold)">' + affiliate.toLocaleString() + '</span> Brand Partners';
       } else {
         document.getElementById('product-count').innerHTML = '<span class="count-number">Loading...</span> products available';
       }
@@ -311,14 +335,32 @@
     document.getElementById('results-title').innerHTML = options.categoryLabel ? escHtml(options.categoryLabel) : 'Results for &ldquo;' + escHtml(query) + '&rdquo;';
     document.getElementById('load-more-container').style.display = 'none';
     try {
-      var params = new URLSearchParams({ q: query, limit: getLimit(options), page: page, sortBy: sortBy, sortOrder: sortOrder });
-      if (options.sourceFilter) params.set('source', options.sourceFilter);
-      if (options.categoryFilter) params.set('category', options.categoryFilter);
-      if (options.subcategoryFilter) params.set('subcategory', options.subcategoryFilter);
-      var res = await fetch(WORKER_URL + '/api/products?' + params.toString());
-      var data = await res.json();
-      allProducts = data.products || [];
-      currentTotal = data.totalCount || 0;
+      var res, data;
+      if (currentTab === 'affiliate') {
+        var affiliateParams = new URLSearchParams({ q: query, limit: getLimit(options), page: page, network: 'all' });
+        res = await fetch(WORKER_URL + '/api/affiliate/search?' + affiliateParams.toString());
+        data = await res.json();
+        // normalize affiliate fields to match renderCard expectations
+        allProducts = (data.products || []).map(function(p) {
+          return {
+            id: p.id, title: p.title, description: p.description,
+            price: p.price, salePrice: p.sale_price,
+            imageUrl: p.image_url, buyUrl: p.buy_url,
+            advertiserName: p.advertiser, category: p.category,
+            source: 'affiliate'
+          };
+        });
+        currentTotal = allProducts.length;
+      } else {
+        var params = new URLSearchParams({ q: query, limit: getLimit(options), page: page, sortBy: sortBy, sortOrder: sortOrder });
+        if (options.sourceFilter) params.set('source', options.sourceFilter);
+        if (options.categoryFilter) params.set('category', options.categoryFilter);
+        if (options.subcategoryFilter) params.set('subcategory', options.subcategoryFilter);
+        res = await fetch(WORKER_URL + '/api/products?' + params.toString());
+        data = await res.json();
+        allProducts = data.products || [];
+        currentTotal = data.totalCount || 0;
+      }
       window._loadedCount = allProducts.length;
       renderResults(allProducts, query, currentTotal);
       updateLoadMore(options, allProducts.length);
