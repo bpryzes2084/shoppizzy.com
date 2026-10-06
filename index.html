@@ -418,13 +418,16 @@
     var productLink = buildProductUrl(p);
     var isGrowcery = p.advertiserName === 'GrowceryWorld' || p.merchant_name === 'GrowceryWorld';
     var isSquare = p.source === 'square';
+    var isDirect = p.source === 'seller' || p.source === 'square' || p.type === 'direct';
+    var linkTarget = isDirect ? '_self' : '_blank';
+    var linkRel = isDirect ? '' : ' rel="noopener noreferrer"';
     var unitCount = p.unit_count && p.unit_count > 1 ? p.unit_count : 1;
     var unitPrice = isGrowcery && unitCount > 1 ? (parseFloat(price) / unitCount).toFixed(2) : null;
     var badge = '';
     if (hasSale) badge = '<div class="sale-badge">Sale</div>';
     else if (isGrowcery && unitCount > 1) badge = '<div class="wholesale-badge">$' + unitPrice + '/ea</div>';
     var sourceLabel = (!isGrowcery && !isSquare) ? '<div class="product-source">' + escHtml(p.advertiserName || p.merchant_name || '') + '</div>' : '';
-    return '<a class="product-card" href="' + productLink + '" target="_self">' +
+    return '<a class="product-card" href="' + productLink + '" target="' + linkTarget + '"' + linkRel + '>' +
       '<div class="product-img-wrap">' + imgHtml + placeholderHtml + badge + '</div>' +
       '<div class="product-info">' + sourceLabel +
       '<div class="product-title">' + escHtml(p.title) + '</div>' +
