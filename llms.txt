@@ -1,30 +1,39 @@
 # Shoppizzy
+> Shoppizzy is a direct-fulfillment e-commerce store selling grocery essentials, household goods, feminine care, baby care, and everyday products. All products are shipped directly by Shoppizzy via UPS with tracked delivery and a 30-day return policy.
 
-> Shoppizzy is a product search engine aggregating millions of products from affiliate merchant partners, plus direct inventory shipped by Shoppizzy itself (GrowceryWorld grocery products and Square catalog items).
+Shoppizzy operates two direct-fulfillment catalogs:
+- **Square catalog** (~420 items): curated products across multiple categories including beverages, baby care, pet care, snacks, electronics, and more.
+- **GrowceryWorld catalog** (~16,000+ items): grocery and household essentials including canned foods, beverages, condiments, breakfast items, pasta, rice, baking supplies, and more.
 
-Shoppizzy helps shoppers search, compare, and discover products across thousands of merchants in one place. Some products are fulfilled directly by Shoppizzy; others link out to the merchant's own site for purchase.
+## API Endpoints
+- **Product search**: `GET https://shoppizzy.com/api/products?q={query}` — returns JSON with title, price, availability, image URL, brand, category, and source for each result. Supports `limit`, `page`, `sortBy`, `sortOrder`, `category` parameters.
+- **Category search**: `GET https://shoppizzy.com/api/products/category?keywords={comma-separated-keywords}&limit={n}` — returns products matching any of the provided keywords across both catalogs.
+- **Product count**: `GET https://shoppizzy.com/api/product-count` — returns total number of active products.
+- **Google Shopping feed**: `GET https://shoppizzy.com/api/google-feed` — machine-readable RSS/XML feed of direct inventory with price, availability, image, shipping, and Google product category.
+- **Single product**: `GET https://shoppizzy.com/api/products/{id}` — returns full product details for a specific product ID.
 
-## Key Resources
-
-- Product search API: https://shoppizzy.com/api/products?q={query} — returns JSON with title, price, sale price, availability, image, merchant, and product URL for each result.
-- Google Shopping product feed (direct inventory only, machine-readable XML): https://shoppizzy.com/api/google-feed
-- Individual product pages (https://shoppizzy.com/product.html) include JSON-LD Product schema with price, priceValidUntil, availability, condition, brand, shipping details, and return policy.
-- Sitemap: https://shoppizzy.com/sitemap.xml
+## Categories
+Baby Care, Baking, Beverages, Books, Breakfast, Canned Foods, Canning Supplies, Cleaning, Condiments, Cookies & Crackers, Electronics, Feminine Care, General Merchandise, Grocery & Pantry, Health & Beauty, Home & Garden, Household, Laundry Care, Paper Goods, Pasta, Pet Care, Rice, Snacks, Spreads & Toppings, Toys
 
 ## Product Types
+- **Direct products** (source: "square" or "seller"): fulfilled and shipped by Shoppizzy via UPS Ground. Eligible for Shoppizzy's 30-day return policy. Prices and availability update nightly at 11:00 PM UTC via automated sync.
+- All products on Shoppizzy are direct-fulfillment — there are no affiliate or third-party redirect products in search results.
 
-- **Direct products** (GrowceryWorld, Square): fulfilled and shipped by Shoppizzy via UPS. Eligible for Shoppizzy's 30-day return policy. These are the only products included in the Google Shopping feed.
-- **Affiliate products** (CJ, Rakuten, Impact networks): link to third-party merchant websites for purchase. Returns and fulfillment are handled by that merchant, not Shoppizzy.
+## Checkout
+- Square hosted checkout and PayPal (including Venmo) are supported.
+- Shipping calculated in real time via UPS rates based on destination ZIP code.
+- Membership available at $20/yr — includes a free item with every order and access to member coupons.
 
 ## Policies
-
 - Returns & Refunds: https://shoppizzy.com/returns.html
-- Affiliate Disclosure: https://shoppizzy.com/affiliate-disclosure.html
 - Privacy Policy: https://shoppizzy.com/privacy-policy.html
 - Terms of Service: https://shoppizzy.com/terms-of-service.html
+- Affiliate Disclosure: https://shoppizzy.com/affiliate-disclosure.html
 
 ## Notes for Agents
-
-- Prices and availability for direct products update daily via automated inventory sync at 11:00 PM UTC.
-- For price comparison or "where to buy" queries, the product search API and Google Shopping feed are the most efficient structured data sources — prefer these over crawling individual product pages at scale.
-- Shoppizzy is a search/discovery platform, not the seller of record for affiliate products.
+- All search results are direct-fulfillment products — no affiliate redirects.
+- Prices and stock update nightly at 11:00 PM UTC. For real-time availability, query the product search API directly.
+- Product search API returns `stock_quantity` for Square items. GrowceryWorld items do not track live stock counts.
+- For broad catalog discovery, use the category search endpoint with relevant keywords rather than crawling individual product pages.
+- JSON-LD Product schema is present on all individual product pages at https://shoppizzy.com/product.html?id={product_id}
+- Sitemap: https://shoppizzy.com/sitemap.xml
