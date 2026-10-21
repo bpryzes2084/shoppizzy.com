@@ -7,81 +7,6 @@
   <meta name="description" content="Shop curated products on Shoppizzy.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-  <!-- JSON-LD Product Schema — populated dynamically by renderProduct() -->
-  <script id="product-schema" type="application/ld+json">
-  {
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    "name": "",
-    "description": "",
-    "image": [],
-    "brand": { "@type": "Brand", "name": "" },
-    "sku": "",
-    "offers": {
-      "@type": "Offer",
-      "url": "",
-      "priceCurrency": "USD",
-      "price": "",
-      "priceValidUntil": "",
-      "availability": "https://schema.org/InStock",
-      "itemCondition": "https://schema.org/NewCondition",
-      "seller": {
-        "@type": "Organization",
-        "name": "Shoppizzy"
-      },
-      "shippingDetails": {
-        "@type": "OfferShippingDetails",
-        "shippingRate": {
-          "@type": "MonetaryAmount",
-          "value": "9.99",
-          "currency": "USD"
-        },
-        "shippingDestination": {
-          "@type": "DefinedRegion",
-          "addressCountry": "US"
-        },
-        "deliveryTime": {
-          "@type": "ShippingDeliveryTime",
-          "handlingTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 0,
-            "maxValue": 1,
-            "unitCode": "DAY"
-          },
-          "transitTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 3,
-            "maxValue": 5,
-            "unitCode": "DAY"
-          }
-        }
-      }
-    },
-    "returnPolicy": {
-      "@type": "MerchantReturnPolicy",
-      "applicableCountry": "US",
-      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-      "merchantReturnDays": 30,
-      "returnMethod": "https://schema.org/ReturnByMail",
-      "returnFees": "https://schema.org/FreeReturn"
-    }
-  }
-  </script>
-
-  <!-- BreadcrumbList Schema -->
-  <script id="breadcrumb-schema" type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://shoppizzy.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://shoppizzy.com/" },
-      { "@type": "ListItem", "position": 3, "name": "" }
-    ]
-  }
-  </script>
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -97,6 +22,8 @@
       --border: #e5e5e5;
       --success: #27ae60;
       --error: #c0392b;
+      --paypal-blue: #003087;
+      --paypal-gold: #009cde;
     }
 
     body {
@@ -107,6 +34,7 @@
       font-weight: 300;
     }
 
+    /* ── HEADER ── */
     header {
       background: rgba(255,255,255,0.98);
       border-bottom: 1px solid var(--border);
@@ -148,6 +76,17 @@
 
     .header-nav a:hover { color: var(--gold); }
 
+    .header-nav a.nav-sell {
+      background: var(--black);
+      color: var(--white);
+      padding: 8px 20px;
+      letter-spacing: 1.5px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .header-nav a.nav-sell:hover { background: var(--gold); color: var(--black); }
+
+    /* ── BREADCRUMB ── */
     .breadcrumb {
       max-width: 1400px;
       margin: 0 auto;
@@ -160,10 +99,16 @@
       gap: 8px;
     }
 
-    .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
     .breadcrumb a:hover { color: var(--gold); }
     .breadcrumb span { color: var(--border); }
 
+    /* ── LOADING / ERROR ── */
     .state-container {
       max-width: 600px;
       margin: 120px auto;
@@ -181,8 +126,10 @@
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
+
     .state-container p { color: var(--muted); font-size: 0.9rem; }
 
+    /* ── PRODUCT LAYOUT ── */
     .product-container {
       max-width: 1400px;
       margin: 0 auto;
@@ -200,7 +147,11 @@
       margin-bottom: 80px;
     }
 
-    .gallery { position: sticky; top: 100px; }
+    /* ── IMAGE GALLERY ── */
+    .gallery {
+      position: sticky;
+      top: 100px;
+    }
 
     .gallery-main {
       width: 100%;
@@ -242,10 +193,14 @@
       padding: 6px 14px;
     }
 
-    .gallery-thumbs { display: flex; gap: 10px; }
+    .gallery-thumbs {
+      display: flex;
+      gap: 10px;
+    }
 
     .gallery-thumb {
-      width: 72px; height: 72px;
+      width: 72px;
+      height: 72px;
       background: var(--cream);
       overflow: hidden;
       cursor: pointer;
@@ -256,8 +211,10 @@
 
     .gallery-thumb.active { border-color: var(--gold); }
     .gallery-thumb:hover { border-color: var(--gold-light); }
+
     .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
+    /* ── PRODUCT INFO ── */
     .product-info { padding-top: 8px; }
 
     .product-seller {
@@ -295,7 +252,11 @@
       color: var(--black);
     }
 
-    .price-was { font-size: 1.1rem; color: var(--muted); text-decoration: line-through; }
+    .price-was {
+      font-size: 1.1rem;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
 
     .price-save {
       font-size: 0.75rem;
@@ -305,7 +266,10 @@
       font-weight: 700;
     }
 
-    .product-meta { margin-bottom: 28px; }
+    /* ── PRODUCT META ── */
+    .product-meta {
+      margin-bottom: 28px;
+    }
 
     .meta-row {
       display: flex;
@@ -328,9 +292,11 @@
     }
 
     .meta-val { color: var(--text); }
+
     .meta-val.in-stock { color: var(--success); font-weight: 400; }
     .meta-val.out-stock { color: var(--error); }
 
+    /* ── DESCRIPTION ── */
     .product-description {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.05rem;
@@ -339,6 +305,7 @@
       margin-bottom: 36px;
     }
 
+    /* ── BUY NOW BUTTON (affiliate) ── */
     .btn-buy {
       display: block;
       width: 100%;
@@ -373,6 +340,192 @@
     .btn-buy:hover::after { transform: translateX(0); }
     .btn-buy span { position: relative; z-index: 1; }
 
+    /* ── CHECKOUT SECTION (direct products) ── */
+    .checkout-section {
+      display: none;
+      margin-bottom: 16px;
+    }
+
+    .checkout-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .checkout-divider::before,
+    .checkout-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Square checkout button */
+    .btn-square {
+      display: block;
+      width: 100%;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 18px 40px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.3s;
+      font-weight: 400;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-square::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: translateX(-101%);
+      transition: transform 0.4s ease;
+      z-index: 0;
+    }
+
+    .btn-square:hover::after { transform: translateX(0); }
+    .btn-square span { position: relative; z-index: 1; }
+
+    /* PayPal button container */
+    #paypal-button-container {
+      width: 100%;
+      min-height: 55px;
+      margin-bottom: 12px;
+    }
+
+    /* PayPal loading placeholder */
+    .paypal-loading {
+      width: 100%;
+      height: 55px;
+      background: #ffc439;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: #003087;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    /* PayPal processing overlay */
+    #paypal-processing {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #paypal-processing.active { display: flex; }
+
+    .paypal-processing-card {
+      background: var(--white);
+      padding: 48px 56px;
+      text-align: center;
+      max-width: 380px;
+      width: 90%;
+    }
+
+    .paypal-processing-spinner {
+      width: 48px; height: 48px;
+      border: 3px solid var(--border);
+      border-top-color: #003087;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 24px;
+    }
+
+    .paypal-processing-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .paypal-processing-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Order success overlay */
+    #order-success {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #order-success.active { display: flex; }
+
+    .order-success-card {
+      background: var(--white);
+      padding: 56px;
+      text-align: center;
+      max-width: 440px;
+      width: 90%;
+    }
+
+    .order-success-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .order-success-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    .order-success-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+
+    .order-success-card .order-ref {
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 16px 0 28px;
+    }
+
+    .btn-success-continue {
+      display: inline-block;
+      background: var(--black);
+      color: var(--white);
+      padding: 14px 36px;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: background 0.3s;
+    }
+
+    .btn-success-continue:hover { background: var(--gold); }
+
     .btn-wishlist {
       display: block;
       width: 100%;
@@ -393,6 +546,7 @@
 
     .btn-wishlist:hover { border-color: var(--gold); color: var(--gold); }
 
+    /* ── TRUST BADGES ── */
     .trust-badges {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -401,7 +555,11 @@
       border-top: 1px solid var(--border);
     }
 
-    .trust-badge { text-align: center; padding: 16px 8px; }
+    .trust-badge {
+      text-align: center;
+      padding: 16px 8px;
+    }
+
     .trust-badge-icon { font-size: 1.4rem; margin-bottom: 8px; display: block; }
 
     .trust-badge-label {
@@ -412,21 +570,7 @@
       line-height: 1.4;
     }
 
-    /* Affiliate disclosure notice */
-    .affiliate-notice {
-      margin-top: 20px;
-      padding: 12px 16px;
-      background: var(--cream);
-      border-left: 2px solid var(--gold);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.3px;
-      line-height: 1.6;
-    }
-
-    .affiliate-notice a { color: var(--gold); text-decoration: none; }
-    .affiliate-notice a:hover { text-decoration: underline; }
-
+    /* ── DETAILS SECTION ── */
     .product-details {
       border-top: 1px solid var(--border);
       padding-top: 60px;
@@ -447,7 +591,10 @@
       gap: 40px;
     }
 
-    .detail-card { background: var(--cream); padding: 32px; }
+    .detail-card {
+      background: var(--cream);
+      padding: 32px;
+    }
 
     .detail-card h4 {
       font-size: 0.7rem;
@@ -459,9 +606,17 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .detail-card p { font-size: 0.875rem; color: var(--text); line-height: 1.8; }
+    .detail-card p {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.8;
+    }
 
-    .detail-card ul { list-style: none; font-size: 0.875rem; color: var(--text); }
+    .detail-card ul {
+      list-style: none;
+      font-size: 0.875rem;
+      color: var(--text);
+    }
 
     .detail-card ul li {
       padding: 6px 0;
@@ -474,7 +629,11 @@
     .detail-card ul li:last-child { border-bottom: none; }
     .detail-card ul li::before { content: '✦'; color: var(--gold); font-size: 0.5rem; }
 
-    .related-section { padding-top: 80px; border-top: 1px solid var(--border); }
+    /* ── RELATED SECTION ── */
+    .related-section {
+      padding-top: 80px;
+      border-top: 1px solid var(--border);
+    }
 
     .related-header {
       display: flex;
@@ -508,7 +667,12 @@
       gap: 28px;
     }
 
-    .related-card { text-decoration: none; color: inherit; cursor: pointer; }
+    .related-card {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
     .related-card:hover .related-img img { transform: scale(1.05); }
 
     .related-img {
@@ -553,6 +717,7 @@
 
     .related-price { font-size: 0.95rem; color: var(--text); }
 
+    /* ── FOOTER ── */
     footer {
       background: var(--black);
       color: rgba(255,255,255,0.7);
@@ -599,6 +764,7 @@
       margin: 0 auto;
     }
 
+    /* ── MOBILE ── */
     @media (max-width: 900px) {
       .product-grid { grid-template-columns: 1fr; gap: 40px; }
       .gallery { position: static; }
@@ -624,7 +790,7 @@
   <div class="header-main">
     <a class="logo" href="/">SHOPPIZZY</a>
     <nav class="header-nav">
-      <a href="/">Shop</a>
+      <a href="/#categories">Categories</a>
       <a href="/reviews.html">Reviews</a>
       <a href="/account.html">My Account</a>
     </nav>
@@ -686,7 +852,7 @@
         </div>
         <div class="meta-row">
           <span class="meta-key">Condition</span>
-          <span class="meta-val" id="p-condition">New</span>
+          <span class="meta-val">New</span>
         </div>
         <div class="meta-row">
           <span class="meta-key">Shipping</span>
@@ -704,7 +870,7 @@
 
       <div class="product-description" id="p-description"></div>
 
-      <!-- SHIPPING CALC (Square/GrowceryWorld products only) -->
+      <!-- SHIPPING CALC (direct/Square products only) -->
       <div id="shipping-calc" style="display:none;margin-bottom:20px;border:1px solid var(--border);padding:20px;">
         <div style="font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--charcoal);font-weight:700;margin-bottom:12px;">Calculate Shipping</div>
         <div style="display:flex;gap:0;margin-bottom:8px;">
@@ -729,26 +895,31 @@
         </div>
       </div>
 
-      <a class="btn-buy" id="btn-buy" href="#" target="_blank" rel="noopener noreferrer">
+      <!-- AFFILIATE "Buy Now" link (shown for CJ/Impact products) -->
+      <a class="btn-buy" id="btn-buy" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">
         <span>Buy Now</span>
       </a>
+
+      <!-- CHECKOUT SECTION (shown for direct/Square/seller products) -->
+      <div class="checkout-section" id="checkout-section">
+
+        <!-- Square checkout -->
+        <a class="btn-square" id="btn-square" href="#" target="_self">
+          <span>💳 &nbsp; Buy Now — Pay by Card</span>
+        </a>
+
+        <div class="checkout-divider">or pay with</div>
+
+        <!-- PayPal button container -->
+        <div id="paypal-button-container">
+          <div class="paypal-loading" id="paypal-loading">Loading PayPal…</div>
+        </div>
+
+      </div>
 
       <button class="btn-wishlist" onclick="showToast('Wishlist coming soon')">
         ♡ &nbsp; Save to Wishlist
       </button>
-
-      <!-- Affiliate disclosure notice (shown for affiliate products) -->
-      <div class="affiliate-notice" id="affiliate-notice" style="display:none;">
-        ✦ &nbsp;Affiliate link — Shoppizzy may earn a commission if you purchase through this link at no extra cost to you.
-        <a href="/affiliate-disclosure.html">Learn more</a>
-      </div>
-
-      <!-- Inquiry link (shown for direct products: GrowceryWorld / Square) -->
-      <div id="inquiry-link-wrap" style="display:none;text-align:center;margin-top:16px;">
-        <a id="inquiry-link" href="#" style="font-size:0.78rem;letter-spacing:1px;color:var(--muted);text-decoration:underline;">
-          Have a question about this item?
-        </a>
-      </div>
 
       <div class="trust-badges">
         <div class="trust-badge">
@@ -781,7 +952,7 @@
         <ul>
           <li>Curated selection from trusted brands</li>
           <li>Secure, encrypted checkout</li>
-          <li>Fast UPS tracked shipping</li>
+          <li>Free shipping on qualifying orders</li>
           <li>30-day hassle-free returns</li>
           <li>Customer support 7 days a week</li>
         </ul>
@@ -795,7 +966,9 @@
       <div class="related-title">You May Also Like</div>
       <a href="/" class="related-link">View All Products →</a>
     </div>
-    <div class="related-grid" id="related-grid"></div>
+    <div class="related-grid" id="related-grid">
+      <!-- populated by JS -->
+    </div>
   </div>
 
 </div>
@@ -805,155 +978,59 @@
   <div class="footer-inner">
     <div class="footer-col">
       <h4>Shoppizzy</h4>
-      <p style="font-size:0.85rem;line-height:1.8;">Shop millions of products from top brands and independent sellers.</p>
+      <p style="font-size:0.85rem;line-height:1.8;">Curated luxury and everyday essentials from the world's finest merchants.</p>
     </div>
     <div class="footer-col">
       <h4>Explore</h4>
-      <a href="/">Shop</a>
+      <a href="/#categories">Shop by Category</a>
+      <a href="/aitools.html">AI Tools Directory</a>
       <a href="/about.html">About Us</a>
-      <a href="/faq.html">FAQ</a>
     </div>
     <div class="footer-col">
-      <h4>GrowceryWorld</h4>
-      <h4 style="margin-top:20px;">Membership</h4>
-      <a href="/account.html">Join &mdash; $20/yr</a>
-      <a href="/account.html">My Account</a>
+      <h4>Sell With Us</h4>
+      <a href="/seller/register">Become a Seller</a>
+      <a href="/seller/login">Seller Login</a>
+      <a href="/seller/dashboard">Seller Dashboard</a>
     </div>
     <div class="footer-col">
       <h4>Legal</h4>
       <a href="/terms-of-service.html">Terms of Service</a>
       <a href="/privacy-policy.html">Privacy Policy</a>
-      <a href="/affiliate-disclosure.html">Affiliate Disclosure</a>
+      <a href="https://wa.me/YOUR_WHATSAPP_NUMBER" target="_blank">Contact Us</a>
     </div>
   </div>
-  <div class="footer-bottom">&copy; 2026 Shoppizzy &mdash; BSM Enterpryzes. All Rights Reserved.</div>
+  <div class="footer-bottom">© 2026 Shoppizzy — BSM Enterpryzes. All Rights Reserved.</div>
 </footer>
 
 <!-- TOAST -->
 <div id="toast" style="position:fixed;bottom:30px;right:30px;background:var(--black);color:var(--white);padding:16px 28px;font-size:0.85rem;z-index:9999;transform:translateY(80px);opacity:0;transition:all 0.4s;border-left:3px solid var(--gold);"></div>
 
+<!-- PAYPAL PROCESSING OVERLAY -->
+<div id="paypal-processing">
+  <div class="paypal-processing-card">
+    <div class="paypal-processing-spinner"></div>
+    <h3>Processing Payment</h3>
+    <p>Please wait while we confirm your PayPal payment…</p>
+  </div>
+</div>
+
+<!-- ORDER SUCCESS OVERLAY -->
+<div id="order-success">
+  <div class="order-success-card">
+    <div class="order-success-icon">✅</div>
+    <h2>Order Confirmed!</h2>
+    <p>Thank you for your purchase. Your order has been received and will ship via UPS with tracking.</p>
+    <div class="order-ref" id="success-order-ref">Order #—</div>
+    <p style="font-size:0.8rem;color:var(--muted);">A confirmation will be sent to your email on file.</p>
+    <br>
+    <a href="/" class="btn-success-continue">Continue Shopping</a>
+  </div>
+</div>
+
 <script>
   const WORKER_URL = 'https://shoppizzy.com';
 
-  // ── JSON-LD SCHEMA UPDATER ──────────────────────────────────────────────────
-  function updateProductSchema(p, displayPrice, buyUrl, merchantName) {
-    const schemaEl = document.getElementById('product-schema');
-    if (!schemaEl) return;
-
-    // Build image array
-    let images = [];
-    try { images = JSON.parse(p.image_urls || '[]'); } catch(e) {}
-    if (!images.length && p.imageUrl) images = [p.imageUrl];
-
-    // Price valid until — 30 days from now
-    const priceValidUntil = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-
-    // Determine availability
-    const availability = (p.status === 'active' || p.status === 'InStock')
-      ? 'https://schema.org/InStock'
-      : 'https://schema.org/OutOfStock';
-
-    // Determine condition
-    const conditionMap = {
-      'new': 'https://schema.org/NewCondition',
-      'used': 'https://schema.org/UsedCondition',
-      'refurbished': 'https://schema.org/RefurbishedCondition',
-    };
-    const itemCondition = conditionMap[p.item_condition] || 'https://schema.org/NewCondition';
-
-    // Is this a direct/seller product or affiliate?
-    const isDirect = p.source === 'seller' || p.source === 'square' || p.type === 'direct';
-
-    const schema = {
-      "@context": "https://schema.org/",
-      "@type": "Product",
-      "name": p.title || "",
-      "description": p.description || "",
-      "image": images.length ? images : (p.imageUrl ? [p.imageUrl] : []),
-      "brand": {
-        "@type": "Brand",
-        "name": p.brand || merchantName || "Shoppizzy"
-      },
-      "sku": p.sku || p.id || "",
-      "offers": {
-        "@type": "Offer",
-        "url": buyUrl || `https://shoppizzy.com/product.html?id=${encodeURIComponent(p.id)}`,
-        "priceCurrency": "USD",
-        "price": displayPrice > 0 ? displayPrice.toFixed(2) : "0.00",
-        "priceValidUntil": priceValidUntil,
-        "availability": availability,
-        "itemCondition": itemCondition,
-        "seller": {
-          "@type": "Organization",
-          "name": isDirect ? "GrowceryWorld" : (merchantName || "Shoppizzy")
-        },
-        "shippingDetails": {
-          "@type": "OfferShippingDetails",
-          "shippingRate": {
-            "@type": "MonetaryAmount",
-            "value": "9.99",
-            "currency": "USD"
-          },
-          "shippingDestination": {
-            "@type": "DefinedRegion",
-            "addressCountry": "US"
-          },
-          "deliveryTime": {
-            "@type": "ShippingDeliveryTime",
-            "handlingTime": {
-              "@type": "QuantitativeValue",
-              "minValue": 0,
-              "maxValue": 1,
-              "unitCode": "DAY"
-            },
-            "transitTime": {
-              "@type": "QuantitativeValue",
-              "minValue": 3,
-              "maxValue": 5,
-              "unitCode": "DAY"
-            }
-          }
-        }
-      },
-      "returnPolicy": {
-        "@type": "MerchantReturnPolicy",
-        "applicableCountry": "US",
-        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-        "merchantReturnDays": 30,
-        "returnMethod": "https://schema.org/ReturnByMail",
-        "returnFees": "https://schema.org/FreeReturn"
-      }
-    };
-
-    schemaEl.textContent = JSON.stringify(schema, null, 2);
-
-    // Update breadcrumb schema
-    const bcEl = document.getElementById('breadcrumb-schema');
-    if (bcEl) {
-      const bcSchema = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://shoppizzy.com/" },
-          { "@type": "ListItem", "position": 2, "name": p.category || "Products", "item": "https://shoppizzy.com/" },
-          { "@type": "ListItem", "position": 3, "name": p.title || "Product" }
-        ]
-      };
-      bcEl.textContent = JSON.stringify(bcSchema, null, 2);
-    }
-
-    // Update page meta tags
-    document.title = `${p.title} — Shoppizzy`;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      const desc = p.description
-        ? p.description.substring(0, 155)
-        : `Buy ${p.title} on Shoppizzy. ${displayPrice > 0 ? 'Price: $' + displayPrice.toFixed(2) + '.' : ''} Fast UPS shipping. 30-day returns.`;
-      metaDesc.setAttribute('content', desc);
-    }
-  }
-
-  // ── MAIN LOAD ──────────────────────────────────────────────────────────────
+  // ── PAGE INIT ──────────────────────────────────────────────────────────────
   window.addEventListener('load', async () => {
     const params = new URLSearchParams(window.location.search);
     const productId = params.get('id');
@@ -961,13 +1038,13 @@
 
     if (!productId && !buyUrl) { showError(); return; }
 
-    const title = safeDecodeParam(params.get('title'));
-    const price = params.get('price');
+    const title    = safeDecode(params.get('title'));
+    const price    = params.get('price');
     const salePrice = params.get('sale');
-    const image = safeDecodeParam(params.get('img'));
-    const description = safeDecodeParam(params.get('desc'));
-    const brand = safeDecodeParam(params.get('brand'));
-    const category = safeDecodeParam(params.get('cat'));
+    const image    = safeDecode(params.get('img'));
+    const description = safeDecode(params.get('desc'));
+    const brand    = safeDecode(params.get('brand'));
+    const category = safeDecode(params.get('cat'));
 
     if (title && buyUrl) {
       renderProduct({
@@ -982,6 +1059,7 @@
       return;
     }
 
+    // Fetch from worker
     try {
       const res = await fetch(`${WORKER_URL}/api/products/${encodeURIComponent(productId)}`);
       if (!res.ok) throw new Error();
@@ -992,22 +1070,25 @@
     } catch(e) { showError(); }
   });
 
-  function safeDecodeParam(val) {
+  function safeDecode(val) {
     if (!val) return '';
     try { return decodeURIComponent(val); } catch(e) { return val; }
   }
 
+  // ── RENDER PRODUCT ─────────────────────────────────────────────────────────
   function renderProduct(p) {
+    document.title = `${p.title} — Shoppizzy`;
+
     // Breadcrumb
     const cat = p.category || 'Products';
     document.getElementById('breadcrumb-category').textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
     document.getElementById('breadcrumb-title').textContent = p.title.length > 40 ? p.title.substring(0, 40) + '...' : p.title;
 
-    // Seller / merchant name
-    const isDirect = p.source === 'seller' || p.source === 'square' || p.type === 'direct';
-    const isAffiliate = !isDirect;
-    const merchantName = isDirect ? 'GrowceryWorld' : (p.advertiserName || p.merchant_name || 'Shoppizzy');
-    document.getElementById('p-seller').textContent = merchantName;
+    // Seller name
+    const isDirect = p.source === 'square' || p.source === 'seller' || p.type === 'direct';
+    document.getElementById('p-seller').textContent = isDirect
+      ? 'GrowceryWorld'
+      : (p.advertiserName || p.merchant_name || 'Shoppizzy');
 
     // Title
     document.getElementById('p-title').textContent = p.title;
@@ -1017,7 +1098,37 @@
     const displayPrice = hasSale ? parseFloat(p.salePrice) : parseFloat(p.price || 0);
     document.getElementById('p-price').textContent = displayPrice > 0 ? `$${displayPrice.toFixed(2)}` : 'See Price';
 
-    // Wholesale note
+    // AUD conversion note for Simply Wholesale products
+    if (p.currency === 'AUD') {
+      const audNote = document.createElement('div');
+      audNote.style.cssText = 'font-size:0.75rem;color:#888;margin-top:4px;';
+      audNote.textContent = '💱 Price converted from AUD — may vary slightly with exchange rates';
+      document.getElementById('p-price').insertAdjacentElement('afterend', audNote);
+    }
+
+    // Sale badges
+    if (hasSale && p.price) {
+      const wasEl = document.getElementById('p-was');
+      wasEl.textContent = `$${parseFloat(p.price).toFixed(2)}`;
+      wasEl.style.display = 'block';
+      const saving = parseFloat(p.price) - parseFloat(p.salePrice);
+      const pct = Math.round((saving / parseFloat(p.price)) * 100);
+      const saveEl = document.getElementById('p-save');
+      saveEl.textContent = `Save ${pct}%`;
+      saveEl.style.display = 'block';
+      document.getElementById('gallery-badge').textContent = 'Sale';
+      document.getElementById('gallery-badge').style.display = 'block';
+    }
+
+    // Shipping text
+    const shippingEl = document.getElementById('p-shipping');
+    if (shippingEl) {
+      shippingEl.textContent = isDirect
+        ? 'Ships via UPS with tracking'
+        : `Ships directly from ${p.merchant_name || p.advertiserName || 'merchant'}`;
+    }
+
+    // Wholesale note for GrowceryWorld
     const isGrowcery = p.merchant_name === 'GrowceryWorld' || p.advertiserName === 'GrowceryWorld';
     const unitCount = p.unit_count && p.unit_count > 1 ? p.unit_count : 1;
     let wholesaleNote = document.getElementById('p-wholesale-note');
@@ -1028,7 +1139,8 @@
       document.getElementById('p-price').parentNode.appendChild(wholesaleNote);
     }
     if (isGrowcery && unitCount > 1) {
-      wholesaleNote.innerHTML = `&#128230; Sold as a case of ${unitCount} &mdash; <strong>$${(displayPrice/unitCount).toFixed(2)}/unit</strong> &mdash; Wholesale Price`;
+      const unitPrice = (displayPrice / unitCount).toFixed(2);
+      wholesaleNote.innerHTML = `&#128230; Sold as a case of ${unitCount} &mdash; <strong>$${unitPrice}/unit</strong> &mdash; Wholesale Price`;
       wholesaleNote.style.display = 'block';
     } else if (isGrowcery) {
       wholesaleNote.innerHTML = `&#128230; Wholesale Price`;
@@ -1037,31 +1149,8 @@
       wholesaleNote.style.display = 'none';
     }
 
-    if (hasSale && p.price) {
-      document.getElementById('p-was').textContent = `$${parseFloat(p.price).toFixed(2)}`;
-      document.getElementById('p-was').style.display = 'block';
-      const pct = Math.round(((parseFloat(p.price) - parseFloat(p.salePrice)) / parseFloat(p.price)) * 100);
-      document.getElementById('p-save').textContent = `Save ${pct}%`;
-      document.getElementById('p-save').style.display = 'block';
-      document.getElementById('gallery-badge').textContent = 'Sale';
-      document.getElementById('gallery-badge').style.display = 'block';
-    }
-
-    // Condition
-    if (p.item_condition && p.item_condition !== 'new') {
-      document.getElementById('p-condition').textContent = p.item_condition.charAt(0).toUpperCase() + p.item_condition.slice(1);
-    }
-
-    // Shipping text
-    const shippingEl = document.getElementById('p-shipping');
-    if (isDirect) {
-      shippingEl.textContent = 'Ships via UPS with tracking';
-    } else {
-      shippingEl.textContent = `Ships directly from ${merchantName}`;
-    }
-
     // Description
-    const desc = p.description || 'Premium quality product available through Shoppizzy. Click Buy Now to complete your purchase.';
+    const desc = p.description || 'Premium quality product available exclusively through Shoppizzy.';
     document.getElementById('p-description').textContent = desc;
     document.getElementById('detail-description').textContent = desc;
 
@@ -1071,7 +1160,7 @@
       document.getElementById('p-brand-row').style.display = 'flex';
     }
 
-    // Image gallery
+    // Image
     const imgEl = document.getElementById('gallery-main-img');
     const placeholder = document.getElementById('gallery-placeholder');
     if (p.imageUrl) {
@@ -1086,97 +1175,203 @@
       if (!images.length && p.imageUrl) images = [p.imageUrl];
 
       if (images.length > 1) {
-        document.getElementById('gallery-thumbs').innerHTML = images.slice(0, 5).map((url, i) => `
-          <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchImage('${escHtml(url)}', this)">
-            <img src="${escHtml(url)}" alt="Product image ${i+1}" onerror="this.parentNode.style.display='none'">
-          </div>`).join('');
+        const thumbsEl = document.getElementById('gallery-thumbs');
+        thumbsEl.innerHTML = images.slice(0, 5).map((url, i) => `
+          <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchImage('${url}', this)">
+            <img src="${url}" alt="Product image ${i+1}" onerror="this.parentNode.style.display='none'">
+          </div>
+        `).join('');
       }
     }
 
-    // Stock status (Square/direct products only)
-    const isOutOfStock = isDirect && p.status === 'out_of_stock';
-    if (isOutOfStock) {
-      const stockEl = document.getElementById('p-stock');
-      stockEl.textContent = 'Out of Stock';
-      stockEl.classList.remove('in-stock');
-      stockEl.classList.add('out-stock');
-    }
-
-    // Buy Now button
-    const buyLink = isDirect ? '' : (p.buyUrl || p.affiliate_link || '');
-    const btnBuy = document.getElementById('btn-buy');
-    if (isOutOfStock) {
-      btnBuy.textContent = '';
-      btnBuy.innerHTML = '<span>Out of Stock</span>';
-      btnBuy.href = '#';
-      btnBuy.style.pointerEvents = 'none';
-      btnBuy.style.opacity = '0.5';
-      btnBuy.removeAttribute('target');
-      btnBuy.removeAttribute('rel');
-    } else if (buyLink) {
-      btnBuy.href = buyLink;
-      // Show affiliate disclosure notice
-      document.getElementById('affiliate-notice').style.display = 'block';
-    } else if (isDirect) {
-      btnBuy.href = `/checkout.html?id=${encodeURIComponent(p.id)}`;
-      btnBuy.target = '_self';
-      btnBuy.removeAttribute('rel');
-      // Show shipping calc and quantity for direct products
-      document.getElementById('shipping-calc').style.display = 'block';
-      document.getElementById('quantity-wrap').style.display = 'block';
-    } else {
-      btnBuy.style.display = 'none';
-    }
-
-    // Inquiry link for direct (non-affiliate) products
-    if (isDirect) {
-      const inquiryWrap = document.getElementById('inquiry-link-wrap');
-      const inquiryLink = document.getElementById('inquiry-link');
-      const productUrl = `https://shoppizzy.com/product.html?id=${encodeURIComponent(p.id)}`;
-      const subject = encodeURIComponent(`Question about: ${p.title}`);
-      const body = encodeURIComponent(`I have a question about this item:\n\n${p.title}\n${productUrl}\n\nMy question:\n`);
-      inquiryLink.href = `mailto:inquiry@shoppizzy.com?subject=${subject}&body=${body}`;
-      inquiryWrap.style.display = 'block';
-    }
-
+    // Store for checkout use
     window._currentProduct = p;
 
-    // Update JSON-LD schema
-    updateProductSchema(p, displayPrice, buyLink || `https://shoppizzy.com/product.html?id=${encodeURIComponent(p.id)}`, merchantName);
+    // ── CHECKOUT BUTTONS ───────────────────────────────────────────────────
+    if (isDirect) {
+      // Show quantity, shipping calc, and checkout section
+      document.getElementById('quantity-wrap').style.display = 'block';
+      document.getElementById('shipping-calc').style.display = 'block';
+      document.getElementById('checkout-section').style.display = 'block';
+
+      // Square checkout button
+      const squareBtn = document.getElementById('btn-square');
+      squareBtn.href = `/checkout.html?id=${encodeURIComponent(p.id)}`;
+
+      // Load PayPal SDK and render buttons
+      loadPayPalSDK(p, displayPrice);
+
+    } else {
+      // Affiliate product: show direct buy link
+      const buyLink = p.buyUrl || p.affiliate_link || '';
+      const btnBuy = document.getElementById('btn-buy');
+      if (buyLink) {
+        btnBuy.href = buyLink;
+        btnBuy.style.display = 'block';
+      }
+    }
 
     // Show product
     document.getElementById('state-loading').style.display = 'none';
     document.getElementById('product-container').classList.add('visible');
   }
 
+  // ── PAYPAL SDK LOADER ──────────────────────────────────────────────────────
+  async function loadPayPalSDK(product, displayPrice) {
+    try {
+      // Fetch client ID from worker (keeps secret in Cloudflare env)
+      const configRes = await fetch(`${WORKER_URL}/api/checkout/paypal/config`);
+      if (!configRes.ok) throw new Error('PayPal config unavailable');
+      const { clientId } = await configRes.json();
+
+      // Dynamically inject SDK script
+      await new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=capture`;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+
+      // Remove loading placeholder
+      document.getElementById('paypal-loading').remove();
+
+      // Render PayPal Smart Buttons
+      paypal.Buttons({
+        style: {
+          layout: 'horizontal',
+          color:  'gold',
+          shape:  'rect',
+          label:  'paypal',
+          tagline: false,
+          height: 55,
+        },
+
+        // Step 1: Create PayPal order on our worker
+        createOrder: async () => {
+          const qty = parseInt(document.getElementById('item-qty')?.value || 1);
+          const shipping = window._shippingRate?.cost || 0;
+          const itemTotal = displayPrice * qty;
+
+          const res = await fetch(`${WORKER_URL}/api/checkout/paypal/create`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              product_price: itemTotal.toFixed(2),
+              shipping_cost: shipping.toFixed(2),
+              title: product.title,
+            }),
+          });
+          const data = await res.json();
+          if (!res.ok || !data.orderId) throw new Error(data.error || 'Failed to create order');
+          return data.orderId;
+        },
+
+        // Step 2: Capture approved payment
+        onApprove: async (data) => {
+          document.getElementById('paypal-processing').classList.add('active');
+          try {
+            // Capture the payment
+            const captureRes = await fetch(`${WORKER_URL}/api/checkout/paypal/capture`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ orderId: data.orderID }),
+            });
+            const captureData = await captureRes.json();
+            if (!captureRes.ok || !captureData.success) {
+              throw new Error(captureData.error || 'Payment capture failed');
+            }
+
+            // Record order in D1
+            const qty = parseInt(document.getElementById('item-qty')?.value || 1);
+            const shipping = window._shippingRate?.cost || 0;
+            const itemTotal = displayPrice * qty;
+            const total = (itemTotal + shipping).toFixed(2);
+
+            await fetch(`${WORKER_URL}/api/orders/create`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                product_id: product.id,
+                quantity: qty,
+                product_price: itemTotal.toFixed(2),
+                shipping_cost: shipping.toFixed(2),
+                total,
+                payment_method: 'paypal',
+                payment_reference: captureData.order_id,
+                customer: {},
+                shipping_address: window._shippingRate?.zip ? { postal_code: window._shippingRate.zip } : {},
+              }),
+            });
+
+            // Show success
+            document.getElementById('paypal-processing').classList.remove('active');
+            document.getElementById('success-order-ref').textContent = `Order #${captureData.order_id || data.orderID}`;
+            document.getElementById('order-success').classList.add('active');
+
+          } catch(err) {
+            document.getElementById('paypal-processing').classList.remove('active');
+            showToast('Payment error: ' + (err.message || 'Please try again'));
+          }
+        },
+
+        onError: (err) => {
+          console.error('PayPal error:', err);
+          showToast('PayPal encountered an error. Please try again or use card checkout.');
+        },
+
+        onCancel: () => {
+          showToast('Payment cancelled. Your cart is still saved.');
+        },
+
+      }).render('#paypal-button-container');
+
+    } catch(err) {
+      console.error('PayPal SDK load error:', err);
+      // Hide PayPal loading gracefully — Square button still works
+      const container = document.getElementById('paypal-button-container');
+      if (container) container.style.display = 'none';
+      // Also hide divider if no PayPal
+      const divider = document.querySelector('.checkout-divider');
+      if (divider) divider.style.display = 'none';
+    }
+  }
+
+  // ── GALLERY ────────────────────────────────────────────────────────────────
   function switchImage(url, thumbEl) {
     const imgEl = document.getElementById('gallery-main-img');
+    const placeholder = document.getElementById('gallery-placeholder');
     imgEl.src = url;
     imgEl.style.display = 'block';
-    document.getElementById('gallery-placeholder').style.display = 'none';
+    placeholder.style.display = 'none';
     document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
     thumbEl.classList.add('active');
   }
 
+  // ── RELATED PRODUCTS ───────────────────────────────────────────────────────
   async function loadRelated(category, excludeId) {
     try {
       const res = await fetch(`${WORKER_URL}/api/products?q=${encodeURIComponent(category)}&limit=8`);
       const data = await res.json();
       const products = (data.products || []).filter(p => p.id !== excludeId).slice(0, 4);
+
       const grid = document.getElementById('related-grid');
       if (!products.length) { grid.closest('.related-section').style.display = 'none'; return; }
+
       grid.innerHTML = products.map(p => {
         const price = p.salePrice && parseFloat(p.salePrice) > 0 ? p.salePrice : p.price;
         const priceStr = price && parseFloat(price) > 0 ? `$${parseFloat(price).toFixed(2)}` : 'See Price';
+        const isDirect = p.source === 'square' || p.source === 'seller' || p.type === 'direct';
         const imgHtml = p.imageUrl
-          ? `<img src="${escHtml(p.imageUrl)}" alt="${escHtml(p.title)}" loading="lazy" onerror="this.style.display='none'">`
+          ? `<img src="${p.imageUrl}" alt="${escHtml(p.title)}" loading="lazy" onerror="this.style.display='none'">`
           : `<div class="related-img-placeholder">✦</div>`;
-        return `<a class="related-card" href="${buildProductUrl(p)}">
-          <div class="related-img">${imgHtml}</div>
-          <div class="related-seller">${escHtml(p.advertiserName || p.merchant_name || 'Shoppizzy')}</div>
-          <div class="related-name">${escHtml(p.title)}</div>
-          <div class="related-price">${priceStr}</div>
-        </a>`;
+        return `
+          <a class="related-card" href="${buildProductUrl(p)}">
+            <div class="related-img">${imgHtml}</div>
+            <div class="related-seller">${isDirect ? 'GrowceryWorld' : (p.advertiserName || p.merchant_name || 'Shoppizzy')}</div>
+            <div class="related-name">${escHtml(p.title)}</div>
+            <div class="related-price">${priceStr}</div>
+          </a>`;
       }).join('');
     } catch(e) {
       document.getElementById('related-grid').closest('.related-section').style.display = 'none';
@@ -1184,24 +1379,30 @@
   }
 
   function buildProductUrl(p) {
-    if (p.type === 'affiliate' || (p.source !== 'square' && p.source !== 'seller')) {
-      const params = new URLSearchParams({ id: p.id, title: p.title, buy: p.buyUrl || p.affiliate_link || '', price: p.price || '', img: p.imageUrl || '', desc: (p.description || '').substring(0, 200), brand: p.brand || '', cat: p.category || '' });
+    if (p.type === 'affiliate' || p.source !== 'square') {
+      const params = new URLSearchParams({
+        id: p.id,
+        title: p.title,
+        buy: p.buyUrl || p.affiliate_link || '',
+        price: p.price || '',
+        img: p.imageUrl || '',
+        desc: (p.description || '').substring(0, 200),
+        brand: p.brand || '',
+        cat: p.category || '',
+      });
       if (p.salePrice) params.set('sale', p.salePrice);
       return `/product.html?${params.toString()}`;
     }
     return `/product.html?id=${encodeURIComponent(p.id)}`;
   }
 
-  function showError() {
-    document.getElementById('state-loading').style.display = 'none';
-    document.getElementById('state-error').style.display = 'block';
-  }
-
+  // ── SHIPPING CALC ──────────────────────────────────────────────────────────
   function adjustQty(delta) {
     const input = document.getElementById('item-qty');
-    input.value = Math.max(1, Math.min(99, parseInt(input.value || 1) + delta));
+    const newVal = Math.max(1, Math.min(99, parseInt(input.value || 1) + delta));
+    input.value = newVal;
     window._shippingRate = null;
-    document.getElementById('ship-result').textContent = 'Update ZIP to recalculate for new quantity.';
+    document.getElementById('ship-result').textContent = 'Update ZIP to recalculate shipping for new quantity.';
     document.getElementById('ship-result').style.color = 'var(--muted)';
   }
 
@@ -1209,14 +1410,14 @@
     const zip = document.getElementById('ship-zip').value.trim();
     const resultEl = document.getElementById('ship-result');
     const btn = document.getElementById('calc-ship-btn');
-    if (!zip || zip.length !== 5 || !/^\d{5}$/.test(zip)) {
+    if (!zip || !/^\d{5}$/.test(zip)) {
       resultEl.textContent = 'Please enter a valid 5-digit ZIP code.';
       resultEl.style.color = 'var(--error)';
       return;
     }
-    btn.textContent = 'Calculating...';
+    btn.textContent = 'Calculating…';
     btn.disabled = true;
-    resultEl.textContent = 'Getting UPS Ground rate...';
+    resultEl.textContent = 'Getting UPS Ground rate…';
     resultEl.style.color = 'var(--muted)';
     const weight = window._currentProduct?.weight_grams || 227;
     window._shippingRate = { cost: 9.99, zip };
@@ -1226,7 +1427,13 @@
       const res = await fetch(`${WORKER_URL}/api/grocery/shipping`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: { shippingAddressPostalCode: zip, shippingAddressCountry: 'US', items: [{ weight, quantity: parseInt(document.getElementById('item-qty')?.value || 1) }] } }),
+        body: JSON.stringify({
+          content: {
+            shippingAddressPostalCode: zip,
+            shippingAddressCountry: 'US',
+            items: [{ weight, quantity: parseInt(document.getElementById('item-qty')?.value || 1) }]
+          }
+        }),
         signal: controller.signal
       });
       clearTimeout(timeout);
@@ -1248,12 +1455,18 @@
     btn.disabled = false;
   }
 
+  // ── HELPERS ────────────────────────────────────────────────────────────────
+  function showError() {
+    document.getElementById('state-loading').style.display = 'none';
+    document.getElementById('state-error').style.display = 'block';
+  }
+
   function showToast(msg) {
     const t = document.getElementById('toast');
     t.textContent = msg;
     t.style.transform = 'translateY(0)';
     t.style.opacity = '1';
-    setTimeout(() => { t.style.transform = 'translateY(80px)'; t.style.opacity = '0'; }, 3000);
+    setTimeout(() => { t.style.transform = 'translateY(80px)'; t.style.opacity = '0'; }, 3500);
   }
 
   function escHtml(str) {
