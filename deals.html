@@ -1,395 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Deals &amp; Promo Codes | Shoppizzy</title>
-  <meta name="description" content="Browse the latest promo codes and exclusive deals from top retailers on Shoppizzy. Save more on every purchase with verified discount codes." />
-  <link rel="icon" href="/favicon.ico" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deals & Promotions — Shoppizzy</title>
+  <meta name="description" content="Exclusive deals, promotions, and special offers from Shoppizzy and our merchant partners.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f5f7fa; color: #222; }
-
-    /* ── HEADER ── */
-    header {
-      background: #fff;
-      border-bottom: 1px solid #e0e0e0;
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000; --charcoal: #2b2b2b; --cream: #f8f7f4; --white: #ffffff;
+      --gold: #c5a572; --text: #333333; --muted: #888888; --border: #e5e5e5;
     }
-    .logo { font-size: 1.5rem; font-weight: 800; color: #e03c54; text-decoration: none; }
-    .logo span { color: #222; }
-    .header-nav a { color: #555; text-decoration: none; margin-left: 18px; font-size: .9rem; }
-    .header-nav a:hover { color: #e03c54; }
-
-    /* ── HERO ── */
-    .hero {
-      background: linear-gradient(135deg, #e03c54 0%, #c0392b 100%);
-      color: #fff;
-      text-align: center;
-      padding: 48px 20px 40px;
-    }
-    .hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
-    .hero p { font-size: 1.05rem; opacity: .9; max-width: 520px; margin: 0 auto 24px; }
-
-    /* ── SEARCH / FILTER ── */
-    .filter-bar {
-      max-width: 600px;
-      margin: 0 auto;
-      display: flex;
-      gap: 10px;
-    }
-    .filter-bar input {
-      flex: 1;
-      padding: 12px 16px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      outline: none;
-    }
-    .filter-bar select {
-      padding: 12px 14px;
-      border: none;
-      border-radius: 8px;
-      font-size: .9rem;
-      background: #fff;
-      cursor: pointer;
-    }
-
-    /* ── MAIN ── */
-    main { max-width: 1100px; margin: 32px auto; padding: 0 16px; }
-
-    .section-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: #333;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .section-title .count {
-      background: #e03c54;
-      color: #fff;
-      font-size: .78rem;
-      border-radius: 20px;
-      padding: 2px 10px;
-      font-weight: 600;
-    }
-
-    /* ── DEAL GRID ── */
-    .deals-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 18px;
-    }
-
-    .deal-card {
-      background: #fff;
-      border-radius: 14px;
-      border: 1px solid #e8e8e8;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: box-shadow .2s, transform .15s;
-      position: relative;
-      overflow: hidden;
-    }
-    .deal-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.1); transform: translateY(-2px); }
-
-    .deal-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #e03c54, #ff6b35);
-    }
-
-    .deal-merchant { font-size: .8rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: .05em; }
-
-    .deal-description { font-size: .95rem; color: #333; line-height: 1.4; font-weight: 500; }
-
-    .deal-discount {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #e03c54;
-    }
-
-    .code-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .code-box {
-      flex: 1;
-      background: #fff8f0;
-      border: 2px dashed #e03c54;
-      border-radius: 8px;
-      padding: 9px 14px;
-      font-family: 'Courier New', monospace;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #c0392b;
-      letter-spacing: .1em;
-      text-align: center;
-    }
-    .copy-btn {
-      background: #e03c54;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-size: .85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .15s;
-      white-space: nowrap;
-    }
-    .copy-btn:hover { background: #c0392b; }
-    .copy-btn.copied { background: #27ae60; }
-
-    .deal-expiry { font-size: .78rem; color: #999; }
-    .deal-expiry.expiring-soon { color: #e67e22; font-weight: 600; }
-
-    .shop-link {
-      display: block;
-      text-align: center;
-      background: #f5f7fa;
-      color: #e03c54;
-      border-radius: 8px;
-      padding: 9px;
-      font-size: .88rem;
-      font-weight: 600;
-      text-decoration: none;
-      border: 1px solid #e8e8e8;
-      transition: background .15s;
-      margin-top: 4px;
-    }
-    .shop-link:hover { background: #ffe5e8; }
-
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: #999;
-    }
-    .empty-state .emoji { font-size: 3rem; display: block; margin-bottom: 12px; }
-    .empty-state p { font-size: 1rem; }
-
-    /* ── LOADING ── */
-    .loading { text-align: center; padding: 60px; color: #888; }
-    .spinner {
-      width: 36px; height: 36px;
-      border: 4px solid #eee;
-      border-top-color: #e03c54;
-      border-radius: 50%;
-      animation: spin .7s linear infinite;
-      margin: 0 auto 14px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── NOTICE BANNER ── */
-    .notice {
-      background: #fff8f0;
-      border: 1px solid #f5c518;
-      border-radius: 10px;
-      padding: 14px 18px;
-      font-size: .88rem;
-      color: #7a5c00;
-      margin-bottom: 24px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 32px 16px;
-      font-size: .8rem;
-      color: #aaa;
-      border-top: 1px solid #e0e0e0;
-      margin-top: 48px;
-    }
-    footer a { color: #e03c54; text-decoration: none; }
-
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 1.6rem; }
-      .filter-bar { flex-direction: column; }
-      .deals-grid { grid-template-columns: 1fr; }
-    }
+    body { font-family: 'Lato', sans-serif; background: var(--white); color: var(--text); font-weight: 300; line-height: 1.7; letter-spacing: 0.3px; }
+    header { background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+    .header-main { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; align-items: center; justify-content: center; gap: 60px; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: 2px; cursor: pointer; display: block; }
+    .header-nav { display: flex; gap: 40px; align-items: center; }
+    .header-nav a { color: var(--text); text-decoration: none; font-size: 0.875rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; transition: color 0.3s; position: relative; }
+    .header-nav a:hover { color: var(--gold); }
+    .header-nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
+    .header-nav a:hover::after { width: 100%; }
+    footer { background: var(--black); color: rgba(255,255,255,0.7); padding: 80px 40px 40px; margin-top: 120px; }
+    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; margin-bottom: 60px; }
+    .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); margin-bottom: 20px; font-weight: 500; letter-spacing: 1px; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; margin-bottom: 12px; transition: color 0.3s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-social { display: flex; gap: 14px; margin-top: 20px; }
+    .footer-social a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; color: rgba(255,255,255,0.6); transition: all 0.3s; margin-bottom: 0; }
+    .footer-social a:hover { color: var(--black); background: var(--gold); border-color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; text-align: center; font-size: 0.75rem; letter-spacing: 1px; max-width: 1400px; margin: 0 auto; }
+    @media (max-width: 768px) { .header-main { padding: 16px 20px; gap: 20px; } .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; } }
+    .hero { background: var(--black); color: var(--white); padding: 48px 40px; text-align: center; }
+    .hero-eyebrow { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 500; margin-bottom: 12px; }
+    .hero p { font-size: 0.95rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; }
+    .disclosure { background: var(--cream); border-bottom: 1px solid var(--border); padding: 12px 40px; text-align: center; font-size: 0.75rem; color: var(--muted); }
+    .disclosure a { color: var(--charcoal); }
+    .deals-section { max-width: 1000px; margin: 0 auto; padding: 56px 40px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; color: var(--black); margin-bottom: 8px; }
+    .section-subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 32px; }
+    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .deal-card { background: var(--white); border: 1px solid var(--border); padding: 28px; display: flex; flex-direction: column; transition: border-color 0.3s, transform 0.2s; }
+    .deal-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .deal-badge { display: inline-block; background: var(--gold); color: var(--white); font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; margin-bottom: 14px; }
+    .deal-merchant { font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .deal-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; color: var(--black); margin-bottom: 10px; }
+    .deal-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 20px; }
+    .deal-btn { display: inline-block; background: var(--black); color: var(--white); text-decoration: none; padding: 12px 24px; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; transition: background 0.3s; text-align: center; }
+    .deal-btn:hover { background: var(--gold); color: var(--black); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+    .membership-banner { background: var(--black); color: var(--white); padding: 40px; text-align: center; margin-top: 48px; }
+    .membership-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; margin-bottom: 10px; }
+    .membership-banner p { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+    .membership-banner a { display: inline-block; background: var(--gold); color: var(--black); text-decoration: none; padding: 14px 32px; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; }
+    .footer-note { text-align: center; padding: 24px 40px 56px; font-size: 0.75rem; color: var(--muted); }
+    .footer-note a { color: var(--charcoal); }
+    @media (max-width: 600px) { header, .hero, .deals-section { padding-left: 20px; padding-right: 20px; } .deals-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 
 <header>
-  <a href="/" class="logo">Shoppizzy<span>.</span></a>
-  <nav class="header-nav">
-    <a href="/">🔍 Search</a>
-    <a href="/deals.html">🏷️ Deals</a>
-    <a href="/cart.html">🛒 Cart</a>
-  </nav>
+  <div class="header-main">
+    <a class="logo" href="/">SHOPPIZZY</a>
+    <nav class="header-nav">
+      <a href="/deals.html">Deals</a>
+      <a href="/reviews.html">Reviews</a>
+      <a href="/account.html">My Account</a>
+    </nav>
+  </div>
 </header>
 
 <div class="hero">
-  <h1>🏷️ Deals &amp; Promo Codes</h1>
-  <p>Verified promo codes from top retailers — updated weekly. Copy a code and save instantly.</p>
-  <div class="filter-bar">
-    <input type="text" id="searchInput" placeholder="Search merchant or deal…" oninput="filterDeals()" />
-    <select id="typeFilter" onchange="filterDeals()">
-      <option value="">All types</option>
-      <option value="percentage">% Off</option>
-      <option value="flat">$ Off</option>
-      <option value="free_shipping">Free Shipping</option>
-    </select>
-  </div>
+  <div class="hero-eyebrow">Limited Time Offers</div>
+  <h1>Deals &amp; Promotions</h1>
+  <p>Exclusive offers from Shoppizzy and our merchant partners — updated regularly.</p>
 </div>
 
-<main>
-  <div class="notice">
-    💡 Codes are sourced from our affiliate partners and verified weekly. Always check the merchant's site for the most current terms.
-  </div>
+<div class="disclosure">
+  Some offers below are from affiliate partners. Shoppizzy may earn a commission at no extra cost to you. &nbsp;<a href="/affiliate-disclosure.html">Learn more</a>
+</div>
 
-  <div class="section-title">
-    Active Deals <span class="count" id="dealsCount">—</span>
-  </div>
+<div class="deals-section">
 
-  <div id="dealsContainer">
-    <div class="loading">
-      <div class="spinner"></div>
-      Loading deals…
+  <h2 class="section-title">Current Deals</h2>
+  <p class="section-subtitle">Click any deal to shop — offers subject to change without notice</p>
+
+  <div class="deals-grid">
+
+    <!-- BOGO Deal -->
+    <div class="deal-card">
+      <div class="deal-badge">BOGO</div>
+      <div class="deal-merchant">Famous Footwear</div>
+      <div class="deal-title">Buy One, Get One ½ Off</div>
+      <p class="deal-desc">Take advantage of this buy one get one half off deal from our partner merchants. Limited time offer.</p>
+      <p style="font-size:0.72rem;color:var(--muted);margin-bottom:16px;">⏰ Offer expires September 7, 2026</p>
+      <a class="deal-btn" target="_blank" rel="noopener noreferrer"
+        href="https://click.linksynergy.com/fs-bin/click?id=QmaG83Z71oo&offerid=1532876.1002&type=3&subid=0">
+        Shop This Deal
+      </a>
+      <img border="0" width="1" alt="" height="1" src="https://ad.linksynergy.com/fs-bin/show?id=QmaG83Z71oo&bids=1532876.1002&type=3&subid=0">
     </div>
+
+    <!-- Membership Deal -->
+    <div class="deal-card">
+      <div class="deal-badge">Members Only</div>
+      <div class="deal-merchant">Shoppizzy</div>
+      <div class="deal-title">20% Off Your Order</div>
+      <p class="deal-desc">Shoppizzy members get 20% off with coupon code <strong>MEMBER20</strong>. Join for just $20/yr and save on every order.</p>
+      <a class="deal-btn" href="/account.html">Get This Deal</a>
+    </div>
+
   </div>
-</main>
+
+  <hr class="divider">
+
+  <!-- Membership Banner -->
+  <div class="membership-banner">
+    <h2>Join Shoppizzy Membership</h2>
+    <p>Free item with every order + exclusive member deals. Just $20/yr.</p>
+    <a href="/account.html">Join Now — $20/yr</a>
+  </div>
+
+</div>
 
 <footer>
-  <p>© 2024 Shoppizzy &mdash; <a href="/">Search Products</a> &bull; <a href="/deals.html">Deals</a> &bull; <a href="/account.html">Account</a></p>
-  <p style="margin-top:8px">Promo codes are provided by our affiliate partners and subject to their terms and conditions.</p>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Shoppizzy</h4>
+      <p style="font-size:0.85rem;line-height:1.8;">Direct-shipped products with fast UPS delivery and easy returns.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/bsm.enterpryzes/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://www.tiktok.com/@bsmenterpryzes" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+        <a href="https://x.com/bpryzes_2084" target="_blank" rel="noopener noreferrer" aria-label="X"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.youtube.com/@bpryzes_2084" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.546 15.568V8.432L15.818 12l-6.272 3.568z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="/deals.html">Deals &amp; Promotions</a>
+      <a href="/merchants.html">Merchant Partners</a>
+      <a href="/account.html">My Account</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Membership</h4>
+      <a href="/account.html">Join &mdash; $20/yr</a>
+      <a href="/account.html">My Account</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/returns.html">Returns &amp; Refunds</a>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="/affiliate-disclosure.html">Affiliate Disclosure</a>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 Shoppizzy &mdash; BSM Enterpryzes. All Rights Reserved.</div>
 </footer>
 
-<script>
-  const API_BASE = 'https://shoppizzy.com';
-  let allDeals = [];
-
-  async function loadDeals() {
-    try {
-      const res = await fetch(`${API_BASE}/api/affiliate/promos?limit=200`);
-      const data = await res.json();
-      allDeals = data.promos || [];
-      renderDeals(allDeals);
-    } catch (e) {
-      document.getElementById('dealsContainer').innerHTML = `
-        <div class="empty-state">
-          <span class="emoji">⚠️</span>
-          <p>Could not load deals right now. Please try again soon.</p>
-        </div>`;
-    }
-  }
-
-  function filterDeals() {
-    const q = document.getElementById('searchInput').value.toLowerCase();
-    const type = document.getElementById('typeFilter').value;
-    const filtered = allDeals.filter(d => {
-      const matchQ = !q || (d.advertiser || '').toLowerCase().includes(q) || (d.description || '').toLowerCase().includes(q) || (d.code || '').toLowerCase().includes(q);
-      const matchType = !type || (d.discount_type || '') === type;
-      return matchQ && matchType;
-    });
-    renderDeals(filtered);
-  }
-
-  function formatDiscount(deal) {
-    const type = (deal.discount_type || '').toLowerCase();
-    const val = parseFloat(deal.discount_value) || 0;
-    if (type === 'percentage' && val > 0) return `${val}% Off`;
-    if (type === 'flat' && val > 0) return `$${val} Off`;
-    if (type === 'free_shipping') return 'Free Shipping';
-    if (val > 0) return val >= 1 ? `$${val} Off` : `${Math.round(val * 100)}% Off`;
-    return deal.description ? '' : 'Special Offer';
-  }
-
-  function daysUntil(dateStr) {
-    if (!dateStr) return null;
-    const end = new Date(dateStr);
-    const now = new Date();
-    return Math.ceil((end - now) / (1000 * 60 * 60 * 24));
-  }
-
-  function expiryLabel(deal) {
-    if (!deal.end_date) return '';
-    const days = daysUntil(deal.end_date);
-    if (days === null) return '';
-    if (days < 0) return ''; // already expired (shouldn't appear but just in case)
-    if (days === 0) return '<span class="deal-expiry expiring-soon">⚡ Expires today!</span>';
-    if (days <= 3) return `<span class="deal-expiry expiring-soon">⚡ Expires in ${days} day${days > 1 ? 's' : ''}</span>`;
-    if (days <= 14) return `<span class="deal-expiry">Expires ${new Date(deal.end_date).toLocaleDateString('en-US', {month:'short', day:'numeric'})}</span>`;
-    return '';
-  }
-
-  function renderDeals(deals) {
-    const count = document.getElementById('dealsCount');
-    count.textContent = deals.length;
-
-    if (deals.length === 0) {
-      document.getElementById('dealsContainer').innerHTML = `
-        <div class="empty-state">
-          <span class="emoji">🔍</span>
-          <p>No deals found. Check back after our next weekly update.</p>
-        </div>`;
-      return;
-    }
-
-    const grid = document.createElement('div');
-    grid.className = 'deals-grid';
-
-    for (const deal of deals) {
-      const discount = formatDiscount(deal);
-      const expiry = expiryLabel(deal);
-      const shopHref = deal.url || '#';
-
-      const card = document.createElement('div');
-      card.className = 'deal-card';
-      card.innerHTML = `
-        <div class="deal-merchant">${escHtml(deal.advertiser || 'Partner')}</div>
-        <div class="deal-description">${escHtml(deal.description || (discount ? `${discount} sitewide` : 'Exclusive deal'))}</div>
-        ${discount ? `<div class="deal-discount">🏷️ ${escHtml(discount)}</div>` : ''}
-        ${deal.code ? `
-          <div class="code-row">
-            <div class="code-box" id="code-${escHtml(deal.id)}">${escHtml(deal.code)}</div>
-            <button class="copy-btn" onclick="copyCode('${escHtml(deal.code)}', this)">Copy</button>
-          </div>` : ''}
-        ${expiry}
-        ${shopHref && shopHref !== '#' ? `<a href="${escHtml(shopHref)}" target="_blank" rel="noopener noreferrer" class="shop-link">Shop Now →</a>` : ''}
-      `;
-      grid.appendChild(card);
-    }
-
-    document.getElementById('dealsContainer').innerHTML = '';
-    document.getElementById('dealsContainer').appendChild(grid);
-  }
-
-  function escHtml(str) {
-    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  }
-
-  function copyCode(code, btn) {
-    navigator.clipboard.writeText(code).then(() => {
-      const orig = btn.textContent;
-      btn.textContent = '✓ Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
-    });
-  }
-
-  loadDeals();
-</script>
 </body>
 </html>
