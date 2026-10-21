@@ -15,12 +15,14 @@
       --success: #27ae60;
     }
     body { font-family: 'Lato', sans-serif; background: var(--white); color: var(--text); line-height: 1.7; font-weight: 300; }
-    header { background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
-    .header-main { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: 2px; }
+    header { background: rgba(255,255,255,0.98); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+    .header-main { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; align-items: center; justify-content: center; gap: 60px; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: 2px; cursor: pointer; display: block; }
     .header-nav { display: flex; gap: 40px; align-items: center; }
-    .header-nav a { color: var(--text); text-decoration: none; font-size: 0.875rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; transition: color 0.3s; }
+    .header-nav a { color: var(--text); text-decoration: none; font-size: 0.875rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; transition: color 0.3s; position: relative; }
     .header-nav a:hover { color: var(--gold); }
+    .header-nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
+    .header-nav a:hover::after { width: 100%; }
     .page-hero { background: var(--black); color: var(--white); padding: 80px 40px; text-align: center; }
     .page-hero-eyebrow { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
     .page-hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; letter-spacing: 1px; }
@@ -51,7 +53,7 @@
     .contact-box p { font-size: 0.875rem; color: var(--muted); margin-bottom: 20px; }
     .contact-box a { display: inline-block; background: var(--black); color: var(--white); padding: 12px 32px; text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; transition: background 0.3s; }
     .contact-box a:hover { background: var(--gold); color: var(--black); }
-    footer { background: var(--black); color: rgba(255,255,255,0.7); padding: 60px 40px 40px; }
+    footer { background: var(--black); color: rgba(255,255,255,0.7); padding: 80px 40px 40px; margin-top: 120px; }
     .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; margin-bottom: 60px; }
     .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); margin-bottom: 20px; font-weight: 500; letter-spacing: 1px; }
     .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; margin-bottom: 12px; transition: color 0.3s; }
@@ -76,6 +78,7 @@
     <a class="logo" href="/">SHOPPIZZY</a>
     <nav class="header-nav">
       <a href="/">Shop</a>
+      <a href="/deals.html">Deals</a>
       <a href="/account.html">My Account</a>
     </nav>
   </div>
